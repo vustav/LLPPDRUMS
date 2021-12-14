@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- OPTIONS 2ND ROW -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- PRESET SPINNER (just a container) -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/oscManagerPresetSpinnerContainer"/>
+
+        <!-- PLAY-BTN -->
+        <FrameLayout
+            android:layout_width="@dimen/btnWidthLarge"
+            android:layout_height="@dimen/btnHeightLarge"
+            android:layout_marginStart="@dimen/marginSmall">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:id="@+id/oscManagerPlayBtn"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/drawable_triangle_black"
+                android:rotation="90"/>
+        </FrameLayout>
+
+        <!-- RANDOM -->
+        <Button
+            android:layout_width="@dimen/btnWidthLarge"
+            android:layout_height="@dimen/btnHeightLarge"
+            android:id="@+id/oscManagerRndBtn"
+            android:textSize="@dimen/defaultBtnTxtSize"
+            android:text="@string/randomizeBtn"
+            android:layout_marginStart="@dimen/marginLarge"/>
+    </LinearLayout>
+
+    <!-- OSCILLATORS -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/oscLayout"/>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- LABEL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/funBtnPopupLabel"
+        android:layout_margin="@dimen/tabsTVMargin"/>
+
+    <!-- MOMENTARY CHECK -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/funBtnPopupMomentaryCheckLayout"
+
+        android:layout_below="@id/funBtnPopupLabel">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/funBtnPopupMomentaryCheck"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/momentaryCheck"/>
+    </LinearLayout>
+
+    <!-- HELP -->
+    <ImageView
+        android:layout_width="@dimen/infoBtnSize"
+        android:layout_height="@dimen/infoBtnSize"
+        android:src="@drawable/anim_icon_info_btn"
+        android:id="@+id/funBtnOptionsInfoBtn"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

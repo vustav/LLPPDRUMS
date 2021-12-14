@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/tabsPaddingSmall">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoManagerUndoRedoLayout">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/infoManagerUndoBtn"
+            android:src="@drawable/anim_button_orange_red"
+            android:rotation="-90"
+            android:layout_marginStart="-20dp"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/infoManagerRedoBtn"
+            android:src="@drawable/anim_button_orange_red"
+            android:rotation="90"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/infoListScroll"
+        android:layout_below="@id/infoManagerUndoRedoLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/infoListLayout"
+            android:paddingEnd="@dimen/tabsPaddingSmall"/>
+    </ScrollView>
+
+    <!-- INFO LAYOUT AREA -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/infoListScroll"
+        android:id="@+id/infoManagerInfoSV">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/infoManagerInfoLayout"/>
+    </ScrollView>
+</RelativeLayout>

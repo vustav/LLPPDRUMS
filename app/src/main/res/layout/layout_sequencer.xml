@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sequencerLayout">
+
+    <!-- LABEL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tabsTVHeight"
+        android:id="@+id/sequencerTV"
+        android:background="@color/tabsActiveTxtBgColor"
+        android:textSize="@dimen/tabsTextSize"
+        android:layout_marginBottom="@dimen/tabsTVMargin"/>
+
+    <!-- REMOVE STEP -->
+    <FrameLayout
+        android:layout_width="@dimen/btnWidthSmall"
+        android:layout_height="@dimen/tabsTVHeight"
+
+        android:layout_toStartOf="@id/sequencerAddStepLayout">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sequencerRemoveStepBtn"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="-"
+            android:textColor="#000000"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="-3dp"/>
+    </FrameLayout>
+
+    <!-- ADD STEP -->
+    <FrameLayout
+        android:layout_width="@dimen/btnWidthSmall"
+        android:layout_height="@dimen/tabsTVHeight"
+        android:id="@+id/sequencerAddStepLayout"
+
+        android:layout_toStartOf="@id/seqInfoBtn">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sequencerAddStepBtn"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="+"
+            android:textColor="#000000"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="-3dp"/>
+    </FrameLayout>
+
+    <!-- HELP -->
+    <ImageView
+        android:layout_width="@dimen/infoBtnSize"
+        android:layout_height="@dimen/infoBtnSize"
+        android:layout_marginStart="6dp"
+        android:src="@drawable/anim_icon_info_btn"
+        android:id="@+id/seqInfoBtn"
+
+        android:layout_alignParentEnd="true"/>
+
+    <!-- COUNTER -->
+    <com.kiefer.graphics.customViews.ObservableHorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sequencerCounter"
+        android:scrollbars="none"
+
+        android:layout_below="@id/sequencerTV"/>
+
+    <!-- RND-MODE SPINNER (just a container)-->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/counterCellHeight"
+        android:id="@+id/seqRndModeSpinnerContainer"
+
+        android:layout_below="@id/sequencerTV"/>
+
+    <!-- VERTICAL SCROLL -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/sequencerVerticalScrollView"
+
+        android:layout_below="@id/sequencerCounter">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seqLayout">
+
+                <!-- TRACKS RECYCLERVIEW -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sequencerTracksRecyclerView"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:layout_below="@id/sequencerTracksRecyclerView">
+
+                <!-- ADD TRACK -->
+                <Button
+                    android:layout_width="@dimen/btnHeightSmall"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:text="+"
+                    android:textAlignment="center"
+
+                    android:id="@+id/sequencerAddTrackBtn"/>
+
+                    <!-- HELP -->
+                    <!--
+                    <ImageView
+                        android:layout_width="@dimen/infoBtnSize"
+                        android:layout_height="@dimen/infoBtnSize"
+                        android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+                        android:layout_marginStart="@dimen/infoBtnDefaultMargin"
+                        android:src="@drawable/icon_info_btn"
+                        android:id="@+id/seqInfoBtn"/>
+-->
+                </LinearLayout>
+            </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

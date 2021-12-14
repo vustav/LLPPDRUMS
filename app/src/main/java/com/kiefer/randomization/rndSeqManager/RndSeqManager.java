@@ -1,0 +1,236 @@
+package com.kiefer.randomization.rndSeqManager;
+
+import com.kiefer.LLPPDRUMS;
+import com.kiefer.interfaces.Tempoizer;
+import com.kiefer.randomization.presets.RandomizeSeqPresetClassicRock;
+import com.kiefer.randomization.presets.RandomizeSeqPreset;
+import com.kiefer.randomization.presets.RandomizeSeqPresetDisco;
+import com.kiefer.randomization.presets.RandomizeSeqPresetHotNights;
+import com.kiefer.machine.sequence.DrumSequence;
+import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
+import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackRandom;
+import com.kiefer.randomization.rndTrackManager.RndTrackManager;
+import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.utils.ImgUtils;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/** Handles sequence-wide randomization. **/
+
+public class RndSeqManager implements Tempoizer {
+    private final LLPPDRUMS llppdrums;
+    private final DrumSequence drumSequence;
+
+    private ArrayList<RandomizeSeqPreset> rndSeqPresets;
+    private RandomizeSeqPreset selectedRandomizeSeqPreset;
+
+    private ArrayList<String> soundPresetCategories;
+
+    private final int bgImgId, presetListImgId;
+
+    private ArrayList<RndSeqPresetTrack> tracks;
+
+    private int tempo;
+
+    public RndSeqManager(LLPPDRUMS llppdrums, DrumSequence drumSequence, ArrayList<String> soundPresetCategories) {
+        this.llppdrums = llppdrums;
+        this.drumSequence = drumSequence;
+        this.soundPresetCategories = soundPresetCategories;
+
+        bgImgId = ImgUtils.getRandomImageId();
+        presetListImgId = ImgUtils.getRandomImageId();
+
+        setupPresets();
+
+    }
+
+    private void setupPresets() {
+        rndSeqPresets = new ArrayList<>();
+        rndSeqPresets.add(new RandomizeSeqPresetClassicRock(llppdrums, this));
+        rndSeqPresets.add(new RandomizeSeqPresetDisco(llppdrums, this));
+        //rndSeqPresets.add(new RandomizeSeqPresetWaltz(llppdrums, this));
+        rndSeqPresets.add(new RandomizeSeqPresetHotNights(llppdrums, this));
+        //presets.add(new RandomizePresetRandom(llppdrums, this));
+
+        Random r = new Random();
+        selectedRandomizeSeqPreset = rndSeqPresets.get(r.nextInt(rndSeqPresets.size()-1)); //-1 to prevent RANDOM from being selected on creation. One of the reasons is that since DrumMachine isn't done yet we can't get a reference to OscManager which means we can't get the list of oscPresets.
+        selectedRandomizeSeqPreset.createPreset();
+    }
+
+    /** RND SEQ **/
+    //called when rndSeq-btn is pressed (and on start up if no keepers)
+    public void randomizeSequence() {
+        //hängde sig här ibland förut. KOLLA OM DET KRÅNGLAR!!
+        //drumSequence.reset(false); //no need to update drawables here since they get upadated in the new randomization below
+
+        int steps = tracks.get(0).getSteps().size();
+
+        drumSequence.setNOfSteps(steps);
+        drumSequence.setTempo(tempo);
+        drumSequence.setNOfTracks(tracks.size());
+
+        for(int trackNo = 0; trackNo < tracks.size(); trackNo++){
+            randomizeTrack(tracks.get(trackNo), drumSequence.getTracks().get(trackNo));
+        }
+    }
+
+    public void randomizeTrack(RndSeqPresetTrack rndTrack, DrumTrack drumTrack){
+        drumTrack.getRndTrackManager().randomize(rndTrack);
+        /*
+        Random r = new Random();
+
+        drumTrack.setNOfSubs(rndTrack.getnOfSubs());
+
+        //first randomize the soundSource, then set the preset category
+        drumTrack.getSoundManager().randomizeSoundSource();
+        if(rndTrack.getPresetCategory().equals(RANDOM)){
+            drumTrack.getSoundManager().setRandomPreset();
+        }
+        else{
+            drumTrack.getSoundManager().setPreset(rndTrack.getPresetCategory());
+        }
+
+        for(int stepNo = 0; stepNo < steps; stepNo++){
+            RndSeqPresetTrack.Step step = rndTrack.getSteps().get(stepNo);
+            drumTrack.setStepOn(stepNo, true);
+            for(int sub = 0; sub<drumTrack.getNOfSubs(); sub++) {
+                if(r.nextFloat() < step.getPerc(sub)){
+                    drumTrack.setSubOn(stepNo, true, sub);
+                    drumTrack.setSubVolume(stepNo, step.getVol(sub), sub);
+                    drumTrack.setSubPitchModifier(stepNo, step.getPitch(sub), sub);
+                }
+                else{
+                    drumTrack.setStepOn(stepNo, false);
+                }
+            }
+
+            if (rndTrack.getRandomizePan()){
+                drumTrack.setStepPan(stepNo, step.getPan());
+            }
+        }
+
+        if(rndTrack.getRandomizeFx()) {
+            drumTrack.getFxManager().randomizeAll();
+        }
+
+        if (rndTrack.getRandomizeVol()){
+            drumTrack.randomizeVol();
+        }
+
+        //just a little chance of hotting up the pitch and volume here
+        if(r.nextInt(9) == 0){
+            drumTrack.getRndTrackManager().hottenUp(true);
+        }
+        else {
+            drumTrack.getRndTrackManager().hottenUp(false);
+        }
+
+        if(llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
+            drumTrack.updateDrawables();
+        }
+
+         */
+    }
+
+    /** TRACKS **/
+
+    public void moveTrack(final int from, final int to){
+        RndSeqPresetTrack track = tracks.remove(from);
+        tracks.add(to, track);
+    }
+
+    public void removeTrack(int fxNo){
+        tracks.remove(fxNo);
+    }
+
+    public void addTrack(){
+
+        Random r = new Random();
+        //ArrayList<String> oscPresets = llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(0).getSoundManager().getPresetCategories();
+        String oscPreset = soundPresetCategories.get(r.nextInt(soundPresetCategories.size()));
+
+        tracks.add(new RndSeqPresetTrackRandom(llppdrums, tracks.get(0).getSteps().size(), tracks.get(0).getnOfSubs()));
+    }
+
+    public void setTracks(ArrayList<RndSeqPresetTrack> tracks){
+        this.tracks = tracks;
+    }
+
+    /** STEPS **/
+    public void addStep(){
+        selectedRandomizeSeqPreset.addStep();
+        addModifiedMarker();
+    }
+    public void removeStep(){
+        selectedRandomizeSeqPreset.removeStep();
+        addModifiedMarker();
+    }
+
+    /** AUTORANDOMIZATION **/
+
+    //called on step 0 for autoRandomization
+    public void autoRandomize() {
+        for (RndTrackManager rtm : drumSequence.getDrumRandomizers()) {
+            rtm.autoRandomize();
+        }
+    }
+
+    /** GET **/
+    public int getBgImgId() {
+        return bgImgId;
+    }
+
+    public int getPresetListImgId() {
+        return presetListImgId;
+    }
+
+    public ArrayList<RandomizeSeqPreset> getRndSeqPresets() {
+        return rndSeqPresets;
+    }
+
+    public RandomizeSeqPreset getSelectedRandomizePreset() {
+        return selectedRandomizeSeqPreset;
+    }
+
+    public void addModifiedMarker(){
+        selectedRandomizeSeqPreset.addModifiedMarker();
+    }
+
+    public void removeModifiedMarker(){
+        selectedRandomizeSeqPreset.removeModifiedMarker();
+    }
+
+    public ArrayList<RndSeqPresetTrack> getTracks(){
+        return tracks;
+    }
+
+    @Override
+    public int getTempo(){
+        return tempo;
+    }
+
+    public ArrayList<String> getSoundPresetCategories() {
+        return soundPresetCategories;
+    }
+
+    /** SET **/
+    @Override
+    public void setTempo(int tempo){
+        this.tempo = tempo;
+    }
+
+    public void setSelectedRandomizePreset(String s) {
+        for(RandomizeSeqPreset r : rndSeqPresets){
+            if(r.getName().equals(s)){
+                selectedRandomizeSeqPreset = r;
+                selectedRandomizeSeqPreset.createPreset();
+                return;
+            }
+        }
+    }
+
+    public void setTrackOsc(int trackNo, String osc){
+        tracks.get(trackNo).setPresetCategory(osc);
+    }
+}

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ROOM SIZE -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revHiFiRoomSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevHiFiRoom"/>
+    </FrameLayout>
+
+    <!-- DAMP -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revHiFiDampSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevHiFiDamp"/>
+    </FrameLayout>
+
+    <!-- WET -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revHiFiWetSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevHiFiWet"/>
+    </FrameLayout>
+
+    <!-- DRY -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revHiFiDrySlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevHiFiDry"/>
+    </FrameLayout>
+
+    <!-- WIDTH -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revHiFiWidthSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevHiFiWidth"/>
+    </FrameLayout>
+
+</LinearLayout>

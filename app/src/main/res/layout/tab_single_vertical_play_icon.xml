@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tabsBorderColor"
+    android:id="@+id/tabBorder">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tabBg">
+
+        <TextView
+            android:layout_width="@dimen/tabsTVHeight"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabTxt"
+            android:textSize="@dimen/tabsTextSize"
+            android:layout_margin="@dimen/tabsTVMargin"/>
+
+        <ImageView
+            android:layout_width="@dimen/tabsTVHeight"
+            android:layout_height="@dimen/tabsTVHeight"
+            android:src="@drawable/drawable_triangle_red"
+            android:rotation="90"
+            android:id="@+id/tabIcon"
+            android:layout_marginStart="@dimen/marginSmall"
+            android:visibility="invisible"
+
+            android:layout_below="@id/tabTxt"/>
+    </RelativeLayout>
+</FrameLayout>

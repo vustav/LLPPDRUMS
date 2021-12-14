@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/autoViewHolderWidth"
+    android:layout_height="wrap_content">
+
+    <!-- A LITTLE TRICK TO MAKE A BG IMAGE WRAP THE CONTENT -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/automationBgIV"
+        android:layout_alignTop="@id/automationContent"
+        android:layout_alignBottom="@id/automationContent"
+        android:layout_alignStart="@id/automationContent"
+        android:layout_alignEnd="@id/automationContent"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="@dimen/autoViewHolderWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/tabsBorderLarge"
+        android:id="@+id/automationContent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_toStartOf="@id/automationRemoveBtn">
+
+                <!-- CHECKBOX -->
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/automationCheck"/>
+
+                <!-- PARAM SPINNER (just a container) -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:id="@+id/automationCSpinnerContainer"
+                    android:layout_marginTop="@dimen/marginSmall"/>
+            </LinearLayout>
+
+            <!-- REMOVE BTN -->
+            <Button
+                android:layout_width="@dimen/btnHeightSmall"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:id="@+id/automationRemoveBtn"
+                android:text="-"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/marginSmall"/>
+        </RelativeLayout>
+
+        <!-- VALUE SLIDER -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/marginSmall"
+            android:paddingStart="@dimen/marginSmall">
+            <SeekBar
+                android:layout_width="@dimen/smallSeekBarWidth"
+                android:layout_height="@dimen/defaultSeekBarHeight"
+                android:id="@+id/automationSlider"/>
+            <!-- the thumb looks bad without this so just keep it for now -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+        <!-- STEPS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/automationStepsLayout"
+            android:padding="@dimen/marginSmall"/>
+    </LinearLayout>
+</RelativeLayout>

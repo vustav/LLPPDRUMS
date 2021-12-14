@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/marginLarge">
+
+    <!-- A LITTLE TRICK TO MAKE A BG IMAGE WRAP THE CONTENT -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loadBgIV"
+        android:layout_alignTop="@id/loadContent"
+        android:layout_alignBottom="@id/loadContent"
+        android:layout_alignStart="@id/loadContent"
+        android:layout_alignEnd="@id/loadContent"/>
+
+    <FrameLayout
+        android:orientation="vertical" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/marginLarge"
+        android:id="@+id/loadContent">
+
+        <!-- RECYCLERVIEW -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loadRecyclerView"/>
+    </FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- LABEL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label"
+        android:layout_margin="@dimen/tabsTVMargin"/>
+
+    <!-- HELP -->
+    <ImageView
+        android:layout_width="@dimen/infoBtnSize"
+        android:layout_height="@dimen/infoBtnSize"
+        android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+        android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+        android:src="@drawable/icon_info_btn"
+        android:id="@+id/seqManagerInfoBtn"
+        android:layout_alignParentEnd="true"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seqManagerBoxLayout"
+        android:orientation="vertical"
+
+        android:layout_below="@id/label">
+
+        <!-- SEQ BOXES -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:orientation="horizontal"
+            android:id="@+id/seqManagerBoxContainer"/>
+
+        <!-- ACTIVE BOXES SLIDER -->
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sequenceManagerActiveBoxesSeekBar"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/CBRow1Layout"
+
+        android:layout_below="@id/seqManagerBoxLayout">
+
+        <!-- QUEUE -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seqManagerQueueCheck"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seqManagerQueueLabel"
+                android:id="@+id/seqManagerQueueTV"/>
+        </LinearLayout>
+
+        <!-- PROGRESS CHECK -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seqManagerProgressCheck"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seqManagerProgressLabel"
+                android:id="@+id/seqManagerProgressTV"/>
+        </LinearLayout>
+
+        <!-- RANDOMZE PROGRESS -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seqManagerRandProgressCheck"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seqManagerRandProgressLabel"
+                android:id="@+id/seqManagerRndTV"/>
+        </LinearLayout>
+
+        <!-- EDIT RANDOM -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:text="EDIT"
+            android:id="@+id/seqManagerPopEditRand"/>
+    </LinearLayout>
+
+    <!-- RESET AT STOP -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_below="@id/CBRow1Layout">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seqManagerResetAtStopCheck"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seqManagerResetLabel"
+            android:id="@+id/seqManagerResetAtStopTV"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

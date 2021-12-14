@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- SEQUENCE TABS -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/machineSequenceTabsLayout"/>
+
+    <!-- SEQUENCE BORDER -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tabsBorderColor"
+        android:paddingTop="@dimen/tabsBorderSmall"
+        android:paddingEnd="@dimen/tabsBorderSmall"
+        android:paddingBottom="@dimen/tabsBorderSmall"
+
+        android:layout_toEndOf="@id/machineSequenceTabsLayout">
+
+        <!-- SEQUENCE BG -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/machineSequenceBg"
+            android:paddingStart="@dimen/tabsPaddingLarge"
+            android:paddingTop="@dimen/tabsPaddingSmall"
+            android:paddingEnd="@dimen/tabsPaddingSmall"
+            android:paddingBottom="@dimen/tabsPaddingSmall">
+
+            <!-- SEQUENCE MODULE TABS -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/machineSequenceModuleTabsLayout"
+
+                android:layout_above="@id/machineSequenceBottomControls"/>
+
+            <!-- SEQUENCE MODULE BORDER -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/tabsBorderColor"
+                android:paddingTop="@dimen/tabsBorderSmall"
+                android:paddingEnd="@dimen/tabsBorderSmall"
+                android:paddingBottom="@dimen/tabsBorderSmall"
+
+                android:layout_toEndOf="@id/machineSequenceModuleTabsLayout"
+                android:layout_above="@id/machineSequenceBottomControls">
+
+                <!-- SEQUENCE MODULE BG -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/machineSequenceModuleBg"
+                    android:paddingStart="@dimen/tabsPaddingLarge"
+                    android:paddingTop="@dimen/tabsPaddingSmall"
+                    android:paddingEnd="@dimen/tabsPaddingSmall"
+                    android:paddingBottom="@dimen/tabsPaddingSmall">
+
+                    <!-- MODULE MODE TABS -->
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/machineModuleModeTabsLayout"/>
+
+                    <!-- MODULE MODE BORDER -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/tabsBorderColor"
+                        android:paddingTop="@dimen/tabsBorderSmall"
+                        android:paddingEnd="@dimen/tabsBorderSmall"
+                        android:paddingBottom="@dimen/tabsBorderSmall"
+
+                        android:layout_toEndOf="@id/machineModuleModeTabsLayout">
+
+                        <!-- MODULE MODE BG -->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/machineModuleModeBg"
+                            android:paddingStart="@dimen/tabsTVMargin"
+                            android:paddingTop="@dimen/tabsTVMargin"
+                            android:paddingEnd="@dimen/tabsTVMargin"
+                            android:paddingBottom="@dimen/tabsTVMargin">
+
+                            <!-- SEQ -->
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/machineSeqLayout">
+                            </FrameLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <!-- BOTTOM MENU -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/machineSequenceBottomControls"
+                android:paddingTop="3dp"
+
+                android:layout_alignParentBottom="true">
+
+                <!-- TEMPO -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tabsBorderColor"
+                    android:padding="@dimen/tabsBorderSmall"
+
+                    android:layout_marginStart="@dimen/tabsBorderLarge">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/sequenceTempoLayout">
+
+                        <!-- LABEL -->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/tabsBorderColor"
+                                android:textColor="@color/lowerBg"
+                                android:text="TMP"
+
+                                android:layout_alignParentTop="true"/>
+                        </RelativeLayout>
+
+                        <!-- LOWER -->
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/btnHeightTempo"
+                            android:id="@+id/sequenceLowerTempoBtn"
+                            android:text="\u003c\u003c" />
+
+                        <!-- SPINNER (just a container) -->
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/btnHeightSmall"
+                            android:id="@+id/sequenceTempoContainer"/>
+
+                        <!-- RAISE -->
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/btnHeightTempo"
+                            android:id="@+id/sequenceRaiseTempoBtn"
+                            android:text="\u003e\u003e"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- RANDOM -->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tabsBorderColor"
+                    android:padding="@dimen/tabsBorderSmall"
+
+                    android:layout_marginStart="@dimen/tabsBorderLarge">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/sequenceRndLayout">
+
+                        <!-- LABEL -->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/tabsBorderColor"
+                                android:textColor="@color/lowerBg"
+                                android:text="RND"
+
+                                android:layout_alignParentTop="true"/>
+                        </RelativeLayout>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/btnHeightSmall"
+                            android:textSize="@dimen/defaultBtnTxtSize"
+                            android:id="@+id/sequenceRandomOptionsBtnBtn"
+                            android:text="@string/trackRandomOptionsBtn"/>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/sequenceRandomizeBtnBg">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/btnHeightSmall"
+                                android:textSize="@dimen/defaultBtnTxtSize"
+                                android:id="@+id/sequenceRandomizeBtn"
+                                android:text="@string/randomizeBtn"/>
+                        </FrameLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <!-- COPY FROM -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tabsBorderColor"
+                    android:padding="@dimen/tabsBorderSmall"
+
+                    android:layout_marginStart="@dimen/tabsBorderLarge">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/sequenceCopyLayout">
+
+                        <!-- LABEL -->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/tabsBorderColor"
+                                android:textColor="@color/lowerBg"
+                                android:text="CPY"
+                                android:id="@+id/cpTop"
+
+                                android:layout_alignParentTop="true"/>
+                        </RelativeLayout>
+
+                        <!-- SPINNER (just a container)-->
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/btnHeightSmall"
+                            android:id="@+id/sequenceCopyFromContainer"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- FX -->
+                <!--
+                <RelativeLayout
+                    android:layout_width="@dimen/sequencerFxBtnWidth"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:id="@+id/sequenceFxLayout">
+
+                    <Button
+                        android:layout_width="@dimen/sequencerFxBtnWidth"
+                        android:layout_height="@dimen/btnHeightSmall"
+                        android:id="@+id/sequenceFxBtn"
+                        android:padding="@dimen/defaultBtnPadding"/>
+
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/btnHeightSmall"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="9dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/sequenceFxBtnGraphics"/>
+                </RelativeLayout>
+                -->
+
+                <!-- MIXER -->
+                <!--
+                <RelativeLayout
+                    android:layout_width="@dimen/sequencerMixBtnWidth"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:id="@+id/sequenceMixerLayout">
+
+                    <Button
+                        android:layout_width="@dimen/sequencerMixBtnWidth"
+                        android:layout_height="@dimen/btnHeightSmall"
+                        android:id="@+id/sequenceMixerBtn"
+                        android:padding="@dimen/defaultBtnPadding"/>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/btnHeightSmall"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/sequenceMixerBtnGraphics"/>
+                </RelativeLayout>
+             -->
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- RATE -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/flangerRateSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxFlangerRate"/>
+    </FrameLayout>
+
+    <!-- WIDTH -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/flangerWidthSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxFlangerWidth"/>
+    </FrameLayout>
+
+    <!-- FEEDBACK -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/flangerFeedSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxFlangerFeedback"/>
+    </FrameLayout>
+
+    <!-- DELAY -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/flangerDelaySlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxFlangerDelay"/>
+    </FrameLayout>
+
+    <!-- MIX -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/flangerMixSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxFlangerMix"/>
+    </FrameLayout>
+</LinearLayout>

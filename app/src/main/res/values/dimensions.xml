@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- COMMON -->
+    <dimen name="marginSmall">5dp</dimen>
+    <dimen name="marginLarge">10dp</dimen>
+    <dimen name="marginXLarge">10dp</dimen>
+
+    <dimen name="btnHeightSmall">40dp</dimen>
+    <dimen name="btnHeightTempo">35dp</dimen>
+    <dimen name="btnHeightLarge">55dp</dimen>
+    <dimen name="btnWidthLarge">90dp</dimen>
+    <dimen name="btnWidthSmall">50dp</dimen>
+    <dimen name="defaultBtnTxtSize">10sp</dimen>
+    <dimen name="defaultCSpinnerTxtSize">3sp</dimen>
+    <dimen name="defaultListTxtSize">8sp</dimen>
+    <dimen name="defaultBtnPadding">4dp</dimen>
+
+    <dimen name="defaultSeekBarHeight">20sp</dimen>
+    <dimen name="defaultSeekBarWidth">200dp</dimen>
+    <dimen name="smallSeekBarWidth">150dp</dimen>
+
+    <dimen name="dividerMargin">5dp</dimen>
+    <dimen name="dividerWidth">1dp</dimen>
+
+    <!-- TRANSP -->
+    <dimen name="transportBtnHeight">40dp</dimen>
+    <dimen name="transportBtnWidth">60dp</dimen>
+    <dimen name="transportBtnPadding">10dp</dimen>
+
+    <dimen name="transportPlayBtnIcon">27dp</dimen>
+    <dimen name="transportBtnIcon">20dp</dimen>
+
+    <!-- TOP -->
+    <dimen name="topHeight">70dp</dimen>
+
+    <!-- TABS -->
+    <!-- doesn't look very good with dp -->
+    <dimen name="tabsBorderSmall">2px</dimen>
+    <dimen name="tabsBorderLarge">4px</dimen>
+
+    <dimen name="tabsPaddingLarge">5dp</dimen>
+    <dimen name="tabsPaddingSmall">3dp</dimen>
+
+    <dimen name="tabsSize">30dp</dimen>
+
+    <dimen name="tabsTVHeight">20dp</dimen>
+    <dimen name="tabsTVMargin">5dp</dimen>
+
+    <dimen name="tabsTextSize">15sp</dimen>
+
+    <!-- SEQUENCER -->
+    <dimen name="sequencerTrackStepHeight">35dp</dimen>
+    <dimen name="sequencerTrackPadding">2dp</dimen>
+    <dimen name="sequencerTrackStepPadding">1dp</dimen>
+
+    <!-- COUNTER -->
+    <dimen name="counterCellHeight">25dp</dimen>
+
+    <!-- expanded -->
+    <dimen name="sequencerNameBtnWidth">65dp</dimen>
+    <dimen name="sequencerOscBtnWidthExpanded">65dp</dimen>
+    <dimen name="sequencerOscBtnWidth">40dp</dimen>
+    <dimen name="sequencerAutoBtnWidth">40dp</dimen>
+    <dimen name="sequencerRndBtnWidth">40dp</dimen>
+    <dimen name="sequencerStepWidth">30dp</dimen>
+    <dimen name="sequencerFxBtnWidth">40dp</dimen>
+    <dimen name="sequencerMixBtnWidth">40dp</dimen>
+    <dimen name="sequencerRemoveBtnWidth">35dp</dimen>
+
+    <!-- not expanded -->
+    <dimen name="sequencerSingleBtnWidth">75dp</dimen>
+
+    <dimen name="sequencerCounterTxtSize">4sp</dimen>
+
+    <!-- FX MANAGER -->
+    <dimen name="fxViewHolderWidth">130dp</dimen>
+    <dimen name="autoViewHolderWidth">170dp</dimen>
+
+    <!-- OSCILLATOR MANAGER -->
+
+    <!-- AUTPSTEPS -->
+    <dimen name="autoStepsPopupWidth">200dp</dimen>
+    <dimen name="autoStepsPopupHeight">500dp</dimen>
+
+    <!-- FILES -->
+    <dimen name="loadViewHolderWidth">130dp</dimen>
+
+    <!-- SEQUENCE MANAGER -->
+    <dimen name="seqManagerBoxWidth">20dp</dimen>
+    <dimen name="seqManagerBoxHeight">20dp</dimen>
+    <dimen name="seqManagerInfoTxtSize">7sp</dimen>
+
+    <!-- SEQUENCE MANAGER POPUP -->
+    <dimen name="seqManagerPopActiveBoxesSliderHeight">20dp</dimen>
+    <dimen name="seqManagerPopBoxWidth">55dp</dimen>
+
+    <!-- CONTROLLER -->
+    <dimen name="controllerBoxWidth">30dp</dimen>
+    <dimen name="controllerBoxHeight">40dp</dimen>
+    <dimen name="controllerChangeSeqWidth">200dp</dimen>
+    <dimen name="controllerBoxTxt">8sp</dimen>
+    <dimen name="controllerButtonsTxt">25sp</dimen>
+
+    <!-- INFO -->
+    <dimen name="infoNodeImgHeight">50dp</dimen>
+    <dimen name="infoBtnSize">30dp</dimen>
+    <dimen name="infoBtnDefaultMargin">3dp</dimen>
+
+    <!-- RND SEQ MANAGER -->
+    <dimen name="rndSeqManTrackSpinnerOscWidth">120dp</dimen>
+</resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <color name="transparent">#00000000</color>
+
+    <color name="dividerColor">#673AB7</color>
+
+    <!-- BUTTONS -->
+    <color name="buttonTxtColor">#000000</color>
+
+    <!-- TABS -->
+    <color name="tabsActiveTxtBgColor">#75B8ED</color>
+    <color name="tabsInactiveTxtBgColor">#496D8A</color>
+    <color name="tabsActiveTxtColor">#E4E4E4</color>
+    <color name="tabsInactiveTxtColor">#BFBFBF</color>
+
+    <color name="tabsBorderColor">#000000</color>
+
+    <!-- LOWER MENU -->
+    <color name="lowerBg">#BDBDBD</color>
+    <color name="lowerTxt">#BABABA</color>
+
+    <!-- POPUPS -->
+    <color name="popupBgColor">#CF9393</color>
+    <color name="popupLabelColor">#5A41E4</color>
+    <color name="popupLabelTxtColor">#E4E4E4</color>
+
+    <!-- TRANSPORT -->
+    <color name="transportBgColor">#CF9393</color>
+
+    <!-- RANDOM TOP -->
+    <color name="randomTopBgColor">#CC5656</color>
+
+    <!-- SEQUENCER -->
+    <color name="sequencerTvColor">#B88080</color>
+    <color name="sequencerBgColor">#ECDFDF</color>
+
+    <color name="sequencerInactiveStepColor">#505050</color>
+    <color name="sequencerActiveStepColor">#A11111</color>
+    <color name="sequencerStepBgColor">#000000</color>
+
+    <color name="sequencerVolBgColor">#000000</color>
+    <color name="sequencerVol02Color">#7EED82</color>
+    <color name="sequencerVol04Color">#31C837</color>
+    <color name="sequencerVol06Color">#D6E443</color>
+    <color name="sequencerVol08Color">#FA744A</color>
+    <color name="sequencerVol1Color">#F42020</color>
+
+    <color name="sequencerPitchColor">#E3B0B0</color>
+    <color name="sequencerPitchBgColor">#000000</color>
+
+    <color name="sequencerPanColor">#B29FDD</color>
+    <color name="sequencerPanBgColor">#000000</color>
+
+    <color name="counterInactiveBgColor">#75B8ED</color>
+    <color name="counterActiveBgColor">#5A41E4</color>
+
+    <color name="seqIndicatorOnColor">#1DDC27</color>
+    <color name="seqIndicatorOffColor">#FF0000</color>
+
+    <color name="popupBarColor">#45E948</color>
+    <color name="popupBarBg">#000000</color>
+
+    <color name="volPopupBarColorHigh">#FF0000</color>
+    <color name="volPopupBarColorMidHigh">#E85454</color>
+    <color name="volPopupBarColorMid">#D8C963</color>
+    <color name="volPopupBarColorMidLow">#75FF70</color>
+    <color name="volPopupBarColorLow">#00FF04</color>
+
+    <!-- FXS -->
+    <color name="fxReverbColor">#12B0E1</color>
+    <color name="fxDelayColor">#A4A5F6</color>
+    <color name="fxFlangerColor">#FF5722</color>
+    <color name="fxBitCrusherColor">#989C94</color>
+    <color name="fxDecimatorColor">#9E0404</color>
+
+    <!-- AUTOMATION -->
+    <color name="automationStepOff">#989C94</color>
+    <color name="automationStepOn">#9E0404</color>
+
+    <!-- AUTOSTEPS -->
+    <color name="autoStepsBg">#FAE2E2</color>
+
+    <!-- WAVE POPUP -->
+    <color name="wavesBgEven">#8FDCE6</color>
+    <color name="wavesBgUneven">#3DCBDD</color>
+
+    <!-- AUTO POPUP -->
+    <color name="autoBgEven">#8FDCE6</color>
+    <color name="autoBgUneven">#3DCBDD</color>
+
+    <!-- ARROW -->
+    <color name="defaultArrowColor">#FD0000</color>
+
+    <!-- SEQ MANAGER -->
+    <color name="queuedSeqColor">#EA8282</color>
+    <color name="selectedSeqColor">#FD0000</color>
+    <color name="counterDisabledBgColor">#505151</color>
+
+    <!-- WARNING POPUP -->
+    <color name="warningBg">#B5B5B5</color>
+    <color name="warningTxt">#DD0D0D</color>
+
+    <!-- INFO POPUP -->
+    <color name="listDeselectedTier1">#611EE6</color>
+    <color name="listDeselectedTier2">#7235EC</color>
+    <color name="listDeselectedTier3">#8C5BED</color>
+    <color name="listDeselectedTier4">#A780F3</color>
+    <color name="listDeselectedTier5">#DDD6EC</color>
+    <color name="listSelected">#DFD83F</color>
+
+    <color name="nodeTVBgColor">#DCD777</color>
+    <color name="nodeTVTxtColor">#240730</color>
+    <color name="nodeLinkTxtColor">#0031AE</color>
+    <color name="nodeLinkBgColor">#D9EBF6</color>
+
+    <!-- -->
+    <color name="rndSeqPercColor">#24A3F1</color>
+
+    <!-- RND ANOMATION -->
+    <color name="rndAnimBg">#FD0000</color>
+    <color name="rndAnimLine">#FBE200</color>
+
+
+    <color name="autoRndRtrnColor">#3618E3</color>
+</resources>

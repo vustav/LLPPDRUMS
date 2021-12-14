@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LLPPDRUMS</string>
+    <string name="stringDivider"> -> </string>
+
+    <!-- FOLDER -->
+    <string name="templatesFolder">tmps</string>
+    <string name="drumTemplatesFolder">steps</string>
+
+    <string name="lastDataFileName">prms</string>
+    <string name="templateExtension">.KIFFT</string>
+    <string name="noSavedFilesMessage">NO FILES SAVED</string>
+
+    <!-- TABS -->
+    <string name="machineTab">SEQUENCES</string>
+    <string name="controllerTab">CONTROLLER</string>
+
+    <string name="inactiveTabAlpha">0.5</string> <!-- parsed and used as a float -->
+
+    <!-- TOP FRAGMENT -->
+    <string name="playBtn">PLAY</string>
+    <string name="pauseBtn">PAUSE</string>
+    <string name="stopBtn">STOP</string>
+
+    <!-- CONTROLLER -->
+    <string name="controllerName">CONTROLLER</string>
+    <string name="controllerTabName">CONTROLLER</string>
+
+    <!-- MACHINE -->
+    <string name="machineName">SEQUENCES</string>
+    <string name="machineTabName">SEQUENCES</string>
+    <string name="trackRandomOptionsBtn">OPTNS</string>
+
+    <!-- SYNTH -->
+    <string name="oscAtkTime">ATK</string>
+    <string name="oscDecayTime">DECAY</string>
+    <string name="synthSustainLevel">SUSTAIN</string>
+    <string name="synthReleaseTime">RELEASE</string>
+    <string name="synthAtkDuration">ATK DURATION</string>
+    <string name="synthDecayDuration">DECAY DURATION</string>
+    <string name="synthSustainDuration">SUSTAIN DURATION</string>
+    <string name="synthReleaseDuration">RELEASE DURATION</string>
+    <string name="oscWave">WAVE</string>
+    <string name="oscVolume">VOL</string>
+    <string name="oscPitch">PITCH</string>
+    <string name="synthDuration">DURATION</string>
+
+    <!-- OSC MANAGER -->
+    <string-array name="oscWaves">
+        <item>SINE</item>
+        <item>TRIANGLE</item>
+        <item>SAWTOOTH</item>
+        <item>SQUARE</item>
+        <item>NOISE</item>
+        <item>PWM</item>
+        <item>KARPLUS STRONG</item>
+        <item>TABLE</item>
+    </string-array>
+
+    <!-- SEQUENCES -->
+    <string name="seqName">SEQUENCE</string>
+
+    <!-- TRACK MENU -->
+    <string name="trackMenuLabel">TRACK MENU</string>
+
+    <!-- POPUPS -->
+    <string name="soundManagerLabel">SOUND MANAGER TRACK:\u0020</string>
+    <string name="automateStepsLabel">AUTOMATE TRACK:\u0020</string>
+    <string name="rndTrackLabel">RANDOMIZE TRACK:\u0020</string>
+    <string name="fxManagerLabel">FX MANAGER TRACK:\u0020</string>
+    <string name="mixerLabel">MIXER TRACK:\u0020</string>
+
+    <!-- SEQ MODULES -->
+    <string name="seqModBaseModeName">BASE</string>
+    <string name="seqModBaseModeTabName">BASE</string>
+    <string name="seqModRandomModeName">AUTORANDOMIZATION</string>
+    <string name="seqModRandomModeTabName">RNDM</string>
+
+    <!-- ONOFF -->
+    <string name="onoffName">ON</string>
+    <string name="onoffTabLabel">ON</string>
+
+    <!-- VOLUME -->
+    <string name="volumeName">VOLUME</string>
+    <string name="volumeTabLabel">VOL</string>
+
+    <!-- PITCH -->
+    <string name="pitchName">PITCH</string>
+    <string name="pitchTabLabel">PITCH</string>
+
+    <!-- PAN -->
+    <string name="panName">PAN</string>
+    <string name="panTabLabel">PAN</string>
+
+    <!-- SEQ MODULE -->
+    <string name="seqModBase">BASE</string>
+    <string name="seqModRandom">ATRND</string>
+
+    <!-- AUTO RANDOM -->
+    <string name="autoRndOn">ON</string>
+    <string name="autoRndOnFull">ON</string>
+    <string name="autoRndMin">MIN</string>
+    <string name="autoRndMinFull">MIN VALUE</string>
+    <string name="autoRndMax">MAX</string>
+    <string name="autoRndMaxFull">MAX VALUE</string>
+    <string name="autoRndPerc">%</string>
+    <string name="autoRndPercFull">% OF RND</string>
+    <string name="autoRndReturn">RTRN</string>
+    <string name="autoRndReturnFull">RETURN AFTER RND</string>
+
+    <!-- SEQ RANDOMIZER -->
+    <string name="seqRandomOptionsBaseName">RANDM</string>
+    <string name="seqRandomOptionsAdvancedName">ADVANCED</string>
+
+    <!-- FXS -->
+    <string name="fxOn">ON</string>
+
+    <string name="fxReverbName">REVERB</string>
+    <string name="fxRevLoFiSize">SIZE</string>
+    <string name="fxRevLoFiDamp">DAMP</string>
+    <string name="fxRevLoFiMix">MIX</string>
+    <string name="fxRevLoFiOut">OUT</string>
+
+    <string name="fxDelayName">DELAY</string>
+    <string name="fxDelayTime">TIME</string>
+    <string name="fxDelayFeedback">FEEDBACK</string>
+    <string name="fxDelayMix">MIX</string>
+
+    <string name="fxFlangerName">FLANGER</string>
+    <string name="fxFlangerRate">RATE</string>
+    <string name="fxFlangerWidth">WIDTH</string>
+    <string name="fxFlangerFeedback">FEEDBACK</string>
+    <string name="fxFlangerDelay">DELAY</string>
+    <string name="fxFlangerMix">MIX</string>
+
+    <string name="fxRevHiFiName">REVERB HIFI</string>
+    <string name="fxRevHiFiRoom">ROOM</string>
+    <string name="fxRevHiFiDamp">DAMP</string>
+    <string name="fxRevHiFiWet">WET</string>
+    <string name="fxRevHiFiDry">DRY</string>
+    <string name="fxRevHiFiWidth">WIDTH</string>
+
+    <string name="fxBitCrusherName">BITCRUSHER</string>
+    <string name="fxBitCrusherAmout">AMOUNT</string>
+    <string name="fxBitCrusherIn">IN</string>
+    <string name="fxBitCrusherOut">OUT</string>
+
+    <string name="fxDecimatorName">DECIMATOR</string>
+    <string name="fxDeciamtorBits">BITS</string>
+    <string name="fxDeciamtorRate">RATE</string>
+
+    <!-- FX PRESETS -->
+    <string name="fxPresetBaseName">BASS</string>
+    <string name="fxPresetHHName">HH</string>
+    <string name="fxPresetSnareName">SNARE</string>
+
+    <!-- RANDOM -->
+    <string name="randomizeSeqLabel">RNDMIZE SEQ OPTIONS</string>
+
+    <string name="randomizeBtn">RNDMIZE</string>
+    <string name="randomizeStepsBtn">RNDMIZE STPS</string>
+    <string name="randomizeAllBtn">RNDMIZE ALL</string>
+
+    <string name="randomizerModifiedName">*</string>
+    <string name="randomizerClassicRockName">CLASSIC ROCK</string>
+    <string name="randomizerModernRockName">MODERN ROCK</string>
+    <string name="randomizerWaltzName">WALTZ</string>
+    <string name="randomizerHotNightsName">HOT NIGHTS</string>
+    <string name="randomizerRandomName">RANDOM</string>
+    <string name="randomizerFreeName">FREE</string>
+    <string name="randomizerDiscoName">DISCO</string>
+    <string name="randomizerPopName">POP</string>
+
+    <!-- TRACK PRESETS -->
+    <string name="trackPresetRandomName">RANDOM</string>
+    <string name="trackPresetBassBasicName">BASS BASIC</string>
+    <string name="trackPresetHHBasicName">HH BASIC</string>
+    <string name="trackPresetHHOffbeatName">HH OFFBEAT</string>
+    <string name="trackPresetSnareBasicName">SNARE BASIC</string>
+    <string name="trackPresetHotTomsName">HOT TOMS</string>
+
+    <!-- SEQUENCE MANAGER -->
+    <string name="seqManagerLabel">SEQUENCE MANAGER</string>
+    <string name="seqManagerProgressLabel">PROGRESSION</string>
+    <string name="seqManagerRandProgressLabel">RANDOMIZE</string>
+    <string name="seqManagerResetLabel">RESET PROGRESS</string>
+    <string name="seqManagerQueueLabel">QUEUE</string>
+    <string name="seqManagerEditRndLabel">SEQ MAN RND OPTIONS</string>
+
+    <!-- SEQ BTN -->
+    <string name="seqBtnEditLabel">SEQUENCE BUTTON MANAGER</string>
+    <string name="momentaryCheck">MOMENTARY</string>
+
+    <string name="funBtnEditLabel">FUNCTION BUTTON MANAGER</string>
+
+    <!-- PROJECT OPTIONS -->
+    <string name="projectOptionsLabel">PROJECT OPTIONS</string>
+
+    <!-- BT WARNING -->
+    <string name="btWarningLabel">BLUETOOTH WARNING</string>
+    <string name="btWarningTxt">HAVING A BLUETOOTH AUDIO DEVICE CONNECTED WILL COMPLETELY RUIN PERFORMANCE</string>
+
+    <!-- SOUND MANAGER -->
+    <string name="oscLabel">OSCILLATORS</string>
+    <string name="sampleLabel">SAMPLE</string>
+
+    <!-- *************************INFO************************* -->
+    <string name="infoWip">!!WORK IN PROGRESS!!</string>
+
+    <!-- MAIN -->
+    <string name="mainIntroTxt1">The two main modules are</string>
+    <string name="mainIntroTxt2">SEQUENCES is for setting up the sequences and CONTROLLER for controlling them in realtime.</string>
+    <string name="mainIntroTxt3">\n\nYou have four independent sequences (tabs to the left) that plays in the order set in the sequence manager (top right). Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
+    <string name="mainTransportTxt">Basic transport controls.</string>
+    <string name="mainFilesTxt">LOAD/SAVE/CLEAR the project. CLEAR is destructive.</string>
+    <string name="mainSeqManTxt1">Shows the order of progression (if PROGRESSION is on). Clicking a cell will change to that sequence immediately or at the next measure depending on QUEUE. EDIT opens</string>
+    <string name="mainSeqManTxt2">\n\nPurple is the sequence currently playing. Pink is queued for change at the next measure.</string>
+    <string name="mainSeqManTxt3">\n\nThe green bar indicates what step the sequencer is on no matter what sequence is playing. </string>
+
+    <!-- PROJECT OPTIONS -->
+    <string name="projOptnsDriverTxt">Choose either OpenSL or AAudio as the driver. Try what works best with your hardware.</string>
+
+    <!-- CONTROLLER -->
+    <string name="controllerIntroTxt">The idea of CONTROLLER is to do things to sequences and ex. effects in a live setting. The big buttons lets you take off your socks and push them with your toes if you want to.</string>
+    <string name="controllerCounterTxt">Purple shows the currently playing sequence. Red shows selected sequence (the one SEQ- and FUN-btns will operate on). Pink is queued for change at the next measure.</string>
+    <string name="controllerArrowsTxt">Select which sequence SEQ- and FUN-btns operate on.</string>
+    <string name="controllerSeqTxt1">Control sequence-related actions, ex. playing another sequence while the button is pressed etc. EDIT opens</string>
+    <string name="controllerSeqTxt2">. Holding or clicking SEQ will do whatever\'s set in options.</string>
+    <string name="controllerFunTxt1">EDIT opens</string>
+    <string name="controllerFunTxt2">. Holding or clicking FUN will do whatever\'s set in options.</string>
+
+    <!-- SEQUENCE MANAGER -->
+    <string name="seqManOrderTxt">Change the order of progression by clicking a box and selecting a new. The slider enables/disables boxes.</string>
+    <string name="seqManBoxesTxt1">If PROGRESSION is turned off the same sequence will always play unless changed manually. If it\'s turned on it will either progress in the order above or change to a random sequence, depending on RANDOMIZE. EDIT opens</string>
+    <string name="seqManBoxesTxt2">\n\nIf QUEUE is on manual sequence changes will occur at the start of the next measure. If off it\'s instant.</string>
+    <string name="seqManBoxesTxt3">\n\nRESET PROGRESSION resets progression when the sequence is stopped.</string>
+
+    <!-- SEQUENCE -->
+    <string name="seqIntroTxt1">There are four sequences that are completely independent of each other (steps, tempo etc). You decide if you want one to play over and over or let them progress and in what order in</string>
+    <string name="seqIntroTxt2">. You can also change what sequence is playing manually either in</string>
+    <string name="seqIntroTxt3">or by clicking one in the top left window.</string>
+    <string name="seqSequenceTxt">Select which sequence to edit.</string>
+    <string name="seqModuleTxt">Select what to edit in the selected sequence.</string>
+    <string name="seqModeTxt">BASE is base values, ex. on/off or volume, RNDM is </string>
+    <string name="seqTrackTxt1">This is a track. The button to the left has the tracks name in it. Clicking it will open</string>
+    <string name="seqTrackTxt2">The cells in the track represents steps and works like a classic sequencer, ie clicking a step will change something depending on what\'s selected for editing.</string>
+    <string name="seqAddRemoveStepTxt">Decrease/increase the number of steps.</string>
+    <string name="seqAddTrackTxt">Add a track. This button is always below the tracks so you might have to scroll down to see it.</string>
+    <string name="seqTmpTxt">Set the tempo of this sequence. Sequences can have different tempos.</string>
+    <string name="seqRndTxt">Randomize this sequence. OPTNS opens</string>
+    <string name="seqCpyTxt">Make this sequence a copy of another sequence. Will not automatically change if you change anything in the copied sequence.</string>
+
+    <!-- RND SEQUENCE MANAGER-->
+    <string name="seqRndManagerIntro">Set a framework for the randomizations, either by using a preset or by creating one.</string>
+    <string name="seqRndManagerPreset">Select a preset.</string>
+    <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
+    <string name="seqRndManagerSteps">Set the # of steps of the randomized sequence.</string>
+    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select what oscillator preset it should have. \n\nEvery step has a slider in it. If it\'s full it will always be on. If half there\'s a 50% chance etc. \n\nTick the FX-box for effects on the track. Remove it by clicking \"-\". Hold and drag to change order.</string>
+    <string name="seqRndManagerAdd">Add a track.</string>
+
+    <!-- AUTORANDOM -->
+    <string name="autoRndIntroTxt">When AUTORANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
+    \n\n
+    %: chance a randomization will occur. A full bar means a randomization will always occur which means there\'s a 50% chance it will be ON. A half bar means a 50% chance of randomization which means a 25% chance of it being ON etc.\n\n
+    MIN: smallest possible randomized value.\n\n
+    MAX: largest possible randomized value.\n\n
+    RTRN: should the value return to what it was before the randomization after being played once.\n\n
+    You select which one to edit in the top left corner of the sequencer.</string>
+
+    <!-- TRK MENU -->
+    <string name="trkMenuName">Change a tracks name and color.</string>
+    <string name="trkMenuRemove">Remove track.</string>
+
+    <string name="soundManagerName">SOUND MANAGER</string>
+    <string name="automateStepsName">AUTOMATE TRACK</string>
+    <string name="rndTrackName">RANDOMIZE TRACK</string>
+    <string name="fxManagerName">FX MANAGER</string>
+    <string name="mixerName">MIXER</string>
+
+    <!-- OSC -->
+    <string name="oscIntro">Create a sound with one or two oscillators.</string>
+
+    <!-- AUTO TRACK -->
+    <string name="autoTrackIntro">...</string>
+    <string name="autoTrackJump">Push everything one step to the left/right.</string>
+    <string name="autoTrackSteps">Turn every, every 2nd, 3rd, etc step ON.</string>
+
+    <!-- RND TRACK -->
+    <string name="rndTrackIntro">Randomize everything or parts of the track.</string>
+
+    <!-- FX MANAGER -->
+    <string name="fxManagerIntro">Every track can have an unlimited amount of effects and all their parameters can be fully automated.</string>
+    <string name="fxManagerRnd">Randomize everything. This can not be undone.</string>
+    <string name="fxManagerList">List of the effects in the order they effect the signal with the top one being first. Hold and drag an effect to change order. Click an effect to edit it. Clicking \'-\' removes the effect.</string>
+    <string name="fxManagerAdd">Add a new random effect to the chain.</string>
+    <string name="fxManagerFxs">The effects are:</string>
+    <string name="fxManagerAutoList">Every effect can have an unlimited number of automations on all their parameters, or several automations on the same parameter etc. \"+\" adds a new randomized automation.</string>
+    <string name="fxManagerAutoSingle">Select what parameter to automate in the spinner and the value in the slider. The value will be applied in the selected steps, in unselected steps the value set in the effect will be used. \"-\" removes the automation.</string>
+
+    <!-- MIXER -->
+    <string name="mixerIntro">Basic mixer. !!NOT FINISHED!!</string>
+</resources>

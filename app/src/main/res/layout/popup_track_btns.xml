@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- A LITTLE TRICK TO MAKE A BG IMAGE WRAP THE CONTENT -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/trackBgIV"
+        android:layout_alignStart="@id/content"
+        android:layout_alignEnd="@id/content"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/content">
+
+        <!-- NAME/COLOR -->
+        <RelativeLayout
+            android:layout_width="@dimen/sequencerNameBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackNameLayout">
+
+            <!-- BTN -->
+            <Button
+                android:layout_width="@dimen/sequencerNameBtnWidth"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:id="@+id/sequencerTrackNameBtn"
+                android:padding="@dimen/defaultBtnPadding"/>
+
+            <!-- GRAPHICS -->
+            <RelativeLayout
+                android:layout_width="@dimen/sequencerNameBtnWidth"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/sequencerTrackNameBtnGraphics">
+
+                <!-- TEXT (can't use btns txt since we have a color above the btn) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/defaultBtnTxtSize"
+                    android:singleLine="true"
+                    android:id="@+id/sequencerTrackNameBtnTV"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!-- DIVIDER -->
+        <!--
+        <FrameLayout
+            android:layout_width="@dimen/dividerWidth"
+            android:layout_height="match_parent"
+            android:background="@color/dividerColor"
+            android:id="@+id/sequencerTrackDivider0"
+            android:layout_margin="@dimen/dividerMargin"/>
+            -->
+
+        <!-- PRESETS -->
+        <!--
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackPresetsBtn"
+            android:textSize="@dimen/defaultBtnTxtSize"
+            android:padding="@dimen/defaultBtnPadding"
+            android:text="PRESETS"
+            android:layout_marginTop="-2dp"/>
+            -->
+
+        <!-- DIVIDER -->
+        <!--
+        <FrameLayout
+            android:layout_width="@dimen/dividerWidth"
+            android:layout_height="match_parent"
+            android:background="@color/dividerColor"
+            android:id="@+id/sequencerTrackDivider1"
+            android:layout_margin="@dimen/dividerMargin"/>
+            -->
+
+        <!-- SND -->
+        <!-- buttons with text seems to get a little marginTop, hence the margin top = -2dp -->
+        <Button
+            android:layout_width="@dimen/sequencerOscBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackSndBtn"
+            android:textSize="@dimen/defaultBtnTxtSize"
+            android:padding="@dimen/defaultBtnPadding"
+            android:text="SND"
+            android:layout_marginTop="-2dp"/>
+
+        <!-- SND -->
+        <!-- buttons with text seems to get a little marginTop, hence the margin top = -2dp -->
+        <Button
+            android:layout_width="@dimen/sequencerOscBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackSubBtn"
+            android:textSize="@dimen/defaultBtnTxtSize"
+            android:padding="@dimen/defaultBtnPadding"
+            android:layout_marginTop="-2dp"/>
+
+        <!-- AUTO STEP / RND -->
+        <RelativeLayout
+            android:layout_width="@dimen/sequencerAutoBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackAutoStepLayout">
+
+            <!-- BTN -->
+            <Button
+                android:layout_width="@dimen/sequencerAutoBtnWidth"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:id="@+id/sequencerTrackAutoStepBtn"
+                android:padding="@dimen/defaultBtnPadding"/>
+
+            <!-- GRAPHICS -->
+            <FrameLayout
+                android:layout_width="@dimen/sequencerAutoBtnWidth"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/sequencerTrackAutoStepBtnGraphics"/>
+        </RelativeLayout>
+
+        <!-- RND -->
+        <FrameLayout
+            android:layout_width="@dimen/sequencerRndBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackRndLayout">
+
+            <Button
+                android:layout_width="@dimen/sequencerRndBtnWidth"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:id="@+id/sequencerTrackRndBtn"
+                android:padding="@dimen/defaultBtnPadding"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:src="@drawable/icon_rnd"/>
+        </FrameLayout>
+
+        <!-- FX -->
+        <RelativeLayout
+            android:layout_width="@dimen/sequencerFxBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackFxLayout">
+
+            <!-- BTN -->
+            <Button
+                android:layout_width="@dimen/sequencerFxBtnWidth"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:id="@+id/sequencerTrackFxBtn"
+                android:padding="@dimen/defaultBtnPadding"/>
+
+            <!-- GRAPHICS -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/sequencerTrackFxBtnGraphics"/>
+        </RelativeLayout>
+
+        <!-- MIXER -->
+        <RelativeLayout
+            android:layout_width="@dimen/sequencerMixBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackMixerLayout">
+
+            <!-- BTN -->
+            <Button
+                android:layout_width="@dimen/sequencerMixBtnWidth"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:id="@+id/sequencerTrackMixerBtn"
+                android:padding="@dimen/defaultBtnPadding"/>
+
+            <!-- GRAPHICS -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/sequencerTrackMixerBtnGraphics"/>
+        </RelativeLayout>
+
+        <!-- REMOVE BTN -->
+        <!-- buttons with text seems to get a little marginTop, hence the margin top = -2dp -->
+        <Button
+            android:layout_width="@dimen/sequencerRemoveBtnWidth"
+            android:layout_height="@dimen/btnHeightSmall"
+            android:id="@+id/sequencerTrackRemoveTrackBtn"
+            android:text="-"
+            android:textSize="@dimen/defaultBtnTxtSize"
+            android:padding="@dimen/defaultBtnPadding"
+            android:layout_marginTop="-2dp"/>
+
+        <!-- HELP -->
+        <ImageView
+            android:layout_width="@dimen/infoBtnSize"
+            android:layout_height="@dimen/infoBtnSize"
+            android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+            android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+            android:src="@drawable/icon_info_btn"
+            android:id="@+id/sequencerTrackInfoBtn"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/marginLarge"
+    android:paddingEnd="@dimen/marginLarge">
+
+    <!-- CHECKBOX -->
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/oscCheck"/>
+
+    <!-- WAVE SPINNER (just a container) -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btnHeightLarge"
+        android:id="@+id/oscWaveSpinnerContainer"/>
+
+    <!-- VOLUME -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/oscVolumeSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oscVolume"/>
+    </FrameLayout>
+
+    <!-- PITCH -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/oscPitchSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:text="@string/oscPitch"/>
+    </FrameLayout>
+
+    <!-- ATK TIME -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/oscAtkTimeSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:text="@string/oscAtkTime"/>
+    </FrameLayout>
+
+    <!-- DECAY TIME -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/oscDecayTimeSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:text="@string/oscDecayTime"/>
+    </FrameLayout>
+</LinearLayout>

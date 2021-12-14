@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/sequencerTrackPadding">
+
+    <FrameLayout
+        android:layout_width="@dimen/sequencerSingleBtnWidth"
+        android:layout_height="@dimen/btnHeightSmall"
+        android:id="@+id/spinnerLayout">
+    </FrameLayout>
+
+    <!-- STEPS -->
+    <com.kiefer.graphics.customViews.ObservableHorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/sequencerTrackStepHeight"
+        android:id="@+id/sequencerTrackStepsScrollView"
+        android:scrollbars="none"
+
+        android:layout_toEndOf="@id/spinnerLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/sequencerTrackStepsLayout"/>
+    </com.kiefer.graphics.customViews.ObservableHorizontalScrollView>
+</RelativeLayout>

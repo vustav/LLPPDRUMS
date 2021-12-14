@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/tabsPaddingSmall">
+
+    <!-- LABEL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fxManagerLabel"/>
+
+    <!-- HELP -->
+    <ImageView
+        android:layout_width="@dimen/infoBtnSize"
+        android:layout_height="@dimen/infoBtnSize"
+        android:src="@drawable/anim_icon_info_btn"
+        android:id="@+id/fxManagerInfoBtn"
+        android:layout_alignParentEnd="true"/>
+
+    <!-- RND -->
+    <Button
+        android:id="@+id/fxManagerRndBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btnHeightSmall"
+        android:textSize="@dimen/defaultBtnTxtSize"
+        android:text="@string/randomizeBtn"
+
+        android:layout_below="@id/fxManagerLabel"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/fxManagerFxsLayout"
+
+        android:layout_below="@id/fxManagerRndBtn">
+
+        <!-- FX-LIST -->
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <!-- FXs RECYCLERVIEW -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fxManagerFxsRecyclerView"/>
+
+                <!-- ADD FX -->
+                <Button
+                    android:layout_width="@dimen/btnHeightSmall"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:text="+"
+                    android:textAlignment="center"
+                    android:id="@+id/fxManagerAddFxBtn"
+
+                    android:layout_below="@id/fxManagerFxsRecyclerView"/>
+            </RelativeLayout>
+        </ScrollView>
+
+        <!-- SHARED UI -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/fxManagerEditBg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="@dimen/marginLarge">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- CHECKBOX -->
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fxManagerCheck"/>
+
+                    <!-- HELP -->
+                    <ImageView
+                        android:layout_width="@dimen/infoBtnSize"
+                        android:layout_height="@dimen/infoBtnSize"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="@dimen/infoBtnDefaultMargin"
+                        android:src="@drawable/anim_icon_info_btn"
+                        android:id="@+id/fxManagerFxInfoBtn"/>
+                </LinearLayout>
+
+                <!-- SPINNER (just a container) -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btnHeightLarge"
+                    android:id="@+id/fxManagerCSpinnerContainer"/>
+
+                <!-- FX EDIT-AREA -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fxManagerFxEditArea"
+                    android:paddingStart="@dimen/marginLarge"/>
+            </LinearLayout>
+
+            <!-- AUTOMATION -->
+
+            <!-- BORDER -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fxManagerAutomationLayout"
+                android:visibility="invisible"
+                android:background="@color/tabsBorderColor"
+                android:padding="@dimen/tabsBorderSmall"
+                android:layout_margin="@dimen/tabsTVMargin">
+
+                <!-- BG -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fxManagerAutomationBg">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/marginSmall"
+                        android:paddingEnd="@dimen/marginLarge">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- FXs RECYCLERVIEW -->
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/fxManagerAutomationRecyclerView"
+                                android:paddingTop="25dp"/>
+
+                            <!-- ADD FX -->
+                            <Button
+                                android:layout_width="@dimen/btnHeightSmall"
+                                android:layout_height="@dimen/btnHeightSmall"
+                                android:text="+"
+                                android:textAlignment="center"
+                                android:id="@+id/fxManagerAddAutomationBtn"/>
+                        </LinearLayout>
+                    </ScrollView>
+
+                    <!-- LABEL -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/tabsBorderColor"
+                        android:text="AUTOMATION"
+                        android:id="@+id/fxManagerAutomationLabel"/>
+                </RelativeLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

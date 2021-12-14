@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- BITS -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/decimatorBitsSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxDeciamtorBits"/>
+    </FrameLayout>
+
+    <!-- RATE -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/decimatorRateSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxDeciamtorRate"/>
+    </FrameLayout>
+</LinearLayout>

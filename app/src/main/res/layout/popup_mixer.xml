@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- LABEL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label"
+        android:layout_margin="@dimen/tabsTVMargin"/>
+
+    <!-- PAN SLIDER -->
+    <!--
+    <FrameLayout
+        android:layout_width="@dimen/defaultSeekBarWidth"
+        android:layout_height="@dimen/defaultSeekBarHeight"
+        android:orientation="horizontal"
+        android:id="@+id/panSliderLayout"
+
+        android:layout_below="@id/label"/>
+        -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/volSoloMuteLayout"
+
+        android:layout_below="@id/label">
+
+        <!-- VOL SLIDER -->
+        <FrameLayout
+            android:layout_width="@dimen/defaultSeekBarHeight"
+            android:layout_height="@dimen/defaultSeekBarWidth"
+            android:id="@+id/volSliderLayout"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- SOLO -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/soloLayout">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:textSize="@dimen/defaultBtnTxtSize"
+                    android:id="@+id/soloBtn"
+                    android:text="SOLO"/>
+            </FrameLayout>
+
+            <!-- MUTE -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/muteLayout">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:textSize="@dimen/defaultBtnTxtSize"
+                    android:id="@+id/muteBtn"
+                    android:text="MUTE"/>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- HELP -->
+    <ImageView
+        android:layout_width="@dimen/infoBtnSize"
+        android:layout_height="@dimen/infoBtnSize"
+        android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+        android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+        android:src="@drawable/anim_icon_info_btn"
+        android:id="@+id/mixerInfoBtn"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- -->
+    <integer name="floatMultiplier">100</integer>
+
+    <!-- TEST -->
+    <integer name="defaultNOfTracks">4</integer>
+    <integer name="minNoOfRandomizedTracks">3</integer>
+    <integer name="maxNoOfRandomizedTracks">4</integer>
+    <integer name="defaultNOfSteps">8</integer>
+    <integer name="defaultNOfSubs">4</integer>
+    <integer name="maxNOfSubs">5</integer>
+    <integer name="minNoOfRandomizedSteps">6</integer>
+    <integer name="maxNoOfRandomizedSteps">12</integer>
+    <integer name="defaultTempo">120</integer>
+
+    <!-- SYNTH -->
+    <integer name="nOfOscillators">2</integer>
+    <integer name="maxPitch">5000</integer>
+    <integer name="minPitch">50</integer>
+    <integer name="maxAtkTime">30</integer>
+    <integer name="maxDecayTime">60</integer>
+    <integer name="defaultDuration">1</integer>
+
+
+    <integer name="maxSustainLevel">30</integer>
+    <integer name="maxReleaseTime">30</integer>
+
+    <!-- TEMPO -->
+    <integer name="minTempo">20</integer>
+    <integer name="maxTempo">300</integer>
+    <integer name="tempoInterval">10</integer>
+
+    <!-- DEFAULTS -->
+    <integer name="nOfSequences">4</integer>
+
+    <!-- POPUPS -->
+    <integer name="popupOffset">30</integer>
+
+    <!-- SWITCH -->
+    <integer name="randomSwitchTimer">500</integer>
+    <integer name="randomMiniTimer">50</integer>
+    <integer name="tabSwitchTimer">50</integer>
+    <integer name="sequenceSwitchTimer">500</integer>
+    <integer name="random">500</integer>
+    <integer name="recyclerViewUpdateDelay">30</integer>
+
+    <!-- SEQUENCE MANAGER -->
+    <integer name="nOfSeqBoxes">8</integer>
+
+    <!-- SEQUENCER -->
+    <integer name="seqStepPopupTimer">100</integer>
+</resources>

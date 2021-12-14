@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/marginLarge">
+
+    <!-- A LITTLE TRICK TO MAKE A BG IMAGE WRAP THE CONTENT -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveBgIV"
+        android:layout_alignTop="@id/saveContent"
+        android:layout_alignBottom="@id/saveContent"
+        android:layout_alignStart="@id/saveContent"
+        android:layout_alignEnd="@id/saveContent"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/marginLarge"
+        android:id="@+id/saveContent">
+
+        <EditText
+            android:layout_height="@dimen/btnHeightLarge"
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:id="@+id/saveEditText"/>
+
+        <Button
+            android:layout_width="@dimen/btnWidthLarge"
+            android:layout_height="@dimen/btnHeightLarge"
+            android:id="@+id/saveBtn"
+            android:text="SAVE"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- SIZE -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revLoFiSizeSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevLoFiSize"/>
+    </FrameLayout>
+
+    <!-- DAMP -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revLoFiDampSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevLoFiDamp"/>
+    </FrameLayout>
+
+    <!-- MIX -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revLoFiMixSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevLoFiMix"/>
+    </FrameLayout>
+
+    <!-- OUT -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/marginSmall">
+        <SeekBar
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:layout_height="@dimen/defaultSeekBarHeight"
+            android:id="@+id/revLoFiOutSlider"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fxRevLoFiOut"/>
+    </FrameLayout>
+</LinearLayout>

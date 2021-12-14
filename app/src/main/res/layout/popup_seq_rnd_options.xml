@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/tabsPaddingSmall">
+
+    <!-- LABEL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seqRndOptionsLabel"
+        android:layout_margin="@dimen/tabsTVMargin"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btnHeightLarge"
+        android:orientation="horizontal"
+        android:id="@+id/seqRndOptionsTop"
+
+        android:layout_below="@id/seqRndOptionsLabel">
+
+            <!-- PRESET -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/tabsBorderColor"
+                android:padding="@dimen/tabsBorderSmall"
+
+                android:id="@+id/seqRndOptionsPresetBorder">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/seqRndOptionsPresetLayout">
+
+                    <!-- SPINNER (just a container) -->
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/seqRndOptionsPresetContainer"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- TEMPO -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/tabsBorderColor"
+                android:padding="@dimen/tabsBorderSmall"
+                android:id="@+id/seqRndOptionsTempoBorder"
+
+                android:layout_marginStart="@dimen/tabsBorderLarge"
+                android:layout_toEndOf="@id/seqRndOptionsPresetBorder"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/seqRndOptionsTempoLayout">
+
+                    <!-- LABEL -->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/tabsBorderColor"
+                            android:textColor="@color/lowerBg"
+                            android:text="TMP"
+
+                            android:layout_alignParentTop="true"/>
+                    </RelativeLayout>
+
+                    <!-- LOWER -->
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/btnHeightTempo"
+                        android:id="@+id/trackRndOptionsLowerTempoBtn"
+                        android:text="\u003c\u003c" />
+
+                    <!-- SPINNER (just a container) -->
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/btnHeightSmall"
+                        android:id="@+id/seqRndOptionsTempoContainer"/>
+
+                    <!-- RAISE -->
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/btnHeightTempo"
+                        android:id="@+id/seqRndOptionsRaiseTempoBtn"
+                        android:text="\u003e\u003e"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- STEPS -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/tabsBorderColor"
+                android:padding="@dimen/tabsBorderSmall"
+                android:id="@+id/seqRndOptionsStepsBorder"
+
+                android:layout_marginStart="@dimen/tabsBorderLarge"
+                android:layout_toEndOf="@id/seqRndOptionsTempoBorder"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/seqRndOptionsStepsLayout">
+
+                    <!-- LABEL -->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/tabsBorderColor"
+                            android:textColor="@color/lowerBg"
+                            android:text="STPS"
+
+                            android:layout_alignParentTop="true"/>
+                    </RelativeLayout>
+
+                    <!-- REMOVE STEP -->
+                    <FrameLayout
+                        android:layout_width="@dimen/btnWidthSmall"
+                        android:layout_height="@dimen/tabsTVHeight">
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/seqRndOptionsRemoveStepBtn"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="-3dp"/>
+                    </FrameLayout>
+
+                    <!-- ADD STEP -->
+                    <FrameLayout
+                        android:layout_width="@dimen/btnWidthSmall"
+                        android:layout_height="@dimen/tabsTVHeight">
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/seqRndOptionsAddStepBtn"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="+"
+                            android:textColor="#000000"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="-3dp"/>
+                    </FrameLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+        <!-- HELP -->
+        <ImageView
+            android:layout_width="@dimen/infoBtnSize"
+            android:layout_height="@dimen/infoBtnSize"
+            android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+            android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+            android:src="@drawable/anim_icon_info_btn"
+            android:id="@+id/seqRndOptionsBaseInfoBtn"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <!-- TRACKS -->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seqRndOptionsTop"
+
+        android:layout_marginTop="@dimen/tabsPaddingSmall">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- FXs RECYCLERVIEW -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seqRndOptionsRecyclerView"/>
+
+            <!-- ADD FX -->
+            <Button
+                android:layout_width="@dimen/btnHeightSmall"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:text="+"
+                android:textAlignment="center"
+                android:id="@+id/trackRndOptionsAddTrackBtn"
+                android:layout_marginTop="@dimen/tabsPaddingSmall"
+
+                android:layout_below="@id/seqRndOptionsRecyclerView"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

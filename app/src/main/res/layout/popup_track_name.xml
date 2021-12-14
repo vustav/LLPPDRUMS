@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/marginLarge">
+
+    <!-- A LITTLE TRICK TO MAKE A BG IMAGE WRAP THE CONTENT -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trackNameBgIV"
+        android:layout_alignTop="@id/content"
+        android:layout_alignBottom="@id/content"
+        android:layout_alignStart="@id/content"
+        android:layout_alignEnd="@id/content"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/content">
+
+        <!-- COLOR -->
+        <FrameLayout
+            android:layout_width="@dimen/btnHeightLarge"
+            android:layout_height="45dp"
+            android:id="@+id/trackColorPicker"
+            android:layout_margin="@dimen/tabsTVMargin"/>
+
+        <!-- EDIT TXT -->
+        <EditText
+            android:layout_height="@dimen/btnHeightLarge"
+            android:layout_width="@dimen/defaultSeekBarWidth"
+            android:id="@+id/trackNameEditText"
+            android:inputType="text"
+            android:textSize="@dimen/defaultBtnTxtSize"
+            android:layout_marginStart="@dimen/marginLarge"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- LABEL -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trackRndLabel"
+        android:layout_margin="@dimen/tabsTVMargin"/>
+
+    <!-- PRESETS -->
+    <!-- SPINNER (just a container) -->
+    <FrameLayout
+        android:layout_width="@dimen/btnWidthLarge"
+        android:layout_height="@dimen/btnHeightLarge"
+        android:id="@+id/trackRndPresetsBtn"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- RND -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btnHeightLarge"
+            android:text="@string/randomizeBtn"
+            android:textSize="@dimen/defaultBtnTxtSize"
+            android:id="@+id/trackRndBtn"
+            android:layout_marginTop="@dimen/marginLarge"/>
+
+        <!-- HELP -->
+        <ImageView
+            android:layout_width="@dimen/infoBtnSize"
+            android:layout_height="@dimen/infoBtnSize"
+            android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+            android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+            android:src="@drawable/icon_info_btn"
+            android:id="@+id/trackRndInfoBtn"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <!-- RND OSC -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndOscCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OSC"/>
+            </LinearLayout>
+
+            <!-- RND ON -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndOnCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ON"/>
+            </LinearLayout>
+
+            <!-- RND VOL -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndVolCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VOL"/>
+            </LinearLayout>
+
+            <!-- RND PITCH -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndPitchlCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PITCH"/>
+            </LinearLayout>
+
+            <!-- RND PAN -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndPanlCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PAN"/>
+            </LinearLayout>
+
+            <!-- RND FX -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndFxCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FXS"/>
+            </LinearLayout>
+
+            <!-- RND MIX -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndMixCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MIXER"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

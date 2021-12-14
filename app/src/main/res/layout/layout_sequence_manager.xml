@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- PROGRESS -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:id="@+id/sequenceManagerProgressSliderLayout"/>
+
+            <!-- BOXES -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sequenceManagerCounterLayout"/>
+
+        <!-- INFO -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- PROGRESS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/seqManagerInfoTxtSize"
+                android:id="@+id/sequenceManagerProgressInfoTV"/>
+
+            <!-- QUEUE -->
+            <TextView
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/seqManagerInfoTxtSize"
+                android:id="@+id/sequenceManagerQueueInfoTV"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- EDIT -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/sequenceManagerEditBtn"
+        android:text="EDIT"/>
+
+</LinearLayout>
