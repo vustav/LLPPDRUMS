@@ -1,16 +1,20 @@
-package com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc;
+package com.kiefer.machine.sequence.track.soundManager.presets.osc;
+
+import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
+
+import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.Oscillator;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
-import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
+/** Can't extend HHClosed since we have these static names... **/
 
-public class OscPresetHH extends OscPreset {
-    public static String name = SoundSourcePreset.HH;
+public class OscPresetHHOpen extends OscPreset {
+    public static String name = SoundSourcePreset.HHOpen;
 
-    public OscPresetHH(LLPPDRUMS llppdrums){
+    public OscPresetHHOpen(LLPPDRUMS llppdrums){
         super(llppdrums);
     }
 
@@ -27,15 +31,15 @@ public class OscPresetHH extends OscPreset {
         }
         osc0.setVolume(getRndmizer(.7f, .9f));
         osc0.setOscillatorPitch((int)(maxPitch * .8 * getMiniRandomMultiplier()));
-        osc0.setAttackTime(maxAtk / 10f * getMiniRandomMultiplier());
-        osc0.setDecayTime(maxDecay / 9f * getMiniRandomMultiplier());
+        osc0.setAttackTime(maxAtk / 20f * getMiniRandomMultiplier());
+        osc1.setDecayTime(maxDecay / 3f * random.nextFloat() + 10);
         osc0.setOn(true);
 
         osc1.setWaveForm(4); //noise
         osc1.setVolume(getRndmizer(.8f, 1));
         osc1.setOscillatorPitch((int)(maxPitch * .9 * getMiniRandomMultiplier()));
-        osc1.setAttackTime(maxAtk / 11f * getMiniRandomMultiplier());
-        osc1.setDecayTime(maxDecay * getRndmizer(.1f, .5f));
+        osc1.setAttackTime(maxAtk / 21f * getMiniRandomMultiplier());
+        osc1.setDecayTime(maxDecay / 3f * random.nextFloat() + 10);
         osc1.setOn(true);
     }
 
@@ -44,3 +48,24 @@ public class OscPresetHH extends OscPreset {
         return name;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

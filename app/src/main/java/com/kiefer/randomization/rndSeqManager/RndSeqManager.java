@@ -77,64 +77,9 @@ public class RndSeqManager implements Tempoizer {
 
     public void randomizeTrack(RndSeqPresetTrack rndTrack, DrumTrack drumTrack){
         drumTrack.getRndTrackManager().randomize(rndTrack);
-        /*
-        Random r = new Random();
-
-        drumTrack.setNOfSubs(rndTrack.getnOfSubs());
-
-        //first randomize the soundSource, then set the preset category
-        drumTrack.getSoundManager().randomizeSoundSource();
-        if(rndTrack.getPresetCategory().equals(RANDOM)){
-            drumTrack.getSoundManager().setRandomPreset();
-        }
-        else{
-            drumTrack.getSoundManager().setPreset(rndTrack.getPresetCategory());
-        }
-
-        for(int stepNo = 0; stepNo < steps; stepNo++){
-            RndSeqPresetTrack.Step step = rndTrack.getSteps().get(stepNo);
-            drumTrack.setStepOn(stepNo, true);
-            for(int sub = 0; sub<drumTrack.getNOfSubs(); sub++) {
-                if(r.nextFloat() < step.getPerc(sub)){
-                    drumTrack.setSubOn(stepNo, true, sub);
-                    drumTrack.setSubVolume(stepNo, step.getVol(sub), sub);
-                    drumTrack.setSubPitchModifier(stepNo, step.getPitch(sub), sub);
-                }
-                else{
-                    drumTrack.setStepOn(stepNo, false);
-                }
-            }
-
-            if (rndTrack.getRandomizePan()){
-                drumTrack.setStepPan(stepNo, step.getPan());
-            }
-        }
-
-        if(rndTrack.getRandomizeFx()) {
-            drumTrack.getFxManager().randomizeAll();
-        }
-
-        if (rndTrack.getRandomizeVol()){
-            drumTrack.randomizeVol();
-        }
-
-        //just a little chance of hotting up the pitch and volume here
-        if(r.nextInt(9) == 0){
-            drumTrack.getRndTrackManager().hottenUp(true);
-        }
-        else {
-            drumTrack.getRndTrackManager().hottenUp(false);
-        }
-
-        if(llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
-            drumTrack.updateDrawables();
-        }
-
-         */
     }
 
     /** TRACKS **/
-
     public void moveTrack(final int from, final int to){
         RndSeqPresetTrack track = tracks.remove(from);
         tracks.add(to, track);

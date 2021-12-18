@@ -1,11 +1,11 @@
-package com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample;
+package com.kiefer.machine.sequence.track.soundManager.presets.smpl;
 
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 import java.util.ArrayList;
 
 public class SampleCategoryMisc extends SampleCategory{
-    public static String name = SoundSourcePreset.MISC;
+    public static String name = "MISC";
 
     public SampleCategoryMisc(){
         samples = new ArrayList<>();

@@ -13,7 +13,6 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.popups.Popup;
-import com.kiefer.popups.soundManager.oscillatorManager.PalettePopup;
 
 public class TrackNamePopup extends Popup {
     private final DrumTrack drumTrack;

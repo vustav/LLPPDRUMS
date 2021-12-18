@@ -1,4 +1,4 @@
-package com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample;
+package com.kiefer.machine.sequence.track.soundManager.presets.smpl;
 
 public class Sample {
     protected String name;

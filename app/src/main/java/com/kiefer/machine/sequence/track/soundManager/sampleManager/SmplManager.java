@@ -7,14 +7,14 @@ import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.soundManager.events.SmplEvents;
 import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.SoundSource;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample.SampleCategory;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample.SampleCategoryBass;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample.SampleCategoryHH;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample.SampleCategoryMisc;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample.SampleCategorySnare;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample.SampleCategoryTom;
+import com.kiefer.machine.sequence.track.soundManager.SoundSource;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategory;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryBass;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHH;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryMisc;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategorySnare;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryTom;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.Random;
@@ -87,6 +87,8 @@ public class SmplManager extends SoundSource {
     }
 
     /** PRESETS **/
+    /** Make sure to have names of the presets that covers the static names in SoundSourcePreset. RndSeqManager will call
+     * setPreset() with those **/
     private void setupPresets(){
         presets.add(new SampleCategoryBass());
         presets.add(new SampleCategoryHH());
@@ -95,7 +97,8 @@ public class SmplManager extends SoundSource {
         presets.add(new SampleCategoryMisc());
     }
 
-    //PÅ DEN HÄR MÅSTE DET SLUMPAS FRAM EN BAS T.EX OM DE ÄR BASS SOM SKICKAS IN
+    //PÅ DEN HÄR MÅSTE DET SLUMPAS FRAM EN BAS T.EX. OM DE ÄR BASS SOM SKICKAS IN
+    /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/
     @Override
     public void setPreset(String preset){
         for (SoundSourcePreset ssp : presets) {

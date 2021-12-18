@@ -9,6 +9,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.machine.sequence.track.soundManager.sampleManager.SmplManager;
 import com.kiefer.popups.soundManager.SoundManagerPopup;
 
 public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
@@ -41,7 +42,7 @@ public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
         categorySpinnerButton.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new CategoryListPopup(llppdrums, drumTrack.getSoundManager(), categorySpinnerButton, sampleSpinnerButton);
+                new SampleCategoryListPopup(llppdrums, drumTrack.getSoundManager(), categorySpinnerButton, sampleSpinnerButton);
             }
         });
         categorySpinnerButton.setSelection(drumTrack.getSoundManager().getSmplManager().getSelectedCategory().getName());

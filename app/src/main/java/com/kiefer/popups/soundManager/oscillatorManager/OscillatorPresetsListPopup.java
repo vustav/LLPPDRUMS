@@ -35,9 +35,11 @@ public class OscillatorPresetsListPopup extends Popup {
 
         LinearLayout listLayout = popupView.findViewById(R.id.listLayout);
 
-        for(int i = 0; i < soundManager.getPresetCategories().size(); i++){
+        for(int i = 0; i < soundManager.getOscillatorManager().getPresets().size(); i++){
+            String name = soundManager.getOscillatorManager().getPresets().get(i).getName();
+
             TextView tv = new TextView(llppdrums);
-            tv.setText(soundManager.getPresetCategories().get(i));
+            tv.setText(name);
 
             int color;
             if(i % 2 == 0){
@@ -50,11 +52,11 @@ public class OscillatorPresetsListPopup extends Popup {
             tv.setTextSize((int) llppdrums.getResources().getDimension(R.dimen.defaultListTxtSize));
             tv.setTextColor(ColorUtils.getContrastColor(color));
 
-            final int finalI = i;
+            //final int finalI = i;
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    soundManager.setPreset(finalI);
+                    soundManager.setPreset(name);
                     oscillatorManagerView.updateUI();
                     popupWindow.dismiss();
                 }

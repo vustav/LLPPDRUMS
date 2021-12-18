@@ -54,7 +54,7 @@ public class OscillatorView {
         cSpinnerButton.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new WaveListPopup(llppdrums, oscillatorManager, OscillatorView.this, oscNo, cSpinnerButton);
+                new OscillatorWaveListPopup(llppdrums, oscillatorManager, OscillatorView.this, oscNo, cSpinnerButton);
             }
         });
         cSpinnerButton.setSelection(oscillatorManager.getWaves()[(int)(oscillatorManager.getOscillatorWaveForm(oscNo))]);

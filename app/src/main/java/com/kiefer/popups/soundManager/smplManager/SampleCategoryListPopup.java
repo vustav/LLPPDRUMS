@@ -1,27 +1,30 @@
-package com.kiefer.popups.soundManager.oscillatorManager;
+package com.kiefer.popups.soundManager.smplManager;
 
-import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
+import com.kiefer.machine.sequence.track.soundManager.SoundManager;
 import com.kiefer.popups.Popup;
 import com.kiefer.utils.ColorUtils;
 
-public class WaveListPopup extends Popup {
+public class SampleCategoryListPopup extends Popup {
+    private final CSpinnerButton categorySpinnerBtn, sampleSpinnerBtn;
 
-    public WaveListPopup(LLPPDRUMS llppdrums, final OscillatorManager oscillatorManager, final OscillatorView oscillatorViewPopup, int oscNo, final CSpinnerButton btn){
+    public SampleCategoryListPopup(LLPPDRUMS llppdrums, final SoundManager soundManager, final CSpinnerButton categorySpinnerBtn, final CSpinnerButton sampleSpinnerBtn){
         super(llppdrums);
+        this.categorySpinnerBtn = categorySpinnerBtn;
+        this.sampleSpinnerBtn =sampleSpinnerBtn;
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_list, null);
-        //popupView.setBackground(ContextCompat.getDrawable(llppdrums, oscillatorManager.getWavePopupImageId(oscNo)));
-        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, oscillatorManager.getWavePopupImageId(oscNo)));
+        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, soundManager.getPresetsListImageId()));
 
         //create the popupWindow
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -34,9 +37,11 @@ public class WaveListPopup extends Popup {
 
         LinearLayout listLayout = popupView.findViewById(R.id.listLayout);
 
-        for(int i = 0; i < oscillatorManager.getWaves().length; i++){
+        for(int i = 0; i < soundManager.getSmplManager().getPresets().size(); i++){
+            String name = soundManager.getSmplManager().getPresets().get(i).getName();
+
             TextView tv = new TextView(llppdrums);
-            tv.setText(oscillatorManager.getWaves()[i]);
+            tv.setText(name);
 
             int color;
             if(i % 2 == 0){
@@ -49,19 +54,18 @@ public class WaveListPopup extends Popup {
             tv.setTextSize((int) llppdrums.getResources().getDimension(R.dimen.defaultListTxtSize));
             tv.setTextColor(ColorUtils.getContrastColor(color));
 
-            final int finalI = i;
+            //final int finalI = i;
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    oscillatorViewPopup.setWaveForm(finalI);
-                    btn.setSelection(oscillatorManager.getWaves()[finalI]);
+                    soundManager.setPreset(name);
+                    categorySpinnerBtn.setSelection(name);
+                    sampleSpinnerBtn.setSelection(soundManager.getSmplManager().getSelectedCategory().getSelectedSample().getName());
                     popupWindow.dismiss();
                 }
             });
             listLayout.addView(tv);
         }
-
-        //show(popupWindow);
-        popupWindow.showAsDropDown(btn, 0, -100);
+        popupWindow.showAsDropDown(categorySpinnerBtn, 0, -100);
     }
 }

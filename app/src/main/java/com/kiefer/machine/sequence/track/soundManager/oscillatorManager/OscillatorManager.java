@@ -1,19 +1,23 @@
 package com.kiefer.machine.sequence.track.soundManager.oscillatorManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.OscillatorManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
+import com.kiefer.machine.sequence.track.soundManager.SoundSource;
 import com.kiefer.machine.sequence.track.soundManager.events.OscEvents;
 import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc.OscPreset;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc.OscPresetBass;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc.OscPresetHH;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc.OscPresetSnare;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetBass;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHClosed;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHOpen;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetSnare;
 import com.kiefer.machine.sequence.track.DrumTrack;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc.OscPresetTom;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetTom;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
@@ -111,19 +115,22 @@ public class OscillatorManager extends SoundSource {
     }
 
     /** PRESETS **/
+    /** Make sure to have names of the presets that covers the static names in SoundSourcePreset. RndSeqManager will call
+     * setPreset() with those **/
     private void setupPresets(){
         presets.add(new OscPresetBass(llppdrums));
-        presets.add(new OscPresetHH(llppdrums));
         presets.add(new OscPresetSnare(llppdrums));
+        presets.add(new OscPresetHHClosed(llppdrums));
+        presets.add(new OscPresetHHOpen(llppdrums));
         presets.add(new OscPresetTom(llppdrums));
     }
 
+    /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/
     @Override
     public void setPreset(String preset){
         for (SoundSourcePreset op : presets) {
             if (preset.equals(op.getName())) {
                 ((OscPreset)op).setupOscillators(this);
-                //drumTrack.setName(op.getName());
             }
         }
     }

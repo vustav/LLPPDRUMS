@@ -11,7 +11,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample.Sample;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.Sample;
 import com.kiefer.popups.Popup;
 import com.kiefer.utils.ColorUtils;
 

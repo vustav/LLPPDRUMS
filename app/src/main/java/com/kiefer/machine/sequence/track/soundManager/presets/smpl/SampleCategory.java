@@ -1,6 +1,6 @@
-package com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.sample;
+package com.kiefer.machine.sequence.track.soundManager.presets.smpl;
 
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 import java.util.ArrayList;
 import java.util.Random;

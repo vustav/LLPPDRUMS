@@ -1,9 +1,9 @@
-package com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc;
+package com.kiefer.machine.sequence.track.soundManager.presets.osc;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.Oscillator;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
 

@@ -138,7 +138,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         }
         setupTracks(nOfTracks, keeper);
 
-        rndSeqManager = new RndSeqManager(llppdrums, this, tracks.get(0).getSoundManager().getPresetCategories()); //track soesn't amtter, just get any presets
+        rndSeqManager = new RndSeqManager(llppdrums, this, tracks.get(0).getSoundManager().getPresetCategories()); //track doesn't amtter, just get any presets
     }
 
     /** SETUP **/

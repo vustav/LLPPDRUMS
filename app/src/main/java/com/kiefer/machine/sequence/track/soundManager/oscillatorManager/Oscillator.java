@@ -262,6 +262,7 @@ public class Oscillator {
     protected void play(){
         liveEvent.play();
 
+        /*
         new CountDownTimer(1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 //
@@ -271,6 +272,8 @@ public class Oscillator {
                 stop();
             }
         }.start();
+
+         */
     }
     protected void stop(){
         Random r = new Random();

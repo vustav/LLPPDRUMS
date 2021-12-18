@@ -1,8 +1,8 @@
-package com.kiefer.machine.sequence.track.soundManager.oscillatorManager;
+package com.kiefer.machine.sequence.track.soundManager;
 
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 import java.util.ArrayList;
 
@@ -56,7 +56,13 @@ public abstract class SoundSource {
         presets = new ArrayList<>();
     }
 
+    public ArrayList<SoundSourcePreset> getPresets(){
+        return presets;
+    }
+/*
     public void setPreset(int i){
         setPreset(presets.get(i).getName());
     }
+
+ */
 }

@@ -2,13 +2,13 @@ package com.kiefer.randomization.presets.tracks;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc.OscPresetHH;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHClosed;
 import com.kiefer.utils.NmbrUtils;
 
 public class RndSeqPresetTrackHHOffbeat extends RndSeqPresetTrack {
 
     public RndSeqPresetTrackHHOffbeat(LLPPDRUMS llppdrums, int nOfSteps, int nOfSubs){
-        super(llppdrums, OscPresetHH.name, nOfSteps, nOfSubs);
+        super(llppdrums, OscPresetHHClosed.name, nOfSteps, nOfSubs);
 
 
         for(int step = 0; step < nOfSteps; step++){

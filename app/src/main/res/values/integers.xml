@@ -19,7 +19,7 @@
     <integer name="maxPitch">5000</integer>
     <integer name="minPitch">50</integer>
     <integer name="maxAtkTime">30</integer>
-    <integer name="maxDecayTime">60</integer>
+    <integer name="maxDecayTime">100</integer>
     <integer name="defaultDuration">1</integer>
 
 

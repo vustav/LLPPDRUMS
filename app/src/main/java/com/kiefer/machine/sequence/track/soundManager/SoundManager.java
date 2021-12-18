@@ -1,20 +1,19 @@
 package com.kiefer.machine.sequence.track.soundManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.SoundManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.SoundSource;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.sampleManager.SmplManager;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import nl.igorski.mwengine.core.SynthEvent;
-import nl.igorski.mwengine.core.SampleEvent;
 import nl.igorski.mwengine.core.ProcessingChain;
 
 /** Holds a SampleManager and an OscillatorManager.**/
@@ -158,12 +157,10 @@ public class SoundManager {
         activeSoundSource.setRandomPreset();
     }
 
+    /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/
     public void setPreset(String s){
+        //Log.e("SoundManager", "setPreset(): "+s);
         activeSoundSource.setPreset(s);
-    }
-
-    public void setPreset(int i){
-        activeSoundSource.setPreset(i);
     }
 
     public SoundEvents getSoundEvents(int nOfSteps, int subs, int step, boolean add){

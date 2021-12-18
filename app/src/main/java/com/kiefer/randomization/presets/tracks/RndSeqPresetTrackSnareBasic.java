@@ -2,7 +2,7 @@ package com.kiefer.randomization.presets.tracks;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.presets.osc.OscPresetSnare;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetSnare;
 import com.kiefer.utils.NmbrUtils;
 
 public class RndSeqPresetTrackSnareBasic extends RndSeqPresetTrack {
