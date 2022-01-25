@@ -97,7 +97,6 @@ public class SmplManager extends SoundSource {
         presets.add(new SampleCategoryMisc());
     }
 
-    //PÅ DEN HÄR MÅSTE DET SLUMPAS FRAM EN BAS T.EX. OM DE ÄR BASS SOM SKICKAS IN
     /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/
     @Override
     public void setPreset(String preset){
@@ -199,8 +198,8 @@ public class SmplManager extends SoundSource {
         liveInstrument.getAudioChannel().getProcessingChain().reset();
         liveInstrument.getAudioChannel().getProcessingChain().delete();
 
-        //liveEvent.delete();
-        liveEvent.setDeletable(true);
+        liveEvent.delete();
+        //liveEvent.setDeletable(true);
         liveEvent = null;
 
         // calling 'delete()' on all instruments invokes the native layer destructor

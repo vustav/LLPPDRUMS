@@ -291,11 +291,11 @@
     <!-- FX MANAGER -->
     <string name="fxManagerIntro">Every track can have an unlimited amount of effects and all their parameters can be fully automated.</string>
     <string name="fxManagerRnd">Randomize everything. This can not be undone.</string>
-    <string name="fxManagerList">List of the effects in the order they effect the signal with the top one being first. Hold and drag an effect to change order. Click an effect to edit it. Clicking \'-\' removes the effect.</string>
+    <string name="fxManagerList">List of the effects in the order they effect the signal with the top one being first. Hold and drag an effect to change order. Click an effect to edit it. Clicking \n\'-\' removes the effect.</string>
     <string name="fxManagerAdd">Add a new random effect to the chain.</string>
     <string name="fxManagerFxs">The effects are:</string>
-    <string name="fxManagerAutoList">Every effect can have an unlimited number of automations on all their parameters, or several automations on the same parameter etc. \"+\" adds a new randomized automation.</string>
-    <string name="fxManagerAutoSingle">Select what parameter to automate in the spinner and the value in the slider. The value will be applied in the selected steps, in unselected steps the value set in the effect will be used. \"-\" removes the automation.</string>
+    <string name="fxManagerAutoList">Every effect can have an unlimited number of automations on all their parameters, or several automations on the same parameter etc. \n\"+\" adds a new randomized automation.</string>
+    <string name="fxManagerAutoSingle">Select what parameter to automate in the spinner and the value in the slider. The value will be applied in the selected steps, in unselected steps the value set in the effect will be used. \n\"-\" removes the automation.</string>
 
     <!-- MIXER -->
     <string name="mixerIntro">Basic mixer. !!NOT FINISHED!!</string>

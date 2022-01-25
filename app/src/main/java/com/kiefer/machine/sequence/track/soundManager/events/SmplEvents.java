@@ -98,7 +98,8 @@ public class SmplEvents extends SoundEvents {
         @Override
         public void delete(){
             //.delete() causes nullPointer-crashes, use this instead
-            event.setDeletable(true);
+            //event.setDeletable(true);
+            event.delete();
         }
 
         /** RESTORE **/

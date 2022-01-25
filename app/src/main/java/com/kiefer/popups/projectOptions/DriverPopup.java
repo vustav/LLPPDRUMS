@@ -1,6 +1,11 @@
 package com.kiefer.popups.projectOptions;
 
+import static androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale;
+
 import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -55,6 +60,28 @@ public class DriverPopup extends Popup {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+
+/*
+                    if (ContextCompat.checkSelfPermission(llppdrums, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                        // You can use the API that requires the permission.
+                        //performAction(...);
+                    } else if (shouldShowRequestPermissionRationale(llppdrums, Manifest.permission.RECORD_AUDIO)) {
+                        // In an educational UI, explain to the user why your app requires this
+                        // permission for a specific feature to behave as expected. In this UI,
+                        // include a "cancel" or "no thanks" button that allows the user to
+                        // continue using your app without granting the permission.
+                        //showInContextUI(...);
+                    } else {
+                        // You can directly ask for the permission.
+                        // The registered ActivityResultCallback gets the result of this request.
+                        requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
+                    }
+
+ */
+
+
+
                     projectOptionsManager.setDriver(driver);
                     btn.setSelection(driver);
                     popupWindow.dismiss();

@@ -125,7 +125,8 @@ public class OscEvents extends SoundEvents {
         public void delete(){
             for (SynthEvent event : events) {
                 //.delete() causes nullPointer-crashes, use this instead
-                event.setDeletable(true);
+                //event.setDeletable(true);
+                event.delete();
             }
         }
 

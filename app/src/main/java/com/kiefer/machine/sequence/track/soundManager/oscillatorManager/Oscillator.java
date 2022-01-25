@@ -315,8 +315,8 @@ public class Oscillator {
         liveInstrument.getAudioChannel().getProcessingChain().delete();
         //liveInstrument.getAudioChannel().getProcessingChain().setDeletable(true);
 
-        //liveEvent.delete();
-        liveEvent.setDeletable(true);
+        liveEvent.delete();
+        //liveEvent.setDeletable(true);
         liveEvent = null;
 
         // calling 'delete()' on all instruments invokes the native layer destructor
