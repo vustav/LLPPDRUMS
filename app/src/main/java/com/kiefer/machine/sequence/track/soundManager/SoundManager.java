@@ -6,7 +6,8 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.SoundManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
-import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
+import com.kiefer.machine.sequence.track.Step;
+import com.kiefer.machine.sequence.track.soundManager.eventManager.StepEventsManager;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.sampleManager.SmplManager;
@@ -54,7 +55,11 @@ public class SoundManager {
     }
 
     public void deactivate(){
-        activeSoundSource.deactivate();
+        //activeSoundSource.deactivate();
+
+        for(SoundSource ss : soundSources){
+            ss.deactivate();
+        }
     }
 
     /** SELECTION **/
@@ -78,30 +83,25 @@ public class SoundManager {
     }
 
     /** SET **/
+    /** FUNKAR INTE **/
     public void setActiveSoundSource(String tag) {
         /** KRASCHAR HÄR **/
-        if(tag.equals(OSC)){
-            if(activeSoundSource != null) {
-                activeSoundSource.deactivate();
-            }
-            activeSoundSource = soundSources.get(0);
+        if(activeSoundSource != null) {
+            activeSoundSource.deactivate();
+        }
 
-            if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
-                activeSoundSource.activate();
-            }
+        if(tag.equals(OSC)){
+            activeSoundSource = soundSources.get(0);
         }
         else{
-            if(activeSoundSource != null) {
-                activeSoundSource.deactivate();
-            }
             activeSoundSource = soundSources.get(1);
+        }
 
-            if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
-                activeSoundSource.activate();
-            }
+        if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
+            activeSoundSource.activate();
         }
         /**************************************/
-        drumTrack.recreateEvents();
+        //drumTrack.recreateEvents();
     }
 
     //atk
@@ -163,9 +163,32 @@ public class SoundManager {
         activeSoundSource.setPreset(s);
     }
 
+/*
     public SoundEvents getSoundEvents(int nOfSteps, int subs, int step, boolean add){
         return activeSoundSource.getSoundEvents(nOfSteps, subs, step, add);
     }
+
+ */
+
+    public StepEventsManager getStepEventManager(Step step, int subs){
+        return new StepEventsManager(llppdrums, drumSequence, drumTrack, this, step, subs);
+    }
+
+    /** EVENTS **/
+    /*
+    public void positionEvents(int nOfSteps, int step){
+        for(SoundSource ss : soundSources){
+            ss.positionEvents(nOfSteps, step);
+        }
+    }
+
+    public void randomizePitch(boolean autoRnd, int sub){
+        for(SoundSource ss : soundSources){
+            ss.randomizePitch(autoRnd, sub);
+        }
+    }
+
+     */
 
     /** SUBS **/
     public void updateSubs(int subs){
@@ -194,6 +217,7 @@ public class SoundManager {
 
     /** RESTORATION **/
     public void restore(SoundManagerKeeper k){
+        Log.e("asd", Integer.toString(k.activeSoundSourceIndex));
         activeSoundSource = soundSources.get(k.activeSoundSourceIndex);
         for(int i = 0; i<k.ssKeepers.size(); i++){
             soundSources.get(i).restore(k.ssKeepers.get(i));

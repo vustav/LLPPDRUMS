@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.graphics.AutoRndSliderSubsDrawable;
+import com.kiefer.graphics.SubsSliderDrawable;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.popups.Popup;
@@ -37,7 +37,7 @@ public class AutoRandomMin extends AutoRandomModuleFloat{
             subsOn[i] = ((step.isOn() && step.isSubOn(i)) || step.getAutoRndOn(i)) && sequenceModule.getAutoRndOn(step, i);
             subsValue[i] = sequenceModule.getAutoRndMin(step, i);
         }
-        return new AutoRndSliderSubsDrawable(llppdrums, subsOn, subsValue);
+        return new SubsSliderDrawable(llppdrums, subsOn, subsValue);
     }
 
     @Override

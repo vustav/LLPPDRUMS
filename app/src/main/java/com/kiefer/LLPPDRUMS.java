@@ -37,6 +37,8 @@ import java.util.ArrayList;
 
 public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHoldable {
 
+    public boolean disableLoad = true;
+
     private static String LOG_TAG = "MWEngineFacade"; // logcat identifier
     private static int PERMISSIONS_CODE = 8081981;
 
@@ -195,6 +197,13 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         catch (Exception e){
             keeper = null;
         }
+
+        /***********************/
+        if(disableLoad) {
+            keeper = null;
+        }
+        /***********************/
+
 
         int tempo;
         try {

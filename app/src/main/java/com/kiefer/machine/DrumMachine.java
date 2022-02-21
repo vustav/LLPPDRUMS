@@ -187,8 +187,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
     /** ACTIVATION **/
     public void changePlayingSequence(final int seqNo) {
-        new Thread(new Runnable() {
-            public void run() {
+        //new Thread(new Runnable() {
+            //public void run() {
                 if (sequences.indexOf(playingSequence) != seqNo) {
                     if (playingSequence != null) {
                         playingSequence.stop(); //turns off automations
@@ -196,8 +196,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
                     }
                     setPlayingSequence(seqNo);
                 }
-            }
-        }).start();
+            //}
+        //}).start();
     }
 
     // KOLLA TRÅDAR HÄR, KAN FÅ DET ATT HÄNGA SIG
@@ -230,13 +230,14 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         //turn on the little play-icon in the tab
         llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), true);
 
-        //lock the UI to prevent laggy actions duting playback
+        //lock the UI to prevent laggy actions during playback
         if(selectedSequence == playingSequence) {
             lockUI();
         }
 
         playingSequence.play();
     }
+
     public void pause(){
         engineFacade.pauseSequencer();
         llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), false);

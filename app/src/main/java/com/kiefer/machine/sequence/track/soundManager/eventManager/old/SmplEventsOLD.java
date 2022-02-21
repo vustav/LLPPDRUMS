@@ -1,4 +1,4 @@
-package com.kiefer.machine.sequence.track.soundManager.events;
+package com.kiefer.machine.sequence.track.soundManager.eventManager.old;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.EventsKeeper;
@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import nl.igorski.mwengine.core.SampleManager;
 import nl.igorski.mwengine.core.SampleEvent;
 
-public class SmplEvents extends SoundEvents {
+public class SmplEventsOLD extends EventsOLD {
     private final SmplManager smplManager;
 
-    public SmplEvents(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack, SmplManager smplManager, int nOfSteps, int subs, int step, boolean addToSequencer) {
+    public SmplEventsOLD(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack, SmplManager smplManager, int nOfSteps, int subs, int step, boolean addToSequencer) {
         super(llppdrums, drumSequence, drumTrack, step);
         this.smplManager = smplManager;
 

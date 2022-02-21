@@ -120,6 +120,9 @@ public class TopFragment extends TabFragment {
                 new LoadPopup(llppdrums);
             }
         });
+        if(llppdrums.disableLoad){
+            loadBtn.setEnabled(false);
+        }
 
         //save
         Button saveBtn = rootView.findViewById(R.id.topSaveBtn);
@@ -129,6 +132,9 @@ public class TopFragment extends TabFragment {
                 llppdrums.getKeeperFileHandler().writePromptName(llppdrums.getKeeper(), llppdrums.getTemplatesFolderPath());
             }
         });
+        if(llppdrums.disableLoad){
+            saveBtn.setEnabled(false);
+        }
 
         //clear
         Button clearBtn = rootView.findViewById(R.id.topClearBtn);

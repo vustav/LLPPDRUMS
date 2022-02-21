@@ -1,4 +1,4 @@
-package com.kiefer.machine.sequence.track.soundManager.events;
+package com.kiefer.machine.sequence.track.soundManager.eventManager.old;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.EventsKeeper;
@@ -10,11 +10,12 @@ import com.kiefer.utils.NmbrUtils;
 import java.util.ArrayList;
 import java.util.Random;
 
-/** Abstract class for the holders of AudioEvents -> SynthEvent and SampleEvent. For now the SoundEvents create and destroy
- * their AudioEvents when they're added/removed from the sequencer. Not sure if this is the best way of doing it.
- * Try to create the AudioEvents when the SoundEvent id created and add/remove them to the sequencer instead if this gets problematic.**/
+/** Abstract class for the holders of AudioEvents -> SynthEvent and SampleEvent.
+ *
+ * The Event-class inside is for the actual Synth or SampleEvents. oscEvents and SmplEvents create
+ * and keep treack of them**/
 
-public abstract class SoundEvents {
+public abstract class EventsOLD {
     protected final LLPPDRUMS llppdrums;
 
     protected float DURATION = 1f;
@@ -25,12 +26,13 @@ public abstract class SoundEvents {
     private final DrumTrack drumTrack;
     protected int step;
 
+    private boolean on = false;
+
     /** ABSTRACT METHODS **/
     public abstract void addEvent(boolean addToSequencer, boolean on);
 
     /** CONSTR **/
-    public SoundEvents(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack, int step){
-
+    public EventsOLD(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack, int step){
         this.llppdrums = llppdrums;
         this.drumSequence = drumSequence;
         this.drumTrack = drumTrack;
@@ -50,7 +52,6 @@ public abstract class SoundEvents {
     }
 
     /** ONOFF **/
-    private boolean on = false;
     public void turnOn(int nOfSteps, int step){
         on = true;
         if(events.size() > 0) {
@@ -125,7 +126,7 @@ public abstract class SoundEvents {
         }
     }
     public void randomizePitch(boolean autoRnd, int sub){
-        events.get(sub).randomizeVol(autoRnd);
+        events.get(sub).randomizePitch(autoRnd);
     }
     public void randomizePitches(boolean autoRnd){
         for(Event e : events){
@@ -135,11 +136,6 @@ public abstract class SoundEvents {
 
     /** GET **/
     public int getNOfSubs(){
-        //Log.e("SoundEvents", "*************************************************");
-        //Log.e("SoundEvents", "getNOfSubs(), trackNo: "+(drumTrack.getTrackNo()));
-        //Log.e("SoundEvents", "getNOfSubs(), stepNo: "+(step));
-        //Log.e("SoundEvents", "getNOfSubs(), events == null: "+(events == null));
-        //Log.e("SoundEvents", "*************************************************");
         return events.size();
     }
 
@@ -179,7 +175,6 @@ public abstract class SoundEvents {
     public boolean getAutoRndVol(int sub){
         return events.get(sub).getAutoRndVol();
     }
-
 
     public float getRndVolMin(int sub) {
         return events.get(sub).getRndVolMin();
@@ -532,7 +527,7 @@ public abstract class SoundEvents {
             this.on = on;
 
             if(on) {
-                if (llppdrums.getDrumMachine().getPlayingSequence() == drumSequence && SoundEvents.this.on) {
+                if (llppdrums.getDrumMachine().getPlayingSequence() == drumSequence && EventsOLD.this.on) {
                     addToSequencer();
                 }
             }

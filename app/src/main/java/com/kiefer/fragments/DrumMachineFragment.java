@@ -209,6 +209,7 @@ public class DrumMachineFragment extends TabFragment {
             }
         });
         rndLayout = rootView.findViewById(R.id.sequenceRndLayout);
+        lockableUI.add(randomizeBtn);
 
         //set up the animation
         FrameLayout layout = rootView.findViewById(R.id.sequenceRandomizeBtnBg);
@@ -284,7 +285,7 @@ public class DrumMachineFragment extends TabFragment {
     public void lockUI(){
         uiLocked = true;
         for(View v : lockableUI){
-            v.setAlpha(.7f);
+            //v.setAlpha(.7f);
             v.setEnabled(false);
         }
     }

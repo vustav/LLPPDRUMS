@@ -1,7 +1,6 @@
 package com.kiefer.machine.sequence.track.soundManager;
 
 import com.kiefer.files.keepers.Keeper;
-import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ import nl.igorski.mwengine.core.BaseInstrument;
 public abstract class SoundSource {
     public abstract void activate();
     public abstract void deactivate();
+    //public abstract void positionEvents(int nOfSteps, int step);
+    //public abstract void randomizePitch(boolean autoRnd, int sub);
 
     /** PLAY **/
     public abstract void playDrum();
@@ -28,7 +29,12 @@ public abstract class SoundSource {
     public abstract void setPan(float pan);
 
     /** GET **/
-    public abstract SoundEvents getSoundEvents(int nOfSteps, int subs, int step, boolean add);
+    /*
+    public SoundEvents getSoundEvents(int nOfSteps, int subs, int step, boolean add){
+        return new SoundEvents(llppdrums, drumSequence, drumTrack, this, nOfSteps, subs, step, add);
+    }
+
+     */
     public abstract ProcessingChain[] getProcessingChains();
     public abstract BaseInstrument getInstrument(int instrNo);
     /*

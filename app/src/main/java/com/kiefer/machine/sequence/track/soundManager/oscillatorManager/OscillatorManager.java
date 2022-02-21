@@ -1,15 +1,11 @@
 package com.kiefer.machine.sequence.track.soundManager.oscillatorManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.OscillatorManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.soundManager.SoundSource;
-import com.kiefer.machine.sequence.track.soundManager.events.OscEvents;
-import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetBass;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHClosed;
@@ -187,11 +183,13 @@ public class OscillatorManager extends SoundSource {
     }
 
     /** GET **/
-
+    /*
     @Override
     public SoundEvents getSoundEvents(int nOfSteps, int subs, int step, boolean add){
         return new OscEvents(llppdrums, drumSequence, drumTrack, this, nOfSteps, subs, step, add);
     }
+
+     */
 
     @Override
     public ProcessingChain[] getProcessingChains(){

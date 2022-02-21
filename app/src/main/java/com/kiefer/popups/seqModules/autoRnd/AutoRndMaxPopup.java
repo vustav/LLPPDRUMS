@@ -1,6 +1,8 @@
 package com.kiefer.popups.seqModules.autoRnd;
 
 import androidx.core.content.ContextCompat;
+
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -55,11 +57,11 @@ public class AutoRndMaxPopup extends Popup {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         seekBar.onTouchEvent(event);
-                        sequenceModule.setAutoRndMax(step, seekBar.getProgress(), 0);
+                        sequenceModule.setAutoRndMax(step, seekBar.getProgress(), sub);
                         break;
                     case MotionEvent.ACTION_UP:
                         seekBar.onTouchEvent(event);
-                        sequenceModule.setAutoRndMax(step, seekBar.getProgress(), 0);
+                        sequenceModule.setAutoRndMax(step, seekBar.getProgress(), sub);
                         iv.setImageDrawable(autoRandomModule.getDrawable(step));
 
                         if(subsPopup != null){

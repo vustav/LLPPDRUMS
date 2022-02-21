@@ -364,7 +364,7 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
     //disable some UI that shouldn't be usable during playback
     public void lockUI(){
         for(View v : lockableUI){
-            v.setAlpha(.7f);
+            //v.setAlpha(.7f);
             v.setEnabled(false);
         }
     }

@@ -53,7 +53,7 @@ public class PanPopup extends Popup {
                     case MotionEvent.ACTION_MOVE:
                         seekBar.onTouchEvent(event);
 
-                        step.setPan(seekBar.getProgress() * 2 - 1);
+                        step.setPan(seekBar.getProgress() * 2 - 1); //this just saves the value, pan is set by the step every tick
                         //engineFacade.setPan(drum);
                         break;
                     case MotionEvent.ACTION_UP:

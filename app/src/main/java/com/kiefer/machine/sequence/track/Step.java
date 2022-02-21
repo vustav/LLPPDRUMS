@@ -3,18 +3,20 @@ package com.kiefer.machine.sequence.track;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.StepKeeper;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
-import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
+import com.kiefer.machine.sequence.track.soundManager.eventManager.StepEventsManager;
 
 import java.util.Random;
 
 public class Step {
     private LLPPDRUMS llppdrums;
     private final DrumTrack drumTrack;
+
     private final SoundManager soundManager;
+    //private Events eventManager;
+    private StepEventsManager stepEventsManager;
 
     private final Random random;
 
-    private SoundEvents soundEvents;
 
     //base prms
     private boolean on;
@@ -26,49 +28,55 @@ public class Step {
         random = new Random();
 
         this.on = on;
-        createEvents(nOfSteps, subs);
+        createEvents(subs);
     }
 
-    private void createEvents(int nOfSteps, int subs){
+
+    private void createEvents(int subs){
 
         int step = getStepNo();
         if (step == -1) {
             step = drumTrack.getSteps().size();
         }
 
-        soundEvents = soundManager.getSoundEvents(nOfSteps, subs, step, on);
+        //events = soundManager.getSoundEvents(nOfSteps, subs, step, on);
+        stepEventsManager = soundManager.getStepEventManager(this, subs);
     }
 
+
+
     public void positionEvents(){
-        soundEvents.positionEvents(drumTrack.getNOfSteps(), getStepNo());
+        //events.positionEvents(drumTrack.getNOfSteps(), getStepNo());
+        stepEventsManager.positionEvents(drumTrack.getNOfSteps());
     }
 
     /** RANDOMIZE **/
     //vars = should the autoRnd variables be used or not??
     public void randomizeOn(boolean autoRnd, int sub) {
-        soundEvents.randomizeOn(autoRnd, sub);
+        stepEventsManager.randomizeOn(autoRnd, sub);
     }
     public void randomizeSubsOn(boolean autoRnd) {
-        soundEvents.randomizeSubsOn(autoRnd);
+        stepEventsManager.randomizeSubsOn(autoRnd);
     }
 
     public void randomizeVol(boolean autoRnd, int sub){
-        soundEvents.randomizeVol(autoRnd, sub);
+        stepEventsManager.randomizeVol(autoRnd, sub);
     }
 
     public void randomizeVols(boolean autoRnd){
-        soundEvents.randomizeVols(autoRnd);
+        stepEventsManager.randomizeVols(autoRnd);
     }
 
     public void randomizePitch(boolean autoRnd, int sub){
-        soundEvents.randomizePitch(autoRnd, sub);
+        //events.randomizePitch(autoRnd, sub);
+        stepEventsManager.randomizePitch(autoRnd, sub);
     }
 
     public void randomizePitches(boolean autoRnd){
-        soundEvents.randomizePitches(autoRnd);
+        stepEventsManager.randomizePitches(autoRnd);
     }
     public void randomizePan(boolean autoRnd){
-        soundEvents.randomizePan(autoRnd);
+        stepEventsManager.randomizePan(autoRnd);
     }
 
     /** GET **/
@@ -77,15 +85,15 @@ public class Step {
     }
 
     public float getVolumeModifier(int sub) {
-        return soundEvents.getVolumeModifier(sub);
+        return stepEventsManager.getVolumeModifier(sub);
     }
 
     public float getPitchModifier(int sub) {
-        return soundEvents.getPitchModifier(sub);
+        return stepEventsManager.getPitchModifier(sub);
     }
 
     public float getPan() {
-        return soundEvents.getPan();
+        return stepEventsManager.getPan();
     }
 
     public int getStepNo() {
@@ -98,97 +106,97 @@ public class Step {
 
     //auto-rnd
     public boolean getAutoRndOn(int sub){
-        return soundEvents.getAutoRndOn(sub);
+        return stepEventsManager.getAutoRndOn(sub);
     }
 
     public boolean getRndOnReturn(int sub) {
-        return soundEvents.getRndOnReturn(sub);
+        return stepEventsManager.getRndOnReturn(sub);
     }
 
     public float getRndOnPerc(int sub) {
-        return soundEvents.getRndOnPerc(sub);
+        return stepEventsManager.getRndOnPerc(sub);
     }
 
     public boolean getAutoRndVol(int sub){
-        return soundEvents.getAutoRndVol(sub);
+        return stepEventsManager.getAutoRndVol(sub);
     }
 
 
     public float getRndVolMin(int sub) {
-        return soundEvents.getRndVolMin(sub);
+        return stepEventsManager.getRndVolMin(sub);
     }
 
     public float getRndVolMax(int sub) {
-        return soundEvents.getRndVolMax(sub);
+        return stepEventsManager.getRndVolMax(sub);
     }
 
     public float getRndVolPerc(int sub) {
-        return soundEvents.getRndVolPerc(sub);
+        return stepEventsManager.getRndVolPerc(sub);
     }
 
     public boolean getRndVolReturn(int sub){
-        return soundEvents.getRndVolReturn(sub);
+        return stepEventsManager.getRndVolReturn(sub);
     }
 
     public boolean getAutoRndPan(){
-        return soundEvents.getAutoRndPan();
+        return stepEventsManager.getAutoRndPan();
     }
 
     public float getRndPanMin() {
-        return soundEvents.getRndPanMin();
+        return stepEventsManager.getRndPanMin();
     }
 
     public float getRndPanMax() {
-        return soundEvents.getRndPanMax();
+        return stepEventsManager.getRndPanMax();
     }
 
     public float getRndPanPerc() {
-        return soundEvents.getRndPanPerc();
+        return stepEventsManager.getRndPanPerc();
     }
 
     public boolean getRndPanReturn(){
-        return soundEvents.getRndPanReturn();
+        return stepEventsManager.getRndPanReturn();
     }
 
     public boolean getAutoRndPitch(int sub){
-        return soundEvents.getAutoRndPitch(sub);
+        return stepEventsManager.getAutoRndPitch(sub);
     }
 
     public float getRndPitchMin(int sub) {
-        return soundEvents.getRndPitchMin(sub);
+        return stepEventsManager.getRndPitchMin(sub);
     }
 
     public float getRndPitchMax(int sub) {
-        return soundEvents.getRndPitchMax(sub);
+        return stepEventsManager.getRndPitchMax(sub);
     }
 
     public float getRndPitchPerc(int sub) {
-        return soundEvents.getRndPitchPerc(sub);
+        return stepEventsManager.getRndPitchPerc(sub);
     }
 
     public boolean getRndPitchReturn(int sub){
-        return soundEvents.getRndPitchReturn(sub);
+        return stepEventsManager.getRndPitchReturn(sub);
     }
 
     public int getNofSubs(){
-        return soundEvents.getNOfSubs();
+        return stepEventsManager.getNOfSubs();
     }
 
     public boolean isSubOn(int sub){
-        return soundEvents.isSubOn(sub);
+        return stepEventsManager.isSubOn(sub);
     }
 
     public float getSubVol(int sub){
-        return soundEvents.getVolumeModifier(sub);
+        return stepEventsManager.getVolumeModifier(sub);
     }
 
     public float getSubPitch(int sub){
-        return soundEvents.getPitchModifier(sub);
+        return stepEventsManager.getPitchModifier(sub);
     }
 
     /** SET **/
     public void setNOfSubs(int steps, int subs){
-        soundEvents.setNOfSubs(steps, subs, on);
+        stepEventsManager.setNOfSubs(steps, subs, on);
         positionEvents();
     }
 
@@ -198,63 +206,66 @@ public class Step {
 
         if (on && !wasOn) {
             //addToSequencer(drumTrack.getNOfSteps());
-            soundEvents.turnOn(drumTrack.getNOfSteps(), getStepNo());
+            stepEventsManager.turnOn(drumTrack.getNOfSteps(), getStepNo());
         }
         else if (!on && wasOn) {
-            soundEvents.turnOff();
+            stepEventsManager.turnOff();
         }
     }
 
     public void setSubOn(int sub, boolean on){
-        soundEvents.setSubOn(sub, on);
+        stepEventsManager.setSubOn(sub, on);
     }
 
-    public void updateEventSound(){
+    public void updateEventSamples(){
         //if(on) {
-            soundEvents.updateSound();
+        stepEventsManager.updateSamples();
         //}
     }
 
+    /*
     public void recreateEvent(){
-        soundEvents.deleteEvents();
+        events.deleteEvents();
         createEvents(drumTrack.getNOfSteps(), drumTrack.getNOfSubs());
     }
 
+     */
+
     //vol
     public void setVolumeModifier(float modifier, int sub){
-        soundEvents.setVolumeModifier(modifier, sub);
+        stepEventsManager.setVolumeModifier(modifier, sub);
         //volumeModifier = modifier;
         //updateEventVolume();
     }
 
     public void updateEventVolumes(){
-        soundEvents.updateEventVolume();
+        stepEventsManager.updateEventVolume();
         //soundEvents.setVolume(drumTrack.getTrackVolume() * getVolumeModifier());
     }
 
     //pitch
     public void setPitchModifier(float modifier, int sub){
-        soundEvents.setPitchModifier(modifier, sub);
+        stepEventsManager.setPitchModifier(modifier, sub);
         //pitchModifier = modifier;
         //updateEventPitches();
     }
 
     public void updateEventPitches(){
         //soundEvents.setPitch(getConvertedPitchModifier());
-        soundEvents.updateEventPitches();
+        stepEventsManager.updateEventPitches();
     }
-/*
-    private float getConvertedPitchModifier(){
-        // pitchModifier in drum is a float 0-1, change to a corresponding value between .5 and 2 (octave down to octave up)
-        float minPitchModifier = .5f;
-        float maxPitchModifier = 2f;
-        return  getPitchModifier() * (maxPitchModifier - minPitchModifier) + minPitchModifier;
-    }
+    /*
+        private float getConvertedPitchModifier(){
+            // pitchModifier in drum is a float 0-1, change to a corresponding value between .5 and 2 (octave down to octave up)
+            float minPitchModifier = .5f;
+            float maxPitchModifier = 2f;
+            return  getPitchModifier() * (maxPitchModifier - minPitchModifier) + minPitchModifier;
+        }
 
- */
+     */
     public void setPan(float pan){
         //Log.e("Step", "set pan: "+pan);
-        soundEvents.setPan(pan);
+        stepEventsManager.setPan(pan);
     }
 
     //autorandom
@@ -266,12 +277,12 @@ public class Step {
      */
 
     public void setRndOnPerc(float rndOnPerc, int sub) {
-        soundEvents.setRndOnPerc(rndOnPerc, sub);
+        stepEventsManager.setRndOnPerc(rndOnPerc, sub);
         //this.rndOnPerc = rndOnPerc;
     }
 
     public void setRndOnReturn(boolean rndOnReturn, int sub) {
-        soundEvents.setRndOnReturn(rndOnReturn, sub);
+        stepEventsManager.setRndOnReturn(rndOnReturn, sub);
         //this.rndOnReturn = rndOnReturn;
     }
 /*
@@ -282,22 +293,22 @@ public class Step {
  */
 
     public void setRndVolMin(float rndVolMin, int sub) {
-        soundEvents.setRndVolMin(rndVolMin, sub);
+        stepEventsManager.setRndVolMin(rndVolMin, sub);
         //this.rndVolMin = rndVolMin;
     }
 
     public void setRndVolMax(float rndVolMax, int sub) {
-        soundEvents.setRndVolMax(rndVolMax, sub);
+        stepEventsManager.setRndVolMax(rndVolMax, sub);
         //this.rndVolMax = rndVolMax;
     }
 
     public void setRndVolPerc(float rndVolPerc, int sub) {
-        soundEvents.setRndVolPerc(rndVolPerc, sub);
+        stepEventsManager.setRndVolPerc(rndVolPerc, sub);
         //this.rndVolPerc = rndVolPerc;
     }
 
     public void setRndVolReturn(boolean rndVolReturn, int sub) {
-        soundEvents.setRndVolReturn(rndVolReturn, sub);
+        stepEventsManager.setRndVolReturn(rndVolReturn, sub);
         //this.rndVolReturn = rndVolReturn;
     }
 /*
@@ -308,22 +319,22 @@ public class Step {
  */
 
     public void setRndPitchMin(float rndPitchMin, int sub) {
-        soundEvents.setRndPitchMin(rndPitchMin, sub);
+        stepEventsManager.setRndPitchMin(rndPitchMin, sub);
         //this.rndPitchMin = rndPitchMin;
     }
 
     public void setRndPitchMax(float rndPitchMax, int sub) {
-        soundEvents.setRndPitchMax(rndPitchMax, sub);
+        stepEventsManager.setRndPitchMax(rndPitchMax, sub);
         //this.rndPitchMax = rndPitchMax;
     }
 
     public void setRndPitchPerc(float rndVolPerc, int sub) {
-        soundEvents.setRndPitchPerc(rndVolPerc, sub);
+        stepEventsManager.setRndPitchPerc(rndVolPerc, sub);
         //this.rndPitchPerc = rndVolPerc;
     }
 
     public void setRndPitchReturn(boolean rndVolReturn, int sub) {
-        soundEvents.setRndPitchReturn(rndVolReturn, sub);
+        stepEventsManager.setRndPitchReturn(rndVolReturn, sub);
         //this.rndPitchReturn = rndVolReturn;
     }
 /*
@@ -334,22 +345,22 @@ public class Step {
  */
 
     public void setRndPanMin(float rndPitchMin) {
-        soundEvents.setRndPanMin(rndPitchMin);
+        stepEventsManager.setRndPanMin(rndPitchMin);
         //this.rndPanMin = rndPitchMin;
     }
 
     public void setRndPanMax(float rndVolMax) {
-        soundEvents.setRndPanMax(rndVolMax);
+        stepEventsManager.setRndPanMax(rndVolMax);
         //this.rndPanMax = rndVolMax;
     }
 
     public void setRndPanPerc(float rndVolPerc) {
-        soundEvents.setRndPanPerc(rndVolPerc);
+        stepEventsManager.setRndPanPerc(rndVolPerc);
         //this.rndPanPerc = rndVolPerc;
     }
 
     public void setRndPanReturn(boolean rndVolReturn) {
-        soundEvents.setRndPanReturn(rndVolReturn);
+        stepEventsManager.setRndPanReturn(rndVolReturn);
         //this.rndPanReturn = rndVolReturn;
     }
 
@@ -401,26 +412,26 @@ public class Step {
     /** RESET **/
     public void reset(){
         setOn(false);
-        soundEvents.reset();
+        stepEventsManager.reset();
     }
 
     /** RESTORATION **/
     public void restore(StepKeeper k){
         setOn(k.on);
-        soundEvents.restore(k.soundEventsKeeper);
+        stepEventsManager.restore(k.soundEventsKeeper);
     }
 
     public StepKeeper getKeeper(){
         StepKeeper keeper = new StepKeeper();
 
         keeper.on = isOn();
-        keeper.soundEventsKeeper = soundEvents.getKeeper();
+        keeper.soundEventsKeeper = stepEventsManager.getKeeper();
         return keeper;
     }
 
     /** DESTRUCTION **/
     public void destroy(){
-        soundEvents.destroy();
+        stepEventsManager.destroy();
     }
 }
 

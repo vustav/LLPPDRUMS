@@ -1,4 +1,4 @@
-package com.kiefer.machine.sequence.track.soundManager.events;
+package com.kiefer.machine.sequence.track.soundManager.eventManager.old;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.EventsKeeper;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import nl.igorski.mwengine.core.SynthEvent;
 import nl.igorski.mwengine.core.SynthInstrument;
 
-public class OscEvents extends SoundEvents {
+public class OscEventsOLD extends EventsOLD {
     private final OscillatorManager oscillatorManager;
     //private ArrayList<SnthEvent> events;
 
-    public OscEvents(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack, OscillatorManager oscillatorManager, int nOfSteps, int subs, int step, boolean addToSequencer) {
+    public OscEventsOLD(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack, OscillatorManager oscillatorManager, int nOfSteps, int subs, int step, boolean addToSequencer) {
         super(llppdrums, drumSequence, drumTrack, step);
         this.oscillatorManager = oscillatorManager;
 

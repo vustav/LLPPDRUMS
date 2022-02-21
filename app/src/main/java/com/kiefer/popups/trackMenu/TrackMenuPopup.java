@@ -82,6 +82,10 @@ public class TrackMenuPopup extends Popup {
         });
         subBtn.setText(Integer.toString(drumMachine.getSelectedSequence().getTracks().get(trackNo).getNOfSubs()));
 
+        if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence() && llppdrums.getEngineFacade().isPlaying()){
+            subBtn.setEnabled(false);
+        }
+
         //auto step
         Button autoStepBtn = popupView.findViewById(R.id.sequencerTrackAutoStepBtn);
 
@@ -153,7 +157,6 @@ public class TrackMenuPopup extends Popup {
             }
         });
         if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence() && llppdrums.getEngineFacade().isPlaying()){
-            removeBtn.setAlpha(.7f);
             removeBtn.setEnabled(false);
         }
 

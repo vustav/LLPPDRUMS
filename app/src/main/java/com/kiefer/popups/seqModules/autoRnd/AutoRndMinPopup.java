@@ -56,11 +56,11 @@ public class AutoRndMinPopup extends Popup {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         seekBar.onTouchEvent(event);
-                        sequenceModule.setAutoRndMin(step, seekBar.getProgress(), 0);
+                        sequenceModule.setAutoRndMin(step, seekBar.getProgress(), sub);
                         break;
                     case MotionEvent.ACTION_UP:
                         seekBar.onTouchEvent(event);
-                        sequenceModule.setAutoRndMin(step, seekBar.getProgress(), 0);
+                        sequenceModule.setAutoRndMin(step, seekBar.getProgress(), sub);
                         iv.setImageDrawable(autoRandomModule.getDrawable(step));
 
                         if(subsPopup != null){

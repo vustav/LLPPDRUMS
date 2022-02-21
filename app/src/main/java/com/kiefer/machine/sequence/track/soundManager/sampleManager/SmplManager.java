@@ -5,8 +5,6 @@ import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.SampleManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
-import com.kiefer.machine.sequence.track.soundManager.events.SmplEvents;
-import com.kiefer.machine.sequence.track.soundManager.events.SoundEvents;
 import com.kiefer.machine.sequence.track.soundManager.SoundSource;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategory;
@@ -106,7 +104,7 @@ public class SmplManager extends SoundSource {
                 selectedCategory.randomizeSample();
 
                 //drumTrack.setName(selectedCategory.getSelectedSample().getName());
-                drumTrack.updateEventSounds();
+                drumTrack.updateEventSamples();
                 updateLiveEvent();
             }
         }
@@ -114,7 +112,7 @@ public class SmplManager extends SoundSource {
 
     public void setSample(int i){
         selectedCategory.setSelectedSample(i);
-        drumTrack.updateEventSounds();
+        drumTrack.updateEventSamples();
         updateLiveEvent();
     }
 
@@ -132,6 +130,7 @@ public class SmplManager extends SoundSource {
     /** SET **/
     @Override
     public void setPan(float pan){
+        //Log.e("asd", "pan: "+pan);
         sampledInstrument.getAudioChannel().setPan(pan);
     }
 
@@ -140,10 +139,13 @@ public class SmplManager extends SoundSource {
         return selectedCategory;
     }
 
+    /*
     @Override
     public SoundEvents getSoundEvents(int nOfSteps, int subs, int step, boolean add){
         return new SmplEvents(llppdrums, drumSequence, drumTrack, this, nOfSteps, subs, step, add);
     }
+
+     */
 
     @Override
     public ProcessingChain[] getProcessingChains(){

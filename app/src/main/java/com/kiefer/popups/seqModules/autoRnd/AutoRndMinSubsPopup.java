@@ -5,7 +5,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.graphics.AutoRndSliderSubsDrawable;
+import com.kiefer.graphics.SubsSliderDrawable;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandomModule;
 import com.kiefer.machine.sequence.track.Step;
@@ -31,6 +31,6 @@ public class AutoRndMinSubsPopup extends SubsPopup {
 
     @Override
     public void setSubLayout(FrameLayout layout, Step step, int sub){
-        layout.setBackground(new AutoRndSliderSubsDrawable(llppdrums, ((step.isOn() && step.isSubOn(sub)) || step.getAutoRndOn(sub)) && sequenceModule.getAutoRndOn(step, sub), sequenceModule.getAutoRndMin(step, sub)));
+        layout.setBackground(new SubsSliderDrawable(llppdrums, ((step.isOn() && step.isSubOn(sub)) || step.getAutoRndOn(sub)) && sequenceModule.getAutoRndOn(step, sub), sequenceModule.getAutoRndMin(step, sub)));
     }
 }

@@ -73,11 +73,11 @@ public class Oscillator {
     /** ACTIVATION **/
     public void activate(){
         //Log.e("OSC", "activate(), on: "+on);
-        if(on) {
+        //if(on) {
             //if(synthInstrument.getAudioChannel().getMuted()) {
                 synthInstrument.getAudioChannel().setMuted(false);
             //}
-        }
+        //}
 
     }
     public void deactivate(){

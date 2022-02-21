@@ -9,7 +9,7 @@ import android.widget.PopupWindow;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.graphics.AutoRndSliderSubsDrawable;
+import com.kiefer.graphics.SubsSliderDrawable;
 import com.kiefer.popups.Popup;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 
@@ -79,7 +79,7 @@ public class RndSeqManagerPercSubPopup extends Popup {
     public void setSubLayout(FrameLayout layout, RndSeqPresetTrack.Step step, int sub){
         //boolean on = (step.isOn() && step.isSubOn(sub)) || step.getAutoRndOn(sub) || sequenceModule instanceof OnOff;
         //layout.setBackground(new AutoRndSliderSubsDrawable(llppdrums, on, sequenceModule.getAutoRndPerc(step, sub)));
-        int color = R.color.rndSeqPercColor;
-        layout.setBackground(new AutoRndSliderSubsDrawable(llppdrums, true, step.getSubPerc(sub), color));
+        //int color = R.color.rndSeqPercColor;
+        layout.setBackground(new SubsSliderDrawable(llppdrums, true, step.getSubPerc(sub), SubsSliderDrawable.BLUE));
     }
 }

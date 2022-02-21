@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
-import com.kiefer.graphics.AutoRndRtrnSubsDrawable;
+import com.kiefer.graphics.SubsBoolDrawable;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.popups.Popup;
@@ -49,7 +49,7 @@ public class AutoRandomReturn extends AutoRandomModuleBool{
             subsOn[i] = ((step.isOn() && step.isSubOn(i)) || step.getAutoRndOn(i)) && sequenceModule.getAutoRndOn(step, i); //maybe introduce a third color here to show if it's doing anything (like grey in the others)
             subsValue[i] = sequenceModule.getAutoRndReturn(step, i);
         }
-        return new AutoRndRtrnSubsDrawable(llppdrums, subsOn, subsValue);
+        return new SubsBoolDrawable(llppdrums, subsOn, subsValue);
     }
 
     @Override

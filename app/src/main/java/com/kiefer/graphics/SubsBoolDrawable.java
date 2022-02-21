@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 
-public class AutoRndRtrnSubsDrawable extends Drawable {
+public class SubsBoolDrawable extends Drawable {
     private final LLPPDRUMS llppdrums;
     private final Paint shapePaint;
     private final Paint bgPaint;
@@ -17,7 +17,7 @@ public class AutoRndRtrnSubsDrawable extends Drawable {
     private Boolean[] subsOn;
     private Boolean[] subsValue;
 
-    public AutoRndRtrnSubsDrawable(LLPPDRUMS llppdrums, Boolean[] subsOn, Boolean[] subsValue) {
+    public SubsBoolDrawable(LLPPDRUMS llppdrums, Boolean[] subsOn, Boolean[] subsValue) {
         this.llppdrums = llppdrums;
         this.subsOn = subsOn;
         this.subsValue = subsValue;

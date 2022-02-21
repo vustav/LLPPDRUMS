@@ -60,9 +60,6 @@ public class EngineFacade {
         init(tempo, nOfSteps, driver);
     }
 
-
-
-
     int sequencerPosition;
 
     /** SETUP **/
@@ -219,7 +216,7 @@ public class EngineFacade {
 
     public void setDriver(String selectedValue){
         //String selectedValue = parent.getItemAtPosition(pos).toString();
-        Log.e("..ineFacade.setDriver()", selectedValue);
+        //Log.e("..ineFacade.setDriver()", selectedValue);
         //_audioDriver = selectedValue.toLowerCase().equals(drivers[0]) ? Drivers.types.AAUDIO : Drivers.types.OPENSL;
 
         if(selectedValue.equals(drivers[0])){

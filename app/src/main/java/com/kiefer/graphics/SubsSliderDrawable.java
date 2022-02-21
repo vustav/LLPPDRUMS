@@ -5,11 +5,17 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.utils.ColorUtils;
 
-public class AutoRndSliderSubsDrawable extends Drawable {
+public class SubsSliderDrawable extends Drawable {
+
+    /** Suddenly passing actual colors here stopped working and they became transparent so having another color than green requires adding them here **/
+    public final static int BLUE = 0, GREEN = 1;
+
     private final LLPPDRUMS llppdrums;
     private final int color;
     private final Paint shapePaint;
@@ -18,18 +24,18 @@ public class AutoRndSliderSubsDrawable extends Drawable {
     private Boolean[] subsOn;
     private Float[] subsValue;
 
-    public AutoRndSliderSubsDrawable(LLPPDRUMS llppdrums, boolean on, float value) {
-        this(llppdrums, new Boolean[]{on}, new Float[]{value}, R.color.volPopupBarColorLow);
+    public SubsSliderDrawable(LLPPDRUMS llppdrums, boolean on, float value) {
+        this(llppdrums, new Boolean[]{on}, new Float[]{value}, GREEN);
     }
 
-    public AutoRndSliderSubsDrawable(LLPPDRUMS llppdrums, boolean on, float value, int color) {
+    public SubsSliderDrawable(LLPPDRUMS llppdrums, boolean on, float value, int color) {
         this(llppdrums, new Boolean[]{on}, new Float[]{value}, color);
     }
 
-    public AutoRndSliderSubsDrawable(LLPPDRUMS llppdrums, Boolean[] subsOn, Float[] subsValue) {
-        this(llppdrums, subsOn, subsValue, R.color.volPopupBarColorLow);
+    public SubsSliderDrawable(LLPPDRUMS llppdrums, Boolean[] subsOn, Float[] subsValue) {
+        this(llppdrums, subsOn, subsValue, GREEN);
     }
-    public AutoRndSliderSubsDrawable(LLPPDRUMS llppdrums, Boolean[] subsOn, Float[] subsValue, int color) {
+    public SubsSliderDrawable(LLPPDRUMS llppdrums, Boolean[] subsOn, Float[] subsValue, int color) {
         this.llppdrums = llppdrums;
         this.color = color;
         this.subsOn = subsOn;
@@ -55,11 +61,18 @@ public class AutoRndSliderSubsDrawable extends Drawable {
         for(int i = 0; i < subs; i++){
 
             if(subsOn[i]) {
-                shapePaint.setColor(color);
+                //shapePaint.setColor(color);
+                if(color == GREEN) {
+                    shapePaint.setColor(llppdrums.getResources().getColor(R.color.volPopupBarColorLow));
+                }
+                else if (color == BLUE) {
+                    shapePaint.setColor(llppdrums.getResources().getColor(R.color.rndSeqPercColor));
+                }
             }
             else{
                 shapePaint.setColor(llppdrums.getResources().getColor(R.color.sequencerInactiveStepColor));
             }
+            //
 
             //draw it
             canvas.drawRect(offset, 0, drawableWidth + offset, height-(height * subsValue[i]), bgPaint);

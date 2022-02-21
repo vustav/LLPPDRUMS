@@ -13,6 +13,7 @@ import com.kiefer.graphics.customViews.CSeekBar;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.sequenceModules.Volume;
 import com.kiefer.popups.Popup;
+import com.kiefer.utils.ColorUtils;
 
 public class VolPopup extends Popup {
     private CSeekBar seekBar;
@@ -25,8 +26,14 @@ public class VolPopup extends Popup {
     public VolPopup(final LLPPDRUMS llppdrums, final Volume volume, final ImageView iv, final Step step, int sub, VolSubsPopup volSubPopup, FrameLayout subLayout){
         super(llppdrums);
 
+        FrameLayout popupView = new FrameLayout(llppdrums);
+        int padding = (int) llppdrums.getResources().getDimension(R.dimen.defaultBtnPadding);
+        popupView.setPadding(padding, padding, padding, padding);
+        popupView.setBackgroundColor(ColorUtils.getRandomColor());
+
         //inflate the View
-        final FrameLayout popupView = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.popup_seek_bar, null);
+        final FrameLayout frameLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.popup_seek_bar, null);
+        popupView.addView(frameLayout);
 
         //create the popupWindow
         int width = 200;
@@ -41,7 +48,7 @@ public class VolPopup extends Popup {
         seekBar.setThumb(false);
 
         int shapeColor = R.color.popupBarColor;
-        if(!step.isOn()){
+        if(!step.isSubOn(sub)){
             shapeColor = R.color.sequencerInactiveStepColor;
         }
 
@@ -79,7 +86,7 @@ public class VolPopup extends Popup {
         };
         seekBar.setOnTouchListener(onTouchListener);
         seekBar.setProgress(step.getVolumeModifier(sub));
-        popupView.addView(seekBar);
+        frameLayout.addView(seekBar);
         popupWindow.showAsDropDown(iv, -100, -200);
     }
 

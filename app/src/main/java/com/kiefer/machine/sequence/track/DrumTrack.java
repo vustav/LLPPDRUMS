@@ -146,10 +146,12 @@ public class DrumTrack implements Subilizer {
     @Override
     public void setNOfSubs(int track, int nOfSubs){
         this.nOfSubs = nOfSubs;
-        for(Step d : steps){
-            d.setNOfSubs(getNOfSteps(), nOfSubs);
+        //llppdrums.getEngineFacade().pauseSequencer();
+        for(Step s : steps){
+            s.setNOfSubs(getNOfSteps(), nOfSubs);
         }
         positionDrums();
+        //llppdrums.getEngineFacade().playSequencer();
 
         if(llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
             llppdrums.getSequencer().notifyDataSetChange();
@@ -474,17 +476,20 @@ public class DrumTrack implements Subilizer {
         }
     }
 
-    public void updateEventSounds(){
+    public void updateEventSamples(){
         for (Step d : steps){
-            d.updateEventSound();
+            d.updateEventSamples();
         }
     }
 
+    /*
     public void recreateEvents(){
         for (Step d : steps){
             d.recreateEvent();
         }
     }
+
+     */
 
     //pitch
     public void setOscillatorPitch(int oscNo, int pitch){

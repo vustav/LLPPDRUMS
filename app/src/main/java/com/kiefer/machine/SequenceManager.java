@@ -117,7 +117,6 @@ public class SequenceManager {
 
             if(keeper != null){
                 setStepSelection(step, (keeper.seqs.get(step)));
-
             }
             else{
                 if(step % 2 == 0 && step != 0){
