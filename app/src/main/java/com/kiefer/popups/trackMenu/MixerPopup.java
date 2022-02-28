@@ -70,11 +70,13 @@ public class MixerPopup extends Popup {
 
          */
 
+        float volMultiplier = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
+
         //and the vol slider
         final CSeekBar volSlider = new CSeekBar(llppdrums, CSeekBar.VERTICAL_DOWN_UP);
         volSlider.setThumb(false);
         volSlider.setColors(ContextCompat.getColor(llppdrums, R.color.popupBarColor), ContextCompat.getColor(llppdrums, R.color.popupBarBg));
-        volSlider.setProgress(drumTrack.getTrackVolume());
+        volSlider.setProgress(drumTrack.getTrackVolume() / volMultiplier);
         volSlider.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -82,13 +84,10 @@ public class MixerPopup extends Popup {
                     case MotionEvent.ACTION_DOWN:
                         volSlider.onTouchEvent(event);
                         break;
-                    case MotionEvent.ACTION_MOVE:
-                        volSlider.onTouchEvent(event);
-                        drumTrack.setTrackVolume(volSlider.getProgress());
-                        break;
+                    case MotionEvent.ACTION_MOVE: //utan break hoppar den till nästa
                     case MotionEvent.ACTION_UP:
                         volSlider.onTouchEvent(event);
-                        drumTrack.setTrackVolume(volSlider.getProgress());
+                        drumTrack.setTrackVolume(volSlider.getProgress() * volMultiplier);
                         break;
                 }
                 return true;

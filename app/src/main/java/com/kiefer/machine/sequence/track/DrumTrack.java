@@ -100,9 +100,9 @@ public class DrumTrack implements Subilizer {
 
         setupSteps(steps);
 
-        //randomizeTrackParams();
-        //randomizePan();
-        randomizeVol(.5f, .8f);
+        float maxVol = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
+        randomizeVol(maxVol / 2, maxVol - maxVol / 10);
+        //setTrackVolume(1);
     }
 
     private void setupSteps(int steps){
@@ -137,7 +137,7 @@ public class DrumTrack implements Subilizer {
         step.destroy();
     }
 
-    public void positionDrums(){
+    public void positionEvents(){
         for(Step d : steps){
             d.positionEvents();
         }
@@ -146,12 +146,10 @@ public class DrumTrack implements Subilizer {
     @Override
     public void setNOfSubs(int track, int nOfSubs){
         this.nOfSubs = nOfSubs;
-        //llppdrums.getEngineFacade().pauseSequencer();
         for(Step s : steps){
-            s.setNOfSubs(getNOfSteps(), nOfSubs);
+            s.setNOfSubs(nOfSubs);
         }
-        positionDrums();
-        //llppdrums.getEngineFacade().playSequencer();
+        //positionEvents();
 
         if(llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
             llppdrums.getSequencer().notifyDataSetChange();
@@ -169,7 +167,8 @@ public class DrumTrack implements Subilizer {
     /** RANDOMIZATION **/
 
     public void randomizeVol(){
-        randomizeVol(0, .8f);
+        float maxVol = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
+        randomizeVol(0, maxVol);
     }
 
     public void randomizeVol(float min, float max){
@@ -194,11 +193,6 @@ public class DrumTrack implements Subilizer {
 
     public void deactivate(){
         soundManager.deactivate();
-    }
-
-    public void reactivate(){
-        deactivate();
-        activate();
     }
 
     /** TRANSPORT **/
@@ -311,7 +305,7 @@ public class DrumTrack implements Subilizer {
 
         //we need to reactivate here since the drums hasn't moved their events, only moved in the list in DrumTrack
         //reactivate();
-        positionDrums();
+        positionEvents();
     }
 
     public void pushRight(int interval){
@@ -384,7 +378,7 @@ public class DrumTrack implements Subilizer {
         //tell the engine about the shuffle
         //engineFacade.rearrangeDrums(trackId, drums);
         //reactivate();
-        positionDrums();
+        positionEvents();
     }
 
     public void setSubVolume(int step, float volume, int sub){
@@ -461,6 +455,8 @@ public class DrumTrack implements Subilizer {
     //vol
     public void setTrackVolume(float vol){
         trackVolume = vol;
+
+        //Log.e("DrumTrack", "setTrackVolume(): "+(trackVolume));
         updateDrumVolumes();
         //oscillatorManager.setTrackVolume(vol);
     }
@@ -481,15 +477,6 @@ public class DrumTrack implements Subilizer {
             d.updateEventSamples();
         }
     }
-
-    /*
-    public void recreateEvents(){
-        for (Step d : steps){
-            d.recreateEvent();
-        }
-    }
-
-     */
 
     //pitch
     public void setOscillatorPitch(int oscNo, int pitch){

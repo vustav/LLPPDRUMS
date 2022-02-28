@@ -1,19 +1,31 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager.event;
 
+import android.util.Log;
+
 import com.kiefer.files.keepers.soundSources.EventsKeeper;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.track.soundManager.eventManager.Sub;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
 
+import java.util.Random;
+
 import nl.igorski.mwengine.core.SynthEvent;
 import nl.igorski.mwengine.core.SynthInstrument;
 
 public class SnthEvent extends Event{
-    private OscillatorManager oscillatorManager;
-    private SynthEvent[] events;
+    private final OscillatorManager oscillatorManager;
+    private final SynthEvent[] events;
+    private final Step step;
+    private final Sub sub;
 
     public SnthEvent(Step step, Sub sub, OscillatorManager oscillatorManager){
         this.oscillatorManager = oscillatorManager;
+        this.step = step;
+        this.sub = sub;
+
+        if(step.getStepNo() == 0) {
+            //Log.e("SnthEvent", "constr");
+        }
 
         events = new SynthEvent[oscillatorManager.getOscillators().length];
         for (int oscNo = 0; oscNo < oscillatorManager.getOscillators().length; oscNo++) {
@@ -21,13 +33,29 @@ public class SnthEvent extends Event{
             events[oscNo] = event;
         }
 
+        /*
         if(step.isOn() && sub.isOn()){
             addToSequencer();
+        }
+
+        calculateBuffers();
+
+         */
+    }
+
+    private void calculateBuffers(){
+        for (SynthEvent event : events) {
+            event.calculateBuffers();
         }
     }
 
     @Override
     public void addToSequencer(){
+        if(step.getStepNo() == 0) {
+            Log.e("SnthEvent", "addToSequencer(), sub: "+sub.getIndex());
+        }
+        //Random r = new Random();
+        //Log.e("Snth", "add"+r.nextInt());
         for (SynthEvent event : events) {
             event.addToSequencer();
         }
@@ -45,6 +73,7 @@ public class SnthEvent extends Event{
         for (SynthEvent event : events) {
             event.setEventStart(posInSamples);
         }
+        //calculateBuffers();
 
         //event[oscNo].invalidateProperties(step, DURATION, (SynthInstrument)oscillatorManager.getInstrument(oscNo));
         //event[oscNo].setEventStart(posInSamples);

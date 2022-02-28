@@ -1,5 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -12,7 +14,10 @@ import com.kiefer.utils.NmbrUtils;
 import java.util.ArrayList;
 import java.util.Random;
 
-/** every step has an eventManager that manages both Synth and SampleEvents **/
+/** Each Step creates a StepEventManager that holds events (both Sample and Synth with one of them being muted) for all the Subs.
+ * The events are added removed from the sequencer when OnOff is clicked, but never deleted unless the track is deleted. All
+ * tracks that aren't supposed to be playing are muted. Their events are still in the sequencer, but since their instruments
+ * are muted they won't play and doesn't impact performance in any way (other than memory)**/
 
 public class StepEventsManager {
     private final LLPPDRUMS llppdrums;
@@ -50,45 +55,22 @@ public class StepEventsManager {
         rndPanReturn = false;
     }
 
-    /** ONOFF **/
-    public void turnOn(int nOfSteps, int step){
-        //on = true;
-
+    /** ONOFF STEP **/
+    //these are for steps, so don't use setSubOn() since it will turn off the sub
+    public void turnOn(){
         for(int sub = 0; sub < subs.size(); sub++){
-            setSubOn(sub, true);
+            boolean on = subs.get(sub).isOn(); //subs can still be on even if the step is off, turn them back on if so
+            subs.get(sub).addToSequencer(on);
         }
-        /*
-        if(subs.size() > 0) {
-            for(Sub s : subs) {
-                if(step.is()) {
-                    s.addToSequencer();
-                }
-            }
-        }
-
-         */
     }
 
     public void turnOff(){
-
-
         for(int sub = 0; sub < subs.size(); sub++){
-            setSubOn(sub, false);
+            subs.get(sub).addToSequencer(false);
         }
-        //on = false;
-        /*
-        if(subs != null) {
-            for (Sub s : subs) {
-                if (s != null) {
-                    // behövs if(se.on)??
-                    s.removeFromSequencer();
-                }
-            }
-        }
-
-         */
     }
 
+    /** ONOFF SUB **/
     public void setSubOn(int sub, boolean on){
         subs.get(sub).setOn(on);
     }
@@ -108,21 +90,29 @@ public class StepEventsManager {
     private void createSubs(int nOfSubs){
         subs = new ArrayList<>();
         for(int i = 0; i<nOfSubs; i++){
-            addSub();
+            if(nOfSubs == 1) {
+                addSub(true);
+            }
+            else{
+                addSub(false);
+            }
         }
     }
 
-    private void addSub(){
-        subs.add(new Sub(llppdrums, drumSequence, drumTrack, soundManager, step));
+    private void addSub(boolean guaranteeOn){
+        subs.add(new Sub(llppdrums, drumSequence, drumTrack, soundManager, this, step, guaranteeOn));
     }
 
-    public void setNOfSubs(int nOfSteps, int nOfSubs, boolean addToSequencer){
-        Random r = new Random();
+    public void setNOfSubs(int nOfSubs){
         while (subs.size() < nOfSubs) {
-            addSub();
+            addSub(false);
         }
         while (subs.size() > nOfSubs){
             deleteSub();
+        }
+
+        if(subs.size() == 1){
+            setSubOn(0, true);
         }
     }
 
@@ -264,6 +254,10 @@ public class StepEventsManager {
     }
 
     /** GET **/
+    public ArrayList<Sub> getSubs(){
+        return subs;
+    }
+
     public int getNOfSubs(){
         return subs.size();
     }

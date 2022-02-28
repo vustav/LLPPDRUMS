@@ -1,11 +1,18 @@
 package com.kiefer.machine.sequence.track;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.StepKeeper;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
 import com.kiefer.machine.sequence.track.soundManager.eventManager.StepEventsManager;
 
 import java.util.Random;
+
+/** Each Step creates a StepEventManager that holds events (both Sample and Synth with one of them being muted) for all the Subs.
+ * The events are added removed from the sequencer when OnOff is clicked, but never deleted unless the track is deleted. All
+ * tracks that aren't supposed to be playing are muted. Their events are still in the sequencer, but since their instruments
+ * are muted they won't play and doesn't impact performance in any way (other than memory)**/
 
 public class Step {
     private LLPPDRUMS llppdrums;
@@ -33,13 +40,6 @@ public class Step {
 
 
     private void createEvents(int subs){
-
-        int step = getStepNo();
-        if (step == -1) {
-            step = drumTrack.getSteps().size();
-        }
-
-        //events = soundManager.getSoundEvents(nOfSteps, subs, step, on);
         stepEventsManager = soundManager.getStepEventManager(this, subs);
     }
 
@@ -195,8 +195,8 @@ public class Step {
     }
 
     /** SET **/
-    public void setNOfSubs(int steps, int subs){
-        stepEventsManager.setNOfSubs(steps, subs, on);
+    public void setNOfSubs(int subs){
+        stepEventsManager.setNOfSubs(subs);
         positionEvents();
     }
 
@@ -206,7 +206,7 @@ public class Step {
 
         if (on && !wasOn) {
             //addToSequencer(drumTrack.getNOfSteps());
-            stepEventsManager.turnOn(drumTrack.getNOfSteps(), getStepNo());
+            stepEventsManager.turnOn();
         }
         else if (!on && wasOn) {
             stepEventsManager.turnOff();

@@ -50,4 +50,7 @@
 
     <!-- SEQUENCER -->
     <integer name="seqStepPopupTimer">100</integer>
+
+    <!-- MIXER -->
+    <integer name="maxVol">10</integer>
 </resources>

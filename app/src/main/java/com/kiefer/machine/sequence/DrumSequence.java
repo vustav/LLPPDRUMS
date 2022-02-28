@@ -358,7 +358,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         //create the drums for the step (the drum adds itself to the sequencer if this sequence is selected)
         for (DrumTrack drumTrack : tracks) {
             drumTrack.addStep(getNOfSteps());
-            drumTrack.positionDrums();
+            drumTrack.positionEvents();
         }
 
         //update the sequencerUI
@@ -379,7 +379,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
             for(DrumTrack drumTrack : tracks){
                 drumTrack.removeDrum();
-                drumTrack.positionDrums();
+                drumTrack.positionEvents();
             }
 
             if(this == llppdrums.getDrumMachine().getSelectedSequence()) {

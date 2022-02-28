@@ -43,7 +43,7 @@ public class SoundManager {
         smplManager.deactivate();
         soundSources.add(smplManager);
 
-        //can't uns randomizeSoundSource() here since steps aren't created yet
+        //can't use randomizeSoundSource() here since steps aren't created yet
         Random r = new Random();
         activeSoundSource = soundSources.get(r.nextInt(2));
         activeSoundSource.activate();

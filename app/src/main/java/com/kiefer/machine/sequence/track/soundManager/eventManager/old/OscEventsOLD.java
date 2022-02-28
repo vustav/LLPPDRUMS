@@ -100,11 +100,6 @@ public class OscEventsOLD extends EventsOLD {
             for (SynthEvent event : events) {
                 event.setEventStart(posInSamples);
             }
-
-            //event[oscNo].invalidateProperties(step, DURATION, (SynthInstrument)oscillatorManager.getInstrument(oscNo));
-            //event[oscNo].setEventStart(posInSamples);
-            //event[oscNo].setEventEnd(samplesPerSub);
-            //event[oscNo].calculateBuffers();
         }
 
         @Override
