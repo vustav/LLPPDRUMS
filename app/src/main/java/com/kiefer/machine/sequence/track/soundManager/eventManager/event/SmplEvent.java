@@ -22,9 +22,9 @@ public class SmplEvent extends Event{
         this.step = step;
         this.sub = sub;
 
-        if(step.getStepNo() == 0) {
+        //if(step.getStepNo() == 0) {
             //Log.e("SmplEvent", "constr");
-        }
+        //}
 
         event = new SampleEvent(sampleManager.getInstrument(0));
         event.setSample(SampleManager.getSample(sampleManager.getSelectedCategory().getSelectedSample().getName()));
@@ -44,7 +44,7 @@ public class SmplEvent extends Event{
     @Override
     public void addToSequencer(){
         //if(step.getStepNo() == 0) {
-            Log.e("SmplEvent", "addToSequencer(), step: "+step.getStepNo()+", sub: "+sub.getIndex());
+            //Log.e("SmplEvent", "addToSequencer(), step: "+step.getStepNo()+", sub: "+sub.getIndex());
         //}
         event.addToSequencer();
     }
@@ -54,13 +54,13 @@ public class SmplEvent extends Event{
         event.removeFromSequencer();
     }
 
-    /** positionEvents() triggas inte när nya spår skapas, därför ligger alla på sub 0 på step 0. FIXXXAAA **/
+    /** positionEvents() triggas inte när nya spår skapas, därför ligger alla på sub 0 på step 0. FIXXXAAA1 **/
 
     @Override
     public void positionEvent(int posInSamples){
-        if(step.getStepNo() == 0) {
-            Log.e("SmplEvent", "positionEvent(), pos: "+posInSamples);
-        }
+        //if(step.getStepNo() == 0) {
+            //Log.e("SmplEvent", "positionEvent(), pos: "+posInSamples);
+        //}
         event.setEventStart(posInSamples);
     }
 

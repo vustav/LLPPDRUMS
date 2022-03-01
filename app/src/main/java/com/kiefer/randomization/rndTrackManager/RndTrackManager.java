@@ -1,6 +1,7 @@
 package com.kiefer.randomization.rndTrackManager;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.sequenceModules.Pan;
@@ -89,9 +90,7 @@ public class RndTrackManager {
 
         //first randomize the soundSource, then set the preset category
 
-        /** KRASCHAR HÄR NÅNSTANS **/
         drumTrack.getSoundManager().randomizeSoundSource();
-        /*****************************/
         if(rndTrack.getPresetCategory().equals(RANDOM)){
             drumTrack.getSoundManager().setRandomPreset();
         }
@@ -99,6 +98,7 @@ public class RndTrackManager {
             drumTrack.getSoundManager().setPreset(rndTrack.getPresetCategory());
         }
 
+        Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){
             RndSeqPresetTrack.Step step = rndTrack.getSteps().get(stepNo);
 

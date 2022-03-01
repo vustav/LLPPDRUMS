@@ -107,39 +107,40 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         }
         tempo = t;
 
-        /*
-        //same with subs
-        int s;
-        if(keeper != null){
-            try {
-                s = Integer.parseInt(keeper.subs);
-            }
-            catch (Exception e){
-                //Log.e("DrumSequence", e.getMessage());
-                s = llppdrums.getResources().getInteger(R.integer.defaultNOfSubs);
-            }
-        }
-        else{
-            s = llppdrums.getResources().getInteger(R.integer.defaultNOfSubs);
-        }
-        subs = s;
-
-         */
-
         setupSequenceModules();
 
         //use default nOfTracks if no keeper
         int nOfTracks;
         if (keeper != null) {
             nOfTracks = keeper.nOfTracks;
+            nOfSteps = keeper.nOfSteps;
         }
         else {
             nOfTracks = llppdrums.getResources().getInteger(R.integer.defaultNOfTracks);
+            nOfSteps = llppdrums.getResources().getInteger(R.integer.defaultNOfSteps);
         }
         setupTracks(nOfTracks, keeper);
 
-        rndSeqManager = new RndSeqManager(llppdrums, this, tracks.get(0).getSoundManager().getPresetCategories()); //track doesn't amtter, just get any presets
+        rndSeqManager = new RndSeqManager(llppdrums, this, tracks.get(0).getSoundManager().getPresetCategories()); //track doesn't matter, just get any presets
     }
+    private int nOfSteps;
+
+    /*
+    if (keeper != null) {
+        DrumTrackKeeper dtk = keeper.drumTrackKeepers.get(tracks.size());
+        drumTrack = new DrumTrack(llppdrums, this, keeper.nOfSteps, dtk);
+    }
+    //if keeper is null it's either no keeper (use default), or a track is added by a btn (no keeper provided, but use getNOfSteps())
+        else{
+        if(tracks.size() != 0) {
+            drumTrack = new DrumTrack(llppdrums, this, getNOfSteps(), null);
+        }
+        else{
+            drumTrack = new DrumTrack(llppdrums, this, llppdrums.getResources().getInteger(R.integer.defaultNOfSteps), null);
+        }
+    }
+
+     */
 
     /** SETUP **/
     private void setupSequenceModules(){
@@ -276,6 +277,35 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     public void addTrack(){
         addTrack(null);
     }
+
+    public void addTrack(DrumSequenceKeeper keeper){
+        DrumTrack drumTrack;
+
+        if (keeper != null) {
+            DrumTrackKeeper dtk = keeper.drumTrackKeepers.get(tracks.size());
+            drumTrack = new DrumTrack(llppdrums, this, getNOfSteps(), dtk);
+        }
+        //if keeper is null it's either no keeper (use default), or a track is added by a btn (no keeper provided, but use getNOfSteps())
+        else{
+            drumTrack = new DrumTrack(llppdrums, this, getNOfSteps(), null);
+
+        }
+        tracks.add(drumTrack);
+
+        //drumTrack.deactivate();
+
+        //activate the track to add it and its drums to the engine if this sequence is playing
+        if(llppdrums.getDrumMachine() != null) {
+            if(llppdrums.getDrumMachine().getSelectedSequence() == this) {
+                llppdrums.getSequencer().addTrack();
+            }
+            if (llppdrums.getDrumMachine().getPlayingSequence() == this) {
+                drumTrack.activate();
+            }
+        }
+    }
+
+    /*
     public void addTrack(DrumSequenceKeeper keeper){
         //create a drumTrack
         DrumTrack drumTrack;
@@ -307,6 +337,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
             }
         }
     }
+
+     */
 
     public void removeTrack(final int trackNo){
         if(tracks.size() > 1) {
@@ -350,6 +382,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     }
 
     public void addStep(){
+        nOfSteps++;
         //add a step to the engine if this sequence is playing
         if (this == llppdrums.getDrumMachine().getPlayingSequence()) {
             engineFacade.addStep();
@@ -357,7 +390,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
         //create the drums for the step (the drum adds itself to the sequencer if this sequence is selected)
         for (DrumTrack drumTrack : tracks) {
-            drumTrack.addStep(getNOfSteps());
+            drumTrack.addStep();
             drumTrack.positionEvents();
         }
 
@@ -372,13 +405,14 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     }
 
     public void removeStep(){
+        nOfSteps--;
         if (getNOfSteps() > 1) {
             if (this == llppdrums.getDrumMachine().getPlayingSequence()) {
                 engineFacade.removeStep();
             }
 
             for(DrumTrack drumTrack : tracks){
-                drumTrack.removeDrum();
+                drumTrack.removeStep();
                 drumTrack.positionEvents();
             }
 
@@ -463,10 +497,11 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     }
 
     public int getNOfSteps(){
-        if(tracks.size() != 0) {
-            return tracks.get(0).getNOfSteps();
-        }
-        return -1;
+        //if(tracks.size() != 0) {
+        //return tracks.get(0).getNOfSteps();
+        //}
+        //return -1;
+        return nOfSteps;
     }
 
     //OBJECTS

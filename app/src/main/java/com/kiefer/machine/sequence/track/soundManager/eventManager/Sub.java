@@ -127,6 +127,9 @@ public class Sub {
 
     /** POS **/
     public void positionEvents(int posInSamples){
+        //if(step.getStepNo() == 0) {
+            //Log.e("Sub", "positionEvents");
+        //}
         for(Event e : events){
             e.positionEvent(posInSamples);
         }

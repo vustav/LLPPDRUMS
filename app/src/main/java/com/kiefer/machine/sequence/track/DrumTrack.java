@@ -49,6 +49,7 @@ public class DrumTrack implements Subilizer {
     private ArrayList<Step> steps;
     private ArrayList<Boolean> autoStepValues;
 
+    private int initNOfSteps;
     private int nOfSubs;
 
     //graphics
@@ -98,6 +99,7 @@ public class DrumTrack implements Subilizer {
         soundManager = new SoundManager(llppdrums, drumSequence, this);
         fxManager = new FxManager(llppdrums, this);
 
+        initNOfSteps = steps;
         setupSteps(steps);
 
         float maxVol = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
@@ -109,29 +111,31 @@ public class DrumTrack implements Subilizer {
         this.steps = new ArrayList<>();
 
         for(int step = 0; step < steps; step++){
-            addStep(steps);
+            addStep();
         }
     }
 
-    public Step addStep(int nOfSteps){
-        return addStep(random.nextInt(2) == 1, nOfSteps, nOfSubs);
+    public Step addStep(){
+        return addStep(random.nextInt(2) == 1, nOfSubs);
     }
 
-    public Step addStep(boolean on, int nOfSteps, int subs){
-        Step step = new Step(llppdrums, this, soundManager, nOfSteps, subs, on);
+    public Step addStep(boolean on, int subs){
+        Log.e("DrumTrack", "addStep()");
+        Step step = new Step(llppdrums, this, soundManager, subs, on);
         steps.add(step);
         fxManager.addStep();
         return step;
     }
 
-    public Step addStep(int position, boolean on, int nOfSteps){
-        Step step = new Step(llppdrums, this, soundManager, nOfSteps, nOfSubs, on);
+    public Step addStep(int position, boolean on){
+        Log.e("DrumTrack", "addStep()");
+        Step step = new Step(llppdrums, this, soundManager, nOfSubs, on);
         steps.add(position, step);
         fxManager.addStep();
         return step;
     }
 
-    public void removeDrum(){
+    public void removeStep(){
         Step step = steps.remove(steps.size()-1);
         fxManager.removeStep();
         step.destroy();
@@ -139,7 +143,7 @@ public class DrumTrack implements Subilizer {
 
     public void positionEvents(){
         for(Step d : steps){
-            d.positionEvents();
+            d.positionEvents(getNOfSteps());
         }
     }
 
@@ -220,6 +224,7 @@ public class DrumTrack implements Subilizer {
         steps.get(step).setOn(on);
     }
     public void setSubOn(int step, boolean on, int sub){
+        Log.e("DrumTrack", "setSubOn(), steps.size(): "+steps.size());
         steps.get(step).setSubOn(sub, on);
     }
 
@@ -235,7 +240,7 @@ public class DrumTrack implements Subilizer {
 
         //remove the first drum and add a new to the end
         steps.remove(0).destroy();
-        Step step = addStep(false, getNOfSteps(), nOfSubs);
+        Step step = addStep(false, nOfSubs);
 
         switch (interval) {
             case 1:
@@ -311,7 +316,7 @@ public class DrumTrack implements Subilizer {
     public void pushRight(int interval){
         steps.remove(steps.size() - 1).destroy();
         //Step step = addStep(false, getNOfSteps(), subs);
-        Step step = addStep(0, false, getNOfSteps()); //when adding a drum at a position we don't need to update the drums positions since its done there
+        Step step = addStep(0, false); //when adding a drum at a position we don't need to update the drums positions since its done there
 
         switch (interval) {
             case 1:
@@ -624,7 +629,14 @@ public class DrumTrack implements Subilizer {
     //DATA
 
     public int getNOfSteps(){
+        //if this step isn't in the array yet this is called on creation (before it's been added) which means this is the last step
+        //if(!drumTrack.getSteps().contains(this)){
+            //return drumTrack.getSteps().size();
+        //}
+        //Log.e("DrumTrack", "getNOfSteps(), steps: "+steps.size());
+
         return steps.size();
+        //return initNOfSteps;
     }
 
     @Override

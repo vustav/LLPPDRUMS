@@ -25,6 +25,7 @@ public class StepEventsManager {
     private final DrumTrack drumTrack;
     private final SoundManager soundManager;
     private final Step step;
+    //private final int stepNo; //we need to pass it since step.getStepNo() returns -1 at creation when we need it
 
     private ArrayList<Sub> subs;
 
@@ -38,7 +39,9 @@ public class StepEventsManager {
         this.drumTrack = drumTrack;
         this.soundManager = soundManager;
         this.step = step;
+        //this.stepNo = stepNo;
 
+        //Log.e("StepEventsManager", "createSubs");
         createSubs(nOfSubs);
         positionEvents(drumSequence.getNOfSteps());
 
@@ -137,14 +140,26 @@ public class StepEventsManager {
 
     /** POSITION **/
     public void positionEvents(int nOfSteps){
+
+        //Log.e("StepEventsManager", "nOfSteps: "+nOfSteps);
+        //Log.e("StepEventsManager", "subs size: "+subs.size());
+
+        //if(step.getStepNo() == 0) {
+            //Log.e("StepEventsManager", "positionEvents");
+        //}
         //this.step = step;
         int samplesPerStep = getSamplesPerStep(nOfSteps);
 
         int posInSamples = getPosInSamples(samplesPerStep);
         int samplesPerSub = getSamplesPerSub(samplesPerStep);
 
+        Log.e("StepEventsManager", "positionEvents(), nOfSteps: "+nOfSteps);
+        Log.e("StepEventsManager", "positionEvents(), getPosInSamples: "+posInSamples);
+        Log.e("StepEventsManager", "positionEvents(), getSamplesPerSub: "+samplesPerSub);
+
         if(subs.size() > 0) {
             for(Sub s : subs){
+                //Log.e("StepEventsManager", "sub: "+s.getIndex());
                 s.positionEvents(posInSamples);
                 posInSamples += samplesPerSub;
             }
@@ -156,6 +171,13 @@ public class StepEventsManager {
     }
 
     protected int getPosInSamples(int samplesPerStep){
+
+        //if(step.getStepNo() == -1){
+            //Log.e("StepEventsManager", "samplesPerStep: "+samplesPerStep);
+            //Log.e("StepEventsManager", "drumTrack.getSteps().size(): "+drumTrack.getSteps().size());
+            //return samplesPerStep * drumTrack.getSteps().size();
+        //}
+
         return samplesPerStep * step.getStepNo();
     }
 

@@ -28,7 +28,7 @@ public class Step {
     //base prms
     private boolean on;
 
-    public Step(LLPPDRUMS llppdrums, DrumTrack drumTrack, SoundManager soundManager, int nOfSteps, int subs, boolean on){
+    public Step(LLPPDRUMS llppdrums, DrumTrack drumTrack, SoundManager soundManager, int subs, boolean on){
         this.llppdrums = llppdrums;
         this.drumTrack = drumTrack;
         this.soundManager = soundManager;
@@ -45,9 +45,9 @@ public class Step {
 
 
 
-    public void positionEvents(){
+    public void positionEvents(int nOfSteps){
         //events.positionEvents(drumTrack.getNOfSteps(), getStepNo());
-        stepEventsManager.positionEvents(drumTrack.getNOfSteps());
+        stepEventsManager.positionEvents(nOfSteps);
     }
 
     /** RANDOMIZE **/
@@ -97,6 +97,11 @@ public class Step {
     }
 
     public int getStepNo() {
+        //if this step isn't in the array yet this is called on creation (before it's been added) which means this is the last step
+        if(!drumTrack.getSteps().contains(this)){
+            return drumTrack.getSteps().size();
+        }
+
         return drumTrack.getSteps().indexOf(this);
     }
 
@@ -197,7 +202,7 @@ public class Step {
     /** SET **/
     public void setNOfSubs(int subs){
         stepEventsManager.setNOfSubs(subs);
-        positionEvents();
+        positionEvents(drumTrack.getNOfSteps());
     }
 
     public void setOn(boolean on){

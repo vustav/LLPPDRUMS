@@ -23,9 +23,9 @@ public class SnthEvent extends Event{
         this.step = step;
         this.sub = sub;
 
-        if(step.getStepNo() == 0) {
+        //if(step.getStepNo() == 0) {
             //Log.e("SnthEvent", "constr");
-        }
+        //}
 
         events = new SynthEvent[oscillatorManager.getOscillators().length];
         for (int oscNo = 0; oscNo < oscillatorManager.getOscillators().length; oscNo++) {
@@ -51,9 +51,9 @@ public class SnthEvent extends Event{
 
     @Override
     public void addToSequencer(){
-        if(step.getStepNo() == 0) {
-            Log.e("SnthEvent", "addToSequencer(), sub: "+sub.getIndex());
-        }
+        //if(step.getStepNo() == 0) {
+            //Log.e("SnthEvent", "addToSequencer(), sub: "+sub.getIndex());
+        //}
         //Random r = new Random();
         //Log.e("Snth", "add"+r.nextInt());
         for (SynthEvent event : events) {
@@ -70,6 +70,7 @@ public class SnthEvent extends Event{
 
     @Override
     public void positionEvent(int posInSamples){
+        //Log.e("SnthEvent", "positionEvent(), pos: "+posInSamples);
         for (SynthEvent event : events) {
             event.setEventStart(posInSamples);
         }
