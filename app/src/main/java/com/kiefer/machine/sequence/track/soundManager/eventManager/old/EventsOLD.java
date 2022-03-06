@@ -1,7 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager.old;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.files.keepers.soundSources.EventsKeeper;
+import com.kiefer.files.keepers.soundSources.EventsKeeperOLD;
 import com.kiefer.files.keepers.soundSources.SoundEventsKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -732,7 +732,7 @@ public abstract class EventsOLD {
  */
 
         /** RESTORATION **/
-        public void restore(EventsKeeper k){
+        public void restore(EventsKeeperOLD k){
             setVolumeModifier(Float.parseFloat(k.volumeModifier));
             setPan(Float.parseFloat(k.pan));
             setPitchModifier(Float.parseFloat(k.pitchModifier));
@@ -762,8 +762,8 @@ public abstract class EventsOLD {
             updateSound();
         }
 
-        public EventsKeeper getKeeper(){
-            EventsKeeper keeper = new EventsKeeper();
+        public EventsKeeperOLD getKeeper(){
+            EventsKeeperOLD keeper = new EventsKeeperOLD();
             keeper.volumeModifier = Float.toString(getVolumeModifier());
             keeper.pan = Float.toString(getPan());
             keeper.pitchModifier = Float.toString(getPitchModifier());

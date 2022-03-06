@@ -1,6 +1,7 @@
 package com.kiefer.automation;
 
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 
 import com.kiefer.files.keepers.AutomationKeeper;
 import com.kiefer.files.keepers.AutomationManagerKeeper;
@@ -272,6 +273,9 @@ public class AutomationManager {
                 if (lastStep == -1) {
                     lastStep = getNOfSteps() - 1;
                 }
+
+                //Log.e("AutomationManager", "automate(), step: "+step);
+                //Log.e("AutomationManager", "automate(), lastStep: "+lastStep);
 
                 //if this step is automated and the last wasn't, make a change
                 if (steps.get(step) && !steps.get(lastStep)) {

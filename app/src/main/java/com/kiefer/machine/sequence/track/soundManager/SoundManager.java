@@ -217,11 +217,11 @@ public class SoundManager {
 
     /** RESTORATION **/
     public void restore(SoundManagerKeeper k){
-        Log.e("asd", Integer.toString(k.activeSoundSourceIndex));
         activeSoundSource = soundSources.get(k.activeSoundSourceIndex);
         for(int i = 0; i<k.ssKeepers.size(); i++){
             soundSources.get(i).restore(k.ssKeepers.get(i));
         }
+        drumTrack.updateEventSamples();
     }
 
     public SoundManagerKeeper getKeeper(){

@@ -88,7 +88,8 @@ public class Pan extends SequenceModule {
 
     @Override
     public float setAutoValueBase(DrumTrack drumTrack, String s, int sub) {
-        float pan = (Float.parseFloat(s) + 1) / 2; //make it a float 0-1
+        //float pan = (Float.parseFloat(s) + 1) / 2; //make it a float 0-1
+        float pan = Float.parseFloat(s);
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
             //drumTrack.setSubPan(step, pan, sub);
             drumTrack.getSteps().get(step).setPan(pan);
@@ -97,7 +98,7 @@ public class Pan extends SequenceModule {
     }
 
     @Override
-    public void randomizeAll(DrumTrack drumTrack){
+    public void randomize(DrumTrack drumTrack){
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
             Step d = drumTrack.getSteps().get(step);
             d.randomizePan(false);

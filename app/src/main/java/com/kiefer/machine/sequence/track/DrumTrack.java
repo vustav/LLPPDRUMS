@@ -47,9 +47,9 @@ public class DrumTrack implements Subilizer {
 
     //data
     private ArrayList<Step> steps;
-    private ArrayList<Boolean> autoStepValues;
+    private final ArrayList<Boolean> autoStepValues;
 
-    private int initNOfSteps;
+    //private int initNOfSteps;
     private int nOfSubs;
 
     //graphics
@@ -99,7 +99,7 @@ public class DrumTrack implements Subilizer {
         soundManager = new SoundManager(llppdrums, drumSequence, this);
         fxManager = new FxManager(llppdrums, this);
 
-        initNOfSteps = steps;
+        //initNOfSteps = steps;
         setupSteps(steps);
 
         float maxVol = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
@@ -120,7 +120,7 @@ public class DrumTrack implements Subilizer {
     }
 
     public Step addStep(boolean on, int subs){
-        Log.e("DrumTrack", "addStep()");
+        //Log.e("DrumTrack", "addStep()");
         Step step = new Step(llppdrums, this, soundManager, subs, on);
         steps.add(step);
         fxManager.addStep();
@@ -128,7 +128,7 @@ public class DrumTrack implements Subilizer {
     }
 
     public Step addStep(int position, boolean on){
-        Log.e("DrumTrack", "addStep()");
+        //Log.e("DrumTrack", "addStep()");
         Step step = new Step(llppdrums, this, soundManager, nOfSubs, on);
         steps.add(position, step);
         fxManager.addStep();
@@ -190,7 +190,6 @@ public class DrumTrack implements Subilizer {
     }
 
     /** ACTIVATION **/
-    //activate the track on all oscillators that are on
     public void activate(){
         soundManager.activate();
     }
@@ -224,7 +223,7 @@ public class DrumTrack implements Subilizer {
         steps.get(step).setOn(on);
     }
     public void setSubOn(int step, boolean on, int sub){
-        Log.e("DrumTrack", "setSubOn(), steps.size(): "+steps.size());
+        //Log.e("DrumTrack", "setSubOn(), steps.size(): "+steps.size());
         steps.get(step).setSubOn(sub, on);
     }
 
@@ -702,6 +701,7 @@ public class DrumTrack implements Subilizer {
         fxManager.automate(sequencerPosition, fxManagerPopup != null);
 
         if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
+            //Log.e("DrumTrack", "handleSequencerPositionChange(), sequencerPosition: "+sequencerPosition);
             steps.get(sequencerPosition).handleSequencerPositionChange(sequencerPosition);
         }
     }
@@ -739,13 +739,12 @@ public class DrumTrack implements Subilizer {
 
     /** RESTORATION **/
     public void restore(DrumTrackKeeper k){
-        //Log.e("DrumTrack.restore()", "trackNo: "+getTrackNo());
+        //Log.e("DrumTrack.restore()", "nOfSubs: "+k.nOfSubs);
         color = k.color;
-        //setNOfSubs(k.nOfSubs);
-        nOfSubs = k.nOfSubs;
+        setNOfSubs(666, k.nOfSubs); //trackNo doesn't matter
+        //nOfSubs = k.nOfSubs;
         name = k.name;
 
-        //setPan(k.pan);
         setTrackVolume(k.volume);
         soundManager.restore(k.soundManagerKeeper);
         fxManager.restore(k.fxManagerKeeper);
@@ -766,6 +765,7 @@ public class DrumTrack implements Subilizer {
         for(Step d : steps){
             keeper.stepKeepers.add(d.getKeeper());
         }
+        positionEvents();
         return keeper;
     }
 

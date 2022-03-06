@@ -52,7 +52,7 @@ public class OnOff extends SequenceModule {
             //base
             if(isInBaseMode()) {
                 if(step.getNofSubs() > 1) {
-                    release = false;
+                    //release = false;
                     startTime = System.currentTimeMillis();
 
                     new CountDownTimer(llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer), llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer)) {
@@ -73,6 +73,7 @@ public class OnOff extends SequenceModule {
             else{
                 ((AutoRandom)modes.get(AUTO_RANDOM)).onStepTouch(engineFacade, stepIV, step, startX, startY);
             }
+            release = false;
         }
 
         if(action == MotionEvent.ACTION_UP){
@@ -82,16 +83,16 @@ public class OnOff extends SequenceModule {
                 step.setOn(!step.isOn());
 
                 //OnOff updates the UI itself, for the other modules the popup takes care of that
-                new Thread(new Runnable() { //thread for creating the Drawable
-                    public void run() {
+                //new Thread(new Runnable() { //thread for creating the Drawable
+                    //public void run() {
                         final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
                         stepIV.post(new Runnable() { //modify the View in the UI thread
                             public void run() {
                                 stepIV.setImageDrawable(drawable);
                             }
                         });
-                    }
-                }).start();
+                    //}
+                //}).start();
             }
         }
     }
@@ -181,11 +182,16 @@ public class OnOff extends SequenceModule {
     }
 
     @Override
-    public void randomizeAll(DrumTrack drumTrack){
+    public void randomize(DrumTrack drumTrack){
+        /*
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
-            Step d = drumTrack.getSteps().get(step);
-            d.randomizeSubsOn(false);
+            Step s = drumTrack.getSteps().get(step);
+            s.randomizeStepOn();
+            s.randomizeSubsOn(false);
         }
+
+         */
+        drumTrack.getRndTrackManager().randomizeStepsOn();
     }
 
     /** GET **/

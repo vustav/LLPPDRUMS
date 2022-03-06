@@ -7,6 +7,8 @@ import com.kiefer.randomization.presets.RandomizeSeqPreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetDisco;
 import com.kiefer.randomization.presets.RandomizeSeqPresetHotNights;
 import com.kiefer.machine.sequence.DrumSequence;
+import com.kiefer.randomization.presets.RandomizeSeqPresetJazz;
+import com.kiefer.randomization.presets.RandomizeSeqPresetRockPlus;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackRandom;
 import com.kiefer.randomization.rndTrackManager.RndTrackManager;
@@ -48,13 +50,15 @@ public class RndSeqManager implements Tempoizer {
     private void setupPresets() {
         rndSeqPresets = new ArrayList<>();
         rndSeqPresets.add(new RandomizeSeqPresetClassicRock(llppdrums, this));
+        rndSeqPresets.add(new RandomizeSeqPresetRockPlus(llppdrums, this));
+        rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetDisco(llppdrums, this));
         //rndSeqPresets.add(new RandomizeSeqPresetWaltz(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetHotNights(llppdrums, this));
         //presets.add(new RandomizePresetRandom(llppdrums, this));
 
         Random r = new Random();
-        selectedRandomizeSeqPreset = rndSeqPresets.get(r.nextInt(rndSeqPresets.size()-1)); //-1 to prevent RANDOM from being selected on creation. One of the reasons is that since DrumMachine isn't done yet we can't get a reference to OscManager which means we can't get the list of oscPresets.
+        selectedRandomizeSeqPreset = rndSeqPresets.get(r.nextInt(rndSeqPresets.size())); //-1 to prevent RANDOM from being selected on creation. One of the reasons is that since DrumMachine isn't done yet we can't get a reference to OscManager which means we can't get the list of oscPresets.
         selectedRandomizeSeqPreset.createPreset();
     }
 

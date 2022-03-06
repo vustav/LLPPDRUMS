@@ -15,6 +15,7 @@ import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.info.sequence.trackMenu.RandomizeTrackInfo;
 import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.Popup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.utils.ColorUtils;
@@ -83,6 +84,16 @@ public class RndTrackManagerPopup extends Popup {
 
                 if(drumTrack.getRndOn()) {
                     drumTrack.getRndTrackManager().randomizeStepsOn();
+                    //drumTrack.getRndTrackManager().randomizeAll(sequenceModule);
+/*
+                    for (int step = 0; step < drumTrack.getSteps().size(); step++) {
+                        Step s = drumTrack.getSteps().get(step);
+                        s.randomizeStepOn();
+                        s.randomizeSubsOn(false);
+                    }
+
+ */
+
                     updateDrawables = true;
                     //drumTrack.updateDrawables();
                 }

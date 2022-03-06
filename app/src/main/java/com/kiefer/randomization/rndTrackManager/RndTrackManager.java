@@ -1,7 +1,6 @@
 package com.kiefer.randomization.rndTrackManager;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.sequenceModules.Pan;
@@ -51,7 +50,7 @@ public class RndTrackManager {
     }
 
     public void randomizeSubOn(Step d, boolean autoRnd, int sub) {
-        d.randomizeOn(autoRnd, sub);
+        d.randomizeSubOn(autoRnd, sub);
     }
 
     public void randomizeSubsOn(Step d, boolean autoRnd) {
@@ -78,8 +77,8 @@ public class RndTrackManager {
         d.randomizePan(autoRnd);
     }
 
-    public void randomizeAll(SequenceModule seqModule){
-        seqModule.randomizeAll(drumTrack);
+    public void randomize(SequenceModule seqModule){
+        seqModule.randomize(drumTrack);
     }
 
     public static final String RANDOM = "RANDOM";
@@ -98,7 +97,7 @@ public class RndTrackManager {
             drumTrack.getSoundManager().setPreset(rndTrack.getPresetCategory());
         }
 
-        Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
+        //Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){
             RndSeqPresetTrack.Step step = rndTrack.getSteps().get(stepNo);
 
@@ -113,7 +112,8 @@ public class RndTrackManager {
                     drumTrack.setSubPitchModifier(stepNo, step.getSubPitch(sub), sub);
                 }
                 else{
-                    drumTrack.setStepOn(stepNo, false);
+                    //drumTrack.setStepOn(stepNo, false);
+                    drumTrack.setSubOn(stepNo, false, sub);
                 }
             }
             drumTrack.setStepOn(stepNo, subOn);
@@ -144,7 +144,7 @@ public class RndTrackManager {
         }
     }
 
-    public void randomizeAll() {
+    public void randomize() {
 
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
 
@@ -169,10 +169,9 @@ public class RndTrackManager {
 
     public void randomizeStepsOn(){
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
-            final Step d = drumTrack.getSteps().get(step);
-
-            //randomize
-            randomizeSubsOn(d, false);
+            Step s = drumTrack.getSteps().get(step);
+            s.randomizeStepOn();
+            s.randomizeSubsOn(false);
         }
     }
 

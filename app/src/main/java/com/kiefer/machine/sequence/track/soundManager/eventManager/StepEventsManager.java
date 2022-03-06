@@ -1,14 +1,12 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
+import com.kiefer.files.keepers.soundSources.StepEventsManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
-import com.kiefer.machine.sequence.track.soundManager.eventManager.old.EventsOLD;
 import com.kiefer.utils.NmbrUtils;
 
 import java.util.ArrayList;
@@ -153,9 +151,9 @@ public class StepEventsManager {
         int posInSamples = getPosInSamples(samplesPerStep);
         int samplesPerSub = getSamplesPerSub(samplesPerStep);
 
-        Log.e("StepEventsManager", "positionEvents(), nOfSteps: "+nOfSteps);
-        Log.e("StepEventsManager", "positionEvents(), getPosInSamples: "+posInSamples);
-        Log.e("StepEventsManager", "positionEvents(), getSamplesPerSub: "+samplesPerSub);
+        //Log.e("StepEventsManager", "positionEvents(), nOfSteps: "+nOfSteps);
+        //Log.e("StepEventsManager", "positionEvents(), getPosInSamples: "+posInSamples);
+        //Log.e("StepEventsManager", "positionEvents(), getSamplesPerSub: "+samplesPerSub);
 
         if(subs.size() > 0) {
             for(Sub s : subs){
@@ -202,10 +200,6 @@ public class StepEventsManager {
         subs.get(sub).randomizeVol(autoRnd);
     }
     public void randomizeVols(boolean autoRnd){
-        //for(EventsOLD.Event e : events){
-            //e.randomizeVol(autoRnd);
-        //}
-
         for(Sub s : subs){
             s.randomizeVol(autoRnd);
         }
@@ -423,12 +417,37 @@ public class StepEventsManager {
     }
 
     /** RESTORE **/
-    public void restore(Keeper k){
-        //
+    public void restore(StepEventsManagerKeeper k){
+
+        setPan(Float.parseFloat(k.pan));
+        setRndPanMin(Float.parseFloat(k.rndPanMin));
+        setRndPanMax(Float.parseFloat(k.rndPanMax));
+        setRndPanPerc(Float.parseFloat(k.rndPanPerc));
+        setRndPanReturn(k.rndPanReturn);
+
+        for(int i = 0; i<subs.size(); i++){
+            subs.get(i).restore(k.subKeepers.get(i));
+        }
     }
 
-    public Keeper getKeeper(){
-        return null;
+    public StepEventsManagerKeeper getKeeper(){
+
+        StepEventsManagerKeeper keeper = new StepEventsManagerKeeper();
+
+        keeper.pan = Float.toString(getPan());
+
+        //keeper.autoRndPan = getAutoRndPan();
+        keeper.rndPanMin = Float.toString(getRndPanMin());
+        keeper.rndPanMax = Float.toString(getRndPanMax());
+        keeper.rndPanPerc= Float.toString(getRndPanPerc());
+        keeper.rndPanReturn = getRndPanReturn();
+
+        keeper.subKeepers = new ArrayList<>();
+        for(Sub s : subs){
+            keeper.subKeepers.add(s.getKeeper());
+        }
+
+        return keeper;
     }
 
     /** RESET **/

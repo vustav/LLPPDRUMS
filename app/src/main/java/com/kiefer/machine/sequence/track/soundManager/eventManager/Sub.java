@@ -1,8 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
+import com.kiefer.files.keepers.soundSources.SubKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Step;
@@ -318,5 +317,52 @@ public class Sub {
             e.delete();
         }
         events = null;
+    }
+
+    /** RESTORE **/
+    public SubKeeper getKeeper(){
+
+        SubKeeper keeper = new SubKeeper();
+
+        keeper.on = on;
+
+        keeper.volumeModifier = Float.toString(getVolumeModifier());
+        keeper.pitchModifier = Float.toString(getPitchModifier());
+
+        keeper.rndOnPerc = Float.toString(getRndOnPerc());
+        keeper.rndOnReturn = getRndOnReturn();
+
+        keeper.rndVolMin = Float.toString(getRndVolMin());
+        keeper.rndVolMax = Float.toString(getRndVolMax());
+        keeper.rndVolPerc = Float.toString(getRndVolPerc());
+        keeper.rndVolReturn = getRndVolReturn();
+
+        keeper.rndPitchMin = Float.toString(getRndPitchMin());
+        keeper.rndPitchMax = Float.toString(getRndPitchMax());
+        keeper.rndPitchPerc = Float.toString(getRndPitchPerc());
+        keeper.rndPitchReturn = getRndPitchReturn();
+
+        return keeper;
+    }
+
+    public void restore(SubKeeper k){
+
+        on = k.on;
+
+        setVolumeModifier(Float.parseFloat(k.volumeModifier));
+        setPitchModifier(Float.parseFloat(k.pitchModifier));
+
+        setRndOnPerc(Float.parseFloat(k.rndOnPerc));
+        setRndOnReturn(k.rndOnReturn);
+
+        setRndVolMin(Float.parseFloat(k.rndVolMin));
+        setRndVolMax(Float.parseFloat(k.rndVolMax));
+        setRndVolPerc(Float.parseFloat(k.rndVolPerc));
+        setRndVolReturn(k.rndVolReturn);
+
+        setRndPitchMin(Float.parseFloat(k.rndPitchMin));
+        setRndPitchMax(Float.parseFloat(k.rndPitchMax));
+        setRndPitchPerc(Float.parseFloat(k.rndPitchPerc));
+        setRndPitchReturn(k.rndPitchReturn);
     }
 }

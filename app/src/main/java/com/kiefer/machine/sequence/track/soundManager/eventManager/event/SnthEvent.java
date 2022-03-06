@@ -1,13 +1,8 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager.event;
 
-import android.util.Log;
-
-import com.kiefer.files.keepers.soundSources.EventsKeeper;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.track.soundManager.eventManager.Sub;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
-
-import java.util.Random;
 
 import nl.igorski.mwengine.core.SynthEvent;
 import nl.igorski.mwengine.core.SynthInstrument;

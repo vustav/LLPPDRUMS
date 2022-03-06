@@ -385,7 +385,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         nOfSteps++;
         //add a step to the engine if this sequence is playing
         if (this == llppdrums.getDrumMachine().getPlayingSequence()) {
-            engineFacade.addStep();
+            engineFacade.updateNOfSteps();
         }
 
         //create the drums for the step (the drum adds itself to the sequencer if this sequence is selected)
@@ -408,7 +408,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         nOfSteps--;
         if (getNOfSteps() > 1) {
             if (this == llppdrums.getDrumMachine().getPlayingSequence()) {
-                engineFacade.removeStep();
+                engineFacade.updateNOfSteps();
             }
 
             for(DrumTrack drumTrack : tracks){

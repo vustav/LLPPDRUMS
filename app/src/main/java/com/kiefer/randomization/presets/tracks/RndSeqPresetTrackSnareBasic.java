@@ -14,7 +14,7 @@ public class RndSeqPresetTrackSnareBasic extends RndSeqPresetTrack {
         for(int step = 0; step < nOfSteps; step++){
             if((step + beats / 2) % beats == 0){
                 for(int sub = 0; sub < nOfSubs; sub++) {
-                    float perc = 0;
+                    float perc = NmbrUtils.getRndmizer(.5f, .6f);
                     if(sub == 0){
                         perc = 1;
                     }

@@ -83,9 +83,9 @@ public class FxManager {
         Random r = new Random();
         Fx fx = createNewFx(r.nextInt(fxInfos.size()), automation);
 
-        if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence()) {
+        //if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence()) {
             addFxToEngine(fx);
-        }
+        //}
     }
 
     private void addFxsToEngine(){
@@ -346,6 +346,7 @@ public class FxManager {
         for(FxKeeper fxk : k.fxKeepers){
             Fx fx = createNewFx(fxk.fxIndex, false);
             fx.restore(fxk);
+            addFxToEngine(fx);
         }
 
         //only set a selected if at least one exists

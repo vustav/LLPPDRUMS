@@ -57,7 +57,7 @@ public class AutomateStepsPopup extends Popup {
         rndBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getRndTrackManager().randomizeAll(sequenceModule);
+                drumTrack.getRndTrackManager().randomize(sequenceModule);
                 drumTrack.updateDrawables();
             }
         });

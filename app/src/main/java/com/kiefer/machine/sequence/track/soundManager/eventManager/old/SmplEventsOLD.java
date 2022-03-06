@@ -1,8 +1,8 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager.old;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.files.keepers.soundSources.EventsKeeper;
-import com.kiefer.files.keepers.soundSources.SmplEventKeeper;
+import com.kiefer.files.keepers.soundSources.EventsKeeperOLD;
+import com.kiefer.files.keepers.soundSources.SmplEventKeeperOLD;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.soundManager.sampleManager.SmplManager;
@@ -39,10 +39,10 @@ public class SmplEventsOLD extends EventsOLD {
     }
 
     /** RESTORE **/
-    public SmplEventKeeper getKeeper(){
-        SmplEventKeeper keeper = new SmplEventKeeper();
+    public SmplEventKeeperOLD getKeeper(){
+        SmplEventKeeperOLD keeper = new SmplEventKeeperOLD();
 
-        ArrayList<EventsKeeper> smplEventsKeepers = new ArrayList<>();
+        ArrayList<EventsKeeperOLD> smplEventsKeepers = new ArrayList<>();
         for(Event e : events){
             smplEventsKeepers.add(e.getKeeper());
         }
@@ -104,8 +104,8 @@ public class SmplEventsOLD extends EventsOLD {
 
         /** RESTORE **/
         @Override
-        public EventsKeeper getKeeper(){
-            EventsKeeper keeper = super.getKeeper();
+        public EventsKeeperOLD getKeeper(){
+            EventsKeeperOLD keeper = super.getKeeper();
             return keeper;
         }
     }

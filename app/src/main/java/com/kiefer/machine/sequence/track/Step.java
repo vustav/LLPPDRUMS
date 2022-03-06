@@ -1,7 +1,5 @@
 package com.kiefer.machine.sequence.track;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.StepKeeper;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
@@ -51,12 +49,33 @@ public class Step {
     }
 
     /** RANDOMIZE **/
+    public void randomizeStepOn(){
+        Random r = new Random();
+        setOn(r.nextBoolean());
+
+        //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
+        if(stepEventsManager.getNOfSubs() == 1){
+            stepEventsManager.setSubOn(0, on);
+        }
+    }
     //vars = should the autoRnd variables be used or not??
-    public void randomizeOn(boolean autoRnd, int sub) {
-        stepEventsManager.randomizeOn(autoRnd, sub);
+    public void randomizeSubOn(boolean autoRnd, int sub) {
+        if(stepEventsManager.getNOfSubs() > 1) {
+            stepEventsManager.randomizeOn(autoRnd, sub);
+        }
+        //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
+        else{
+            stepEventsManager.setSubOn(0, on);
+        }
     }
     public void randomizeSubsOn(boolean autoRnd) {
-        stepEventsManager.randomizeSubsOn(autoRnd);
+        if(stepEventsManager.getNOfSubs() > 1) {
+            stepEventsManager.randomizeSubsOn(autoRnd);
+        }
+        //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
+        else{
+            stepEventsManager.setSubOn(0, on);
+        }
     }
 
     public void randomizeVol(boolean autoRnd, int sub){
@@ -125,7 +144,6 @@ public class Step {
     public boolean getAutoRndVol(int sub){
         return stepEventsManager.getAutoRndVol(sub);
     }
-
 
     public float getRndVolMin(int sub) {
         return stepEventsManager.getRndVolMin(sub);
@@ -209,11 +227,13 @@ public class Step {
         boolean wasOn = this.on;
         this.on = on;
 
-        if (on && !wasOn) {
+        //if (on && !wasOn) {
+        if(on){
             //addToSequencer(drumTrack.getNOfSteps());
             stepEventsManager.turnOn();
         }
-        else if (!on && wasOn) {
+        //else if (!on && wasOn) {
+        else{
             stepEventsManager.turnOff();
         }
     }
@@ -423,14 +443,14 @@ public class Step {
     /** RESTORATION **/
     public void restore(StepKeeper k){
         setOn(k.on);
-        stepEventsManager.restore(k.soundEventsKeeper);
+        stepEventsManager.restore(k.stepEventsManagerKeeper);
     }
 
     public StepKeeper getKeeper(){
         StepKeeper keeper = new StepKeeper();
 
         keeper.on = isOn();
-        keeper.soundEventsKeeper = stepEventsManager.getKeeper();
+        keeper.stepEventsManagerKeeper = stepEventsManager.getKeeper();
         return keeper;
     }
 

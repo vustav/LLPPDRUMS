@@ -163,6 +163,8 @@
 
     <string name="randomizerModifiedName">*</string>
     <string name="randomizerClassicRockName">CLASSIC ROCK</string>
+    <string name="randomizerRockPlusName">ROCK+</string>
+    <string name="randomizerJazzName">JAZZ</string>
     <string name="randomizerModernRockName">MODERN ROCK</string>
     <string name="randomizerWaltzName">WALTZ</string>
     <string name="randomizerHotNightsName">HOT NIGHTS</string>

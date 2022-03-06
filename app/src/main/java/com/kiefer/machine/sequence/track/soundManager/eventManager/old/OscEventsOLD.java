@@ -1,8 +1,8 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager.old;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.files.keepers.soundSources.EventsKeeper;
-import com.kiefer.files.keepers.soundSources.OscEventKeeper;
+import com.kiefer.files.keepers.soundSources.EventsKeeperOLD;
+import com.kiefer.files.keepers.soundSources.OscEventKeeperOLD;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
@@ -40,10 +40,10 @@ public class OscEventsOLD extends EventsOLD {
     }
 
     /** RESTORE **/
-    public OscEventKeeper getKeeper(){
-        OscEventKeeper keeper = new OscEventKeeper();
+    public OscEventKeeperOLD getKeeper(){
+        OscEventKeeperOLD keeper = new OscEventKeeperOLD();
 
-        ArrayList<EventsKeeper> oscEventsKeepers = new ArrayList<>();
+        ArrayList<EventsKeeperOLD> oscEventsKeepers = new ArrayList<>();
         for(Event e : events){
             oscEventsKeepers.add(e.getKeeper());
         }
@@ -127,8 +127,8 @@ public class OscEventsOLD extends EventsOLD {
 
         /** RESTORE **/
         @Override
-        public EventsKeeper getKeeper(){
-            EventsKeeper keeper = super.getKeeper();
+        public EventsKeeperOLD getKeeper(){
+            EventsKeeperOLD keeper = super.getKeeper();
             return keeper;
         }
     }

@@ -74,7 +74,7 @@ public class Volume extends SequenceModule {
     }
 
     @Override
-    public void randomizeAll(DrumTrack drumTrack){
+    public void randomize(DrumTrack drumTrack){
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
             Step d = drumTrack.getSteps().get(step);
             d.randomizeVols(false);

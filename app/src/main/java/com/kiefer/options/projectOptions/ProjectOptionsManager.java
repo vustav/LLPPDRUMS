@@ -1,11 +1,13 @@
 package com.kiefer.options.projectOptions;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
@@ -33,10 +35,18 @@ public class ProjectOptionsManager extends BroadcastReceiver  {
         }
     }
 
-    private static boolean isBluetoothHeadsetConnected() {
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
-                && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED;
+    private boolean isBluetoothHeadsetConnected() {
+        //int permission = llppdrums.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT);
+        //if ( permission == PackageManager.PERMISSION_GRANTED ) {
+            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
+                    && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED;
+        //}
+        //else {
+            /** LÄGG IN NÅN VARNING **/
+            //return false;
+        //}
+
     }
 
     private void showBTWarning(){

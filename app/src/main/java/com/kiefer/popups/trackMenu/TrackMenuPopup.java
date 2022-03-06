@@ -9,8 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.graphics.customViews.CSeekBar;
 import com.kiefer.info.sequence.trackMenu.TrackMenuInfo;
 import com.kiefer.machine.DrumMachine;
 import com.kiefer.popups.Popup;
@@ -109,6 +112,7 @@ public class TrackMenuPopup extends Popup {
             }
         });
 
+        //rnd
         Button rndBtn = popupView.findViewById(R.id.sequencerTrackRndBtn);
         rndBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +122,7 @@ public class TrackMenuPopup extends Popup {
             }
         });
 
+        //fx
         Button fxBtn = popupView.findViewById(R.id.sequencerTrackFxBtn);
         FrameLayout fxBtnGraphics = popupView.findViewById(R.id.sequencerTrackFxBtnGraphics);
         LinearLayout fxGraphics = llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getFxBtnGraphics();
@@ -125,6 +130,7 @@ public class TrackMenuPopup extends Popup {
             ((ViewGroup) fxGraphics.getParent()).removeView(fxGraphics);
         }
         fxBtnGraphics.addView(fxGraphics);
+
         fxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,21 +139,33 @@ public class TrackMenuPopup extends Popup {
             }
         });
 
-        Button mixerBtn = popupView.findViewById(R.id.sequencerTrackMixerBtn);
+        //mixer
         FrameLayout mixerBtnGraphics = popupView.findViewById(R.id.sequencerTrackMixerBtnGraphics);
-        LinearLayout mixerGraphics = llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getMixerBtnGraphics();
-        if (mixerGraphics.getParent() != null) {
-            ((ViewGroup) mixerGraphics.getParent()).removeView(mixerGraphics);
-        }
-        mixerBtnGraphics.addView(mixerGraphics);
-        mixerBtn.setOnClickListener(new View.OnClickListener() {
+        Button mixerBtn = popupView.findViewById(R.id.sequencerTrackMixerBtn);
+
+        CSeekBar volBar = new CSeekBar(llppdrums, CSeekBar.VERTICAL_DOWN_UP);
+        volBar.setMargin(0);
+        volBar.setThumb(false);
+        volBar.setColors(ContextCompat.getColor(llppdrums, R.color.popupBarColor), ContextCompat.getColor(llppdrums, R.color.popupBarBg));
+        volBar.setProgress(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getTrackVolume() / 10f);
+
+        View.OnClickListener volListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                drumMachine.openMixerPopup(trackNo);
+            public void onClick(View v) {
+                //
+                new TrackVolPopup(llppdrums, llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo), mixerBtn, volBar);
                 popupWindow.dismiss();
             }
-        });
+        };
 
+        //add the listener to both. Only button makes the slider on the button clickable and modifiable
+        //and only the slider makes it do nothing if you click the button beside the slider
+        volBar.setOnClickListener(volListener);
+        mixerBtn.setOnClickListener(volListener);
+
+        mixerBtnGraphics.addView(volBar);
+
+        //remove
         Button removeBtn = popupView.findViewById(R.id.sequencerTrackRemoveTrackBtn);
         removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

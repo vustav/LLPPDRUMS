@@ -61,7 +61,7 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
     public abstract float getAutoRndPerc(Step step, int sub);
     public abstract void setAutoRndPerc(Step step, float perc, int sub);
 
-    public abstract void randomizeAll(DrumTrack drumTrack);
+    public abstract void randomize(DrumTrack drumTrack);
 
     protected SequenceModule(LLPPDRUMS llppdrums, DrumSequence drumSequence, Bitmap tabBitmap, Bitmap bgBitmap){
         this.llppdrums = llppdrums;

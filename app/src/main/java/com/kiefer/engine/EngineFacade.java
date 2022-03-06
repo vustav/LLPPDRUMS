@@ -97,10 +97,12 @@ public class EngineFacade {
 
         if(driver != null){
             setDriver(driver);
+            //setDriver("OpenSL");
         }
         else{
             //AAudio if supported
             audioDriver = _supportsAAudio ? Drivers.types.AAUDIO : Drivers.types.OPENSL;
+            //setDriver("OpenSL");
         }
 
         //Log.e("EngineFacade.init()", "provided driver: "+driver);
@@ -141,13 +143,8 @@ public class EngineFacade {
         masterBus.addProcessor( _limiter );
     }
 
-    public void addStep(){
-        setSteps(llppdrums.getDrumMachine().getPlayingSequence().getNOfSteps() + 1);
-        setTempo(llppdrums.getDrumMachine().getPlayingSequence().getTempo());
-    }
-
-    public void removeStep(){
-        setSteps(llppdrums.getDrumMachine().getPlayingSequence().getNOfSteps() - 1);
+    public void updateNOfSteps(){
+        setSteps(llppdrums.getDrumMachine().getPlayingSequence().getNOfSteps());
         setTempo(llppdrums.getDrumMachine().getPlayingSequence().getTempo());
     }
 
@@ -334,17 +331,22 @@ public class EngineFacade {
                     // we can calculate the amount of samples pending until the next step position is reached
                     // which in turn allows us to calculate the engine latency
 
-                    sequencerPosition = _sequencerController.getStepPosition();
-                    int elapsedSamples = _sequencerController.getBufferPosition();
+                    //int elapsedSamples = _sequencerController.getBufferPosition();
 
                     //see the start of init() for an explanation
                     //notificationThread.run();
                     //Log.e("EF Update", "step: "+sequencerPosition);
 
                     //if(sequencerPosition % subs == 0) {
-                        //int step = sequencerPosition / subs;
-                        //llppdrums.handleSequencerPositionChange(sequencerPosition / DrumSequence.N_OF_SUB_STEPS);
-                        llppdrums.handleSequencerPositionChange(sequencerPosition);
+                    //int step = sequencerPosition / subs;
+                    //llppdrums.handleSequencerPositionChange(sequencerPosition / DrumSequence.N_OF_SUB_STEPS);
+                    llppdrums.runOnUiThread( new Runnable() {
+                        public void run() {
+                            sequencerPosition = _sequencerController.getStepPosition();
+                            //Log.e("EngineFacade", "handleNotification(), sequencerPosition: "+sequencerPosition);
+                            llppdrums.handleSequencerPositionChange(sequencerPosition);
+                        }
+                    });
                     //}
                     //postStats(sequencerPosition);
 

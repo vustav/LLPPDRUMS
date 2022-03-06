@@ -1,5 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.sampleManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.SampleManagerKeeper;
@@ -9,7 +11,7 @@ import com.kiefer.machine.sequence.track.soundManager.SoundSource;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategory;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryBass;
-import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHH;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHHClosed;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryMisc;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategorySnare;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryTom;
@@ -89,8 +91,8 @@ public class SmplManager extends SoundSource {
      * setPreset() with those **/
     private void setupPresets(){
         presets.add(new SampleCategoryBass());
-        presets.add(new SampleCategoryHH());
         presets.add(new SampleCategorySnare());
+        presets.add(new SampleCategoryHHClosed());
         presets.add(new SampleCategoryTom());
         presets.add(new SampleCategoryMisc());
     }
@@ -178,12 +180,14 @@ public class SmplManager extends SoundSource {
     @Override
     public void restore(Keeper k){
         SampleManagerKeeper keeper = (SampleManagerKeeper) k;
+        Log.e("SampleManagerKeeper", "restore(), selectedCategory: "+keeper.selectedCategory);
         selectedCategory = (SampleCategory) presets.get(keeper.selectedCategory);
         selectedCategory.setSelectedSample(keeper.selectedSample);
     }
 
     @Override
     public SampleManagerKeeper getKeeper(){
+        Log.e("SampleManagerKeeper", "getKeeper(), presets.indexOf(selectedCategory): "+presets.indexOf(selectedCategory));
         SampleManagerKeeper keeper = new SampleManagerKeeper();
         keeper.selectedCategory = presets.indexOf(selectedCategory);
         keeper.selectedSample = selectedCategory.getSelectedSampleIndex();

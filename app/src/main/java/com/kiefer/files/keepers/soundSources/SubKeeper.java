@@ -2,22 +2,18 @@ package com.kiefer.files.keepers.soundSources;
 
 import com.kiefer.files.keepers.Keeper;
 
-public class EventsKeeper implements Keeper {
-    public String volumeModifier, pan, pitchModifier;
+import java.util.ArrayList;
 
-    //public boolean autoRndOn;
+public class SubKeeper implements Keeper {
+    public boolean on;
+    public String volumeModifier, pitchModifier;
+
     public String rndOnPerc;
     public boolean rndOnReturn;
 
-    //public boolean autoRndVol;
     public String rndVolMin, rndVolMax, rndVolPerc;
     public boolean rndVolReturn;
 
-    //public boolean autoRndPan;
-    public String rndPanMin, rndPanMax, rndPanPerc;
-    public boolean rndPanReturn;
-
-    //public boolean autoRndPitch;
     public String rndPitchMin, rndPitchMax, rndPitchPerc;
     public boolean rndPitchReturn;
 }
