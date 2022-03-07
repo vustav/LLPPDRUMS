@@ -2,6 +2,9 @@ package com.kiefer.machine.fx;
 
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
+
+import android.util.Log;
+import android.view.View;
 import android.widget.SeekBar;
 
 import com.kiefer.LLPPDRUMS;
@@ -21,12 +24,10 @@ public class FxDelay extends Fx {
     private final int MAX_DELAY = 1000; //ms
     private int time;
     private float feedback, mix;
-    private final SeekBar timeSeekBar, feedbackSeekBar, mixSeekBar;
+    private SeekBar timeSeekBar, feedbackSeekBar, mixSeekBar;
 
     public FxDelay(LLPPDRUMS llppdrums, DrumTrack drumTrack, int index, boolean automation){
         super(llppdrums, drumTrack, index, automation);
-
-        layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_delay, null);
 
         Random r = new Random();
 
@@ -35,11 +36,55 @@ public class FxDelay extends Fx {
         mix = r.nextFloat();
 
         fx = new Delay(time, MAX_DELAY, feedback, mix, 2);
+    }
+
+    @Override
+    public void setupParamNames(){
+        paramNames.add(llppdrums.getResources().getString(R.string.fxDelayTime));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxDelayFeedback));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxDelayMix));
+    }
+
+    /** SELECTION **/
+    /*
+    @Override
+    public void select(){
+        timeSeekBar.setProgress(time);
+        feedbackSeekBar.setProgress((int)(feedback * floatMultiplier));
+        mixSeekBar.setProgress((int)(mix * floatMultiplier));
+    }
+
+     */
+
+    /** SET **/
+    private void setTime(int value){
+        time = value;
+        ((Delay)fx).setDelayTime(value + 5); //just to avoid 0
+    }
+
+    private void setFeedback(float value){
+        //feedback = ((float) value) / floatMultiplier;
+        feedback = NmbrUtils.removeImpossibleNumbers(value);
+        ((Delay)fx).setFeedback(feedback);
+    }
+
+    private void setMix(float value){
+        //mix = ((float) value) / floatMultiplier;
+        mix = NmbrUtils.removeImpossibleNumbers(value);
+        ((Delay)fx).setMix(mix);
+    }
+
+    /** GET **/
+    @Override
+    public View getLayout(){
+        View layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_delay, null);
 
         //time
         timeSeekBar = layout.findViewById(R.id.delayTimeSlider);
         timeSeekBar.setMax(MAX_DELAY);
-        timeSeekBar.setProgress((int)(((Delay)fx).getDelayTime()));timeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        timeSeekBar.setProgress(((Delay)fx).getDelayTime());
+        //Log.e("FxDelay", "getLayout(), timeSeekBar.setProgress(): "+((Delay)fx).getDelayTime());
+        timeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 setTime(seekBar.getProgress());
@@ -62,7 +107,7 @@ public class FxDelay extends Fx {
         feedbackSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setFeedback(seekBar.getProgress());
+                setFeedback(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -82,7 +127,7 @@ public class FxDelay extends Fx {
         mixSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setMix(seekBar.getProgress());
+                setMix(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -95,40 +140,10 @@ public class FxDelay extends Fx {
 
             }
         });
+
+        return layout;
     }
 
-    @Override
-    public void setupParamNames(){
-        paramNames.add(llppdrums.getResources().getString(R.string.fxDelayTime));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxDelayFeedback));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxDelayMix));
-    }
-
-    /** SELECTION **/
-    @Override
-    public void select(){
-        timeSeekBar.setProgress(time);
-        feedbackSeekBar.setProgress((int)(feedback * floatMultiplier));
-        mixSeekBar.setProgress((int)(mix * floatMultiplier));
-    }
-
-    /** SET **/
-    private void setTime(int value){
-        time = value;
-        ((Delay)fx).setDelayTime(value + 5); //just to avoid 0
-    }
-
-    private void setFeedback(int value){
-        feedback = ((float) value) / floatMultiplier;
-        ((Delay)fx).setFeedback(NmbrUtils.removeImpossibleNumbers(feedback));
-    }
-
-    private void setMix(int value){
-        mix = ((float) value) / floatMultiplier;
-        ((Delay)fx).setMix(NmbrUtils.removeImpossibleNumbers(mix));
-    }
-
-    /** GET **/
     public String getName(){
         return llppdrums.getResources().getString(R.string.fxDelayName);
     }
@@ -153,9 +168,9 @@ public class FxDelay extends Fx {
     public void restore(FxKeeper k){
         FxDelayKeeper keeper = (FxDelayKeeper) k;
         setOn(keeper.on);
-        ((Delay)fx).setDelayTime(keeper.time);
-        ((Delay)fx).setFeedback(Float.parseFloat(keeper.feedback));
-        ((Delay)fx).setMix(Float.parseFloat(keeper.mix));
+        setTime(keeper.time);
+        setFeedback(Float.parseFloat(keeper.feedback));
+        setMix(Float.parseFloat(keeper.mix));
 
         automationManager.restore(keeper.automationManagerKeeper);
     }
@@ -164,6 +179,7 @@ public class FxDelay extends Fx {
     public FxKeeper getKeeper(){
         FxDelayKeeper keeper = new FxDelayKeeper(getIndex(), isOn(), automationManager.getKeeper());
         keeper.time = ((Delay)fx).getDelayTime();
+        //Log.e("FxDelay", "getKeeper, time: "+((Delay)fx).getDelayTime());
         keeper.feedback = Float.toString(((Delay)fx).getFeedback());
         keeper.mix = Float.toString(((Delay)fx).getMix());
         return keeper;
@@ -196,13 +212,13 @@ public class FxDelay extends Fx {
         //feedback
         else if(param.equals(paramNames.get(2))){
             float ogFeedback = feedback;
-            int autoFeedback = (int)(autoValue * floatMultiplier);
+            //float autoFeedback = autoValue;
 
             if(updateUI) {
-                feedbackSeekBar.setProgress(autoFeedback);
+                feedbackSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setFeedback(autoFeedback);
+                setFeedback(autoValue);
             }
 
             return ogFeedback;
@@ -211,13 +227,13 @@ public class FxDelay extends Fx {
         //mix
         else if(param.equals(paramNames.get(3))){
             float ogMix = mix;
-            int autoMix = (int)(autoValue * floatMultiplier);
+            //float autoMix = autoValue;
 
             if(updateUI) {
-                mixSeekBar.setProgress(autoMix);
+                mixSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setMix(autoMix);
+                setMix(autoValue);
             }
 
             return ogMix;
@@ -250,7 +266,7 @@ public class FxDelay extends Fx {
                 feedbackSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setFeedback((int)(oldValue * floatMultiplier));
+                setFeedback(oldValue);
             }
         }
 
@@ -260,7 +276,7 @@ public class FxDelay extends Fx {
                 mixSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setMix((int)(oldValue * floatMultiplier));
+                setMix(oldValue);
             }
         }
     }

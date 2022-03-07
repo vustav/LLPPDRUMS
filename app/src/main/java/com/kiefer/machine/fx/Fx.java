@@ -21,7 +21,7 @@ public abstract class Fx implements Automatable {
     protected LLPPDRUMS llppdrums;
     protected DrumTrack drumTrack;
     protected BaseProcessor fx;
-    protected View layout;
+    //protected View layout;
     protected int floatMultiplier;
     protected AutomationManager automationManager;
 
@@ -59,6 +59,7 @@ public abstract class Fx implements Automatable {
     }
 
     //getters
+    public abstract View getLayout();
     public abstract GradientDrawable getBgGradient();
     public abstract GradientDrawable getTabGradient();
     public abstract String getName();
@@ -72,7 +73,7 @@ public abstract class Fx implements Automatable {
     public abstract void setupParamNames();
 
     //used when an fx is selected (also called when the popup is created) to update the UI
-    public abstract void select();
+    //public abstract void select();
 
     public void destroy() {
         //fx.delete(); //.delete() might be dangerous, should be collected...
@@ -132,10 +133,6 @@ public abstract class Fx implements Automatable {
 
     public BaseProcessor getBaseProcessor(){
         return fx;
-    }
-
-    public View getLayout() {
-        return layout;
     }
 
     public int getIndex() {

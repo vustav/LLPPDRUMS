@@ -2,6 +2,8 @@ package com.kiefer.machine.fx;
 
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
+
+import android.view.View;
 import android.widget.SeekBar;
 
 import com.kiefer.LLPPDRUMS;
@@ -19,12 +21,10 @@ import nl.igorski.mwengine.core.BitCrusher;
 
 public class FxBitCrusher extends Fx {
     private float amount, inMix, outMix;
-    private final SeekBar amountSeekBar, inSeekBar, outSeekBar;
+    private SeekBar amountSeekBar, inSeekBar, outSeekBar;
 
     public FxBitCrusher(LLPPDRUMS llppdrums, DrumTrack drumTrack, final int index, boolean automation){
         super(llppdrums, drumTrack, index, automation);
-
-        layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_bit_crusher, null);
 
         Random r = new Random();
 
@@ -33,6 +33,42 @@ public class FxBitCrusher extends Fx {
         outMix = r.nextFloat();
 
         fx = new BitCrusher(amount, inMix, outMix);
+    }
+
+    @Override
+    public void setupParamNames(){
+        paramNames.add(llppdrums.getResources().getString(R.string.fxBitCrusherAmout));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxBitCrusherIn));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxBitCrusherOut));
+    }
+
+    /** SELECTION **/
+    /*
+    public void select(){
+    }
+
+     */
+
+    /** SET **/
+    private void setAmount(float value){
+        amount = NmbrUtils.removeImpossibleNumbers(value);
+        ((BitCrusher)fx).setAmount(amount);
+    }
+
+    private void setIn(float value){
+        inMix = NmbrUtils.removeImpossibleNumbers(value);
+        ((BitCrusher)fx).setInputMix(inMix);
+    }
+
+    private void setOut(float value){
+        outMix = NmbrUtils.removeImpossibleNumbers(value);
+        ((BitCrusher)fx).setOutputMix(outMix);
+    }
+
+    /** GET **/
+    @Override
+    public View getLayout(){
+        View layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_bit_crusher, null);
 
         //amount
         amountSeekBar = layout.findViewById(R.id.bitAmountSlider);
@@ -40,7 +76,7 @@ public class FxBitCrusher extends Fx {
         amountSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setAmount(seekBar.getProgress());
+                setAmount((float)(seekBar.getProgress() / floatMultiplier));
             }
 
             @Override
@@ -60,7 +96,7 @@ public class FxBitCrusher extends Fx {
         inSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setIn(seekBar.getProgress());
+                setIn((float)(seekBar.getProgress() / floatMultiplier));
             }
 
             @Override
@@ -80,7 +116,7 @@ public class FxBitCrusher extends Fx {
         outSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setOut(seekBar.getProgress());
+                setOut((float)(seekBar.getProgress() / floatMultiplier));
             }
 
             @Override
@@ -93,36 +129,10 @@ public class FxBitCrusher extends Fx {
 
             }
         });
+
+        return layout;
     }
 
-    @Override
-    public void setupParamNames(){
-        paramNames.add(llppdrums.getResources().getString(R.string.fxBitCrusherAmout));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxBitCrusherIn));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxBitCrusherOut));
-    }
-
-    /** SELECTION **/
-    public void select(){
-    }
-
-    /** SET **/
-    private void setAmount(int value){
-        amount = ((float) value) / floatMultiplier;
-        ((BitCrusher)fx).setAmount(NmbrUtils.removeImpossibleNumbers(amount));
-    }
-
-    private void setIn(int value){
-        inMix = ((float) value) / floatMultiplier;
-        ((BitCrusher)fx).setInputMix(NmbrUtils.removeImpossibleNumbers(inMix));
-    }
-
-    private void setOut(int value){
-        outMix = ((float) value) / floatMultiplier;
-        ((BitCrusher)fx).setOutputMix(NmbrUtils.removeImpossibleNumbers(outMix));
-    }
-
-    /** GET **/
     public String getName(){
         return llppdrums.getResources().getString(R.string.fxBitCrusherName);
     }
@@ -146,9 +156,12 @@ public class FxBitCrusher extends Fx {
     public void restore(FxKeeper k){
         FxBitCrusherKeeper keeper = (FxBitCrusherKeeper) k;
         setOn(keeper.on);
-        ((BitCrusher)fx).setAmount(Float.parseFloat(keeper.amount));
-        ((BitCrusher)fx).setInputMix(Float.parseFloat(keeper.inMix));
-        ((BitCrusher)fx).setOutputMix(Float.parseFloat(keeper.outMix));
+        //((BitCrusher)fx).setAmount(Float.parseFloat(keeper.amount));
+        setAmount(Float.parseFloat(keeper.amount));
+        //((BitCrusher)fx).setInputMix(Float.parseFloat(keeper.inMix));
+        setIn(Float.parseFloat(keeper.inMix));
+        //((BitCrusher)fx).setOutputMix(Float.parseFloat(keeper.outMix));
+        setOut(Float.parseFloat(keeper.outMix));
 
         automationManager.restore(keeper.automationManagerKeeper);
     }
@@ -175,13 +188,13 @@ public class FxBitCrusher extends Fx {
         //amount
         else if(param.equals(paramNames.get(1))){
             float ogAmount = amount;
-            int autoAmount = (int)(autoValue * floatMultiplier);
+            //int autoAmount = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                amountSeekBar.setProgress(autoAmount);
+                amountSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setAmount(autoAmount);
+                setAmount(autoValue);
             }
 
             return ogAmount;
@@ -190,13 +203,13 @@ public class FxBitCrusher extends Fx {
         //in
         else if(param.equals(paramNames.get(2))){
             float ogIn = inMix;
-            int autoIn = (int)(autoValue * floatMultiplier);
+            //int autoIn = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                inSeekBar.setProgress(autoIn);
+                inSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setIn(autoIn);
+                setIn(autoValue);
             }
 
             return ogIn;
@@ -205,13 +218,13 @@ public class FxBitCrusher extends Fx {
         //out
         else if(param.equals(paramNames.get(3))){
             float ogOut = outMix;
-            int autoOut = (int)(autoValue * floatMultiplier);
+            //int autoOut = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                outSeekBar.setProgress(autoOut);
+                outSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setOut(autoOut);
+                setOut(autoValue);
             }
 
             return ogOut;
@@ -234,7 +247,7 @@ public class FxBitCrusher extends Fx {
                 amountSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setAmount((int)(oldValue * floatMultiplier));
+                setAmount(oldValue);
             }
         }
 
@@ -244,7 +257,7 @@ public class FxBitCrusher extends Fx {
                 inSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setIn((int)(oldValue * floatMultiplier));
+                setIn(oldValue);
             }
         }
 
@@ -254,7 +267,7 @@ public class FxBitCrusher extends Fx {
                 outSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setOut((int)(oldValue * floatMultiplier));
+                setOut(oldValue);
             }
         }
     }

@@ -142,6 +142,7 @@ public class DrumTrack implements Subilizer {
     }
 
     public void positionEvents(){
+        //Log.e("DrumTrack", "positionEvents(), nOfSteps: "+getNOfSteps());
         for(Step d : steps){
             d.positionEvents(getNOfSteps());
         }
@@ -741,16 +742,17 @@ public class DrumTrack implements Subilizer {
     public void restore(DrumTrackKeeper k){
         //Log.e("DrumTrack.restore()", "nOfSubs: "+k.nOfSubs);
         color = k.color;
-        setNOfSubs(666, k.nOfSubs); //trackNo doesn't matter
         //nOfSubs = k.nOfSubs;
         name = k.name;
 
         setTrackVolume(k.volume);
+        setNOfSubs(666, k.nOfSubs); //trackNo doesn't matter
         soundManager.restore(k.soundManagerKeeper);
         fxManager.restore(k.fxManagerKeeper);
         for(int step = 0; step < steps.size(); step++){
             steps.get(step).restore(k.stepKeepers.get(step));
         }
+        positionEvents();
     }
 
     public DrumTrackKeeper getKeeper(){

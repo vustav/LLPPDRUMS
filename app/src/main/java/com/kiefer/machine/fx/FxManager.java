@@ -341,12 +341,16 @@ public class FxManager {
     public void restore(FxManagerKeeper k){
 
         destroy();
-        fxs = new ArrayList<>();
+        fxs = new ArrayList<>(); //fxs add themselves in createNewFx
 
         for(FxKeeper fxk : k.fxKeepers){
             Fx fx = createNewFx(fxk.fxIndex, false);
             fx.restore(fxk);
-            addFxToEngine(fx);
+            //addFxToEngine(fx);
+
+            if(fx.isOn()) {
+                addFxToEngine(fx);
+            }
         }
 
         //only set a selected if at least one exists

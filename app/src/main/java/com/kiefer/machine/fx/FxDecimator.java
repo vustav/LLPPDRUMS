@@ -2,6 +2,8 @@ package com.kiefer.machine.fx;
 
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
+
+import android.view.View;
 import android.widget.SeekBar;
 
 import com.kiefer.LLPPDRUMS;
@@ -26,14 +28,44 @@ public class FxDecimator extends Fx {
     public FxDecimator(LLPPDRUMS llppdrums, DrumTrack drumTrack, int index, boolean automation){
         super(llppdrums, drumTrack, index, automation);
 
-        layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_decimator, null);
-
         Random r = new Random();
 
         bits = r.nextInt(MAX_BITS);
         rate = r.nextFloat();
 
         fx = new Decimator(bits, rate);
+    }
+
+    @Override
+    public void setupParamNames(){
+        paramNames.add(llppdrums.getResources().getString(R.string.fxDeciamtorBits));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxDeciamtorRate));
+    }
+
+    /** SELECTION **/
+    /*
+    public void select(){
+        bitsSeekBar.setProgress(bits);
+        rateSeekBar.setProgress((int)(rate * floatMultiplier));
+    }
+
+     */
+
+    /** SET **/
+    private void setBits(int value){
+        bits = value;
+        ((Decimator)fx).setBits(bits);
+    }
+
+    private void setRate(float value){
+        rate = NmbrUtils.removeImpossibleNumbers(value);
+        ((Decimator)fx).setRate(rate);
+    }
+
+    /** GET **/
+    @Override
+    public View getLayout(){
+        View layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_decimator, null);
 
         //bits
         bitsSeekBar = layout.findViewById(R.id.decimatorBitsSlider);
@@ -64,10 +96,7 @@ public class FxDecimator extends Fx {
         rateSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                //rate = ((float) seekBar.getProgress()) / floatMultiplier;
-                //((Decimator)fx).setRate(NmbrUtils.removeImpossibleNumbers(rate));
-
-                setRate(seekBar.getProgress());
+                setRate(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -80,32 +109,10 @@ public class FxDecimator extends Fx {
 
             }
         });
+
+        return layout;
     }
 
-    @Override
-    public void setupParamNames(){
-        paramNames.add(llppdrums.getResources().getString(R.string.fxDeciamtorBits));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxDeciamtorRate));
-    }
-
-    /** SELECTION **/
-    public void select(){
-        bitsSeekBar.setProgress(bits);
-        rateSeekBar.setProgress((int)(rate * floatMultiplier));
-    }
-
-    /** SET **/
-    private void setBits(int value){
-        bits = value;
-        ((Decimator)fx).setBits(bits);
-    }
-
-    private void setRate(int value){
-        rate = ((float) value) / floatMultiplier;
-        ((Decimator)fx).setRate(NmbrUtils.removeImpossibleNumbers(rate));
-    }
-
-    /** GET **/
     public String getName(){
         return llppdrums.getResources().getString(R.string.fxDecimatorName);
     }
@@ -129,8 +136,10 @@ public class FxDecimator extends Fx {
     public void restore(FxKeeper k){
         FxDecimatorKeeper keeper = (FxDecimatorKeeper) k;
         setOn(keeper.on);
-        ((Decimator)fx).setBits(keeper.bits);
-        ((Decimator)fx).setRate(Float.parseFloat(keeper.rate));
+        //((Decimator)fx).setBits(keeper.bits);
+        setBits(keeper.bits);
+        //((Decimator)fx).setRate(Float.parseFloat(keeper.rate));
+        setRate(Float.parseFloat(keeper.rate));
 
         automationManager.restore(keeper.automationManagerKeeper);
     }
@@ -170,13 +179,13 @@ public class FxDecimator extends Fx {
         //rate
         else if(param.equals(paramNames.get(2))){
             float ogRate = rate;
-            int autoRate = (int)(autoValue * floatMultiplier);
+            //int autoRate = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                rateSeekBar.setProgress(autoRate);
+                rateSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setRate(autoRate);
+                setRate(autoValue);
             }
 
             return ogRate;
@@ -209,7 +218,7 @@ public class FxDecimator extends Fx {
                 rateSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setRate((int)(oldValue * floatMultiplier));
+                setRate(oldValue);
             }
         }
     }

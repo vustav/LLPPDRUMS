@@ -180,14 +180,18 @@ public class SmplManager extends SoundSource {
     @Override
     public void restore(Keeper k){
         SampleManagerKeeper keeper = (SampleManagerKeeper) k;
-        Log.e("SampleManagerKeeper", "restore(), selectedCategory: "+keeper.selectedCategory);
+        //Log.e("SampleManagerKeeper", "restore(), selectedCategory: "+keeper.selectedCategory);
         selectedCategory = (SampleCategory) presets.get(keeper.selectedCategory);
-        selectedCategory.setSelectedSample(keeper.selectedSample);
+        setSample(keeper.selectedSample);
+
+        //selectedCategory.setSelectedSample(keeper.selectedSample);
+        //drumTrack.updateEventSamples();
+        //updateLiveEvent();
     }
 
     @Override
     public SampleManagerKeeper getKeeper(){
-        Log.e("SampleManagerKeeper", "getKeeper(), presets.indexOf(selectedCategory): "+presets.indexOf(selectedCategory));
+        //Log.e("SampleManagerKeeper", "getKeeper(), presets.indexOf(selectedCategory): "+presets.indexOf(selectedCategory));
         SampleManagerKeeper keeper = new SampleManagerKeeper();
         keeper.selectedCategory = presets.indexOf(selectedCategory);
         keeper.selectedSample = selectedCategory.getSelectedSampleIndex();

@@ -283,9 +283,9 @@ public class Oscillator {
 
     /** RESTORATION **/
     public void restore(OscillatorKeeper k){
+        setOn(k.on);
         setVolume(Float.parseFloat(k.oscillatorVolume));
         setOscillatorPitch(k.oscillatorPitchLin);
-        setOn(k.on);
         setWaveForm(k.waveForm);
         setAttackTime(Float.parseFloat(k.atk));
         setDecayTime(Float.parseFloat(k.decay));

@@ -1,5 +1,7 @@
 package com.kiefer.machine.sequence.track;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.StepKeeper;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
@@ -118,9 +120,10 @@ public class Step {
     public int getStepNo() {
         //if this step isn't in the array yet this is called on creation (before it's been added) which means this is the last step
         if(!drumTrack.getSteps().contains(this)){
+            //Log.e("Step", "getStepNo(), stepNo: "+ drumTrack.getSteps().size());
             return drumTrack.getSteps().size();
         }
-
+        //Log.e("Step", "getStepNo(), stepNo: "+ drumTrack.getSteps().indexOf(this));
         return drumTrack.getSteps().indexOf(this);
     }
 
@@ -224,7 +227,7 @@ public class Step {
     }
 
     public void setOn(boolean on){
-        boolean wasOn = this.on;
+        //boolean wasOn = this.on;
         this.on = on;
 
         //if (on && !wasOn) {

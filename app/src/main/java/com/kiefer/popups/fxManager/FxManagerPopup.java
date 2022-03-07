@@ -200,7 +200,7 @@ public class FxManagerPopup extends Popup {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                fxManager.releaseFxViews();
+                //fxManager.releaseFxViews();
             }
         });
 
@@ -297,7 +297,7 @@ public class FxManagerPopup extends Popup {
                 ((ViewGroup)fxManager.getSelectedFx().getLayout().getParent()).removeView(fxManager.getSelectedFx().getLayout());
             }
             editArea.addView(fxManager.getSelectedFx().getLayout());
-            fxManager.getSelectedFx().select();
+            //fxManager.getSelectedFx().select();
         }
 
         setSharedUI();

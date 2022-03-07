@@ -347,7 +347,8 @@ public class Sub {
 
     public void restore(SubKeeper k){
 
-        on = k.on;
+        //on = k.on;
+        setOn(k.on);
 
         setVolumeModifier(Float.parseFloat(k.volumeModifier));
         setPitchModifier(Float.parseFloat(k.pitchModifier));

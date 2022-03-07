@@ -1,5 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.StepEventsManagerKeeper;
@@ -73,7 +75,13 @@ public class StepEventsManager {
 
     /** ONOFF SUB **/
     public void setSubOn(int sub, boolean on){
-        subs.get(sub).setOn(on);
+        if(subs.size() > 1) {
+            subs.get(sub).setOn(on);
+        }
+        else{
+            //always on if 1 sub
+            subs.get(sub).setOn(true);
+        }
     }
 
     public boolean isSubOn(int sub){
@@ -165,6 +173,7 @@ public class StepEventsManager {
     }
 
     protected int getSamplesPerStep(int nOfSteps){
+        /** FIXA MASSA LOGGAR OCH KOLLA SÅ DET BLIR RÄTT **/
         return ((60/(drumSequence.getTempo()/llppdrums.getEngineFacade().getBEAT_AMOUNT())) * llppdrums.getEngineFacade().getSAMPLE_RATE()) / nOfSteps;
     }
 
@@ -180,6 +189,7 @@ public class StepEventsManager {
     }
 
     protected int getSamplesPerSub(int samplesPerStep){
+        Log.e("StepEventsManager", "getSamplesPerSub(), nOfSubs: "+drumTrack.getNOfSubs());
         return samplesPerStep / drumTrack.getNOfSubs();
     }
 

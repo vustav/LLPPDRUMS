@@ -2,6 +2,8 @@ package com.kiefer.machine.fx;
 
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
+
+import android.view.View;
 import android.widget.SeekBar;
 
 import com.kiefer.LLPPDRUMS;
@@ -24,8 +26,6 @@ public class FxReverb extends Fx {
     public FxReverb(LLPPDRUMS llppdrums, DrumTrack drumTrack, int index, boolean automation){
         super(llppdrums, drumTrack, index, automation);
 
-        layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_reverb_lofi, null);
-
         Random r = new Random();
 
         size = r.nextFloat();
@@ -34,6 +34,52 @@ public class FxReverb extends Fx {
         out = r.nextFloat();
 
         fx = new Reverb(size, damp, mix, out);
+    }
+
+    @Override
+    public void setupParamNames(){
+        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiSize));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiDamp));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiMix));
+        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiOut));
+    }
+
+    /** SELECTION **/
+    /*
+    public void select(){
+        sizeSeekBar.setProgress((int)(size * floatMultiplier));
+        dampSeekBar.setProgress((int)(damp * floatMultiplier));
+        mixSeekBar.setProgress((int)(mix * floatMultiplier));
+        outSeekBar.setProgress((int)(out * floatMultiplier));
+    }
+
+     */
+
+    /** SET **/
+    private void setSize(float value){
+        size = NmbrUtils.removeImpossibleNumbers(value);
+        ((Reverb)fx).setSize(size);
+    }
+
+    private void setDamp(float value){
+        damp = NmbrUtils.removeImpossibleNumbers(value);
+        ((Reverb)fx).setHFDamp(damp);
+    }
+
+    private void setMix(float value){
+        mix = NmbrUtils.removeImpossibleNumbers(value);
+        ((Reverb)fx).setMix(mix);
+    }
+
+    private void setOut(float value){
+        out = NmbrUtils.removeImpossibleNumbers(value);
+        ((Reverb)fx).setOutput(out);
+    }
+
+    /** GET **/
+    @Override
+    public View getLayout(){
+        View layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager_reverb_lofi, null);
 
         //size
         sizeSeekBar = layout.findViewById(R.id.revLoFiSizeSlider);
@@ -41,7 +87,7 @@ public class FxReverb extends Fx {
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setSize(seekBar.getProgress());
+                setSize(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -61,7 +107,7 @@ public class FxReverb extends Fx {
         dampSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setDamp(seekBar.getProgress());
+                setDamp(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -81,7 +127,7 @@ public class FxReverb extends Fx {
         mixSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setMix(seekBar.getProgress());
+                setMix(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -101,7 +147,7 @@ public class FxReverb extends Fx {
         outSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setOut(seekBar.getProgress());
+                setOut(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -114,46 +160,10 @@ public class FxReverb extends Fx {
 
             }
         });
+
+        return layout;
     }
 
-    @Override
-    public void setupParamNames(){
-        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiSize));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiDamp));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiMix));
-        paramNames.add(llppdrums.getResources().getString(R.string.fxRevLoFiOut));
-    }
-
-    /** SELECTION **/
-    public void select(){
-        sizeSeekBar.setProgress((int)(size * floatMultiplier));
-        dampSeekBar.setProgress((int)(damp * floatMultiplier));
-        mixSeekBar.setProgress((int)(mix * floatMultiplier));
-        outSeekBar.setProgress((int)(out * floatMultiplier));
-    }
-
-    /** SET **/
-    private void setSize(int value){
-        size = ((float) value) / floatMultiplier;
-        ((Reverb)fx).setSize(NmbrUtils.removeImpossibleNumbers(size));
-    }
-
-    private void setDamp(int value){
-        damp = ((float) value) / floatMultiplier;
-        ((Reverb)fx).setHFDamp(NmbrUtils.removeImpossibleNumbers(damp));
-    }
-
-    private void setMix(int value){
-        mix = ((float) value) / floatMultiplier;
-        ((Reverb)fx).setMix(NmbrUtils.removeImpossibleNumbers(mix));
-    }
-
-    private void setOut(int value){
-        out = ((float) value) / floatMultiplier;
-        ((Reverb)fx).setOutput(NmbrUtils.removeImpossibleNumbers(out));
-    }
-
-    /** GET **/
     public String getName(){
         return llppdrums.getResources().getString(R.string.fxReverbName);
     }
@@ -177,10 +187,14 @@ public class FxReverb extends Fx {
     public void restore(FxKeeper k){
         FxReverbKeeper keeper = (FxReverbKeeper) k;
         setOn(keeper.on);
-        ((Reverb)fx).setSize(Float.parseFloat(keeper.size));
-        ((Reverb)fx).setHFDamp(Float.parseFloat(keeper.damp));
-        ((Reverb)fx).setMix(Float.parseFloat(keeper.mix));
-        ((Reverb)fx).setOutput(Float.parseFloat(keeper.out));
+        //((Reverb)fx).setSize(Float.parseFloat(keeper.size));
+        setSize(Float.parseFloat(keeper.size));
+        //((Reverb)fx).setHFDamp(Float.parseFloat(keeper.damp));
+        setDamp(Float.parseFloat(keeper.damp));
+        //((Reverb)fx).setMix(Float.parseFloat(keeper.mix));
+        setMix(Float.parseFloat(keeper.mix));
+        //((Reverb)fx).setOutput(Float.parseFloat(keeper.out));
+        setOut(Float.parseFloat(keeper.out));
 
         automationManager.restore(keeper.automationManagerKeeper);
     }
@@ -208,13 +222,13 @@ public class FxReverb extends Fx {
         //size
         else if(param.equals(paramNames.get(1))){
             float ogSize = size;
-            int autoSize = (int)(autoValue * floatMultiplier);
+            //int autoSize = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                sizeSeekBar.setProgress(autoSize);
+                sizeSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setSize(autoSize);
+                setSize(autoValue);
             }
             return ogSize;
         }
@@ -222,13 +236,13 @@ public class FxReverb extends Fx {
         //damp
         else if(param.equals(paramNames.get(2))){
             float ogDamp = damp;
-            int autoDamp = (int)(autoValue * floatMultiplier);
+            //int autoDamp = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                dampSeekBar.setProgress(autoDamp);
+                dampSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setDamp(autoDamp);
+                setDamp(autoValue);
             }
 
             return ogDamp;
@@ -237,13 +251,13 @@ public class FxReverb extends Fx {
         //mix
         else if(param.equals(paramNames.get(3))){
             float ogMix = mix;
-            int autoMix = (int)(autoValue * floatMultiplier);
+            //int autoMix = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                mixSeekBar.setProgress(autoMix);
+                mixSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setMix(autoMix);
+                setMix(autoValue);
             }
 
             return ogMix;
@@ -252,13 +266,13 @@ public class FxReverb extends Fx {
         //out
         else if(param.equals(paramNames.get(4))){
             float ogOut = out;
-            int autoDelay = (int)(autoValue * floatMultiplier);
+            //int autoDelay = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
-                outSeekBar.setProgress(autoDelay);
+                outSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }
             else{
-                setOut(autoDelay);
+                setOut(autoValue);
             }
 
             return ogOut;
@@ -281,7 +295,7 @@ public class FxReverb extends Fx {
                 sizeSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setSize((int)(oldValue * floatMultiplier));
+                setSize(oldValue);
             }
         }
 
@@ -291,7 +305,7 @@ public class FxReverb extends Fx {
                 dampSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setDamp((int)(oldValue * floatMultiplier));
+                setDamp(oldValue);
             }
         }
 
@@ -301,7 +315,7 @@ public class FxReverb extends Fx {
                 mixSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setMix((int)(oldValue * floatMultiplier));
+                setMix(oldValue);
             }
         }
 
@@ -311,7 +325,7 @@ public class FxReverb extends Fx {
                 outSeekBar.setProgress((int)(oldValue * floatMultiplier));
             }
             else{
-                setOut((int)(oldValue * floatMultiplier));
+                setOut(oldValue);
             }
         }
     }
