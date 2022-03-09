@@ -1,5 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.SubKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -68,7 +70,6 @@ public class Sub {
 
         randomizeVol(false);
         randomizePitch(false);
-
     }
 
     private void setupAutoRndParams(){
@@ -94,10 +95,8 @@ public class Sub {
     public void setOn(boolean on){
         this.on = on;
 
-        if(on) {
-            if (step.isOn()) {
-                addToSequencer(true);
-            }
+        if(on && step.isOn()) {
+            addToSequencer(true);
         }
         else{
             addToSequencer(false);
@@ -127,7 +126,7 @@ public class Sub {
     /** POS **/
     public void positionEvents(int posInSamples){
         //if(step.getStepNo() == 0) {
-            //Log.e("Sub", "positionEvents");
+        //Log.e("Sub", "positionEvents");
         //}
         for(Event e : events){
             e.positionEvent(posInSamples);
@@ -172,7 +171,7 @@ public class Sub {
     /** GET **/
     public int getIndex(){
         //if(stepEventsManager != null) {
-            return stepEventsManager.getSubs().indexOf(this);
+        return stepEventsManager.getSubs().indexOf(this);
         //}
         //return -1;
     }
