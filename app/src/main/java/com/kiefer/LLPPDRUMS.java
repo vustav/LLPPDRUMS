@@ -42,7 +42,8 @@ import java.util.ArrayList;
 
 public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHoldable {
 
-    public boolean disableLoad = true;
+    public static boolean disableLoad = true;
+    public static final boolean hideUIonPlay = false;
 
     private static String LOG_TAG = "MWEngineFacade"; // logcat identifier
     private static int PERMISSIONS_CODE = 8081981;
@@ -74,6 +75,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     private SequencerUI sequencerUI; //used when creating drumMachineFragment. We need a reference since the modules use it to draw their Drawables in it
     private DrumMachineFragment drumMachineFragment;
     private ControllerFragment controllerFragment;
+
+    //deleter
+    private Deleter deleter;
 
     //UI
     private FrameLayout background;
@@ -189,6 +193,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     /** INIT **/
     private void init() {
 
+
         keeperFileHandler = new KeeperFileHandler(this);
 
         //create the project folder if it doesn't exist
@@ -267,6 +272,8 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         //create the main objects used by the app
         engineFacade = new EngineFacade(this, tempo, steps, driver);
 
+        deleter = new Deleter(engineFacade);
+
         infoManager = new InfoManager(this);
 
         //create the necessary Bitmaps before creating the tabables
@@ -333,6 +340,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         if(keeper == null) {
             drumMachine.randomizeSequences();
         }
+
+        /** for some reason it's full here, should probably find out why **/
+        deleter.delete();
     }
 
     @Override
@@ -394,6 +404,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     }
 
     /** GET **/
+    public Deleter getDeleter() {
+        return deleter;
+    }
+
     public EngineFacade getEngineFacade() {
         return engineFacade;
     }

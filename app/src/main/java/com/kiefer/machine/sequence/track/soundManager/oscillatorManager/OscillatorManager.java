@@ -1,5 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.oscillatorManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.Keeper;
@@ -289,6 +291,7 @@ public class OscillatorManager extends SoundSource {
     /** DESTROY **/
     @Override
     public void destroy(){
+        //Log.e("OscillatorManager", "delete");
         for(Oscillator o : oscillators){
             o.destroy();
         }

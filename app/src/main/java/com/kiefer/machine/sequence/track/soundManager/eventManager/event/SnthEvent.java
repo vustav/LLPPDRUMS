@@ -1,5 +1,8 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager.event;
 
+import android.util.Log;
+
+import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.track.soundManager.eventManager.Sub;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
@@ -8,12 +11,14 @@ import nl.igorski.mwengine.core.SynthEvent;
 import nl.igorski.mwengine.core.SynthInstrument;
 
 public class SnthEvent extends Event{
+    private final LLPPDRUMS llppdrums;
     private final OscillatorManager oscillatorManager;
     private final SynthEvent[] events;
     private final Step step;
     private final Sub sub;
 
-    public SnthEvent(Step step, Sub sub, OscillatorManager oscillatorManager){
+    public SnthEvent(LLPPDRUMS llppdrums, Step step, Sub sub, OscillatorManager oscillatorManager){
+        this.llppdrums = llppdrums;
         this.oscillatorManager = oscillatorManager;
         this.step = step;
         this.sub = sub;
@@ -93,10 +98,12 @@ public class SnthEvent extends Event{
 
     @Override
     public void delete(){
+        //Log.e("SnthEvent", "delete");
         for (SynthEvent event : events) {
             //.delete() causes nullPointer-crashes, use this instead
             //event.setDeletable(true);
-            event.delete();
+            //event.delete();
+            llppdrums.getDeleter().addEvent(event);
         }
     }
 

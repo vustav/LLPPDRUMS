@@ -364,7 +364,6 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
     //disable some UI that shouldn't be usable during playback
     public void lockUI(){
         for(View v : lockableUI){
-            //v.setAlpha(.7f);
             v.setEnabled(false);
         }
     }
@@ -375,16 +374,16 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
 
             final View finalView = v;
 
-            finalView.post(new Runnable() { //modify the View in the UI thread
-                public void run() {
+            //finalView.post(new Runnable() { //modify the View in the UI thread
+                //public void run() {
 
                     //don't unlock removeStepBtn if steps == 1
                     if(!(finalView == removeStepBtn && llppdrums.getDrumMachine().getSelectedSequence().getNOfSteps() <= 1)) {
-                        finalView.setAlpha(1f);
+                        //finalView.setAlpha(1f);
                         finalView.setEnabled(true);
                     }
-                }
-            });
+                //}
+            //});
         }
     }
 

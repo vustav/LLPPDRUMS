@@ -188,15 +188,15 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     /** ACTIVATION **/
     public void changePlayingSequence(final int seqNo) {
         //new Thread(new Runnable() {
-            //public void run() {
-                if (sequences.indexOf(playingSequence) != seqNo) {
-                    if (playingSequence != null) {
-                        playingSequence.stop(); //turns off automations
-                        playingSequence.deactivate();
-                    }
-                    setPlayingSequence(seqNo);
-                }
-            //}
+        //public void run() {
+        if (sequences.indexOf(playingSequence) != seqNo) {
+            if (playingSequence != null) {
+                playingSequence.stop(); //turns off automations
+                playingSequence.deactivate();
+            }
+            setPlayingSequence(seqNo);
+        }
+        //}
         //}).start();
     }
 
@@ -231,7 +231,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), true);
 
         //lock the UI to prevent laggy actions during playback
-        if(selectedSequence == playingSequence) {
+        if (selectedSequence == playingSequence) {
             lockUI();
         }
 
@@ -242,6 +242,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         engineFacade.pauseSequencer();
         llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), false);
         unlockUI();
+        llppdrums.getDeleter().delete();
     }
     public void stop(){
         sequenceManager.reset();
@@ -251,11 +252,14 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         unlockUI();
 
         playingSequence.stop();
+        llppdrums.getDeleter().delete();
     }
 
     private void lockUI(){
-        llppdrums.getSequencer().lockUI();
-        llppdrums.getDrumMachineFragment().lockUI();
+        if(LLPPDRUMS.hideUIonPlay) {
+            llppdrums.getSequencer().lockUI();
+            llppdrums.getDrumMachineFragment().lockUI();
+        }
     }
 
     private void unlockUI(){

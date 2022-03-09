@@ -2,6 +2,7 @@ package com.kiefer.machine.sequence.track.soundManager.sampleManager;
 
 import android.util.Log;
 
+import com.kiefer.Deleter;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.SampleManagerKeeper;
@@ -201,6 +202,9 @@ public class SmplManager extends SoundSource {
     /** DESTROY **/
     @Override
     public void destroy(){
+        //Log.e("SmplManager", "delete");
+
+        Deleter deleter = llppdrums.getDeleter();
 
         //remove fxs
         sampledInstrument.getAudioChannel().getProcessingChain().reset();
@@ -208,19 +212,22 @@ public class SmplManager extends SoundSource {
         liveInstrument.getAudioChannel().getProcessingChain().reset();
         liveInstrument.getAudioChannel().getProcessingChain().delete();
 
-        liveEvent.delete();
+        //liveEvent.delete();
+        deleter.addEvent(liveEvent);
         //liveEvent.setDeletable(true);
         liveEvent = null;
 
         // calling 'delete()' on all instruments invokes the native layer destructor
         // (and frees memory allocated to their resources, e.g. AudioChannels, Processors)
         if(sampledInstrument != null) {
-            sampledInstrument.delete();
+            //sampledInstrument.delete();
+            deleter.addInstrument(sampledInstrument);
             sampledInstrument = null;
         }
 
         if(liveInstrument != null) {
-            liveInstrument.delete();
+            //liveInstrument.delete();
+            deleter.addInstrument(liveInstrument);
             liveInstrument = null;
         }
     }

@@ -20,7 +20,10 @@ import com.kiefer.popups.Popup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.utils.ColorUtils;
 
+import java.util.ArrayList;
+
 public class TrackMenuPopup extends Popup {
+    private final ArrayList<View> lockableUI = new ArrayList<>();
     //private FrameLayout divider0, divider1;
 
     public TrackMenuPopup(final LLPPDRUMS llppdrums, final DrumMachine drumMachine, final int trackNo, final View parent){
@@ -84,10 +87,13 @@ public class TrackMenuPopup extends Popup {
             }
         });
         subBtn.setText(Integer.toString(drumMachine.getSelectedSequence().getTracks().get(trackNo).getNOfSubs()));
+        lockableUI.add(subBtn);
+        /*
+            if (llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence() && llppdrums.getEngineFacade().isPlaying()) {
+                subBtn.setEnabled(false);
+            }
 
-        if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence() && llppdrums.getEngineFacade().isPlaying()){
-            subBtn.setEnabled(false);
-        }
+         */
 
         //auto step
         Button autoStepBtn = popupView.findViewById(R.id.sequencerTrackAutoStepBtn);
@@ -174,8 +180,16 @@ public class TrackMenuPopup extends Popup {
                 popupWindow.dismiss();
             }
         });
+        /*
         if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence() && llppdrums.getEngineFacade().isPlaying()){
             removeBtn.setEnabled(false);
+        }
+
+         */
+        lockableUI.add(removeBtn);
+
+        if(LLPPDRUMS.hideUIonPlay && (llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence() && llppdrums.getEngineFacade().isPlaying())) {
+            lockUI();
         }
 
         //set up the infoBtn
@@ -188,5 +202,11 @@ public class TrackMenuPopup extends Popup {
         });
 
         popupWindow.showAsDropDown(parent, -(int) llppdrums.getResources().getDimension(R.dimen.sequencerTrackPadding), -((int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall) + 5));
+    }
+
+    private void lockUI(){
+        for (View v : lockableUI) {
+            v.setEnabled(false);
+        }
     }
 }

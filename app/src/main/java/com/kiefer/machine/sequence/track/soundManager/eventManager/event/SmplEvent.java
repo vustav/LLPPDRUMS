@@ -2,6 +2,7 @@ package com.kiefer.machine.sequence.track.soundManager.eventManager.event;
 
 import android.util.Log;
 
+import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.track.soundManager.eventManager.Sub;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
@@ -12,12 +13,14 @@ import nl.igorski.mwengine.core.SampleManager;
 import nl.igorski.mwengine.core.SynthEvent;
 
 public class SmplEvent extends Event{
+    private final LLPPDRUMS llppdrums;
     private SmplManager sampleManager;
     private SampleEvent event;
     private final Step step;
     private final Sub sub;
 
-    public SmplEvent(Step step, Sub sub, SmplManager sampleManager){
+    public SmplEvent(LLPPDRUMS llppdrums, Step step, Sub sub, SmplManager sampleManager){
+        this.llppdrums = llppdrums;
         this.sampleManager = sampleManager;
         this.step = step;
         this.sub = sub;
@@ -76,7 +79,9 @@ public class SmplEvent extends Event{
 
     @Override
     public void delete(){
-        event.delete();
+        //Log.e("SmplEvent", "delete");
+        //event.delete();
+        llppdrums.getDeleter().addEvent(event);
     }
 
     /** RESTORE **/

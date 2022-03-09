@@ -294,12 +294,12 @@ public class DrumMachineFragment extends TabFragment {
         uiLocked = false;
         for(View v : lockableUI){
             final View finalView = v;
-            llppdrums.runOnUiThread(new Runnable() {
-                public void run() {
-                    finalView.setAlpha(1f);
+            //llppdrums.runOnUiThread(new Runnable() {
+                //public void run() {
+                    //finalView.setAlpha(1f);
                     finalView.setEnabled(true);
-                }
-            });
+                //}
+            //});
         }
     }
 

@@ -189,7 +189,7 @@ public class StepEventsManager {
     }
 
     protected int getSamplesPerSub(int samplesPerStep){
-        Log.e("StepEventsManager", "getSamplesPerSub(), nOfSubs: "+drumTrack.getNOfSubs());
+        //Log.e("StepEventsManager", "getSamplesPerSub(), nOfSubs: "+drumTrack.getNOfSubs());
         return samplesPerStep / drumTrack.getNOfSubs();
     }
 

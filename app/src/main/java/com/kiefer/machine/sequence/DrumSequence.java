@@ -353,6 +353,10 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
             //dt.destroy();
         }
+
+        if(!llppdrums.getEngineFacade().isPlaying()){
+            llppdrums.getDeleter().delete();
+        }
     }
 
     public void removeLastTrack(){
@@ -423,6 +427,10 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
             //not sure if needed here but seems to be needed when adding
             setTempo(tempo);
             setNOfSteps(getNOfSteps());
+        }
+
+        if(!llppdrums.getEngineFacade().isPlaying()){
+            llppdrums.getDeleter().delete();
         }
     }
 
@@ -665,11 +673,6 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     }
 
     /** DESTRUCTION **/
-
-    public void destroyTrack(int trackNo){
-        tracks.get(trackNo).destroy();
-    }
-
     public void destroy(){
         for(DrumTrack dt : tracks){
             dt.destroy();

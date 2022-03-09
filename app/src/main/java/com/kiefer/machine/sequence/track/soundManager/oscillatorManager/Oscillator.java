@@ -3,6 +3,7 @@ package com.kiefer.machine.sequence.track.soundManager.oscillatorManager;
 import android.os.CountDownTimer;
 import android.util.Log;
 
+import com.kiefer.Deleter;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.soundSources.OscillatorKeeper;
@@ -306,6 +307,7 @@ public class Oscillator {
     protected void destroy(){
 
         //Log.e("Osc", "destroy(), 0");
+        Deleter deleter = llppdrums.getDeleter();
 
         //remove fxs
         synthInstrument.getAudioChannel().getProcessingChain().reset();
@@ -315,19 +317,22 @@ public class Oscillator {
         liveInstrument.getAudioChannel().getProcessingChain().delete();
         //liveInstrument.getAudioChannel().getProcessingChain().setDeletable(true);
 
-        liveEvent.delete();
+        //liveEvent.delete();
+        deleter.addEvent(liveEvent);
         //liveEvent.setDeletable(true);
         liveEvent = null;
 
         // calling 'delete()' on all instruments invokes the native layer destructor
         // (and frees memory allocated to their resources, e.g. AudioChannels, Processors)
         if(synthInstrument != null) {
-            synthInstrument.delete();
+            //synthInstrument.delete();
+            deleter.addInstrument(synthInstrument);
             synthInstrument = null;
         }
 
         if(liveInstrument != null) {
-            liveInstrument.delete();
+            //liveInstrument.delete();
+            deleter.addInstrument(liveInstrument);
             liveInstrument = null;
         }
     }

@@ -15,6 +15,7 @@ import com.kiefer.popups.Popup;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackBassBasic;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHBasic;
+import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHJazz;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHOffbeat;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHotTom;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackSnareBasic;
@@ -49,6 +50,7 @@ public class RndTrackPresetListPopup extends Popup {
         createItem(new RndSeqPresetTrackSnareBasic(llppdrums, drumTrack.getNOfSteps(), 1, 4));
         createItem(new RndSeqPresetTrackHHBasic(llppdrums, drumTrack.getNOfSteps(), 1));
         createItem(new RndSeqPresetTrackHHOffbeat(llppdrums, drumTrack.getNOfSteps(), 1));
+        createItem(new RndSeqPresetTrackHHJazz(llppdrums, drumTrack.getNOfSteps()));
         createItem(new RndSeqPresetTrackHotTom(llppdrums, drumTrack.getNOfSteps(), 3));
 
         popupWindow.showAsDropDown(btn, 0, -100);

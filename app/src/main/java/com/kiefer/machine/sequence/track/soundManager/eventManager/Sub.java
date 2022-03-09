@@ -53,8 +53,8 @@ public class Sub {
         this.step = step;
 
         events = new ArrayList<>();
-        events.add(new SnthEvent(step, this, soundManager.getOscillatorManager()));
-        events.add(new SmplEvent(step, this, soundManager.getSmplManager()));
+        events.add(new SnthEvent(llppdrums, step, this, soundManager.getOscillatorManager()));
+        events.add(new SmplEvent(llppdrums, step, this, soundManager.getSmplManager()));
 
         //used when only one sub, so we don't get one sub that is off (with no way of turning it on)
         if(guaranteeOn){
@@ -314,6 +314,7 @@ public class Sub {
     /** DELETE **/
     public void delete(){
         for(Event e : events){
+            e.removeFromSequencer();
             e.delete();
         }
         events = null;

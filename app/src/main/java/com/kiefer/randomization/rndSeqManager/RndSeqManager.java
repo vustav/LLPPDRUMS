@@ -54,7 +54,7 @@ public class RndSeqManager implements Tempoizer {
         rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetDisco(llppdrums, this));
         //rndSeqPresets.add(new RandomizeSeqPresetWaltz(llppdrums, this));
-        rndSeqPresets.add(new RandomizeSeqPresetHotNights(llppdrums, this));
+        //rndSeqPresets.add(new RandomizeSeqPresetHotNights(llppdrums, this));
         //presets.add(new RandomizePresetRandom(llppdrums, this));
 
         Random r = new Random();

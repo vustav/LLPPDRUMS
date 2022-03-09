@@ -239,6 +239,10 @@ public class SoundManager {
 
     /** DESTRUCTION **/
     public void destroy(){
-        activeSoundSource.destroy();
+        for(SoundSource ss : soundSources){
+            ss.destroy();
+        }
+
+        //activeSoundSource.destroy();
     }
 }
