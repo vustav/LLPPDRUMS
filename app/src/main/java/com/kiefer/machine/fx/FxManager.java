@@ -168,11 +168,24 @@ public class FxManager {
     }
 
     public void changeSelectedFx(int newFxIndex){
+
+        //create the new fx
         Fx newFx = getNewFx(newFxIndex, false);
+
+        //set on to whatever the old fx had. No need to add the enw to the engine, it will be done in rearrangeFxs()
         newFx.setOn(selectedFx.isOn());
+
+        //replace them in the array
         fxs.set(fxs.indexOf(selectedFx), newFx);
-        selectedFx.destroy();
+
+        //destroy the old one
+        //selectedFx.destroy();
+        destroyFx(selectedFx);
+
+        //replace the variable
         selectedFx = newFx;
+
+        //rearrange to add it in the right position in the engine
         rearrangeFxs();
     }
 

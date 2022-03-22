@@ -78,6 +78,7 @@ public abstract class Fx implements Automatable {
     public void destroy() {
         //fx.delete(); //.delete() might be dangerous, should be collected...
         //fx.setDeletable(true);
+        llppdrums.getDeleter().addFx(fx);
         fx = null;
     }
 
