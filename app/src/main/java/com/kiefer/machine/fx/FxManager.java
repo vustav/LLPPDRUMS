@@ -84,7 +84,7 @@ public class FxManager {
         Fx fx = createNewFx(r.nextInt(fxInfos.size()), automation);
 
         //if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence()) {
-            addFxToEngine(fx);
+        addFxToEngine(fx);
         //}
     }
 
@@ -148,12 +148,21 @@ public class FxManager {
                 destroyFx(fx);
             }
         }
+
+        //this one is added here since when randomizing from RndTrack Manager fxs doesn't always get removed properly, but it shouldn't be needed here
+        //since destroyFx(fx) calls  removeFxFromEngine(fx);
+        for(ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()){
+            pc.reset();
+        }
     }
 
     private void removeFxFromEngine(Fx fx){
         for(ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()){
             if(pc != null){
                 pc.removeProcessor(fx.getBaseProcessor());
+            }
+            else{
+                Log.e("FxManager","removeFxFromEngine(), pc == null");
             }
         }
         setIndicator();
@@ -278,27 +287,28 @@ public class FxManager {
 
     /** RANDOMIZATION **/
     public void randomizeAll() {
-        try {
-        destroy();
-        fxs = new ArrayList<>();
+        Log.e("FxManager", "randomizeAll()");
+        //try {
+            destroy();
+            fxs = new ArrayList<>();
 
-        int nOfFxs = random.nextInt(MAX_N_RND_FXS + 1);
+            int nOfFxs = random.nextInt(MAX_N_RND_FXS + 1);
 
-        for(int i = 0; i < nOfFxs; i++){
-            createRandomFx(true);
-        }
+            for(int i = 0; i < nOfFxs; i++){
+                createRandomFx(true);
+            }
 
-        if(fxs.size() > 0){
-            selectedFx = fxs.get(0);
-        }
-        else{
-            setIndicator(); //id < 0 this is calls in createRandomFx()
-        }
+            if(fxs.size() > 0){
+                selectedFx = fxs.get(0);
+            }
+            else{
+                setIndicator(); //id < 0 this is calls in createRandomFx()
+            }
 
-        }
-        catch (Exception e){
-            Log.e("FxManager.randomizeAll", e.getMessage());
-        }
+        //}
+        //catch (Exception e){
+            //Log.e("FxManager.randomizeAll", e.getMessage());
+        //}
     }
 
     /** GET **/

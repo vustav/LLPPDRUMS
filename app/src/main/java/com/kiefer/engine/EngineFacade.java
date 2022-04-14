@@ -252,7 +252,7 @@ public class EngineFacade {
     private void flushSong() {
         // this ensures that Song resources currently in use by the engine are released
 
-        engine.pause();
+        engine.stop();
 
         // clear Vectors so all references to the events are broken
         /*

@@ -16,37 +16,61 @@ public class Deleter {
     private ArrayList <BaseProcessor> fxs = new ArrayList<>();
     private ArrayList <BaseInstrument> instruments = new ArrayList<>();
 
+    private final boolean delayDeletion = true;
+
     public Deleter(EngineFacade engineFacade){
         this.engineFacade = engineFacade;
     }
 
-    public void addEvent(BaseAudioEvent event){
-        events.add(event);
+    public void addFx(BaseProcessor fx){
+        if(delayDeletion) {
+            fxs.add(fx);
+        }
+        else{
+            fx = null;
+        }
     }
 
-    public void addFx(BaseProcessor fx){
-        fxs.add(fx);
+    public void addEvent(BaseAudioEvent event){
+        if(delayDeletion) {
+            events.add(event);
+        }
+        else{
+            event.delete();
+        }
     }
 
     public void addInstrument(BaseInstrument instrument){
-        instruments.add(instrument);
+        if(delayDeletion) {
+            instruments.add(instrument);
+        }
+        else{
+            instrument.delete();
+        }
     }
 
     public void delete(){
-        if(!engineFacade.isPlaying()) {
-            //Log.e("Deleter", "delete(), events.size(): "+events.size());
-            //Log.e("Deleter", "delete(), instruments.size(): "+instruments.size());
-            for (BaseProcessor fx : fxs) {
-                fx.delete();
+        if(delayDeletion) {
+            if (!engineFacade.isPlaying()) {
+                for (BaseProcessor fx : fxs) {
+                    // KRASCHAR
+                    //fx.delete();
+
+                    //STÅR SÅHÄR I EXEMPLET FÖR FXS
+                    // and these (garbage collection invokes native layer destructors, so we'll let
+                    // these processors be cleared lazily)
+                    fx = null;
+                }
+                for (BaseAudioEvent event : events) {
+                    event.delete();
+                }
+                for (BaseInstrument instrument : instruments) {
+                    instrument.delete();
+                }
+                fxs = new ArrayList<>();
+                events = new ArrayList<>();
+                instruments = new ArrayList<>();
             }
-            for (BaseAudioEvent event : events) {
-                event.delete();
-            }
-            for (BaseInstrument instrument : instruments) {
-                instrument.delete();
-            }
-            events = new ArrayList<>();
-            instruments = new ArrayList<>();
         }
     }
 }
