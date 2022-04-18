@@ -156,8 +156,11 @@ public abstract class Fx implements Automatable {
 
     /** AUTOMATE **/
     public void automate(int step, boolean popupShowing){
-        //Log.e("Fx", "automate");
         automationManager.automate(step, popupShowing);
+    }
+
+    public void resetAutomation(){
+        automationManager.resetAutomation();
     }
 
     /** THIS IS JUST ON/OFF, OVERRIDE IN CHILDREN FOR ALL OTHER CASES **/

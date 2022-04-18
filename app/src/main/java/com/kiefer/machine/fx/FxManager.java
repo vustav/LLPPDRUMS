@@ -255,12 +255,15 @@ public class FxManager {
     /** ACTIVATION **/
     // LAGGAR DET FÅR VI DESTROY OCH SKAPA NYA HÄR
     public void activate(){
-        addFxsToEngine();
+        //addFxsToEngine();
+        automate(llppdrums.getEngineFacade().getStep(), false);
     }
 
     private ArrayList<FxKeeper> keepers;
     public void deactivate(){
-        removeFxsFromEngine();
+        //removeFxsFromEngine();
+        resetAutomations();
+
     }
 
     /** SELECTION **/
@@ -287,7 +290,7 @@ public class FxManager {
 
     /** RANDOMIZATION **/
     public void randomizeAll() {
-        Log.e("FxManager", "randomizeAll()");
+        //Log.e("FxManager", "randomizeAll()");
         //try {
             destroy();
             fxs = new ArrayList<>();
@@ -348,6 +351,12 @@ public class FxManager {
     public void automate(int step, boolean isPopupShowing){
         for(Fx fx : fxs){
             fx.automate(step, isPopupShowing);
+        }
+    }
+
+    public void resetAutomations(){
+        for(Fx fx : fxs){
+            fx.resetAutomation();
         }
     }
 

@@ -10,8 +10,10 @@ import com.kiefer.files.keepers.controller.ControllerKeeper;
 import com.kiefer.machine.SequenceManager;
 import com.kiefer.popups.controller.FunBtnEditPopup;
 import com.kiefer.popups.controller.SeqBtnEditPopup;
+import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.utils.ColorUtils;
+import com.kiefer.utils.ImgUtils;
 
 /** The controls and the tabs at the top of the screen **/
 
@@ -31,12 +33,17 @@ public class Controller implements Tabable {
 
     private String name;
 
-    public Controller(LLPPDRUMS llppdrums, EngineFacade engineFacade, Bitmap tabBitmap, Bitmap bgBitmap, SequenceManager sequenceManager, ControllerKeeper keeper){
+    public Controller(LLPPDRUMS llppdrums, EngineFacade engineFacade, SequenceManager sequenceManager, ControllerKeeper keeper){
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
-        this.tabBitmap = tabBitmap;
-        this.bgBitmap = bgBitmap;
+        //this.tabBitmap = tabBitmap;
+        //this.bgBitmap = bgBitmap;
         this.sequenceManager = sequenceManager;
+
+
+        int imgId = ImgUtils.getRandomImageId();
+        tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 1, 2, TabManager.HORIZONTAL);
+        bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.HORIZONTAL);
 
         seqPopupGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         funPopupGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());

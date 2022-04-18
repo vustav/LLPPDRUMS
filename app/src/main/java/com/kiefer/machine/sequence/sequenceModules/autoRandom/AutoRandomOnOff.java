@@ -7,6 +7,8 @@ import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandomPerc;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandomReturn;
+import com.kiefer.ui.tabs.TabManager;
+import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 
@@ -14,8 +16,8 @@ import java.util.ArrayList;
 
 public class AutoRandomOnOff extends AutoRandom{
 
-    public AutoRandomOnOff(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule, Bitmap tabBitmap, Bitmap bgBitmap){
-        super(llppdrums, drumSequence, sequenceModule, tabBitmap, bgBitmap);
+    public AutoRandomOnOff(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule){
+        super(llppdrums, drumSequence, sequenceModule);
     }
 
     @Override

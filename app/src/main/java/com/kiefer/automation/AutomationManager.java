@@ -117,9 +117,13 @@ public class AutomationManager {
 
     /** AUTOMATION **/
     public void automate(int step, boolean popupShowing){
-        //Log.e("AutomationManager", "automate");
         for(Automation a : automations){
             a.automate(step, popupShowing);
+        }
+    }
+    public void resetAutomation(){
+        for(Automation a : automations){
+            a.reset();
         }
     }
 

@@ -34,7 +34,7 @@ public class TopFragment extends TabFragment {
     private LinearLayout bg;
     private FrameLayout divider0, divider1, divider2;
 
-    private boolean changeSeqRunning = false; //used to avoid spamming certain functions
+    //private boolean changeSeqRunning = false; //used to avoid spamming certain functions
 
     public TopFragment() {
         // Required empty public constructor
@@ -183,6 +183,7 @@ public class TopFragment extends TabFragment {
         bg.setBackground(gd);
     }
 
+    /*
     private void changeSequence(int sequence){
         //start with a little timer to prevent spamming
         if(!changeSeqRunning) {
@@ -199,6 +200,8 @@ public class TopFragment extends TabFragment {
             llppdrums.getDrumMachine().changePlayingSequence(sequence);
         }
     }
+
+     */
 
     /** GET/SET **/
 

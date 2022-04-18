@@ -170,6 +170,10 @@ public class EngineFacade {
     }
 
     /** GET **/
+    public int getStep(){
+        return _sequencerController.getStepPosition();
+    }
+
     public boolean isPlaying(){
         return isPlaying;
     }

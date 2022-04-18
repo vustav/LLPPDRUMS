@@ -85,6 +85,11 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     //UI
     private FrameLayout background;
 
+    /** FUTURE GLOBAL BOOLS **/
+    //timer för rnd
+    //Deleter
+    //rensning av alla ProcessingChains i destroyFxs() i FxManager (borde inte behövas för görs ändå i destroyFx(Fx fx) som också anropas)
+
     @Override
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
@@ -341,24 +346,24 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         infoManager = new InfoManager(this);
 
         //create the necessary Bitmaps before creating the tabables
-        int imgId = ImgUtils.getRandomImageId();
-        Bitmap tabBitmap = ImgUtils.getTabImg(this, imgId, 0, 2, TabManager.HORIZONTAL);
-        Bitmap bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
+        //int imgId = ImgUtils.getRandomImageId();
+        //Bitmap tabBitmap = ImgUtils.getTabImg(this, imgId, 0, 2, TabManager.HORIZONTAL);
+        //Bitmap bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
         try {
-            drumMachine = new DrumMachine(this, engineFacade, tabBitmap, bgBitmap, keeper.drumMachineKeeper);
+            drumMachine = new DrumMachine(this, engineFacade, keeper.drumMachineKeeper);
         }
         catch (Exception e){
-            drumMachine = new DrumMachine(this, engineFacade, tabBitmap, bgBitmap, null);
+            drumMachine = new DrumMachine(this, engineFacade, null);
         }
 
-        imgId = ImgUtils.getRandomImageId();
-        tabBitmap = ImgUtils.getTabImg(this, imgId, 1, 2, TabManager.HORIZONTAL);
-        bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
+        //int imgId = ImgUtils.getRandomImageId();
+        //Bitmap tabBitmap = ImgUtils.getTabImg(this, imgId, 1, 2, TabManager.HORIZONTAL);
+        //Bitmap bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
         try {
-            controller = new Controller(this, engineFacade, tabBitmap, bgBitmap, drumMachine.getSequenceManager(), keeper.controllerKeeper);
+            controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), keeper.controllerKeeper);
         }
         catch (Exception e){
-            controller = new Controller(this, engineFacade, tabBitmap, bgBitmap, drumMachine.getSequenceManager(), null);
+            controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), null);
         }
 
         //add the tabables to the Array

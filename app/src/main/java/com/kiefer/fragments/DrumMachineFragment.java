@@ -50,7 +50,7 @@ public class DrumMachineFragment extends TabFragment {
     private FrameLayout mixerBtnGraphics, fxBtnGraphics;
 
     //a little timer to prevent spamming with causes crashing
-    boolean randomizationRunning = false;
+    //boolean randomizationRunning = false;
 
     public DrumMachineFragment() {
         // Required empty public constructor
@@ -192,6 +192,7 @@ public class DrumMachineFragment extends TabFragment {
             @Override
             public void onClick(View view) {
                 //Log.e("DMFrag", "rndBtn()");
+                /*
                 if(!randomizationRunning) {
                     randomizationRunning = true;
                     new CountDownTimer(llppdrums.getResources().getInteger(R.integer.randomSwitchTimer), llppdrums.getResources().getInteger(R.integer.randomSwitchTimer)) {
@@ -206,6 +207,9 @@ public class DrumMachineFragment extends TabFragment {
 
                     llppdrums.getDrumMachine().randomizeSelectedSequence();
                 }
+
+                 */
+                llppdrums.getDrumMachine().randomizeSelectedSequence();
             }
         });
         rndLayout = rootView.findViewById(R.id.sequenceRndLayout);
@@ -247,29 +251,6 @@ public class DrumMachineFragment extends TabFragment {
         lockableUI.add(copySpinnerButton);
 
         copyLayout = rootView.findViewById(R.id.sequenceCopyLayout);
-
-        /*
-        //set up fx-btn
-        Button fxBtn = rootView.findViewById(R.id.sequenceFxBtn);
-        fxBtnGraphics = rootView.findViewById(R.id.sequenceFxBtnGraphics);
-        fxBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //llppdrums.getDrumMachine().openFxManagerPopup(trackNo);
-            }
-        });
-
-        //set up mixer-btn
-        Button mixerBtn = rootView.findViewById(R.id.sequenceMixerBtn);
-        mixerBtnGraphics = rootView.findViewById(R.id.sequenceMixerBtnGraphics);
-        mixerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //drumMachine.openMixerPopup(trackNo);
-            }
-        });
-
-         */
 
         //set selected tabs
         Integer[] selectedIndexes = llppdrums.getDrumMachine().getSelectedTabIndexes();

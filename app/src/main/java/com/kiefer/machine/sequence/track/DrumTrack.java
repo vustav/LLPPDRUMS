@@ -193,10 +193,12 @@ public class DrumTrack implements Subilizer {
     /** ACTIVATION **/
     public void activate(){
         soundManager.activate();
+        fxManager.activate();
     }
 
     public void deactivate(){
         soundManager.deactivate();
+        fxManager.deactivate();
     }
 
     /** TRANSPORT **/

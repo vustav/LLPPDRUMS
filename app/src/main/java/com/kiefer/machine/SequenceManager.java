@@ -26,7 +26,7 @@ public class SequenceManager {
     private SequenceCounter counter;
     private final CSeekBar progressSlider;
 
-    private boolean changeSeqRunning = false; //used to avoid spamming certain functions
+    //private boolean changeSeqRunning = false; //used to avoid spamming certain functions
     private boolean changesHalted = false; //true when the button on controller is momentary and pressed to avoid changes
     private boolean restartAtStop = false; //if the sequence manager should restart or continue where it is after a stop
 
@@ -131,6 +131,7 @@ public class SequenceManager {
                 public void onClick(View view) {
 
                     //start with a little timer to prevent spamming
+                    /*
                     if(!changeSeqRunning) {
                         changeSeqRunning = true;
                         new CountDownTimer(llppdrums.getResources().getInteger(R.integer.sequenceSwitchTimer), llppdrums.getResources().getInteger(R.integer.sequenceSwitchTimer)) {
@@ -149,6 +150,16 @@ public class SequenceManager {
                         else{
                             queueChange(finalStep);
                         }
+                    }
+
+                     */
+
+
+                    if(!queue || !llppdrums.getEngineFacade().isPlaying()) {
+                        activateSequenceBox(finalStep);
+                    }
+                    else{
+                        queueChange(finalStep);
                     }
 
                 }

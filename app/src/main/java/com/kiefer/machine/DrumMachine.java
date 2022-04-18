@@ -51,11 +51,16 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     private DrumSequence playingSequence, selectedSequence; //playing = currently playing, selected = shown in UI
     private ArrayList<DrumSequence> sequences;
 
-    public DrumMachine(LLPPDRUMS llppdrums, EngineFacade engineFacade, Bitmap tabBitmap, Bitmap bgBitmap, DrumMachineKeeper keeper){
+    public DrumMachine(LLPPDRUMS llppdrums, EngineFacade engineFacade, DrumMachineKeeper keeper){
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
-        this.tabBitmap = tabBitmap;
-        this.bgBitmap = bgBitmap;
+        //this.tabBitmap = tabBitmap;
+        //this.bgBitmap = bgBitmap;
+
+
+        int imgId = ImgUtils.getRandomImageId();
+        tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 0, 2, TabManager.HORIZONTAL);
+        bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.HORIZONTAL);
 
         optionsBgId = ImgUtils.getRandomImageId();
         savePopupBgId = ImgUtils.getRandomImageId();

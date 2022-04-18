@@ -75,13 +75,13 @@ public class ImgUtils {
 
     public static int getRandomImageId(){
         ArrayList<Integer> list = new ArrayList<>();
-        list.add(R.drawable.bg_beach);
-        list.add(R.drawable.bg_cat);
-        list.add(R.drawable.bg_gtr);
-        list.add(R.drawable.bg_ko);
-        list.add(R.drawable.bg_rat);
-        list.add(R.drawable.bg_dog);
-        list.add(R.drawable.bg_tango);
+        list.add(R.drawable.bg_beach_small);
+        list.add(R.drawable.bg_cat_small);
+        list.add(R.drawable.bg_gtr_small);
+        list.add(R.drawable.bg_ko_small);
+        list.add(R.drawable.bg_rat_small);
+        list.add(R.drawable.bg_dog_small);
+        list.add(R.drawable.bg_tango_small);
 
         Random r = new Random();
         return list.get(r.nextInt(list.size()));

@@ -29,8 +29,8 @@ public class AutoRandom extends SequenceModuleMode {
     //bg
     int rndModuleListBg;
 
-    public AutoRandom(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule, Bitmap tabBitmap, Bitmap bgBitmap){
-        super(llppdrums, drumSequence, tabBitmap, bgBitmap);
+    public AutoRandom(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule){
+        super(llppdrums, drumSequence);
         this.sequenceModule = sequenceModule;
 
         rndModuleListBg = ImgUtils.getRandomImageId();

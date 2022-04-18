@@ -16,7 +16,7 @@ public class Deleter {
     private ArrayList <BaseProcessor> fxs = new ArrayList<>();
     private ArrayList <BaseInstrument> instruments = new ArrayList<>();
 
-    private final boolean delayDeletion = true;
+    private final boolean delayDeletion = false;
 
     public Deleter(EngineFacade engineFacade){
         this.engineFacade = engineFacade;

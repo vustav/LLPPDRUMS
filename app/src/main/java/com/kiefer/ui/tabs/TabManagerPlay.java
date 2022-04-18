@@ -94,6 +94,7 @@ public class TabManagerPlay extends TabManager {
                 public void onClick(View view) {
 
                     //start with a little timer to prevent spamming
+                    /*
                     if(!tabClicked) {
                         tabClicked = true;
                         new CountDownTimer(llppdrums.getResources().getInteger(R.integer.tabSwitchTimer), llppdrums.getResources().getInteger(R.integer.tabSwitchTimer)) {
@@ -115,6 +116,17 @@ public class TabManagerPlay extends TabManager {
                         //call the listener
                         callback.onTabClicked(tab);
                     }
+
+                     */
+
+                    //set the drawable of the moduleBackground
+                    moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), tab.getBitmap()));
+
+                    //set borders for all tabs in the View
+                    setTabBorders(tabGroup, tab.getN(), orientation);
+
+                    //call the listener
+                    callback.onTabClicked(tab);
                 }
             });
         }
