@@ -27,7 +27,9 @@ public class Deleter {
             fxs.add(fx);
         }
         else{
+            pauseEngine();
             fx = null;
+            playEngine();
         }
     }
 
@@ -36,7 +38,9 @@ public class Deleter {
             events.add(event);
         }
         else{
+            pauseEngine();
             event.delete();
+            playEngine();
         }
     }
 
@@ -45,7 +49,9 @@ public class Deleter {
             instruments.add(instrument);
         }
         else{
+            pauseEngine();
             instrument.delete();
+            playEngine();
         }
     }
 
@@ -71,6 +77,21 @@ public class Deleter {
                 events = new ArrayList<>();
                 instruments = new ArrayList<>();
             }
+        }
+    }
+
+    private boolean wasPlaying = false;
+    private void pauseEngine(){
+        if(engineFacade.isPlaying()){
+            wasPlaying = true;
+            engineFacade.pauseSequencer();
+        }
+    }
+
+    private void playEngine(){
+        if(wasPlaying){
+            wasPlaying = false;
+            engineFacade.playSequencer();
         }
     }
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
+import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
@@ -118,15 +119,18 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         // these may not necessarily all be required for your use case (e.g. if you're not recording
         // from device audio inputs or reading/writing files) but are here for self-documentation
 
+        /** FIXA PERMISSIONS, SER RIKTIGT RÖRIGT UT **/
+
         String[] PERMISSIONS = {
                 Manifest.permission.RECORD_AUDIO, // RECORD_AUDIO must be granted prior to engine.start()
 
                 //flytta till load/save-knapparna
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.BLUETOOTH
         };
         // Check if we have all the necessary permissions, if not: prompt user
-        int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO);
+        int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO); /** VARFÖR ÄR DEN HÄR?? **/
         if ( permission == PackageManager.PERMISSION_GRANTED ) {
             init();
         }
@@ -199,6 +203,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     }
 
     /** MEMORY **/
+    /*
     public void onTrimMemory(int level) {
 
         // Determine which lifecycle or system event was raised.
@@ -206,11 +211,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
             case ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN:
 
-                /*
-                   Release any UI objects that currently hold memory.
 
-                   The user interface has moved to the background.
-                */
+                   //Release any UI objects that currently hold memory.
+                   //The user interface has moved to the background.
+
                 Log.e("LLPPDRUMS", "onTrimMemory(), 1");
 
                 break;
@@ -219,14 +223,14 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             case ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW:
             case ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL:
 
-                /*
-                   Release any memory that your app doesn't need to run.
 
-                   The device is running low on memory while the app is running.
-                   The event raised indicates the severity of the memory-related event.
-                   If the event is TRIM_MEMORY_RUNNING_CRITICAL, then the system will
-                   begin killing background processes.
-                */
+                   //Release any memory that your app doesn't need to run.
+
+                   //The device is running low on memory while the app is running.
+                   //The event raised indicates the severity of the memory-related event.
+                   //If the event is TRIM_MEMORY_RUNNING_CRITICAL, then the system will
+                   //begin killing background processes.
+
                 Log.e("LLPPDRUMS", "onTrimMemory(), 2");
 
                 break;
@@ -235,29 +239,31 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             case ComponentCallbacks2.TRIM_MEMORY_MODERATE:
             case ComponentCallbacks2.TRIM_MEMORY_COMPLETE:
 
-                /*
-                   Release as much memory as the process can.
 
-                   The app is on the LRU list and the system is running low on memory.
-                   The event raised indicates where the app sits within the LRU list.
-                   If the event is TRIM_MEMORY_COMPLETE, the process will be one of
-                   the first to be terminated.
-                */
+                   //Release as much memory as the process can.
+
+                   //The app is on the LRU list and the system is running low on memory.
+                   //The event raised indicates where the app sits within the LRU list.
+                   //If the event is TRIM_MEMORY_COMPLETE, the process will be one of
+                   //the first to be terminated.
+
                 Log.e("LLPPDRUMS", "onTrimMemory(), 3");
 
                 break;
 
             default:
-                /*
-                  Release any non-critical data structures.
 
-                  The app received an unrecognized memory level value
-                  from the system. Treat this as a generic low-memory message.
-                */
+                  //Release any non-critical data structures.
+
+                  //The app received an unrecognized memory level value
+                  //from the system. Treat this as a generic low-memory message.
+
                 Log.e("LLPPDRUMS", "onTrimMemory(), 4");
                 break;
         }
     }
+
+     */
 
     /** INIT **/
     private void init() {

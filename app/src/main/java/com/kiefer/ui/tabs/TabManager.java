@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class TabManager {
     public static final int VERTICAL = 0, HORIZONTAL = 1;
 
-    boolean tabClicked = false; //used to avoid spamming certain functions
+    //boolean tabClicked = false; //used to avoid spamming certain functions
 
     //Used for communication.
     protected LLPPDRUMS llppdrums;

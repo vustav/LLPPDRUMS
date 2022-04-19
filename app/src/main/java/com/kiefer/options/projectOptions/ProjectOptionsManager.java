@@ -9,43 +9,78 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import androidx.core.app.ActivityCompat;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
 import com.kiefer.files.keepers.ProjectOptionKeeper;
 import com.kiefer.popups.WarningPopup;
 
-public class ProjectOptionsManager extends BroadcastReceiver  {
+public class ProjectOptionsManager extends BroadcastReceiver {
     private LLPPDRUMS llppdrums;
     private EngineFacade engineFacade;
 
-    public ProjectOptionsManager(LLPPDRUMS llppdrums, EngineFacade engineFacade){
+    public ProjectOptionsManager(LLPPDRUMS llppdrums, EngineFacade engineFacade) {
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
     }
 
-    public void setDriver(String driver){
+    public void setDriver(String driver) {
         engineFacade.setDriver(driver);
     }
 
     /** BLUETOOTH **/
-    public void BTCheck(){
-        if(isBluetoothHeadsetConnected()){
-            showBTWarning();
+    public void BTCheck() {
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        //do we have permission
+        if (ActivityCompat.checkSelfPermission(llppdrums, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            //return false;
+
+            //if a bt-headset is connected, show a warning
+            if(mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
+                    && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED){
+                showBTWarning();
+            }
         }
+        else{
+            //om man inte har fått perm
+            //kanske nån varning om BT ändå?
+        }
+
+
+
+
+
+
+
+       //if (isBluetoothHeadsetConnected()) {
+            //showBTWarning();
+        //}
     }
 
     private boolean isBluetoothHeadsetConnected() {
-        //int permission = llppdrums.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT);
-        //if ( permission == PackageManager.PERMISSION_GRANTED ) {
-            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
-                    && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED;
-        //}
-        //else {
-            /** LÄGG IN NÅN VARNING **/
-            //return false;
-        //}
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (ActivityCompat.checkSelfPermission(llppdrums, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return false;
+        }
+        return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
+                && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED;
 
     }
 

@@ -253,15 +253,12 @@ public class FxManager {
     }
 
     /** ACTIVATION **/
-    // LAGGAR DET FÅR VI DESTROY OCH SKAPA NYA HÄR
     public void activate(){
-        //addFxsToEngine();
         automate(llppdrums.getEngineFacade().getStep(), false);
     }
 
     private ArrayList<FxKeeper> keepers;
     public void deactivate(){
-        //removeFxsFromEngine();
         resetAutomations();
 
     }
