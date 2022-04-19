@@ -6,11 +6,12 @@
 
     <!-- optional permissions, see global.h when these are appropriate -->
     <!-- these are required when recording audio from the device input -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- VAD ÄR DEN HÄR FÖR?? -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> --> <!-- VAD ÄR DEN HÄR FÖR?? -->
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
+
     <!-- these are required to write recorded audio onto the device storage -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- KAN KANSKE TAS BORT??? -->
+    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> --> <!-- KAN KANSKE TAS BORT??? -->
 
     <!-- these are required to warn about bluetooth -->
     <uses-permission android:name="android.permission.BLUETOOTH" />

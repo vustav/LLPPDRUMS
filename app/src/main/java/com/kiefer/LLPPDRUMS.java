@@ -93,50 +93,14 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         super.onCreate( savedInstanceState );
         setContentView(R.layout.layout_main);
 
-        // these may not necessarily all be required for your use case (e.g. if you're not recording
-        // from device audio inputs or reading/writing files) but are here for self-documentation
-
-        /*
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            String[] PERMISSIONS = {
-                    Manifest.permission.RECORD_AUDIO, // RECORD_AUDIO must be granted prior to engine.start()
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-            };
-            // Check if we have all the necessary permissions, if not: prompt user
-            int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO);
-            if (permission == PackageManager.PERMISSION_GRANTED)
-                init();
-            else
-                requestPermissions(PERMISSIONS, PERMISSIONS_CODE);
-        }
-
-         */
-
-        // these may not necessarily all be required for your use case (e.g. if you're not recording
-        // from device audio inputs or reading/writing files) but are here for self-documentation
-
-        /** FIXA PERMISSIONS, SER RIKTIGT RÖRIGT UT **/
-/*
-        String[] PERMISSIONS = {
-                Manifest.permission.RECORD_AUDIO, // RECORD_AUDIO must be granted prior to engine.start()
-                //Manifest.permission.BLUETOOTH,
-
-                //flytta till load/save-knapparna
-                //Manifest.permission.READ_EXTERNAL_STORAGE,
-                //Manifest.permission.WRITE_EXTERNAL_STORAGE
-        };
-
- */
         // Check if we have all the necessary permissions, if not: prompt user
-        //int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO); /** VARFÖR ÄR DEN HÄR?? **/
-        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ) {
+        //int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO); /** BEHÖVS INTE, KVAR FÖR ATT ANVÄNDA TILL FILER **/
+        //if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ) {
             init();
-        }
-        else {
-            /** FIXA INFO-RUTA **/
-            requestPermissions(new String[] {Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
-        }
+        //}
+        //else {
+            //requestPermissions(new String[] {Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
+        //}
     }
 
     /** PERMISSIONS **/
@@ -148,13 +112,18 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             int grantResult = grantResults[i];
 
             //RECORD_AUDIO
+            // BEHÖVS INTE, KVAR FÖR ATT ANVÄNDA TILL FILER
+            /*
             if (permission.equals(Manifest.permission.RECORD_AUDIO) && grantResult == PackageManager.PERMISSION_GRANTED) {
                 init();
             } else {
                 requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
             }
 
+             */
+
             //BLUETOOTH
+            //verkar inte gå att neka den här permissionen men kanske i nyare android-versioner? Bäst att ha ordentlig check
             if (permission.equals(Manifest.permission.BLUETOOTH) && grantResult == PackageManager.PERMISSION_GRANTED) {
                 projectOptionsManager.BTCheck();
             } else {
