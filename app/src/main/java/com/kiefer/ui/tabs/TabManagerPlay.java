@@ -1,8 +1,11 @@
 package com.kiefer.ui.tabs;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -93,35 +96,16 @@ public class TabManagerPlay extends TabManager {
             tabsArray.add(tab);
 
             //set a listener
-            background.setOnClickListener(new View.OnClickListener() {
+            background.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public void onClick(View view) {
+                public boolean onTouch(View view, MotionEvent event) {
 
-                    //start with a little timer to prevent spamming
-                    /*
-                    if(!tabClicked) {
-                        tabClicked = true;
-                        new CountDownTimer(llppdrums.getResources().getInteger(R.integer.tabSwitchTimer), llppdrums.getResources().getInteger(R.integer.tabSwitchTimer)) {
-                            public void onTick(long millisUntilFinished) {
-                                //
-                            }
-
-                            public void onFinish() {
-                                tabClicked = false;
-                            }
-                        }.start();
-
-                        //set the drawable of the moduleBackground
-                        moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), tab.getBitmap()));
-
-                        //set borders for all tabs in the View
-                        setTabBorders(tabGroup, tab.getN(), orientation);
-
-                        //call the listener
-                        callback.onTabClicked(tab);
+                    if(llppdrums.getProjectOptionsManager().vibrateOnTouch()){
+                        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                            Vibrator v = (Vibrator) llppdrums.getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(llppdrums.getResources().getInteger(R.integer.vibrateInMs));
+                        }
                     }
-
-                     */
 
                     //set the drawable of the moduleBackground
                     Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, t.getBitmapId(), orientation);
@@ -132,6 +116,8 @@ public class TabManagerPlay extends TabManager {
 
                     //call the listener
                     callback.onTabClicked(tab);
+
+                    return true;
                 }
             });
         }

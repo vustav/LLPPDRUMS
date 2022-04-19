@@ -1,18 +1,14 @@
 package com.kiefer;
 
 import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothHeadset;
-import android.content.BroadcastReceiver;
-import android.content.ComponentCallbacks2;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,7 +19,6 @@ import com.kiefer.info.InfoManager;
 import com.kiefer.options.projectOptions.ProjectOptionsManager;
 import com.kiefer.machine.sequencerUI.SequencerUI;
 import com.kiefer.files.KeeperFileHandler;
-import com.kiefer.popups.WarningPopup;
 import com.kiefer.ui.tabs.Tab;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.ControllerFragment;
@@ -37,7 +32,6 @@ import com.kiefer.utils.ImgUtils;
 
 import androidx.fragment.app.FragmentActivity;
 
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -50,7 +44,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     public static final boolean hideUIonPlay = false;
 
     private static String LOG_TAG = "MWEngineFacade"; // logcat identifier
-    private static int PERMISSIONS_CODE = 8081981;
+
+
+    public static int RECORD_AUDIO_PERMISSION_CODE = 34564576;
+    public static final int BLUETOOTH_CONNECT_PERMISSION_CODE = 956;
 
     //main classes
     private EngineFacade engineFacade;
@@ -120,46 +117,54 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         // from device audio inputs or reading/writing files) but are here for self-documentation
 
         /** FIXA PERMISSIONS, SER RIKTIGT RÖRIGT UT **/
-
+/*
         String[] PERMISSIONS = {
                 Manifest.permission.RECORD_AUDIO, // RECORD_AUDIO must be granted prior to engine.start()
+                //Manifest.permission.BLUETOOTH,
 
                 //flytta till load/save-knapparna
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.BLUETOOTH
+                //Manifest.permission.READ_EXTERNAL_STORAGE,
+                //Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
+
+ */
         // Check if we have all the necessary permissions, if not: prompt user
-        int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO); /** VARFÖR ÄR DEN HÄR?? **/
-        if ( permission == PackageManager.PERMISSION_GRANTED ) {
+        //int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO); /** VARFÖR ÄR DEN HÄR?? **/
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ) {
             init();
         }
         else {
-            requestPermissions(PERMISSIONS, PERMISSIONS_CODE);
+            /** FIXA INFO-RUTA **/
+            requestPermissions(new String[] {Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
         }
-
-        //init();
     }
 
-    /*
+    /** PERMISSIONS **/
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if(requestCode != PERMISSIONS_CODE) {
-            return;
-        }
-        for ( int i = 0; i < permissions.length; i++ ) {
-            String permission = permissions[ i ];
-            int grantResult   = grantResults[ i ];
-            if ( permission.equals( Manifest.permission.RECORD_AUDIO ) && grantResult == PackageManager.PERMISSION_GRANTED ) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int i = 0; i < permissions.length; i++) {
+            String permission = permissions[i];
+            int grantResult = grantResults[i];
+
+            //RECORD_AUDIO
+            if (permission.equals(Manifest.permission.RECORD_AUDIO) && grantResult == PackageManager.PERMISSION_GRANTED) {
                 init();
+            } else {
+                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
             }
-            else{
-                requestPermissions( new String[]{ Manifest.permission.RECORD_AUDIO }, PERMISSIONS_CODE );
+
+            //BLUETOOTH
+            if (permission.equals(Manifest.permission.BLUETOOTH) && grantResult == PackageManager.PERMISSION_GRANTED) {
+                projectOptionsManager.BTCheck();
+            } else {
+                /** VISA NÅN BT-VARNING OM PERMISSION HAR NEKATS **/
+                //requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
             }
+
+            //FILES
         }
     }
-
-     */
 
     /**
      * Called when the activity is destroyed. This also fires

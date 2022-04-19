@@ -3,6 +3,9 @@
     <!-- -->
     <integer name="floatMultiplier">100</integer>
 
+    <!-- TABS -->
+    <integer name="vibrateInMs">50</integer>
+
     <!-- TEST -->
     <integer name="defaultNOfTracks">4</integer>
     <integer name="minNoOfRandomizedTracks">3</integer>

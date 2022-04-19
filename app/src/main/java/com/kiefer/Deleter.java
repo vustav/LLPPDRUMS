@@ -16,13 +16,14 @@ public class Deleter {
     private ArrayList <BaseProcessor> fxs = new ArrayList<>();
     private ArrayList <BaseInstrument> instruments = new ArrayList<>();
 
-    private final boolean delayDeletion = false;
+    private final boolean delayDeletion = true;
 
     public Deleter(EngineFacade engineFacade){
         this.engineFacade = engineFacade;
     }
 
     public void addFx(BaseProcessor fx){
+        Log.e("Deleter", "addFx()");
         if(delayDeletion) {
             fxs.add(fx);
         }
@@ -34,6 +35,7 @@ public class Deleter {
     }
 
     public void addEvent(BaseAudioEvent event){
+        Log.e("Deleter", "addEvent()");
         if(delayDeletion) {
             events.add(event);
         }
@@ -45,6 +47,7 @@ public class Deleter {
     }
 
     public void addInstrument(BaseInstrument instrument){
+        Log.e("Deleter", "addInstrument()");
         if(delayDeletion) {
             instruments.add(instrument);
         }
@@ -56,6 +59,7 @@ public class Deleter {
     }
 
     public void delete(){
+        Log.e("Deleter", "delete()");
         if(delayDeletion) {
             if (!engineFacade.isPlaying()) {
                 for (BaseProcessor fx : fxs) {
