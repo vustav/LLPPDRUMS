@@ -24,6 +24,7 @@ import com.kiefer.ui.tabs.TabGroup;
 import com.kiefer.ui.tabs.TabManagerPlay;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.utils.ColorUtils;
+import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 
@@ -340,11 +341,12 @@ public class DrumMachineFragment extends TabFragment {
      */
 
     @Override
-    public void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo, Bitmap tabBitmap, Bitmap bgBitmap){
+    public void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo){
 
         for (int i = 0; i < tabables.size(); i++) {
             //set bitmap
-            tabGroupArray.get(tier).getTabs().get(i).getBackground().setBackground(new BitmapDrawable(llppdrums.getResources(), tabables.get(i).getTabBitmap()));
+            Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabables.get(i).getBitmapId(), i, tabables.size(), tabables.get(i).getOrientation());
+            tabGroupArray.get(tier).getTabs().get(i).getBackground().setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
 
             //set the inactive colors on the textView and lower alpha
             tabGroupArray.get(tier).getTabs().get(i).getTextView().setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
@@ -356,6 +358,7 @@ public class DrumMachineFragment extends TabFragment {
         tabManager.setTabBorders(tabGroupArray.get(tier), selectedTabNo, TabManager.VERTICAL);
 
         //set the background for the module
+        Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, llppdrums.getDrumMachine().getSelectedSequence().getBitmapId(tier), llppdrums.getDrumMachine().getSelectedSequence().getOrientation());
         backgroundViews.get(tier).setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
 
         //set active colors/full alpha to the selected tab

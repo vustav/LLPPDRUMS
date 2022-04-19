@@ -30,6 +30,7 @@ public class Controller implements Tabable {
 
     //bitmaps
     private Bitmap tabBitmap, bgBitmap;
+    private int bitmapId;
 
     private String name;
 
@@ -41,9 +42,9 @@ public class Controller implements Tabable {
         this.sequenceManager = sequenceManager;
 
 
-        int imgId = ImgUtils.getRandomImageId();
-        tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 1, 2, TabManager.HORIZONTAL);
-        bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.HORIZONTAL);
+        bitmapId = ImgUtils.getRandomImageId();
+        //tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 1, 2, TabManager.HORIZONTAL);
+        //bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.HORIZONTAL);
 
         seqPopupGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         funPopupGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
@@ -104,14 +105,19 @@ public class Controller implements Tabable {
     }
 
     //tabs
+    //@Override
+    //public Bitmap getTabBitmap(){
+        //return tabBitmap;
+    //}
+
     @Override
-    public Bitmap getTabBitmap(){
-        return tabBitmap;
+    public int getBitmapId(){
+        return bitmapId;
     }
 
     @Override
-    public Bitmap getBgBitmap(){
-        return bgBitmap;
+    public int getOrientation(){
+        return TabManager.HORIZONTAL;
     }
 
     @Override

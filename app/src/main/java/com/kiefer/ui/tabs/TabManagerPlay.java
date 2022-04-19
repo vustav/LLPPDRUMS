@@ -1,5 +1,6 @@
 package com.kiefer.ui.tabs;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 
@@ -70,7 +72,8 @@ public class TabManagerPlay extends TabManager {
             FrameLayout border = singleTabLayout.findViewById(R.id.tabBorder);
             RelativeLayout background = singleTabLayout.findViewById(R.id.tabBg);
 
-            background.setBackground(new BitmapDrawable(llppdrums.getResources(), t.getTabBitmap()));
+            Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, t.getBitmapId(), i, tabables.size(), orientation);
+            background.setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
 
             //set up the textView
             TextView textView = singleTabLayout.findViewById(R.id.tabTxt);
@@ -85,7 +88,8 @@ public class TabManagerPlay extends TabManager {
             tabsLayout.addView(singleTabLayout);
 
             //store the tab to access data later
-            final Tab tab = new Tab(tabName, t.getBgBitmap(), i, tier, background, border, textView);
+            //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, t.getBitmapId(), i, tabables.size(), orientation);
+            final Tab tab = new Tab(tabName, t.getBitmapId(), i, tier, background, border, textView);
             tabsArray.add(tab);
 
             //set a listener
@@ -120,7 +124,8 @@ public class TabManagerPlay extends TabManager {
                      */
 
                     //set the drawable of the moduleBackground
-                    moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), tab.getBitmap()));
+                    Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, t.getBitmapId(), orientation);
+                    moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
 
                     //set borders for all tabs in the View
                     setTabBorders(tabGroup, tab.getN(), orientation);

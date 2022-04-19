@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class Pitch extends SequenceModule {
 
-    public Pitch(LLPPDRUMS llppdrums, DrumSequence drumSequence, Bitmap tabBitmap, Bitmap bgBitmap){
-        super(llppdrums, drumSequence, tabBitmap, bgBitmap);
+    public Pitch(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
+        super(llppdrums, drumSequence, bitmapId);
     }
 
     @Override

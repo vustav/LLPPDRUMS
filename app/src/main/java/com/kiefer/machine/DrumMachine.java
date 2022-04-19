@@ -44,7 +44,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     private SequenceManager sequenceManager;
 
     //bitmaps
-    private final Bitmap tabBitmap, bgBitmap;
+    //private final Bitmap tabBitmap, bgBitmap;
+    private int bitmapId;
     private final int optionsBgId, savePopupBgId, loadPopupBgId;
 
     //sequences
@@ -58,9 +59,9 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         //this.bgBitmap = bgBitmap;
 
 
-        int imgId = ImgUtils.getRandomImageId();
-        tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 0, 2, TabManager.HORIZONTAL);
-        bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.HORIZONTAL);
+        bitmapId = ImgUtils.getRandomImageId();
+        //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 0, 2, TabManager.HORIZONTAL);
+        //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.HORIZONTAL);
 
         optionsBgId = ImgUtils.getRandomImageId();
         savePopupBgId = ImgUtils.getRandomImageId();
@@ -81,15 +82,15 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         for(int i = 0; i<nOfSequences; i++){
 
             //create the necessary Bitmaps before creating the sequences and adding them to the array
-            int imgId = ImgUtils.getRandomImageId();
-            Bitmap tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, i, nOfSequences, TabManager.VERTICAL);
-            Bitmap bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
+            //int imgId = ImgUtils.getRandomImageId();
+            //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, i, nOfSequences, TabManager.VERTICAL);
+            //Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
 
             if(keeper != null) {
-                sequences.add(new DrumSequence(llppdrums, engineFacade, i, tabBitmap, bgBitmap, keeper.sequenceKeepers.get(i)));
+                sequences.add(new DrumSequence(llppdrums, engineFacade, i, keeper.sequenceKeepers.get(i)));
             }
             else{
-                sequences.add(new DrumSequence(llppdrums, engineFacade, i, tabBitmap, bgBitmap));
+                sequences.add(new DrumSequence(llppdrums, engineFacade, i));
             }
 
             //RESTORE
@@ -154,13 +155,13 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
                     //set the tab appearances (here all tiers has to be set. If the next tier is clicked only that and those after has to be set etc.)
                     selectedTab = sequences.indexOf(selectedSequence);
-                    drumMachineFragment.setTabAppearances(0, getTabables(), selectedTab, selectedSequence.getTabBitmap(), selectedSequence.getBgBitmap());
+                    drumMachineFragment.setTabAppearances(0, getTabables(), selectedTab);
 
                     selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
-                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabables(0), selectedTab, selectedSequence.getSelectedSequenceModule().getTabBitmap(), selectedSequence.getSelectedSequenceModule().getBgBitmap());
+                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabables(0), selectedTab);
 
                     selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab, selectedSequence.getSelectedSequenceModule().getSelectedMode().getTabBitmap(), selectedSequence.getSelectedSequenceModule().getSelectedMode().getBgBitmap());
+                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab);
                     break;
 
                 //SEQUENCE MODULE
@@ -168,10 +169,10 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
                     selectedSequence.setSelectedSequenceModule(tab.getN());
 
                     selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
-                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabables(0), selectedTab, selectedSequence.getSelectedSequenceModule().getTabBitmap(), selectedSequence.getSelectedSequenceModule().getBgBitmap());
+                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabables(0), selectedTab);
 
                     selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab, selectedSequence.getSelectedSequenceModule().getSelectedMode().getTabBitmap(), selectedSequence.getSelectedSequenceModule().getSelectedMode().getBgBitmap());
+                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab);
                     break;
 
                 //MODULE MODE
@@ -179,7 +180,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
                     selectedSequence.getSelectedSequenceModule().setSelectedMode(tab.getN());
 
                     selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab, selectedSequence.getSelectedSequenceModule().getSelectedMode().getTabBitmap(), selectedSequence.getSelectedSequenceModule().getSelectedMode().getBgBitmap());
+                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab);
                     break;
             }
             updateSeqLabel();
@@ -400,14 +401,14 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         return tabs;
     }
 
-    @Override
-    public Bitmap getTabBitmap(){
-        return tabBitmap;
-    }
+    //@Override
+    //public Bitmap getTabBitmap(){
+        //return tabBitmap;
+    //}
 
     @Override
-    public Bitmap getBgBitmap(){
-        return bgBitmap;
+    public int getBitmapId(){
+        return bitmapId;
     }
 
     @Override
@@ -480,6 +481,11 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
     public SequenceManager getSequenceManager() {
         return sequenceManager;
+    }
+
+    @Override
+    public int getOrientation(){
+        return TabManager.VERTICAL;
     }
 
     /** SET **/

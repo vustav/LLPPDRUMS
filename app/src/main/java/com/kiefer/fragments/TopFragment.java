@@ -206,7 +206,7 @@ public class TopFragment extends TabFragment {
     /** GET/SET **/
 
     @Override
-    public void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo, Bitmap tabBitmap, Bitmap bgBitmap){
+    public void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo){
         tabManager.setTabBorders(tabGroup, selectedTabNo, TabManager.HORIZONTAL);
 
         for(Tab t : tabGroup.getTabs()){

@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class Volume extends SequenceModule {
 
-    public Volume(LLPPDRUMS llppdrums, DrumSequence drumSequence, Bitmap tabBitmap, Bitmap bgBitmap){
-        super(llppdrums, drumSequence, tabBitmap, bgBitmap);
+    public Volume(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
+        super(llppdrums, drumSequence, bitmapId);
     }
 
     @Override

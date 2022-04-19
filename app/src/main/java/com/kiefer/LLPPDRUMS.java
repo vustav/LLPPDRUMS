@@ -424,9 +424,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     public void onTabClicked(Tab tab) {
         //The user selected a tab in the TopFragment
         switchFragment(tab.getN());
-        background.setBackground(new BitmapDrawable(getResources(), tab.getBitmap()));
+        Bitmap bgBitmap = ImgUtils.getBgBitmap(this, tab.getBitmapId(), TabManager.HORIZONTAL);
+        background.setBackground(new BitmapDrawable(getResources(), bgBitmap));
 
-        topFragment.setTabAppearances(0, tabables, tab.getN(), null, null); //no need to provide bitmaps here since nothing will change
+        topFragment.setTabAppearances(0, tabables, tab.getN());
     }
 
     /** FRAGMENT HANDLING **/

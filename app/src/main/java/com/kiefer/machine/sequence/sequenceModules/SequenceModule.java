@@ -12,6 +12,7 @@ import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandom
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.Popup;
+import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.ui.tabs.interfaces.TabHoldable;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -29,7 +30,8 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
     public static int BASE = 0, AUTO_RANDOM = 1;
 
     //bitmaps
-    private final Bitmap tabBitmap, bgBitmap;
+    //private final Bitmap tabBitmap, bgBitmap;
+    private int bitmapId;
 
     //random
     private Random random;
@@ -63,11 +65,12 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
 
     public abstract void randomize(DrumTrack drumTrack);
 
-    protected SequenceModule(LLPPDRUMS llppdrums, DrumSequence drumSequence, Bitmap tabBitmap, Bitmap bgBitmap){
+    protected SequenceModule(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
         this.llppdrums = llppdrums;
         this.drumSequence = drumSequence;
-        this.tabBitmap = tabBitmap;
-        this.bgBitmap = bgBitmap;
+        //this.tabBitmap = tabBitmap;
+        //this.bgBitmap = bgBitmap;
+        this.bitmapId = bitmapId;
 
         random = new Random();
 
@@ -155,14 +158,15 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
         return selectedMode;
     }
 
+
     @Override
-    public Bitmap getTabBitmap(){
-        return tabBitmap;
+    public int getBitmapId(){
+        return bitmapId;
     }
 
     @Override
-    public Bitmap getBgBitmap(){
-        return bgBitmap;
+    public int getOrientation(){
+        return TabManager.VERTICAL;
     }
 
     @Override

@@ -15,7 +15,8 @@ public class SequenceModuleMode implements Tabable{
     protected LLPPDRUMS llppdrums;
     protected DrumSequence drumSequence;
     protected String tabLabel;
-    protected Bitmap tabBitmap, bgBitmap;
+    //protected Bitmap tabBitmap, bgBitmap;
+    protected int bitmapId;
 
     public SequenceModuleMode(LLPPDRUMS llppdrums, DrumSequence drumSequence){
         this.llppdrums = llppdrums;
@@ -23,9 +24,9 @@ public class SequenceModuleMode implements Tabable{
         //this.tabBitmap = tabBitmap;
         //this.bgBitmap = bgBitmap;
 
-        int imgId = ImgUtils.getRandomImageId();
-        tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 0, 2, TabManager.VERTICAL);
-        bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
+        bitmapId = ImgUtils.getRandomImageId();
+        //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 0, 2, TabManager.VERTICAL);
+        //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
 
         tabLabel = llppdrums.getResources().getString(R.string.seqModBaseModeTabName);
     }
@@ -39,14 +40,15 @@ public class SequenceModuleMode implements Tabable{
     }
 
     /** GET **/
+
     @Override
-    public Bitmap getTabBitmap() {
-        return tabBitmap;
+    public int getBitmapId() {
+        return bitmapId;
     }
 
     @Override
-    public Bitmap getBgBitmap() {
-        return bgBitmap;
+    public int getOrientation(){
+        return TabManager.VERTICAL;
     }
 
     @Override

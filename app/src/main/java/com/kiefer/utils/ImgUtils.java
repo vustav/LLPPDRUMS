@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class ImgUtils {
 
-    public static Bitmap getTabImg(LLPPDRUMS llppdrums, int imgId, int tabNo, int nOfTabs, int orientation){
+    public static Bitmap getTabBitmap(LLPPDRUMS llppdrums, int imgId, int tabNo, int nOfTabs, int orientation){
         if(imgId > 0) {
 
             Bitmap bitmap = BitmapFactory.decodeResource(llppdrums.getResources(), imgId); //create a bitmap from the drawable id
@@ -42,7 +42,7 @@ public class ImgUtils {
         return null;
     }
 
-    public static Bitmap getBgImg(LLPPDRUMS llppdrums, int imgId, int orientation){
+    public static Bitmap getBgBitmap(LLPPDRUMS llppdrums, int imgId, int orientation){
 
         if(imgId > 0) {
 

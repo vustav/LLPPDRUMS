@@ -7,5 +7,5 @@ import java.util.ArrayList;
 /** For UI-classes with tabs **/
 
 public interface TabUIHoldable {
-    void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo, Bitmap tabBitmap, Bitmap bgBitmap);
+    void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo);
 }

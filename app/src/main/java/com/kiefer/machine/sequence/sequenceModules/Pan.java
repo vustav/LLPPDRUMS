@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 public class Pan extends SequenceModule {
 
-    public Pan(LLPPDRUMS llppdrums, DrumSequence drumSequence, Bitmap tabBitmap, Bitmap bgBitmap){
-        super(llppdrums, drumSequence, tabBitmap, bgBitmap);
+    public Pan(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
+        super(llppdrums, drumSequence, bitmapId);
     }
 
     //override to never trigger getSubsPopup().. (pan works on steps, not subs, so there's no need for it)

@@ -8,14 +8,14 @@ import android.widget.TextView;
 
 public class Tab{
     private String name;
-    private Bitmap bitmap;
+    private int bitmapId;
     private int n, tier;
     private View background, border;
     private TextView tv;
 
-    public Tab(String name, Bitmap bitmap, int n, int tier, View background, View border, TextView textView){
+    public Tab(String name, int bitmapId, int n, int tier, View background, View border, TextView textView){
         this.name = name;
-        this.bitmap = bitmap;
+        this.bitmapId = bitmapId;
         this.n = n;
         this.tier = tier;
         this.background = background;
@@ -27,8 +27,8 @@ public class Tab{
         return name;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public int getBitmapId() {
+        return bitmapId;
     }
 
     public int getTier() {
