@@ -90,6 +90,7 @@ public class RndTrackManager {
         //first randomize the soundSource, then set the preset category
 
         drumTrack.getSoundManager().randomizeSoundSource();
+
         if(rndTrack.getPresetCategory().equals(RANDOM)){
             drumTrack.getSoundManager().setRandomPreset();
         }

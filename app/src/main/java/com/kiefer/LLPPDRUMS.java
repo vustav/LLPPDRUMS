@@ -32,6 +32,7 @@ import com.kiefer.utils.ImgUtils;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -40,7 +41,7 @@ import java.util.ArrayList;
 
 public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHoldable {
 
-    public static boolean disableLoad = true;
+    public static boolean disableLoad = false;
     public static final boolean hideUIonPlay = false;
 
     private static String LOG_TAG = "MWEngineFacade"; // logcat identifier
@@ -127,11 +128,13 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             if (permission.equals(Manifest.permission.BLUETOOTH) && grantResult == PackageManager.PERMISSION_GRANTED) {
                 projectOptionsManager.BTCheck();
             } else {
-                /** VISA NÅN BT-VARNING OM PERMISSION HAR NEKATS **/
+                //om perm nekas, visa nån varning. Nu visas samma, borde fixa en egen för nekad perm i framtiden.
+                projectOptionsManager.showBTWarning();
                 //requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
             }
 
             //FILES
+            //verkar inte behövas här heller
         }
     }
 
@@ -271,9 +274,11 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
         LLPPDRUMSKeeper keeper;
         try{
+            //Log.e("LLPPDRUMS", "keeper loaded");
             keeper = (LLPPDRUMSKeeper) keeperFileHandler.readKeepers(lastDataPath);
         }
         catch (Exception e){
+            //Log.e("LLPPDRUMS", "keeper null");
             keeper = null;
         }
 

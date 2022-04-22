@@ -23,7 +23,7 @@ public class Deleter {
     }
 
     public void addFx(BaseProcessor fx){
-        Log.e("Deleter", "addFx()");
+        //Log.e("Deleter", "addFx()");
         if(delayDeletion) {
             fxs.add(fx);
         }
@@ -35,7 +35,7 @@ public class Deleter {
     }
 
     public void addEvent(BaseAudioEvent event){
-        Log.e("Deleter", "addEvent()");
+        //Log.e("Deleter", "addEvent()");
         if(delayDeletion) {
             events.add(event);
         }
@@ -47,7 +47,7 @@ public class Deleter {
     }
 
     public void addInstrument(BaseInstrument instrument){
-        Log.e("Deleter", "addInstrument()");
+        //Log.e("Deleter", "addInstrument()");
         if(delayDeletion) {
             instruments.add(instrument);
         }
@@ -59,7 +59,7 @@ public class Deleter {
     }
 
     public void delete(){
-        Log.e("Deleter", "delete()");
+        //Log.e("Deleter", "delete()");
         if(delayDeletion) {
             if (!engineFacade.isPlaying()) {
                 for (BaseProcessor fx : fxs) {

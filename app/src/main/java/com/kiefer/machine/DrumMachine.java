@@ -55,13 +55,9 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     public DrumMachine(LLPPDRUMS llppdrums, EngineFacade engineFacade, DrumMachineKeeper keeper){
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
-        //this.tabBitmap = tabBitmap;
-        //this.bgBitmap = bgBitmap;
 
 
         bitmapId = ImgUtils.getRandomImageId();
-        //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 0, 2, TabManager.HORIZONTAL);
-        //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.HORIZONTAL);
 
         optionsBgId = ImgUtils.getRandomImageId();
         savePopupBgId = ImgUtils.getRandomImageId();
@@ -81,11 +77,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         sequences = new ArrayList<>();
         for(int i = 0; i<nOfSequences; i++){
 
-            //create the necessary Bitmaps before creating the sequences and adding them to the array
-            //int imgId = ImgUtils.getRandomImageId();
-            //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, i, nOfSequences, TabManager.VERTICAL);
-            //Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
-
             if(keeper != null) {
                 sequences.add(new DrumSequence(llppdrums, engineFacade, i, keeper.sequenceKeepers.get(i)));
             }
@@ -97,11 +88,13 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
             if(keeper != null) {
                 try {
                     sequences.get(i).restore(keeper.sequenceKeepers.get(i));
+                    Log.e("DrumMachine", "keeper loaded, restore done");
                 }
                 catch (Exception e){
                     String message = "COULDN'T RESTORE";
                     Toast toast = Toast.makeText(llppdrums, message, Toast.LENGTH_SHORT);
                     toast.show();
+                    Log.e("DrumMachine", "keeper loaded, restore fail");
                     //Log.e("DrumMachine", "setupSequences, errorMsg: "+e.getMessage());
                 }
             }

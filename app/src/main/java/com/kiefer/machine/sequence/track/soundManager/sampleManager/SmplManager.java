@@ -63,14 +63,14 @@ public class SmplManager extends SoundSource {
     @Override
     public void activate(){
         //if(sampledInstrument.getAudioChannel().getMuted()) {
-            sampledInstrument.getAudioChannel().setMuted(false);
+        sampledInstrument.getAudioChannel().setMuted(false);
         //}
     }
 
     @Override
     public void deactivate(){
         //if(!sampledInstrument.getAudioChannel().getMuted()) {
-            sampledInstrument.getAudioChannel().setMuted(true);
+        sampledInstrument.getAudioChannel().setMuted(true);
         //}
     }
 
@@ -128,6 +128,11 @@ public class SmplManager extends SoundSource {
         selectedCategory = (SampleCategory) presets.get(random.nextInt(presets.size()));
         selectedCategory.randomizeSample();
         updateLiveEvent();
+
+        //this will not be done on creation since SmplManager is created before the steps, but it doesn't
+        //matter since the steps are created with SmplManager and will create events with the right samples
+        //ie only done when randomizing after creation
+        drumTrack.updateEventSamples();
     }
 
     /** SET **/

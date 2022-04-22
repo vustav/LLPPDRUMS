@@ -157,7 +157,7 @@ public class ProjectOptionsManager extends BroadcastReceiver {
 
     }
 
-    private void showBTWarning(){
+    public void showBTWarning(){
         //Log.e("ProjectOptionsManager", "BT connected");
         String label = llppdrums.getResources().getString(R.string.btWarningLabel);
         String txt = llppdrums.getResources().getString(R.string.btWarningTxt);

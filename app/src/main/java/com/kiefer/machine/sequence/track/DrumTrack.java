@@ -99,7 +99,6 @@ public class DrumTrack implements Subilizer {
         soundManager = new SoundManager(llppdrums, drumSequence, this);
         fxManager = new FxManager(llppdrums, this);
 
-        //initNOfSteps = steps;
         setupSteps(steps);
 
         float maxVol = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
@@ -173,7 +172,7 @@ public class DrumTrack implements Subilizer {
 
     public void randomizeVol(){
         float maxVol = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
-        randomizeVol(0, maxVol);
+        randomizeVol(maxVol / 3, maxVol);
     }
 
     public void randomizeVol(float min, float max){
@@ -480,8 +479,10 @@ public class DrumTrack implements Subilizer {
     }
 
     public void updateEventSamples(){
-        for (Step d : steps){
-            d.updateEventSamples();
+        if(steps != null) {
+            for (Step d : steps) {
+                d.updateEventSamples();
+            }
         }
     }
 
