@@ -155,8 +155,10 @@ public class DrumTrack implements Subilizer {
         }
         //positionEvents();
 
-        if(llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
-            llppdrums.getSequencer().notifyDataSetChange();
+        if(llppdrums.getDrumMachine() != null) {
+            if (llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
+                llppdrums.getSequencer().notifyDataSetChange();
+            }
         }
 
         //update autoStepValues

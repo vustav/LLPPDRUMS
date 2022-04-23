@@ -188,11 +188,11 @@ public class EngineFacade {
 
     public String getDriver(){
         if(audioDriver == Drivers.types.AAUDIO){
-            Log.e("..ineFacade.getDriver()", Drivers.types.AAUDIO.toString());
+            //Log.e("..ineFacade.getDriver()", Drivers.types.AAUDIO.toString());
             return drivers[0];
         }
         else{
-            Log.e("..ineFacade.getDriver()", Drivers.types.OPENSL.toString());
+            //Log.e("..ineFacade.getDriver()", Drivers.types.OPENSL.toString());
             return drivers[1];
         }
     }

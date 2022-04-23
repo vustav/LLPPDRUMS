@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,6 +130,7 @@ public class TopFragment extends TabFragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("TopFragment", "save btn");
                 llppdrums.getKeeperFileHandler().writePromptName(llppdrums.getKeeper(), llppdrums.getTemplatesFolderPath());
             }
         });

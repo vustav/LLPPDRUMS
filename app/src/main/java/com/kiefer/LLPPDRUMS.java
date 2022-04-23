@@ -35,6 +35,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -63,7 +64,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
     //file-handling
     private KeeperFileHandler keeperFileHandler;
-    private String appFolderPath, templatesFolderPath;
+    //private String appFolderPath;
+    private String folderPath;
+    private String templatesFolderPath;
 
     //tabs
     private ArrayList<Tabable> tabables;
@@ -146,6 +149,12 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        //createKeeper();
+
+        //for blueTooth-listening
+        unregisterReceiver(projectOptionsManager);
+
         engineFacade.destroy();
         drumMachine.destroy();
     }
@@ -166,16 +175,25 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle bundle){
+    protected void onSaveInstanceState(@NonNull Bundle bundle){
         super.onSaveInstanceState(bundle);
         createKeeper();
     }
+/*
+    @Override
+    protected void onPause(){
+        super.onPause();
+        createKeeper();
+    }
+
+ */
 
 
     public void createKeeper(){
+        //Log.e("LLPPDRUMS", "createKeeper()");
         LLPPDRUMSKeeper keeper = getKeeper();
         if(keeper != null) {
-            keeperFileHandler.write(keeper, appFolderPath, getString(R.string.lastDataFileName), false);
+            keeperFileHandler.write(keeper, folderPath, getString(R.string.lastDataFileName), false);
         }
     }
 
@@ -252,6 +270,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         //String externalStorageDirectory = Environment.getExternalStorageDirectory().getPath();
         File mediaStorageDir = getExternalFilesDir(null);
 
+        /*
         //create the app folder in the root directory if it doesn't exists
         File appFolder = new File(mediaStorageDir, getResources().getString(R.string.app_name));
         if (!appFolder.exists()) {
@@ -259,22 +278,26 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         }
         appFolderPath = appFolder.getAbsolutePath();
 
+         */
+
+        folderPath = mediaStorageDir.getAbsolutePath();
+
         //templates folder
-        File templatesFolder = new File(appFolder, getResources().getString(R.string.templatesFolder));
+        File templatesFolder = new File(folderPath, getResources().getString(R.string.templatesFolder));
         if (!templatesFolder.exists()) {
             templatesFolder.mkdirs();
         }
         templatesFolderPath = templatesFolder.getAbsolutePath();
 
         //tempFile path
-        String lastDataPath = appFolderPath + "/" + getString(R.string.lastDataFileName) + getString(R.string.templateExtension);
+        String lastDataPath = folderPath + "/" + getString(R.string.lastDataFileName) + getString(R.string.templateExtension);
 
         //set up the layout
         background = findViewById(R.id.mainBg);
 
         LLPPDRUMSKeeper keeper;
         try{
-            //Log.e("LLPPDRUMS", "keeper loaded");
+            Log.e("LLPPDRUMS", "keeper loaded");
             keeper = (LLPPDRUMSKeeper) keeperFileHandler.readKeepers(lastDataPath);
         }
         catch (Exception e){
@@ -289,11 +312,15 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         /***********************/
 
 
+
+
         int tempo;
         try {
+            Log.e("LLPPDRUMS", "init(), tempo from keeper");
             tempo = keeper.drumMachineKeeper.initTempo;
         }
         catch (Exception e){
+            Log.e("LLPPDRUMS", "init(), tempo default");
             tempo = getResources().getInteger(R.integer.defaultTempo);
         }
 
@@ -339,6 +366,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         }
         catch (Exception e){
             drumMachine = new DrumMachine(this, engineFacade, null);
+            String message = "COULDN'T RESTORE";
+            Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         //int imgId = ImgUtils.getRandomImageId();

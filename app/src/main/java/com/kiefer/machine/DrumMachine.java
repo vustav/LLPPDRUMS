@@ -79,31 +79,29 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
             if(keeper != null) {
                 sequences.add(new DrumSequence(llppdrums, engineFacade, i, keeper.sequenceKeepers.get(i)));
+                sequences.get(i).restore(keeper.sequenceKeepers.get(i));
             }
             else{
                 sequences.add(new DrumSequence(llppdrums, engineFacade, i));
             }
 
             //RESTORE
-            if(keeper != null) {
-                try {
-                    sequences.get(i).restore(keeper.sequenceKeepers.get(i));
-                    Log.e("DrumMachine", "keeper loaded, restore done");
-                }
-                catch (Exception e){
-                    String message = "COULDN'T RESTORE";
-                    Toast toast = Toast.makeText(llppdrums, message, Toast.LENGTH_SHORT);
-                    toast.show();
-                    Log.e("DrumMachine", "keeper loaded, restore fail");
-                    //Log.e("DrumMachine", "setupSequences, errorMsg: "+e.getMessage());
-                }
-            }
-            else{
-                String message = "COULDN'T RESTORE";
-                Toast toast = Toast.makeText(llppdrums, message, Toast.LENGTH_SHORT);
-                toast.show();
-                //Log.e("DrumMachine", "setupSequences, keeper = null");
-            }
+            //if(keeper != null) {
+                //try {
+                    //Log.e("DrumMachine", "keeper loaded, restore done");
+                //}
+                //catch (Exception e){
+                    //String message = "COULDN'T RESTORE";
+                    //Toast toast = Toast.makeText(llppdrums, message, Toast.LENGTH_SHORT);
+                    //toast.show();
+                    //Log.e("DrumMachine", "keeper loaded, restore fail");
+                //}
+            //}
+            //else{
+                //String message = "COULDN'T RESTORE";
+                //Toast toast = Toast.makeText(llppdrums, message, Toast.LENGTH_SHORT);
+                //toast.show();
+            //}
 
             sequences.get(i).deactivate(); //not needed but feels good
         }
@@ -516,11 +514,13 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     }
 
     public DrumMachineKeeper getKeeper(){
+        //Log.e("DrumMachine", "getkEEPER()");
         DrumMachineKeeper keeper = new DrumMachineKeeper();
-        keeper.sequenceKeepers = new ArrayList<>();
         keeper.initTempo = sequences.get(0).getTempo(); //since sequence 0 always is active on startup we do this
         keeper.initSteps = sequences.get(0).getNOfSteps(); //since sequence 0 always is active on startup we do this
         keeper.sequenceManagerKeeper = sequenceManager.getKeeper();
+
+        keeper.sequenceKeepers = new ArrayList<>();
         for(DrumSequence ds : sequences){
             keeper.sequenceKeepers.add(ds.getKeeper());
         }
