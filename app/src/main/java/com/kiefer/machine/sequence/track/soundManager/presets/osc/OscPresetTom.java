@@ -9,7 +9,6 @@ import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.Oscillat
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 public class OscPresetTom extends OscPreset {
-    public static String name = SoundSourcePreset.TOM;
 
     public OscPresetTom(LLPPDRUMS llppdrums){
         super(llppdrums);
@@ -38,6 +37,6 @@ public class OscPresetTom extends OscPreset {
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.TOM;
     }
 }

@@ -8,10 +8,10 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
 
 import android.util.Log;
+
 /** Can't extend HHOpen since we have these static names... **/
 
 public class OscPresetHHClosed extends OscPreset {
-    public static String name = SoundSourcePreset.HHClosed;
 
     public OscPresetHHClosed(LLPPDRUMS llppdrums){
         super(llppdrums);
@@ -44,6 +44,6 @@ public class OscPresetHHClosed extends OscPreset {
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.HHClosed;
     }
 }

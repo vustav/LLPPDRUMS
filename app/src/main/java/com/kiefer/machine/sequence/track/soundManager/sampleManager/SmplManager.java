@@ -13,6 +13,7 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategory;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryBass;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHHClosed;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHHOpen;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryMisc;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategorySnare;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryTom;
@@ -94,6 +95,7 @@ public class SmplManager extends SoundSource {
         presets.add(new SampleCategoryBass());
         presets.add(new SampleCategorySnare());
         presets.add(new SampleCategoryHHClosed());
+        presets.add(new SampleCategoryHHOpen());
         presets.add(new SampleCategoryTom());
         presets.add(new SampleCategoryMisc());
     }

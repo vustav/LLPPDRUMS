@@ -3,7 +3,7 @@ package com.kiefer.machine.sequence.track.soundManager.presets;
 import java.util.ArrayList;
 
 public abstract class SoundSourcePreset {
-    public static final String BASS = "BASS", HHClosed = "HH CLOSED", HHOpen = "HH OPEN", SNARE = "SNARE", TOM = "TOM";
+    public static final String BASS = "BASS", HHClosed = "HH CLOSED", HHOpen = "HH OPEN", SNARE = "SNARE", TOM = "TOM", RANDOM = "RANDOM";
 
     public abstract String getName();
 

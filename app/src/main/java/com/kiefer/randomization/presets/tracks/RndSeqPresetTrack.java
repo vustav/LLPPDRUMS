@@ -10,23 +10,22 @@ import com.kiefer.utils.NmbrUtils;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class RndSeqPresetTrack {
+public class RndSeqPresetTrack {
     protected final LLPPDRUMS llppdrums;
 
     private String presetCategory;
     private ArrayList<Step> steps;
+    private String name;
     //protected int nOfSteps, nOfSubs;
     private GradientDrawable gradientDrawable;
     private final int oscListImgId;
 
     private boolean randomizeFx, randomizePan, randomizeVol;
 
-    public abstract String getName();
-
-    public RndSeqPresetTrack(LLPPDRUMS llppdrums, String presetCategory, int nOfSteps, int nOfSubs){
+    public RndSeqPresetTrack(LLPPDRUMS llppdrums, String presetCategory, int nOfSteps, int nOfSubs, String name){
         this.llppdrums = llppdrums;
-
         this.presetCategory = presetCategory;
+        this.name = name;
         gradientDrawable = ColorUtils.getGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor(), ColorUtils.HORIZONTAL);
         oscListImgId = ImgUtils.getRandomImageId();
 
@@ -120,6 +119,10 @@ public abstract class RndSeqPresetTrack {
 
     public int getnOfSubs() {
         return steps.get(0).getNofSubs();
+    }
+
+    public String getName(){
+        return name;
     }
 
     /** STEP CLASS **/

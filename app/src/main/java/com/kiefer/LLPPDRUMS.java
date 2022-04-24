@@ -41,6 +41,17 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHoldable {
+    /** testa att ta bort reset på alla seqs när dom skapas **/
+
+    /** händer konstiga grejer i automateTrack, kolla setAutoValueBase() i OnOff med subs och det **/
+
+    /** TILLFÄLLIGA FIXAR **/
+    // i handleSequencerPositionChange() i DrumTrack kallas positionEvents för att positionera SynthEvents
+    // som bara håller sin position en gång, sen hamnar som på närmsta föregående steg. Borde vara
+    // en bugg som fixzas och  då kan detta tas bort.
+
+    // i onStepTouch() i OnOff finns en timer som ska parera buggen med att lägga till/ta bort events
+    // för snabbt i sequencern
 
     public static boolean disableLoad = false;
     public static final boolean hideUIonPlay = false;
@@ -66,7 +77,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     private KeeperFileHandler keeperFileHandler;
     //private String appFolderPath;
     private String folderPath;
-    private String templatesFolderPath;
+    private String savedProjectsFolderPath;
 
     //tabs
     private ArrayList<Tabable> tabables;
@@ -283,11 +294,11 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         folderPath = mediaStorageDir.getAbsolutePath();
 
         //templates folder
-        File templatesFolder = new File(folderPath, getResources().getString(R.string.templatesFolder));
-        if (!templatesFolder.exists()) {
-            templatesFolder.mkdirs();
+        File savedProjectsFolder = new File(folderPath, getResources().getString(R.string.savedProjectsFolder));
+        if (!savedProjectsFolder.exists()) {
+            savedProjectsFolder.mkdirs();
         }
-        templatesFolderPath = templatesFolder.getAbsolutePath();
+        savedProjectsFolderPath = savedProjectsFolder.getAbsolutePath();
 
         //tempFile path
         String lastDataPath = folderPath + "/" + getString(R.string.lastDataFileName) + getString(R.string.templateExtension);
@@ -538,8 +549,8 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         return topFragment;
     }
 
-    public String getTemplatesFolderPath() {
-        return templatesFolderPath;
+    public String getSavedProjectsFolderPath() {
+        return savedProjectsFolderPath;
     }
 
     //FILE HANDLER

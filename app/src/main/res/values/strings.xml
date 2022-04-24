@@ -4,8 +4,7 @@
     <string name="stringDivider"> -> </string>
 
     <!-- FOLDER -->
-    <string name="templatesFolder">tmps</string>
-    <string name="drumTemplatesFolder">steps</string>
+    <string name="savedProjectsFolder">saves</string>
 
     <string name="lastDataFileName">prms</string>
     <string name="templateExtension">.KIFFT</string>

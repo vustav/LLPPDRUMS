@@ -62,7 +62,7 @@ public class LoadPopup extends Popup {
     private void setupContent(){
 
         //list all files in the directory
-        File directory = new File(llppdrums.getTemplatesFolderPath());
+        File directory = new File(llppdrums.getSavedProjectsFolderPath());
         File[] content = directory.listFiles();
 
         //create the ArrList of strings with filenames
@@ -72,7 +72,7 @@ public class LoadPopup extends Popup {
             this.content = new ArrayList<>();
             if(content.length != 0) {
                 for (File file : content) {
-                    KiffFile kf = new KiffFile(file.toString(), file.toString().substring(llppdrums.getTemplatesFolderPath().length() + 1), true);
+                    KiffFile kf = new KiffFile(file.toString(), file.toString().substring(llppdrums.getSavedProjectsFolderPath().length() + 1), true);
                     if (kf.getPath().substring(kf.getPath().length() - llppdrums.getString(R.string.templateExtension).length()).equals(llppdrums.getString(R.string.templateExtension))) {
                         this.content.add(kf);
                     }

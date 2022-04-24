@@ -5,7 +5,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import java.util.ArrayList;
 
 public class SampleCategorySnare extends SampleCategory{
-    public static String name = SoundSourcePreset.SNARE;
 
     public SampleCategorySnare(){
         samples = new ArrayList<>();
@@ -14,6 +13,6 @@ public class SampleCategorySnare extends SampleCategory{
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.SNARE;
     }
 }

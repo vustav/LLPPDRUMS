@@ -45,9 +45,8 @@ public class Step {
 
 
 
-    public void positionEvents(int nOfSteps){
-        //events.positionEvents(drumTrack.getNOfSteps(), getStepNo());
-        stepEventsManager.positionEvents(nOfSteps);
+    public void positionEvents(int nOfSteps, boolean onlySynth){
+        stepEventsManager.positionEvents(nOfSteps, onlySynth);
     }
 
     /** RANDOMIZE **/
@@ -223,7 +222,7 @@ public class Step {
     /** SET **/
     public void setNOfSubs(int subs){
         stepEventsManager.setNOfSubs(subs);
-        positionEvents(drumTrack.getNOfSteps());
+        positionEvents(drumTrack.getNOfSteps(), false);
     }
 
     public void setOn(boolean on){
@@ -232,11 +231,13 @@ public class Step {
 
         //if (on && !wasOn) {
         if(on){
+            //Log.e("Step", "setOn(), true");
             //addToSequencer(drumTrack.getNOfSteps());
             stepEventsManager.turnOn();
         }
         //else if (!on && wasOn) {
         else{
+            //Log.e("Step", "setOn(), false");
             stepEventsManager.turnOff();
         }
     }

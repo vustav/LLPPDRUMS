@@ -2,13 +2,14 @@ package com.kiefer.randomization.presets.tracks;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetSnare;
 import com.kiefer.utils.NmbrUtils;
 
 public class RndSeqPresetTrackSnareBasic extends RndSeqPresetTrack {
 
     public RndSeqPresetTrackSnareBasic(LLPPDRUMS llppdrums, int nOfSteps, int nOfSubs, int beats){
-        super(llppdrums, OscPresetSnare.name, nOfSteps, nOfSubs);
+        super(llppdrums, SoundSourcePreset.SNARE, nOfSteps, nOfSubs, llppdrums.getResources().getString(R.string.trackPresetSnareBasicName));
 
 
         for(int step = 0; step < nOfSteps; step++){
@@ -29,10 +30,5 @@ public class RndSeqPresetTrackSnareBasic extends RndSeqPresetTrack {
                 }
             }
         }
-    }
-
-    @Override
-    public String getName(){
-        return llppdrums.getResources().getString(R.string.trackPresetSnareBasicName);
     }
 }

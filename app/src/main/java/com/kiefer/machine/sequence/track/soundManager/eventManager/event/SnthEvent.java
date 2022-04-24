@@ -57,29 +57,26 @@ public class SnthEvent extends Event{
         //Random r = new Random();
         //Log.e("Snth", "add"+r.nextInt());
         for (SynthEvent event : events) {
-            event.addToSequencer();
+            //if(!event.getIsSequenced()) {
+                event.addToSequencer();
+            //}
         }
     }
 
     @Override
     public void removeFromSequencer(){
         for (SynthEvent event : events) {
-            event.removeFromSequencer();
+            //if(event.getIsSequenced()) {
+                event.removeFromSequencer();
+            //}
         }
     }
 
     @Override
     public void positionEvent(int posInSamples){
-        //Log.e("SnthEvent", "positionEvent(), pos: "+posInSamples);
         for (SynthEvent event : events) {
             event.setEventStart(posInSamples);
         }
-        //calculateBuffers();
-
-        //event[oscNo].invalidateProperties(step, DURATION, (SynthInstrument)oscillatorManager.getInstrument(oscNo));
-        //event[oscNo].setEventStart(posInSamples);
-        //event[oscNo].setEventEnd(samplesPerSub);
-        //event[oscNo].calculateBuffers();
     }
 
     @Override

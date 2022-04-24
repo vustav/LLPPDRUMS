@@ -43,7 +43,7 @@ public class StepEventsManager {
 
         //Log.e("StepEventsManager", "createSubs");
         createSubs(nOfSubs);
-        positionEvents(drumSequence.getNOfSteps());
+        positionEvents(drumSequence.getNOfSteps(), false);
 
         setupAutoRndParams();
 
@@ -62,6 +62,8 @@ public class StepEventsManager {
     //these are for steps, so don't use setSubOn() since it will turn off the sub
     public void turnOn(){
         for(int sub = 0; sub < subs.size(); sub++){
+            //Log.e("StepEventsManager", "turnOn(), sub.size(): "+(subs.size()));
+            //Log.e("StepEventsManager", "turnOn(), sub = on: "+(subs.get(sub).isOn()));
             boolean on = subs.get(sub).isOn(); //subs can still be on even if the step is off, turn them back on if so
             subs.get(sub).addToSequencer(on);
         }
@@ -145,7 +147,7 @@ public class StepEventsManager {
     }
 
     /** POSITION **/
-    public void positionEvents(int nOfSteps){
+    public void positionEvents(int nOfSteps, boolean onlySynth){
 
         //Log.e("StepEventsManager", "nOfSteps: "+nOfSteps);
         //Log.e("StepEventsManager", "subs size: "+subs.size());
@@ -166,7 +168,7 @@ public class StepEventsManager {
         if(subs.size() > 0) {
             for(Sub s : subs){
                 //Log.e("StepEventsManager", "sub: "+s.getIndex());
-                s.positionEvents(posInSamples);
+                s.positionEvents(posInSamples, onlySynth);
                 posInSamples += samplesPerSub;
             }
         }

@@ -97,19 +97,19 @@ public class AutomateStepsPopup extends Popup {
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(0, (int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall), 1);
         llp.setMarginStart(2);
 
-        for(int sub = 0; sub < drumTrack.getAutoStepValues().size(); sub++){
+        for(int sub = 0; sub < drumTrack.getAutoStepSubValues().size(); sub++){
             FrameLayout stepLayout = new FrameLayout(llppdrums);
             stepLayout.setLayoutParams(llp);
 
 
-            setLayoutColor(stepLayout, drumTrack.getAutoStepValues().get(sub));
+            setLayoutColor(stepLayout, drumTrack.getAutoStepSubValues().get(sub));
 
             final int finalSub = sub;
             stepLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final boolean on = drumTrack.getAutoStepValues().get(finalSub);
-                    drumTrack.setAutoStepValue(finalSub, !on);
+                    final boolean on = drumTrack.getAutoStepSubValues().get(finalSub);
+                    drumTrack.setAutoStepSubValue(finalSub, !on);
                     setLayoutColor(stepLayout, !on);
                 }
             });
@@ -118,7 +118,7 @@ public class AutomateStepsPopup extends Popup {
 
         //populate the list
         LinearLayout listLayout = popupView.findViewById(R.id.autoStepsLinearLayout);
-        for(int i = 0; i< sequenceModule.getAutoStepValues().size(); i++){
+        for(int i = 0; i < sequenceModule.getAutoStepValues().size(); i++){
             //for(final String s : sequencerModule.getAutoStepValues()){
             TextView tv = new TextView(llppdrums);
 

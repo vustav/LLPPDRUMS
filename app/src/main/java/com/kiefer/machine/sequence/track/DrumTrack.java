@@ -47,7 +47,7 @@ public class DrumTrack implements Subilizer {
 
     //data
     private ArrayList<Step> steps;
-    private final ArrayList<Boolean> autoStepValues;
+    private final ArrayList<Boolean> autoStepSubValues;
 
     //private int initNOfSteps;
     private int nOfSubs;
@@ -74,13 +74,13 @@ public class DrumTrack implements Subilizer {
         randomizeName();
         color = ColorUtils.getRandomColor();
 
-        autoStepValues = new ArrayList<>();
+        autoStepSubValues = new ArrayList<>();
         for(int i = 0; i<nOfSubs; i++){
             if(i == 0){
-                autoStepValues.add(true);
+                autoStepSubValues.add(true);
             }
             else{
-                autoStepValues.add(false);
+                autoStepSubValues.add(false);
             }
         }
 
@@ -143,7 +143,7 @@ public class DrumTrack implements Subilizer {
     public void positionEvents(){
         //Log.e("DrumTrack", "positionEvents(), nOfSteps: "+getNOfSteps());
         for(Step d : steps){
-            d.positionEvents(getNOfSteps());
+            d.positionEvents(getNOfSteps(), false);
         }
     }
 
@@ -162,11 +162,11 @@ public class DrumTrack implements Subilizer {
         }
 
         //update autoStepValues
-        while(autoStepValues.size() < nOfSubs){
-            autoStepValues.add(false);
+        while(autoStepSubValues.size() < nOfSubs){
+            autoStepSubValues.add(false);
         }
-        while(autoStepValues.size() > nOfSubs){
-            autoStepValues.remove(autoStepValues.size()-1);
+        while(autoStepSubValues.size() > nOfSubs){
+            autoStepSubValues.remove(autoStepSubValues.size()-1);
         }
     }
 
@@ -544,13 +544,13 @@ public class DrumTrack implements Subilizer {
         llppdrums.getSequencer().setTrackColor(getTrackNo(), color);
     }
 
-    public void setAutoStepValue(int sub, boolean on){
-        autoStepValues.set(sub, on);
+    public void setAutoStepSubValue(int sub, boolean on){
+        autoStepSubValues.set(sub, on);
     }
 
     /** GET **/
-    public ArrayList<Boolean> getAutoStepValues(){
-        return autoStepValues;
+    public ArrayList<Boolean> getAutoStepSubValues(){
+        return autoStepSubValues;
     }
 
     public DrumSequence getDrumSequence() {
@@ -707,8 +707,15 @@ public class DrumTrack implements Subilizer {
         fxManager.automate(sequencerPosition, fxManagerPopup != null);
 
         if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
-            //Log.e("DrumTrack", "handleSequencerPositionChange(), sequencerPosition: "+sequencerPosition);
             steps.get(sequencerPosition).handleSequencerPositionChange(sequencerPosition);
+        }
+
+        /** THIS IS ONLY DUE TO A BUG WHERE SynthEvents' positions when using subs resets after
+         * being played once. Updating at every 0 fixes this. **/
+        if(sequencerPosition == 0) {
+            for (Step step : steps) {
+                step.positionEvents(getNOfSteps(), true);
+            }
         }
     }
 

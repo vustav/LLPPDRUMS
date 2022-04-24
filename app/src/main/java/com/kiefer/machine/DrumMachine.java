@@ -84,26 +84,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
             else{
                 sequences.add(new DrumSequence(llppdrums, engineFacade, i));
             }
-
-            //RESTORE
-            //if(keeper != null) {
-                //try {
-                    //Log.e("DrumMachine", "keeper loaded, restore done");
-                //}
-                //catch (Exception e){
-                    //String message = "COULDN'T RESTORE";
-                    //Toast toast = Toast.makeText(llppdrums, message, Toast.LENGTH_SHORT);
-                    //toast.show();
-                    //Log.e("DrumMachine", "keeper loaded, restore fail");
-                //}
-            //}
-            //else{
-                //String message = "COULDN'T RESTORE";
-                //Toast toast = Toast.makeText(llppdrums, message, Toast.LENGTH_SHORT);
-                //toast.show();
-            //}
-
-            sequences.get(i).deactivate(); //not needed but feels good
+            //sequences.get(i).deactivate();
         }
 
         selectedSequence = sequences.get(0);

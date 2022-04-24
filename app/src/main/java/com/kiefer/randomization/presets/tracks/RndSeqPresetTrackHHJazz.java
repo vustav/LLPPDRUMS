@@ -2,6 +2,7 @@ package com.kiefer.randomization.presets.tracks;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHClosed;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHOpen;
 import com.kiefer.utils.NmbrUtils;
@@ -9,7 +10,7 @@ import com.kiefer.utils.NmbrUtils;
 public class RndSeqPresetTrackHHJazz extends RndSeqPresetTrack {
 
     public RndSeqPresetTrackHHJazz(LLPPDRUMS llppdrums, int nOfSteps){
-        super(llppdrums, OscPresetHHOpen.name, nOfSteps, 4);
+        super(llppdrums, SoundSourcePreset.HHOpen, nOfSteps, 4, llppdrums.getResources().getString(R.string.trackPresetHHBasicName));
 
         for(int step = 0; step < nOfSteps; step++){
             for(int sub = 0; sub < 4; sub++) {
@@ -66,10 +67,5 @@ public class RndSeqPresetTrackHHJazz extends RndSeqPresetTrack {
  */
 
 
-    }
-
-    @Override
-    public String getName(){
-        return llppdrums.getResources().getString(R.string.trackPresetHHBasicName);
     }
 }

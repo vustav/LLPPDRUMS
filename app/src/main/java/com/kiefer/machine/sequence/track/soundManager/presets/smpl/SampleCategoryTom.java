@@ -5,7 +5,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import java.util.ArrayList;
 
 public class SampleCategoryTom extends SampleCategory{
-    public static String name = SoundSourcePreset.TOM;
 
     public SampleCategoryTom(){
         samples = new ArrayList<>();
@@ -18,6 +17,6 @@ public class SampleCategoryTom extends SampleCategory{
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.TOM;
     }
 }

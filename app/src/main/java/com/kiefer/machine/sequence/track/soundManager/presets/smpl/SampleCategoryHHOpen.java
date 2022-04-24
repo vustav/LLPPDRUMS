@@ -5,7 +5,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import java.util.ArrayList;
 
 public class SampleCategoryHHOpen extends SampleCategory{
-    public static String name = SoundSourcePreset.HHOpen;
 
     public SampleCategoryHHOpen(){
         /** FIXA ÖPPNA **/
@@ -16,6 +15,6 @@ public class SampleCategoryHHOpen extends SampleCategory{
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.HHOpen;
     }
 }

@@ -1,6 +1,7 @@
 package com.kiefer.randomization.rndTrackManager;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.sequenceModules.Pan;
@@ -103,21 +104,32 @@ public class RndTrackManager {
             RndSeqPresetTrack.Step step = rndTrack.getSteps().get(stepNo);
 
             //used to set the step ON if at least on sub is ON
-            boolean subOn = false;
+            boolean aSubIsOn = false;
 
             for(int sub = 0; sub<drumTrack.getNOfSubs(); sub++) {
-                if(r.nextFloat() < step.getSubPerc(sub)){
+                if(r.nextFloat() <= step.getSubPerc(sub)){
+                    //drumTrack.setStepOn(stepNo, true); //step needs to be on when turning on subs to get them to add the event to the sequencer, so do this first
                     drumTrack.setSubOn(stepNo, true, sub);
-                    subOn = true;
                     drumTrack.setSubVolume(stepNo, step.getSubVol(sub), sub);
                     drumTrack.setSubPitchModifier(stepNo, step.getSubPitch(sub), sub);
+                    aSubIsOn = true;
                 }
                 else{
-                    //drumTrack.setStepOn(stepNo, false);
                     drumTrack.setSubOn(stepNo, false, sub);
                 }
             }
-            drumTrack.setStepOn(stepNo, subOn);
+
+            /** ÄNDRA TILLBAKS, SUBS MÅSTE ADDA EVENTS HÄR OM DOM ÄR ON **/
+            //if(aSubIsOn) {
+            drumTrack.setStepOn(stepNo, aSubIsOn); //turn off the step if no subs are on
+            Log.e("RndTrackManager", "randomize -----------------------------------------------");
+            //}
+            /*
+            if(!aSubIsOn) {
+                drumTrack.setStepOn(stepNo, false); //turn off the step if no subs are on
+            }
+
+             */
 
             if (rndTrack.getRandomizePan()){
                 drumTrack.setStepPan(stepNo, step.getSubPan());

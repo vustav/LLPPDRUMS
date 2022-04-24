@@ -2,6 +2,7 @@ package com.kiefer.randomization.presets.tracks;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.randomization.rndTrackManager.RndTrackManager;
 
 import java.util.Random;
@@ -9,7 +10,7 @@ import java.util.Random;
 public class RndSeqPresetTrackRandom extends RndSeqPresetTrack {
 
     public RndSeqPresetTrackRandom(LLPPDRUMS llppdrums, int nOfSteps, int nOfSubs){
-        super(llppdrums, RndTrackManager.RANDOM, nOfSteps, nOfSubs);
+        super(llppdrums, SoundSourcePreset.RANDOM, nOfSteps, nOfSubs, llppdrums.getResources().getString(R.string.trackPresetRandomName));
 
         Random random = new Random();
 
@@ -20,10 +21,5 @@ public class RndSeqPresetTrackRandom extends RndSeqPresetTrack {
                 setSubPitch(step, sub, random.nextFloat());
             }
         }
-    }
-
-    @Override
-    public String getName(){
-        return llppdrums.getResources().getString(R.string.trackPresetRandomName);
     }
 }

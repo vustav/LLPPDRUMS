@@ -94,16 +94,19 @@ public class Sub {
 
     public void setOn(boolean on){
         this.on = on;
-
+        Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
         if(on && step.isOn()) {
+            //Log.e("Sub", "setOn(), 1");
             addToSequencer(true);
         }
         else{
+            //Log.e("Sub", "setOn(), 2");
             addToSequencer(false);
         }
     }
 
     public void addToSequencer(boolean add){
+        //Log.e("Sub", "addToSequencer(), add: "+add);
         for(Event e : events){
             if(add) {
                 e.addToSequencer();
@@ -124,12 +127,17 @@ public class Sub {
     }
 
     /** POS **/
-    public void positionEvents(int posInSamples){
+    public void positionEvents(int posInSamples, boolean onlySynth){
         //if(step.getStepNo() == 0) {
         //Log.e("Sub", "positionEvents");
         //}
-        for(Event e : events){
-            e.positionEvent(posInSamples);
+        if(onlySynth){
+            events.get(0).positionEvent(posInSamples);
+        }
+        else {
+            for (Event e : events) {
+                e.positionEvent(posInSamples);
+            }
         }
     }
 

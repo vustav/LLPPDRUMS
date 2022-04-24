@@ -5,7 +5,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import java.util.ArrayList;
 
 public class SampleCategoryHHClosed extends SampleCategory{
-    public static String name = SoundSourcePreset.HHClosed;
 
     public SampleCategoryHHClosed(){
         samples = new ArrayList<>();
@@ -15,6 +14,6 @@ public class SampleCategoryHHClosed extends SampleCategory{
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.HHClosed;
     }
 }

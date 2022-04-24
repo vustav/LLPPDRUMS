@@ -8,7 +8,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
 
 public class OscPresetSnare extends OscPreset {
-    public static String name = SoundSourcePreset.SNARE;
 
     public OscPresetSnare(LLPPDRUMS llppdrums){
         super(llppdrums);
@@ -36,6 +35,6 @@ public class OscPresetSnare extends OscPreset {
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.SNARE;
     }
 }

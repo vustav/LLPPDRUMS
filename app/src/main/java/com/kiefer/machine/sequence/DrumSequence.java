@@ -125,25 +125,10 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         setupTracks(nOfTracks, keeper);
 
         rndSeqManager = new RndSeqManager(llppdrums, this, tracks.get(0).getSoundManager().getPresetCategories()); //track doesn't matter, just get any presets
+
+        deactivate();
     }
     private int nOfSteps;
-
-    /*
-    if (keeper != null) {
-        DrumTrackKeeper dtk = keeper.drumTrackKeepers.get(tracks.size());
-        drumTrack = new DrumTrack(llppdrums, this, keeper.nOfSteps, dtk);
-    }
-    //if keeper is null it's either no keeper (use default), or a track is added by a btn (no keeper provided, but use getNOfSteps())
-        else{
-        if(tracks.size() != 0) {
-            drumTrack = new DrumTrack(llppdrums, this, getNOfSteps(), null);
-        }
-        else{
-            drumTrack = new DrumTrack(llppdrums, this, llppdrums.getResources().getInteger(R.integer.defaultNOfSteps), null);
-        }
-    }
-
-     */
 
     /** SETUP **/
     private void setupSequenceModules(){

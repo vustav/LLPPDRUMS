@@ -5,7 +5,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import java.util.ArrayList;
 
 public class SampleCategoryMisc extends SampleCategory{
-    public static String name = "MISC";
 
     public SampleCategoryMisc(){
         samples = new ArrayList<>();
@@ -16,6 +15,6 @@ public class SampleCategoryMisc extends SampleCategory{
 
     @Override
     public String getName(){
-        return name;
+        return "MISC";
     }
 }

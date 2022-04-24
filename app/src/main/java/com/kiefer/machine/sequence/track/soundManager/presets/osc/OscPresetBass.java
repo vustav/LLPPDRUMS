@@ -10,7 +10,6 @@ import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
 import java.util.Random;
 
 public class OscPresetBass extends OscPreset {
-    public static String name = SoundSourcePreset.BASS;
 
     public OscPresetBass(LLPPDRUMS llppdrums){
         super(llppdrums);
@@ -39,6 +38,6 @@ public class OscPresetBass extends OscPreset {
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.BASS;
     }
 }

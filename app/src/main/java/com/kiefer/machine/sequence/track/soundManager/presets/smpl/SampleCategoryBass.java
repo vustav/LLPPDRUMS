@@ -5,7 +5,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import java.util.ArrayList;
 
 public class SampleCategoryBass extends SampleCategory{
-    public static String name = SoundSourcePreset.BASS;
 
     public SampleCategoryBass(){
         samples = new ArrayList<>();
@@ -16,6 +15,6 @@ public class SampleCategoryBass extends SampleCategory{
 
     @Override
     public String getName(){
-        return name;
+        return SoundSourcePreset.BASS;
     }
 }

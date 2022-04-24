@@ -16,8 +16,4 @@ public abstract class Event {
     public abstract void setPitch(float pitch);
     public abstract void setVolume(float volume);
     public abstract void delete();
-
-    public Event(){
-
-    }
 }

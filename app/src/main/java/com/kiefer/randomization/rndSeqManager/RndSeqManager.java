@@ -1,6 +1,7 @@
 package com.kiefer.randomization.rndSeqManager;
 
 import com.kiefer.LLPPDRUMS;
+import com.kiefer.files.keepers.Keeper;
 import com.kiefer.interfaces.Tempoizer;
 import com.kiefer.randomization.presets.RandomizeSeqPresetClassicRock;
 import com.kiefer.randomization.presets.RandomizeSeqPreset;
@@ -58,7 +59,7 @@ public class RndSeqManager implements Tempoizer {
         //presets.add(new RandomizePresetRandom(llppdrums, this));
 
         Random r = new Random();
-        selectedRandomizeSeqPreset = rndSeqPresets.get(r.nextInt(rndSeqPresets.size())); //-1 to prevent RANDOM from being selected on creation. One of the reasons is that since DrumMachine isn't done yet we can't get a reference to OscManager which means we can't get the list of oscPresets.
+        selectedRandomizeSeqPreset = rndSeqPresets.get(r.nextInt(rndSeqPresets.size()));
         selectedRandomizeSeqPreset.createPreset();
     }
 
@@ -181,5 +182,10 @@ public class RndSeqManager implements Tempoizer {
 
     public void setTrackOsc(int trackNo, String osc){
         tracks.get(trackNo).setPresetCategory(osc);
+    }
+
+    /** RESTORE **/
+    public Keeper getKeeper(){
+        return null;
     }
 }

@@ -1,6 +1,5 @@
 package com.kiefer.machine.sequence.sequenceModules;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.view.MotionEvent;
@@ -16,9 +15,7 @@ import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.Popup;
 import com.kiefer.popups.seqModules.OnOffSubsPopup;
-import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.machine.sequence.DrumSequence;
-import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 
@@ -80,22 +77,40 @@ public class OnOff extends SequenceModule {
             release = true;
             long elapseTime = (System.currentTimeMillis() - startTime);
             if(elapseTime < llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer) || step.getNofSubs() == 1) {
-                step.setOn(!step.isOn());
-
-                //OnOff updates the UI itself, for the other modules the popup takes care of that
-                //new Thread(new Runnable() { //thread for creating the Drawable
-                    //public void run() {
+                /***************/
+                if(timerOnClicks) {
+                    if (readyToChange) {
+                        step.setOn(!step.isOn());
                         final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
-                        stepIV.post(new Runnable() { //modify the View in the UI thread
-                            public void run() {
-                                stepIV.setImageDrawable(drawable);
+                        stepIV.setImageDrawable(drawable);
+                    }
+                    readyToChange = false;
+
+                    if (timerFree) {
+                        new CountDownTimer(1400, 1400) {
+                            public void onTick(long millisUntilFinished) {
+                                timerFree = false;
                             }
-                        });
-                    //}
-                //}).start();
+
+                            public void onFinish() {
+                                timerFree = true;
+                                readyToChange = true;
+                            }
+                        }.start();
+                    }
+                }
+                /*****************/
+                else{
+                    step.setOn(!step.isOn());
+                    final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
+                    stepIV.setImageDrawable(drawable);
+                }
             }
         }
     }
+    //till timern ovan
+    private boolean timerOnClicks = false;
+    private boolean readyToChange = true, timerFree = true;
 
     /** POPUP **/
     @Override
@@ -123,8 +138,9 @@ public class OnOff extends SequenceModule {
         autoStepValues.add(SequenceModule.EVERY_SEVENTH);
     }
 
-    //override to store autoStepInterval
     private int autoStepInterval = -1;
+    /*
+    //override to store autoStepInterval
     @Override
     public void setAutoValue(final DrumTrack drumTrack, String s, int sub) {
         super.setAutoValue(drumTrack, s, sub); //random is handled here
@@ -134,17 +150,19 @@ public class OnOff extends SequenceModule {
         }
     }
 
+     */
+
     //since setAutoValue() is dependent on what mode we're in it can't be used for presets (if in random the patterns would end up there instead)
     //SO USE THIS WHEN BUILDING PRESETS
     @Override
     public float setAutoValueBase(final DrumTrack drumTrack, String s, int sub){
-        int autoStepInterval = Integer.parseInt(s.substring(s.length()-1));
+        autoStepInterval = Integer.parseInt(s.substring(s.length()-1));
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
             Step drum = drumTrack.getSteps().get(step);
             if (autoStepInterval != 0) {
                 if (step % autoStepInterval == 0) {
                     //if (!drum.isOn()) {
-                    drumTrack.setStepOn(step, true, drumTrack.getAutoStepValues());
+                    drumTrack.setStepOn(step, true, drumTrack.getAutoStepSubValues());
                     //}
                 } else {
                     if (drum.isOn()) {
