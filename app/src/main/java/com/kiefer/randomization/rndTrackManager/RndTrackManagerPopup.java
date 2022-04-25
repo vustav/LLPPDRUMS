@@ -28,8 +28,7 @@ public class RndTrackManagerPopup extends Popup {
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_track_rnd, null);
-        //popupView.setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getRndPopupGradientDrawable()));
-        popupView.setBackground(drumTrack.getRndPopupGradientDrawable());
+        popupView.setBackgroundColor(drumTrack.getColor());
 
         //create the popupWindow
         int tabs = (int) llppdrums.getResources().getDimension(R.dimen.tabsSize) * 3;

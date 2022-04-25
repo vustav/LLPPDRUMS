@@ -34,7 +34,7 @@ public class OscillatorManager extends SoundSource {
     private final Oscillator[] oscillators;
     private final String[] waves;
 
-    private final int bgImageId, presetsListImageId;
+    private final int presetsListImageId;
 
     public OscillatorManager(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack){
         super();
@@ -45,7 +45,6 @@ public class OscillatorManager extends SoundSource {
 
         waves = llppdrums.getResources().getStringArray(R.array.oscWaves);
 
-        bgImageId = ImgUtils.getRandomImageId();
         presetsListImageId = ImgUtils.getRandomImageId();
 
         //create the oscillators
@@ -254,12 +253,6 @@ public class OscillatorManager extends SoundSource {
     }
 
     /** GFX **/
-    @Override
-    public int getBgImageId() {
-        return bgImageId;
-    }
-
-    @Override
     public int getPresetListImageId() {
         return presetsListImageId;
     }

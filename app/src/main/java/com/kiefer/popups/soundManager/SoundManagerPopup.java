@@ -46,7 +46,7 @@ public class SoundManagerPopup extends Popup {
         //create the popupWindow
         //int width = RelativeLayout.LayoutParams.WRAP_CONTENT;@dimen/defaultSeekBarWidth
         int width = (int) llppdrums.getResources().getDimension(R.dimen.defaultSeekBarWidth) * 2 + (int) llppdrums.getResources().getDimension(R.dimen.marginLarge) * 9;
-        int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
@@ -98,17 +98,11 @@ public class SoundManagerPopup extends Popup {
 
     private void setSoundView(){
         soundView.removeAllViews();
-        if(drumTrack.getSoundManager().getSoundSource() instanceof OscillatorManager){
-            //if(oscillatorManagerView.getLayout().getParent() != null){
-                //((ViewGroup)oscillatorManagerView.getLayout().getParent()).removeAllViews();
-            //}
+        if(drumTrack.getSoundManager().getActiveSoundSource() instanceof OscillatorManager){
             oscRadio.setChecked(true);
             soundView.addView(oscillatorManagerView.getLayout());
         }
-        if(drumTrack.getSoundManager().getSoundSource() instanceof SmplManager){
-            //if(sampleManagerView.getLayout().getParent() != null){
-                //((ViewGroup)sampleManagerView.getLayout().getParent()).removeAllViews();
-            //}
+        if(drumTrack.getSoundManager().getActiveSoundSource() instanceof SmplManager){
             sampleRadio.setChecked(true);
             soundView.addView(sampleManagerView.getLayout());
         }

@@ -44,10 +44,6 @@ public abstract class SoundSource {
     void setPreset(int i);
     */
 
-    /** GFX **/
-    public abstract int getBgImageId();
-    public abstract int getPresetListImageId();
-
     /** RESTORATION **/
     public abstract void restore(Keeper k);
     public abstract Keeper getKeeper();

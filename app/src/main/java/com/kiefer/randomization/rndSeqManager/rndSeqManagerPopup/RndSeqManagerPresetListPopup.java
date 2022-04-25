@@ -70,6 +70,7 @@ public class RndSeqManagerPresetListPopup extends Popup {
             });
             listLayout.addView(tv);
         }
-        popupWindow.showAsDropDown(btn, 0, -100);
+        //popupWindow.showAsDropDown(btn, 0, -100);
+        show(popupWindow);
     }
 }

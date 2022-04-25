@@ -60,9 +60,8 @@ public class FxManagerPopup extends Popup {
         popupView.setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getFxManager().getFxManagerImgId()));
 
         //create the popupWindow
-        //int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
         int width = (int) llppdrums.getResources().getDimension(R.dimen.defaultSeekBarWidth) + (int) llppdrums.getResources().getDimension(R.dimen.autoViewHolderWidth) + (int) llppdrums.getResources().getDimension(R.dimen.fxViewHolderWidth) + (int) llppdrums.getResources().getDimension(R.dimen.marginLarge) * 5;
-        int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 

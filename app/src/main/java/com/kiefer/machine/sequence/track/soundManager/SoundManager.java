@@ -11,6 +11,7 @@ import com.kiefer.machine.sequence.track.soundManager.eventManager.StepEventsMan
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.sampleManager.SmplManager;
+import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,10 +31,14 @@ public class SoundManager {
 
     private ArrayList<SoundSource> soundSources;
 
+    private final int bgImageId;
+
     public SoundManager(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack){
         this.llppdrums = llppdrums;
         this.drumSequence = drumSequence;
         this.drumTrack = drumTrack;
+
+        bgImageId = ImgUtils.getRandomImageId();
 
         soundSources = new ArrayList<>();
         OscillatorManager oscillatorManager = new OscillatorManager(llppdrums, drumSequence, drumTrack);
@@ -83,9 +88,7 @@ public class SoundManager {
     }
 
     /** SET **/
-    /** FUNKAR INTE **/
     public void setActiveSoundSource(String tag) {
-        /** KRASCHAR HÄR **/
         if(activeSoundSource != null) {
             activeSoundSource.deactivate();
         }
@@ -100,8 +103,6 @@ public class SoundManager {
         if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
             activeSoundSource.activate();
         }
-        /**************************************/
-        //drumTrack.recreateEvents();
     }
 
     //atk
@@ -124,7 +125,11 @@ public class SoundManager {
 
     //pan
     public void setPan(float pan){
-        activeSoundSource.setPan(pan);
+        //activeSoundSource.setPan(pan);
+
+        for(SoundSource ss : soundSources){
+            ss.setPan(pan);
+        }
     }
 
     public void setOscillatorVolume(final int oscillatorNo, final float volume){
@@ -141,26 +146,44 @@ public class SoundManager {
         return (SmplManager) soundSources.get(1);
     }
 
-    public SoundSource getSoundSource() {
+    public SoundSource getActiveSoundSource() {
         return activeSoundSource;
     }
 
-    public ProcessingChain[] getProcessingChains() {
-        return activeSoundSource.getProcessingChains();
+    public ArrayList<ProcessingChain> getProcessingChains() {
+        ArrayList<ProcessingChain> chains = new ArrayList<>();
+        for(SoundSource ss : soundSources){
+            for(ProcessingChain pc : ss.getProcessingChains()) {
+                chains.add(pc);
+            }
+        }
+        return chains;
     }
 
     public ArrayList<String> getPresetCategories(){
         return SoundSourcePreset.getCategories();
     }
 
-    public void setRandomPreset(){
-        activeSoundSource.setRandomPreset();
+    public void setRandomPresets(){
+        for(SoundSource ss : soundSources){
+            ss.setRandomPreset();
+        }
     }
 
     /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/
-    public void setPreset(String s){
+    public void setPresets(String s){
         //Log.e("SoundManager", "setPreset(): "+s);
-        activeSoundSource.setPreset(s);
+        //activeSoundSource.setPreset(s);
+        setOscPreset(s);
+        setSmplPreset(s);
+    }
+
+    public void setOscPreset(String s){
+        getOscillatorManager().setPreset(s);
+    }
+
+    public void setSmplPreset(String s){
+        getSmplManager().setPreset(s);
     }
 
 /*
@@ -196,7 +219,7 @@ public class SoundManager {
     }
 
     /** PLAY **/
-    public void playDrum(){
+    public void play(){
         activeSoundSource.playDrum();
     }
 
@@ -208,11 +231,7 @@ public class SoundManager {
     /** GFX **/
 
     public int getBgImageId() {
-        return activeSoundSource.getBgImageId();
-    }
-
-    public int getPresetsListImageId() {
-        return activeSoundSource.getPresetListImageId();
+        return bgImageId;
     }
 
     /** RESTORATION **/
@@ -242,7 +261,5 @@ public class SoundManager {
         for(SoundSource ss : soundSources){
             ss.destroy();
         }
-
-        //activeSoundSource.destroy();
     }
 }

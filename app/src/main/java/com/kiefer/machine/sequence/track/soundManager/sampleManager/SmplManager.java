@@ -36,7 +36,7 @@ public class SmplManager extends SoundSource {
     private SampledInstrument sampledInstrument, liveInstrument;
     private SampleEvent liveEvent;
 
-    private final int bgImageId, categoryListImageId, sampleListImageId;
+    private final int categoryListImageId, sampleListImageId;
 
     private SampleCategory selectedCategory;
 
@@ -47,7 +47,6 @@ public class SmplManager extends SoundSource {
         this.drumTrack = drumTrack;
         random = new Random();
 
-        bgImageId = ImgUtils.getRandomImageId();
         categoryListImageId = ImgUtils.getRandomImageId();
         sampleListImageId = ImgUtils.getRandomImageId();
 
@@ -170,12 +169,6 @@ public class SmplManager extends SoundSource {
     }
 
     /** GFX **/
-    @Override
-    public int getBgImageId() {
-        return bgImageId;
-    }
-
-    @Override
     public int getPresetListImageId() {
         return categoryListImageId;
     }

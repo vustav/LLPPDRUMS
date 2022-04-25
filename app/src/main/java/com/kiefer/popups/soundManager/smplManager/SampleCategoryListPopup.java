@@ -24,7 +24,7 @@ public class SampleCategoryListPopup extends Popup {
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_list, null);
-        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, soundManager.getPresetsListImageId()));
+        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, soundManager.getSmplManager().getPresetListImageId()));
 
         //create the popupWindow
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -58,7 +58,7 @@ public class SampleCategoryListPopup extends Popup {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    soundManager.setPreset(name);
+                    soundManager.setSmplPreset(name);
                     categorySpinnerBtn.setSelection(name);
                     sampleSpinnerBtn.setSelection(soundManager.getSmplManager().getSelectedCategory().getSelectedSample().getName());
                     popupWindow.dismiss();
@@ -66,6 +66,7 @@ public class SampleCategoryListPopup extends Popup {
             });
             listLayout.addView(tv);
         }
-        popupWindow.showAsDropDown(categorySpinnerBtn, 0, -100);
+        //popupWindow.showAsDropDown(categorySpinnerBtn, 0, -100);
+        show(popupWindow);
     }
 }

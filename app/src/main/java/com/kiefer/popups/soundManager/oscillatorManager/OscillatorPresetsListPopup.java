@@ -22,7 +22,7 @@ public class OscillatorPresetsListPopup extends Popup {
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_list, null);
-        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, soundManager.getPresetsListImageId()));
+        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, soundManager.getOscillatorManager().getPresetListImageId()));
 
         //create the popupWindow
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -56,13 +56,14 @@ public class OscillatorPresetsListPopup extends Popup {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    soundManager.setPreset(name);
+                    soundManager.setOscPreset(name);
                     oscillatorManagerView.updateUI();
                     popupWindow.dismiss();
                 }
             });
             listLayout.addView(tv);
         }
-        popupWindow.showAsDropDown(btn, 0, -100);
+        //popupWindow.showAsDropDown(btn, 0, -100);
+        show(popupWindow);
     }
 }

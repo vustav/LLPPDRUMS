@@ -29,7 +29,7 @@ public class AutomateStepsPopup extends Popup {
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_auto_steps, null);
-        popupView.setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getMixerPopupBgId()));
+        popupView.setBackgroundColor(drumTrack.getColor());
 
         //create the popupWindow
         int tabs = (int) llppdrums.getResources().getDimension(R.dimen.tabsSize) * 3;

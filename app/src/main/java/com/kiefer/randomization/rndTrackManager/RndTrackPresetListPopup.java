@@ -53,7 +53,8 @@ public class RndTrackPresetListPopup extends Popup {
         createItem(new RndSeqPresetTrackHHJazz(llppdrums, drumTrack.getNOfSteps()));
         createItem(new RndSeqPresetTrackHotTom(llppdrums, drumTrack.getNOfSteps(), 3));
 
-        popupWindow.showAsDropDown(btn, 0, -100);
+        //popupWindow.showAsDropDown(btn, 0, -100);
+        show(popupWindow);
     }
 
     private void createItem(RndSeqPresetTrack presetTrack){

@@ -62,6 +62,7 @@ public class OscillatorWaveListPopup extends Popup {
         }
 
         //show(popupWindow);
-        popupWindow.showAsDropDown(btn, 0, -100);
+        //popupWindow.showAsDropDown(btn, 0, -100);
+        show(popupWindow);
     }
 }

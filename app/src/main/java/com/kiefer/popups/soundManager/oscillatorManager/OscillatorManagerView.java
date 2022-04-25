@@ -69,7 +69,7 @@ public class OscillatorManagerView implements SoundManagerPopup.SoundSourceView 
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().playDrum();
+                drumTrack.getSoundManager().play();
             }
         });
     }

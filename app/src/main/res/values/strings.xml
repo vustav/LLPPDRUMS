@@ -211,8 +211,8 @@
     <!-- MAIN -->
     <string name="mainIntroTxt1">The two main modules are</string>
     <string name="mainIntroTxt2">SEQUENCES is for setting up the sequences and CONTROLLER for controlling them in realtime.</string>
-    <string name="mainIntroTxt3">\n\nYou have four independent sequences (tabs to the left) that plays in the order set in the sequence manager (top right). Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
-    <string name="mainTransportTxt">Basic transport controls.</string>
+    <string name="mainIntroTxt3">\n\nYou have four independent sequences (numbered tabs to the left) that plays in the order set in the sequence manager (top right). Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
+    <string name="mainTransportTxt">Basic controls.</string>
     <string name="mainFilesTxt">LOAD/SAVE/CLEAR the project. CLEAR is destructive.</string>
     <string name="mainSeqManTxt1">Shows the order of progression (if PROGRESSION is on). Clicking a cell will change to that sequence immediately or at the next measure depending on QUEUE. EDIT opens</string>
     <string name="mainSeqManTxt2">\n\nPurple is the sequence currently playing. Pink is queued for change at the next measure.</string>
@@ -252,11 +252,11 @@
     <string name="seqCpyTxt">Make this sequence a copy of another sequence. Will not automatically change if you change anything in the copied sequence.</string>
 
     <!-- RND SEQUENCE MANAGER-->
-    <string name="seqRndManagerIntro">Set a framework for the randomizations, either by using a preset or by creating one.</string>
+    <string name="seqRndManagerIntro">Intructions for the randomizations, either by using a preset or by creating from scratch.</string>
     <string name="seqRndManagerPreset">Select a preset.</string>
     <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
     <string name="seqRndManagerSteps">Set the # of steps of the randomized sequence.</string>
-    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select what oscillator preset it should have. \n\nEvery step has a slider in it. If it\'s full it will always be on. If half there\'s a 50% chance etc. \n\nTick the FX-box for effects on the track. Remove it by clicking \"-\". Hold and drag to change order.</string>
+    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select what oscillator preset it should have. \n\nEvery step has a slider in it. If it\'s full it will always be on. If half there\'s a 50% chance etc. \n\nTick the FX-box for effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
     <string name="seqRndManagerAdd">Add a track.</string>
 
     <!-- AUTORANDOM -->
