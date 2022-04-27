@@ -89,16 +89,13 @@ public class RndTrackManager {
 
         drumTrack.setNOfSubs(666, rndTrack.getnOfSubs()); //trackNo doesn't matter since the drumTrack is the subilizer
 
-        //first randomize the soundSource, then set the preset category
-
-        drumTrack.getSoundManager().randomizeSoundSource();
-
         if(rndTrack.getPresetCategory().equals(RANDOM)){
             drumTrack.getSoundManager().setRandomPresets();
         }
         else{
             drumTrack.getSoundManager().setPresets(rndTrack.getPresetCategory());
         }
+        drumTrack.getSoundManager().randomizeSoundSource();
 
         //Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){
@@ -107,7 +104,7 @@ public class RndTrackManager {
             //used to set the step ON if at least on sub is ON
             boolean aSubIsOn = false;
 
-            for(int sub = 0; sub<drumTrack.getNOfSubs(); sub++) {
+            for(int sub = 0; sub < drumTrack.getNOfSubs(); sub++) {
                 if(r.nextFloat() <= step.getSubPerc(sub)){
                     //drumTrack.setStepOn(stepNo, true); //step needs to be on when turning on subs to get them to add the event to the sequencer, so do this first
                     drumTrack.setSubOn(stepNo, true, sub);
@@ -123,7 +120,7 @@ public class RndTrackManager {
             /** ÄNDRA TILLBAKS, SUBS MÅSTE ADDA EVENTS HÄR OM DOM ÄR ON **/
             //if(aSubIsOn) {
             drumTrack.setStepOn(stepNo, aSubIsOn); //turn off the step if no subs are on
-            Log.e("RndTrackManager", "randomize -----------------------------------------------");
+            //Log.e("RndTrackManager", "randomize -----------------------------------------------");
             //}
             /*
             if(!aSubIsOn) {
@@ -133,7 +130,8 @@ public class RndTrackManager {
              */
 
             if (rndTrack.getRandomizePan()){
-                drumTrack.setStepPan(stepNo, step.getSubPan());
+                drumTrack.setStepPan(stepNo, step.getPan());
+                //randomizePan(drumTrack, false);
             }
         }
 

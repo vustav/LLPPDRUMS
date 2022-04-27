@@ -5,6 +5,7 @@ import com.kiefer.R;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackBassBasic;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHOffbeat;
+import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHotTom;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackRandom;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackSnareBasic;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
@@ -42,7 +43,13 @@ public class RandomizeSeqPresetDisco extends RandomizeSeqPreset {
         track.setRandomizeVol(false);
         tracks.add(track);
 
-        track  = new RndSeqPresetTrackRandom(llppdrums, steps, 1);
+        track  = new RndSeqPresetTrackHotTom(llppdrums, steps, 2);
+        track.setRandomizeFx(true);
+        track.setRandomizePan(true);
+        track.setRandomizeVol(false);
+        tracks.add(track);
+
+        track  = new RndSeqPresetTrackHotTom(llppdrums, steps, 2);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);

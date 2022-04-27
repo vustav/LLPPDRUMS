@@ -3,7 +3,6 @@ package com.kiefer.randomization.presets.tracks;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
-import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetBass;
 import com.kiefer.utils.NmbrUtils;
 
 public class RndSeqPresetTrackBassBasic extends RndSeqPresetTrack{
@@ -18,8 +17,8 @@ public class RndSeqPresetTrackBassBasic extends RndSeqPresetTrack{
                         perc = 1;
                     }
                     setSubPerc(step, sub, perc);
-                    setSubVol(step, sub, NmbrUtils.getRndmizer(.5f, .7f));
-                    setSubPitch(step, sub, NmbrUtils.getRndmizer(.4f, .5f));
+                    setSubVolInterval(step, sub, .5f, .7f);
+                    setSubPitchInterval(step, sub, .4f, .5f);
                 }
             }
             else{
@@ -27,6 +26,7 @@ public class RndSeqPresetTrackBassBasic extends RndSeqPresetTrack{
                     setSubPerc(step, sub, 0);
                 }
             }
+            setStepPanInterval(step, 0, 0);
         }
     }
 }

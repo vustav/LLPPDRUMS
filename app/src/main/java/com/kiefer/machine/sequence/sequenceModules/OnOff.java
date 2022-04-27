@@ -75,12 +75,12 @@ public class OnOff extends SequenceModule {
             release = false;
         }
 
+        /** BUGGAR MED SNABBA KLICK MEN SKA FIXAS AV ENGINE-MAKAREN! **/
         if(action == MotionEvent.ACTION_UP){
             if(isInBaseMode()) {
                 release = true;
                 long elapseTime = (System.currentTimeMillis() - startTime);
                 if (elapseTime < llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer) || step.getNofSubs() == 1) {
-                    /***************/
                     if (timerOnClicks) {
                         if (readyToChange) {
                             step.setOn(!step.isOn());
@@ -102,7 +102,6 @@ public class OnOff extends SequenceModule {
                             }.start();
                         }
                     }
-                    /*****************/
                     else {
                         step.setOn(!step.isOn());
                         final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());

@@ -68,7 +68,7 @@ public class TabManager {
 
         final TabGroup tabGroup = new TabGroup(tabsLayout, tabsArray);
 
-        for(int i = 0; i<tabables.size(); i++){
+        for(int i = 0; i < tabables.size(); i++){
             Tabable t = tabables.get(i);
             final String tabName = t.getLabel();
 
@@ -85,7 +85,7 @@ public class TabManager {
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
             singleTabLayout.setLayoutParams(llp);
 
-            //get the tho views that Tab needs
+            //get the two views that Tab needs
             FrameLayout border = singleTabLayout.findViewById(R.id.tabBorder);
             FrameLayout background = singleTabLayout.findViewById(R.id.tabBg);
 
@@ -100,6 +100,7 @@ public class TabManager {
             tabsLayout.addView(singleTabLayout);
 
             //store the tab to access data later
+
             final Tab tab = new Tab(tabName, t.getBitmapId(), i, tier, background, border, textView);
             tabsArray.add(tab);
 
@@ -116,8 +117,8 @@ public class TabManager {
                     }
 
                     //set the drawable of the moduleBackground
-                    Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, t.getBitmapId(), orientation);
-                    moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
+                    //Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, t.getBitmapId(), orientation);
+                    //moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
 
                     //set borders for all tabs in the View
                     setTabBorders(tabGroup, tab.getN(), orientation);

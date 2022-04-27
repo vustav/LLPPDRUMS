@@ -36,7 +36,7 @@ public class RandomizeSeqPresetRockPlus extends RandomizeSeqPreset {
         track.setRandomizeVol(false);
         tracks.add(track);
 
-        track  = new RndSeqPresetTrackHHBasic(llppdrums, steps, 3);
+        track  = new RndSeqPresetTrackHHBasic(llppdrums, steps, 2);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);

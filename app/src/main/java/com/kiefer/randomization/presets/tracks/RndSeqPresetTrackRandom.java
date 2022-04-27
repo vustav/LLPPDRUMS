@@ -3,7 +3,6 @@ package com.kiefer.randomization.presets.tracks;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
-import com.kiefer.randomization.rndTrackManager.RndTrackManager;
 
 import java.util.Random;
 
@@ -17,8 +16,8 @@ public class RndSeqPresetTrackRandom extends RndSeqPresetTrack {
         for(int step = 0; step < nOfSteps; step++){
             for(int sub = 0; sub < nOfSubs; sub++) {
                 setSubPerc(step, sub, random.nextFloat());
-                setSubVol(step, sub, random.nextFloat());
-                setSubPitch(step, sub, random.nextFloat());
+                setSubVolInterval(step, sub, 0f, random.nextFloat());
+                setSubPitchInterval(step, sub, 0f, random.nextFloat());
             }
         }
     }

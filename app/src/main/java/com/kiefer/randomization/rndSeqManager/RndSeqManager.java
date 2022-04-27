@@ -1,21 +1,16 @@
 package com.kiefer.randomization.rndSeqManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.interfaces.Tempoizer;
-import com.kiefer.randomization.presets.RandomizeSeqPresetClassicRock;
+import com.kiefer.randomization.presets.RandomizeSeqPresetRockPlus;
 import com.kiefer.randomization.presets.RandomizeSeqPreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetDisco;
 import com.kiefer.randomization.presets.RandomizeSeqPresetHiBeat;
-import com.kiefer.randomization.presets.RandomizeSeqPresetHotNights;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.randomization.presets.RandomizeSeqPresetJazz;
-import com.kiefer.randomization.presets.RandomizeSeqPresetRockPlus;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackRandom;
-import com.kiefer.randomization.rndTrackManager.RndTrackManager;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.utils.ImgUtils;
 
@@ -53,13 +48,10 @@ public class RndSeqManager implements Tempoizer {
 
     private void setupPresets() {
         rndSeqPresets = new ArrayList<>();
-        rndSeqPresets.add(new RandomizeSeqPresetClassicRock(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetRockPlus(llppdrums, this));
-        rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
+        //rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetDisco(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetHiBeat(llppdrums, this));
-        //rndSeqPresets.add(new RandomizeSeqPresetWaltz(llppdrums, this));
-        //rndSeqPresets.add(new RandomizeSeqPresetHotNights(llppdrums, this));
         //presets.add(new RandomizePresetRandom(llppdrums, this));
 
         Random r = new Random();

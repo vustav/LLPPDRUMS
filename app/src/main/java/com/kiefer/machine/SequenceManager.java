@@ -113,48 +113,25 @@ public class SequenceManager {
             setNOfActiveBoxes(8);
         }
 
+        Random r = new Random();
         for(int step = 0; step < counter.getLayout().getChildCount(); step++){
 
             if(keeper != null){
                 setStepSelection(step, (keeper.seqs.get(step)));
             }
             else{
-                if(step % 2 == 0 && step != 0){
-                    txtCounter++;
+                if(step == 0){
+                    setStepSelection(step, Integer.toString(0));
                 }
-                setStepSelection(step, Integer.toString(txtCounter));
+                else {
+                    setStepSelection(step, Integer.toString(r.nextInt(llppdrums.getResources().getInteger(R.integer.nOfSequences))));
+                }
             }
 
             final int finalStep = step;
             counter.setStepListener(step, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    //start with a little timer to prevent spamming
-                    /*
-                    if(!changeSeqRunning) {
-                        changeSeqRunning = true;
-                        new CountDownTimer(llppdrums.getResources().getInteger(R.integer.sequenceSwitchTimer), llppdrums.getResources().getInteger(R.integer.sequenceSwitchTimer)) {
-                            public void onTick(long millisUntilFinished) {
-                                //
-                            }
-
-                            public void onFinish() {
-                                changeSeqRunning = false;
-                            }
-                        }.start();
-
-                        if(!queue || !llppdrums.getEngineFacade().isPlaying()) {
-                            activateSequenceBox(finalStep);
-                        }
-                        else{
-                            queueChange(finalStep);
-                        }
-                    }
-
-                     */
-
-
                     if(!queue || !llppdrums.getEngineFacade().isPlaying()) {
                         activateSequenceBox(finalStep);
                     }

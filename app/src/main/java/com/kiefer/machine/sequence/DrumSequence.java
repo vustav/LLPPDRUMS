@@ -1,6 +1,6 @@
 package com.kiefer.machine.sequence;
 
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 
 import com.kiefer.LLPPDRUMS;
@@ -51,7 +51,9 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     //bitmaps
     //private final int tabImgId;
     //private final Bitmap tabBitmap, bgBitmap;
-    private int bitmapId;
+    private final int bitmapId;
+    private final int tabColor;
+    private final Drawable backgroundGradient;
 
     //gradients
     private final GradientDrawable stepsGradientDrawable, tempoGradientDrawable, randomGradientDrawable, copyGradientDrawable;
@@ -76,6 +78,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         sequenceName = Integer.toString(seqNo);
 
         bitmapId = ImgUtils.getRandomImageId();
+        tabColor = ColorUtils.getRandomColor();
+        backgroundGradient = ColorUtils.getRandomGradientDrawable(tabColor, ColorUtils.getRandomColor());
 
         stepsGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         tempoGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
@@ -470,6 +474,14 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     @Override
     public int getBitmapId(){
         return bitmapId;
+    }
+
+    public int getTabColor(){
+        return tabColor;
+    }
+
+    public Drawable getBackgroundGradient(){
+        return backgroundGradient;
     }
 
     public int getBitmapId(int tier){

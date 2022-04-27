@@ -3,7 +3,6 @@ package com.kiefer.randomization.presets.tracks;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
-import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetBass;
 import com.kiefer.utils.NmbrUtils;
 
 import java.util.Random;
@@ -16,10 +15,11 @@ public class RndSeqPresetTrackHotTom extends RndSeqPresetTrack{
 
         for(int step = 0; step < nOfSteps; step++){
             for(int sub = 0; sub < nOfSubs; sub++) {
-                setSubPerc(step, sub, r.nextFloat());
-                setSubVol(step, sub, NmbrUtils.getRndmizer(.5f, .7f));
-                setSubPitch(step, sub, NmbrUtils.getRndmizer(.4f, .5f));
+                setSubPerc(step, sub, r.nextFloat() * .3f);
+                setSubVolInterval(step, sub, 5f, .7f);
+                setSubPitchInterval(step, sub, .4f, .5f);
             }
+            setStepPanInterval(step, -1f, 1f);
         }
     }
 }

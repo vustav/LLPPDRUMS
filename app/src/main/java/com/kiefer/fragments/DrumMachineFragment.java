@@ -355,7 +355,7 @@ public class DrumMachineFragment extends TabFragment {
         }
 
         //set the borders
-        tabManager.setTabBorders(tabGroupArray.get(tier), selectedTabNo, TabManager.VERTICAL);
+        tabManagerPlay.setTabBorders(tabGroupArray.get(tier), selectedTabNo, TabManager.VERTICAL);
 
         //set the background for the module
         Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, llppdrums.getDrumMachine().getSelectedSequence().getBitmapId(tier), llppdrums.getDrumMachine().getSelectedSequence().getOrientation());

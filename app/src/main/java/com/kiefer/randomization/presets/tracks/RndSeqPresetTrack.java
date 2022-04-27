@@ -63,11 +63,14 @@ public class RndSeqPresetTrack {
     public void setSubPerc(int step, int sub, float perc){
         steps.get(step).setSubPerc(sub, perc);
     }
-    public void setSubVol(int step, int sub, float vol){
-        steps.get(step).setSubVol(sub, vol);
+    public void setSubVolInterval(int step, int sub, float min, float max){
+        steps.get(step).setSubVolInterval(sub, min, max);
     }
-    public void setSubPitch(int step, int sub, float pitch){
-        steps.get(step).setSubPitch(sub, pitch);
+    public void setSubPitchInterval(int step, int sub, float min, float max){
+        steps.get(step).setSubPitchInterval(sub, min, max);
+    }
+    public void setStepPanInterval(int step, float min, float max){
+        steps.get(step).setPanInterval(min, max);
     }
     public void setPresetCategory(String presetCategory) {
         this.presetCategory = presetCategory;
@@ -132,10 +135,11 @@ public class RndSeqPresetTrack {
     /** STEP CLASS **/
     public class Step{
         ArrayList<Sub> subs;
-        private float pan;
+        private float minPan, maxPan;
 
         private Step(int nOfSubs){
-            pan = 0;
+            minPan = -1f;
+            minPan = 1f;
             subs = new ArrayList<>();
             for(int i = 0; i < nOfSubs; i++){
                 addSub();
@@ -166,12 +170,17 @@ public class RndSeqPresetTrack {
             subs.get(sub).setPerc(perc);
         }
 
-        public void setSubVol(int sub, float vol) {
-            subs.get(sub).setVol(vol);
+        public void setSubVolInterval(int sub, float min, float max) {
+            subs.get(sub).setVolInterval(min, max);
         }
 
-        public void setSubPitch(int sub, float pitch) {
-            subs.get(sub).setPitch(pitch);
+        public void setSubPitchInterval(int sub, float min, float max) {
+            subs.get(sub).setPitchInterval(min, max);
+        }
+
+        public void setPanInterval(float min, float max){
+            minPan = min;
+            maxPan = max;
         }
 
         /** GET **/
@@ -187,8 +196,8 @@ public class RndSeqPresetTrack {
             return subs.get(sub).getPitch();
         }
 
-        public float getSubPan(){
-            return pan;
+        public float getPan(){
+            return NmbrUtils.getRndmizer(minPan, maxPan);
         }
 
         public int getNofSubs(){
@@ -198,14 +207,16 @@ public class RndSeqPresetTrack {
 
     /** SUB CLASS **/
     public class Sub{
-        private float perc, vol;
-        private float pitch;
+        private float perc, minVol, maxVol, minPitch, maxPitch;
 
         public Sub(){
             Random r = new Random();
             perc = r.nextFloat();
-            vol = r.nextFloat();
-            pitch = NmbrUtils.getRndmizer(0f, 1f);
+            minVol = .3f;
+            maxVol = 1f;
+            minPitch = 0f;
+            maxPitch = 1f;
+            //minPitch = NmbrUtils.getRndmizer(0f, 1f);
         }
 
         /** SET **/
@@ -213,12 +224,14 @@ public class RndSeqPresetTrack {
             this.perc = perc;
         }
 
-        public void setVol(float vol) {
-            this.vol = vol;
+        public void setVolInterval(float min, float max) {
+            minVol = min;
+            maxVol = max;
         }
 
-        public void setPitch(float pitch) {
-            this.pitch = pitch;
+        public void setPitchInterval(float min, float max) {
+            minPitch = min;
+            maxPitch = max;
         }
 
         /** GET **/
@@ -227,11 +240,11 @@ public class RndSeqPresetTrack {
         }
 
         public float getVol() {
-            return vol;
+            return NmbrUtils.getRndmizer(minVol, maxVol);
         }
 
         public float getPitch() {
-            return pitch;
+            return NmbrUtils.getRndmizer(minPitch, maxPitch);
         }
     }
 }

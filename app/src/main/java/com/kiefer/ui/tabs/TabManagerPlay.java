@@ -24,19 +24,23 @@ import java.util.ArrayList;
 public class TabManagerPlay extends TabManager {
     private ArrayList<ImageView> icons;
 
+    private final boolean colorsOnOuter = false;
+
     public TabManagerPlay(LLPPDRUMS llppdrums) {
         super(llppdrums);
         icons = new ArrayList<>();
     }
 
+    /*
     @Override
     public TabGroup getTabColumn(ArrayList<Tabable> tabables, OnTabClickedListener callback, int tier, final ViewGroup moduleBackground){
         return createTabs(tabables, callback, tier, moduleBackground, VERTICAL);
     }
 
+     */
+
     @Override
     public TabGroup createTabs(ArrayList<Tabable> tabables, final OnTabClickedListener callback, int tier, final View moduleBackground, final int orientation){
-
         final ArrayList<Tab> tabsArray = new ArrayList<>();
 
         //inflate the right layout to put the tabs in
@@ -75,8 +79,13 @@ public class TabManagerPlay extends TabManager {
             FrameLayout border = singleTabLayout.findViewById(R.id.tabBorder);
             RelativeLayout background = singleTabLayout.findViewById(R.id.tabBg);
 
-            Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, t.getBitmapId(), i, tabables.size(), orientation);
-            background.setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
+            if(tier == 0 && colorsOnOuter){
+                background.setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getTabColor());
+            }
+            else {
+                Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, t.getBitmapId(), i, tabables.size(), orientation);
+                background.setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
+            }
 
             //set up the textView
             TextView textView = singleTabLayout.findViewById(R.id.tabTxt);
@@ -84,7 +93,7 @@ public class TabManagerPlay extends TabManager {
 
             //save the icon in the arrayList on tier 0
             if(tier == 0) {
-                icons.add((ImageView) singleTabLayout.findViewById(R.id.tabIcon));
+                icons.add(singleTabLayout.findViewById(R.id.tabIcon));
             }
 
             //add the tab to the tabs-layout
@@ -92,7 +101,13 @@ public class TabManagerPlay extends TabManager {
 
             //store the tab to access data later
             //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, t.getBitmapId(), i, tabables.size(), orientation);
-            final Tab tab = new Tab(tabName, t.getBitmapId(), i, tier, background, border, textView);
+            Tab tab;
+            if(tier == 0 && colorsOnOuter){
+                tab = new Tab(tabName, llppdrums.getDrumMachine().getSelectedSequence().getTabColor(), i, tier, background, border, textView);
+            }
+            else {
+                tab = new Tab(tabName, t.getBitmapId(), i, tier, background, border, textView);
+            }
             tabsArray.add(tab);
 
             //set a listener
@@ -108,8 +123,8 @@ public class TabManagerPlay extends TabManager {
                     }
 
                     //set the drawable of the moduleBackground
-                    Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, t.getBitmapId(), orientation);
-                    moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
+                    //Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, t.getBitmapId(), orientation);
+                    //moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
 
                     //set borders for all tabs in the View
                     setTabBorders(tabGroup, tab.getN(), orientation);
