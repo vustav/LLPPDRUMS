@@ -48,29 +48,28 @@ public class SubsBoolDrawable extends Drawable {
 
 
         for(int i = 0; i < subs; i++){
-            shapePaint.setColor(llppdrums.getResources().getColor(R.color.sequencerInactiveStepColor));
-            shapePaint.setStyle(Paint.Style.FILL);
 
-            //autoRnd and return ON
+            //autoRnd ON and return ON
             if(subsOn[i] && subsValue[i]) {
                 shapePaint.setColor(llppdrums.getResources().getColor(R.color.autoRndRtrnColor));
                 shapePaint.setStyle(Paint.Style.FILL);
+                canvas.drawCircle(x + offset, y, radius, shapePaint);
             }
-            //autoRnd and return OFF
-            else if(!subsOn[i] && !subsValue[i]){
-                shapePaint.setColor(llppdrums.getResources().getColor(R.color.sequencerInactiveStepColor));
-                shapePaint.setStyle(Paint.Style.STROKE);
-                shapePaint.setStrokeWidth(2);
-            }
-            //one ON and one OFF
-            else{
+
+            //autoRnd OFF and return ON
+            else if(!subsOn[i] && subsValue[i]){
                 shapePaint.setColor(llppdrums.getResources().getColor(R.color.sequencerInactiveStepColor));
                 shapePaint.setStyle(Paint.Style.FILL);
+                canvas.drawCircle(x + offset, y, radius, shapePaint);
             }
-            canvas.drawCircle(x + offset, y, radius, shapePaint);
 
-            //draw it
-            canvas.drawCircle(x + offset, y, radius, shapePaint);
+            //autoRnd OFF and return ON
+            else if(!subsOn[i] && subsValue[i]){
+                shapePaint.setColor(llppdrums.getResources().getColor(R.color.sequencerInactiveStepColor));
+                shapePaint.setStyle(Paint.Style.FILL);
+                canvas.drawCircle(x + offset, y, radius, shapePaint);
+            }
+
             offset += subWidth;
         }
 

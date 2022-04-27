@@ -452,7 +452,6 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
     //implemented by DrumMachine, and it sets itself as callback in setTabSelectedListener()
     public interface OnSequencerClickedListener {
         void onStepTouch(int track, int step, ImageView stepIV, float startX, float startY, float endX, float endY, int action); //for drags/clicks on a step
-        void onTrackItemClicked(int track, View view, int btn); //for clicks on something else, fx, synth etc..
     }
 
     public OnSequencerClickedListener getCallback(){

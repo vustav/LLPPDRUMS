@@ -88,14 +88,6 @@ public class FxManager {
         //}
     }
 
-    private void addFxsToEngine(){
-        if(fxs != null) {
-            for (Fx fx : fxs) {
-                addFxToEngine(fx);
-            }
-        }
-    }
-
     private void addFxToEngine(final Fx fx){
         for (ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()) {
             pc.addProcessor(fx.getBaseProcessor());
@@ -110,12 +102,8 @@ public class FxManager {
     }
 
     private void rearrangeFxs(){
-        /** TA BORT TRÅD OM DET KRÅNGLAR **/
-        //new Thread(new Runnable() {
-        //public void run() {
         for(ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()) {
             if (pc != null) {
-                //ProcessingChain processingChain = drumTrack.getSoundManager().getOscillators()[i].getSynthInstrument().getAudioChannel().getProcessingChain();
                 pc.reset();
 
                 for(Fx fx : fxs){
@@ -125,8 +113,6 @@ public class FxManager {
                 }
             }
         }
-        //}
-        //}).start();
     }
 
     public void removeFx(int fxNo){
@@ -149,11 +135,15 @@ public class FxManager {
             }
         }
 
+        /** SKA FUNKA MED SENASTE UPDATEN MEN TA TILLBAKS RESET OM DET KRÅNGLAR **/
         //this one is added here since when randomizing from RndTrack Manager fxs doesn't always get removed properly, but it shouldn't be needed here
         //since destroyFx(fx) calls  removeFxFromEngine(fx);
+        /*
         for(ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()){
             pc.reset();
         }
+
+         */
     }
 
     private void removeFxFromEngine(Fx fx){

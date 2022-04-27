@@ -47,7 +47,7 @@ public class Oscillator {
         liveInstrument  = new SynthInstrument();
         liveEvent = new SynthEvent(0, liveInstrument); //pitch will be randomized below
         liveEvent.setDuration(1);
-        liveEvent.calculateBuffers();
+        //liveEvent.calculateBuffers();
 
         //these aren't part of the UI and will never be set again
         setInstrumentDefaults();

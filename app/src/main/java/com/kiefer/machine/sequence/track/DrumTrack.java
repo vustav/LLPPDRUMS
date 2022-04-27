@@ -447,12 +447,6 @@ public class DrumTrack implements Subilizer {
     }
 
     /** SET **/
-    /*
-    public void setOscillatorOn(final int oscNo, boolean on) {
-        //soundManager.setOscillatorOn(oscNo, on);
-    }
-
-     */
 
     //wave
     public void setWaveForm(final int oscNo, final int waveForm){
@@ -697,6 +691,42 @@ public class DrumTrack implements Subilizer {
 
  */
 
+    /** RETURN MEMORY **/
+    //keep track if automations are going to be returned, otherwise don't do unnecessary loops
+
+    int returns = 0;
+    public void returnModified(boolean returnValue){
+        drumSequence.returnModified(returnValue);
+        if(returnValue){
+            returns++;
+        }
+        else{
+            returns--;
+        }
+    }
+
+    public boolean returnActive() {
+        return returns > 0;
+    }
+
+    /** AUTOMATION MEMORY **/
+    //keep track if automations are going to be returned, otherwise don't do unnecessary loops
+
+    int automations = 0;
+    public void automationsModified(boolean automationValue){
+        drumSequence.automationsModified(automationValue);
+        if(automationValue){
+            automations++;
+        }
+        else{
+            automations--;
+        }
+    }
+
+    public boolean automationsActive() {
+        return automations > 0;
+    }
+
     /** SEQUENCER UPDATES **/
     public void handleSequencerPositionChange(int sequencerPosition){
         fxManager.automate(sequencerPosition, fxManagerPopup != null);
@@ -707,11 +737,14 @@ public class DrumTrack implements Subilizer {
 
         /** THIS IS ONLY DUE TO A BUG WHERE SynthEvents' positions when using subs resets after
          * being played once. Updating at every 0 fixes this. **/
+        /*
         if(sequencerPosition == 0) {
             for (Step step : steps) {
                 step.positionEvents(getNOfSteps(), true);
             }
         }
+
+         */
     }
 
     /** POPUP **/
@@ -731,7 +764,6 @@ public class DrumTrack implements Subilizer {
             llppdrums.getDrumMachine().getSelectedSequence().getSequenceModules().get(SequenceModule.PITCH).setAutoValueBase(this, "0", sub);
             llppdrums.getDrumMachine().getSelectedSequence().getSequenceModules().get(SequenceModule.PAN).setAutoValueBase(this, "0", sub);
         }
-        rndTrackManager.hottenUp(false);
 
         //use reset instead of autoStep since we need to reset autoValues
         for(Step d : steps){

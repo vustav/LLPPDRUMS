@@ -23,6 +23,7 @@
         android:layout_alignParentEnd="true"/>
 
     <!-- RND -->
+    <!--
     <Button
         android:layout_width="wrap_content"
         android:layout_height="@dimen/btnHeightLarge"
@@ -33,6 +34,7 @@
 
         android:layout_below="@id/autoStepsLabel"
         android:layout_centerHorizontal="true"/>
+        -->
 
     <!-- JUMP -->
     <LinearLayout
@@ -42,7 +44,7 @@
         android:id="@+id/arrowsLayout"
         android:layout_centerHorizontal="true"
 
-        android:layout_below="@id/autoStepsRndBtn">
+        android:layout_below="@id/autoStepsLabel">
 
         <Button
             android:layout_width="wrap_content"

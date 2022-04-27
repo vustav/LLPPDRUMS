@@ -10,6 +10,7 @@ import com.kiefer.R;
 import com.kiefer.graphics.PanSubsDrawable;
 import com.kiefer.engine.EngineFacade;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.AutoRandom;
+import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.pan.AutoRandomPan;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.Popup;
@@ -45,16 +46,10 @@ public class Pan extends SequenceModule {
     void setupModes(){
         modes = new ArrayList<>();
 
-        //create the necessary Bitmaps before creating the modes and adding them to the array
-        //int imgId = ImgUtils.getRandomImageId();
-        //Bitmap tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 0, 2, TabManager.VERTICAL);
-        //Bitmap bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
         modes.add(new SequenceModuleMode(llppdrums, drumSequence));
 
-        //imgId = ImgUtils.getRandomImageId();
-        //tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 1, 2, TabManager.VERTICAL);
-        //bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
-        modes.add(new AutoRandom(llppdrums, drumSequence, this));
+        //since PAN works on steps and not subs it has it's own set of AutoRandom classes
+        modes.add(new AutoRandomPan(llppdrums, drumSequence, this));
     }
 
     /** POPUP **/

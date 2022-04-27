@@ -83,18 +83,8 @@ public class RndTrackManagerPopup extends Popup {
 
                 if(drumTrack.getRndOn()) {
                     drumTrack.getRndTrackManager().randomizeStepsOn();
-                    //drumTrack.getRndTrackManager().randomizeAll(sequenceModule);
-/*
-                    for (int step = 0; step < drumTrack.getSteps().size(); step++) {
-                        Step s = drumTrack.getSteps().get(step);
-                        s.randomizeStepOn();
-                        s.randomizeSubsOn(false);
-                    }
-
- */
 
                     updateDrawables = true;
-                    //drumTrack.updateDrawables();
                 }
 
                 if(drumTrack.getRndVol()) {

@@ -11,16 +11,16 @@ import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 
 import java.util.ArrayList;
 
-public class RandomizeSeqPresetClassicRock extends RandomizeSeqPreset {
+public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
 
-    public RandomizeSeqPresetClassicRock(LLPPDRUMS llppdrums, RndSeqManager rndSeqManager){
-        super(llppdrums, rndSeqManager, llppdrums.getResources().getString(R.string.randomizerClassicRockName));
+    public RandomizeSeqPresetHiBeat(LLPPDRUMS llppdrums, RndSeqManager rndSeqManager){
+        super(llppdrums, rndSeqManager, llppdrums.getResources().getString(R.string.randomizerHiBeatName));
     }
 
     @Override
     public void createPreset() {
         int tempo = 120;
-        int steps = 8;
+        int steps = 12;
         int beats = 4;
 
         ArrayList<RndSeqPresetTrack> tracks = new ArrayList<>();
@@ -30,23 +30,44 @@ public class RandomizeSeqPresetClassicRock extends RandomizeSeqPreset {
         track.setRandomizeVol(false);
         tracks.add(track);
 
+        track.setSubPerc(8, 0, 1);
+        track.setSubPerc(9, 0, 0);
+        track.setSubPerc(10, 0, 1);
+        track.setSubPerc(11, 0, 0);
+
         track  = new RndSeqPresetTrackSnareBasic(llppdrums, steps, 2, beats);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);
         tracks.add(track);
 
-        track  = new RndSeqPresetTrackHHBasic(llppdrums, steps, 2);
+        for(int step = 7; step<steps; step++){
+            for(int sub = 0; sub < 2; sub++) {
+                track.randomizeStep(step, sub);
+            }
+        }
+
+        track  = new RndSeqPresetTrackHHBasic(llppdrums, steps, 3);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);
         tracks.add(track);
+
+        for(int step = 7; step<steps; step++){
+            for(int sub = 0; sub < 3; sub++) {
+                track.randomizeStep(step, sub);
+            }
+        }
 
         track  = new RndSeqPresetTrackRandom(llppdrums, steps, 1);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);
         tracks.add(track);
+
+        for(int step = 7; step<steps; step++){
+            track.randomizeStep(step, 0);
+        }
 
         rndSeqManager.setTracks(tracks);
         rndSeqManager.setTempo(tempo);

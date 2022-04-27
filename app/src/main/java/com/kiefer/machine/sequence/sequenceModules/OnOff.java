@@ -2,6 +2,7 @@ package com.kiefer.machine.sequence.sequenceModules;
 
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
@@ -44,6 +45,7 @@ public class OnOff extends SequenceModule {
     /** LISTENER **/
     @Override
     public void onStepTouch(EngineFacade engineFacade, final ImageView stepIV, final Step step, float startX, float startY, float endX, float endY, int action){
+        //Log.e("OnOff", "onStepTouch()");
         if(action == MotionEvent.ACTION_DOWN){
 
             //base
@@ -74,36 +76,38 @@ public class OnOff extends SequenceModule {
         }
 
         if(action == MotionEvent.ACTION_UP){
-            release = true;
-            long elapseTime = (System.currentTimeMillis() - startTime);
-            if(elapseTime < llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer) || step.getNofSubs() == 1) {
-                /***************/
-                if(timerOnClicks) {
-                    if (readyToChange) {
+            if(isInBaseMode()) {
+                release = true;
+                long elapseTime = (System.currentTimeMillis() - startTime);
+                if (elapseTime < llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer) || step.getNofSubs() == 1) {
+                    /***************/
+                    if (timerOnClicks) {
+                        if (readyToChange) {
+                            step.setOn(!step.isOn());
+                            final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
+                            stepIV.setImageDrawable(drawable);
+                        }
+                        readyToChange = false;
+
+                        if (timerFree) {
+                            new CountDownTimer(1400, 1400) {
+                                public void onTick(long millisUntilFinished) {
+                                    timerFree = false;
+                                }
+
+                                public void onFinish() {
+                                    timerFree = true;
+                                    readyToChange = true;
+                                }
+                            }.start();
+                        }
+                    }
+                    /*****************/
+                    else {
                         step.setOn(!step.isOn());
                         final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
                         stepIV.setImageDrawable(drawable);
                     }
-                    readyToChange = false;
-
-                    if (timerFree) {
-                        new CountDownTimer(1400, 1400) {
-                            public void onTick(long millisUntilFinished) {
-                                timerFree = false;
-                            }
-
-                            public void onFinish() {
-                                timerFree = true;
-                                readyToChange = true;
-                            }
-                        }.start();
-                    }
-                }
-                /*****************/
-                else{
-                    step.setOn(!step.isOn());
-                    final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
-                    stepIV.setImageDrawable(drawable);
                 }
             }
         }
@@ -201,14 +205,6 @@ public class OnOff extends SequenceModule {
 
     @Override
     public void randomize(DrumTrack drumTrack){
-        /*
-        for (int step = 0; step < drumTrack.getSteps().size(); step++) {
-            Step s = drumTrack.getSteps().get(step);
-            s.randomizeStepOn();
-            s.randomizeSubsOn(false);
-        }
-
-         */
         drumTrack.getRndTrackManager().randomizeStepsOn();
     }
 
@@ -288,6 +284,7 @@ public class OnOff extends SequenceModule {
     }
     @Override
     public void setAutoRndPerc(Step step, float perc, int sub){
+        Log.e("OnOff", "setAutoRndPerc()");
         step.setRndOnPerc(perc, sub);
     }
     @Override

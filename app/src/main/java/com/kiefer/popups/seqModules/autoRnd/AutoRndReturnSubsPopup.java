@@ -1,5 +1,6 @@
 package com.kiefer.popups.seqModules.autoRnd;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -43,19 +44,19 @@ public class AutoRndReturnSubsPopup extends SubsPopup {
 
     @Override
     public void setSubLayout(FrameLayout layout, Step step, int sub){
+
+        //autoRnd ON and return ON
         if(sequenceModule.getAutoRndOn(step, sub) && sequenceModule.getAutoRndReturn(step, sub)) {
-            /** RÖD **/
             layout.setBackgroundColor(ContextCompat.getColor(llppdrums, R.color.autoRndRtrnColor));
         }
-        //autoRnd and return OFF
-        else if(!sequenceModule.getAutoRndOn(step, sub) && !sequenceModule.getAutoRndReturn(step, sub)){
-            /** IHÅLIG **/
-            layout.setBackgroundColor(ContextCompat.getColor(llppdrums, R.color.popupBarBg));
+
+        //autoRnd OFF and return ON
+        else if(!sequenceModule.getAutoRndOn(step, sub) && sequenceModule.getAutoRndReturn(step, sub)) {
+            layout.setBackgroundColor(ContextCompat.getColor(llppdrums, R.color.sequencerInactiveStepColor));
         }
-        //one ON and one OFF
+
         else{
-            /** GRÅ **/
-            layout.setBackgroundColor(ContextCompat.getColor(llppdrums, R.color.automationStepOff));
+            layout.setBackgroundColor(ContextCompat.getColor(llppdrums, R.color.popupBarBg));
         }
     }
 }

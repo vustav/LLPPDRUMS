@@ -464,7 +464,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
     //@Override
     //public Bitmap getTabBitmap(){
-        //return tabBitmap;
+    //return tabBitmap;
     //}
 
     @Override
@@ -588,6 +588,10 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         return tempoGradientDrawable;
     }
 
+    public boolean isInBaseMode(){
+        return selectedSequenceModule.isInBaseMode();
+    }
+
     /*
     public LinearLayout getMixerBtnGraphics() {
         return mixerBtnGraphics;
@@ -620,9 +624,53 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
      */
 
+    /** RETURN MEMORY **/
+    //keep track if automations are going to be returned, otherwise don't do unnecessary loops
+
+    int returns = 0;
+    public void returnModified(boolean returnValue){
+        if(returnValue){
+            returns++;
+        }
+        else{
+            returns--;
+        }
+    }
+
+    public boolean returnActive() {
+        return returns > 0;
+    }
+
+    /** AUTOMATION MEMORY **/
+
+    int automations = 0;
+    public void automationsModified(boolean automationValue){
+        if(automationValue){
+            automations++;
+        }
+        else{
+            automations--;
+        }
+    }
+
+    public boolean automationsActive() {
+        return automations > 0;
+    }
+
     /** SEQUENCER UPDATES **/
     public void handleSequencerPositionChange(int sequencerPosition){
-        if(sequencerPosition == 0){
+
+        /** REWORK THIS IF TOO HEAVY **/
+        if(returnActive()) {
+            if(sequencerPosition == 0) {
+                rndSeqManager.returnAutoRandomizations(getNOfSteps() - 1);
+            }
+            else{
+                rndSeqManager.returnAutoRandomizations(sequencerPosition - 1);
+            }
+        }
+
+        if(sequencerPosition == 0 && automationsActive()){
             rndSeqManager.autoRandomize();
         }
 

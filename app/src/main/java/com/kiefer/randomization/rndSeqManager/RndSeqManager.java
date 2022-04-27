@@ -1,11 +1,14 @@
 package com.kiefer.randomization.rndSeqManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.interfaces.Tempoizer;
 import com.kiefer.randomization.presets.RandomizeSeqPresetClassicRock;
 import com.kiefer.randomization.presets.RandomizeSeqPreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetDisco;
+import com.kiefer.randomization.presets.RandomizeSeqPresetHiBeat;
 import com.kiefer.randomization.presets.RandomizeSeqPresetHotNights;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.randomization.presets.RandomizeSeqPresetJazz;
@@ -54,6 +57,7 @@ public class RndSeqManager implements Tempoizer {
         rndSeqPresets.add(new RandomizeSeqPresetRockPlus(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetDisco(llppdrums, this));
+        rndSeqPresets.add(new RandomizeSeqPresetHiBeat(llppdrums, this));
         //rndSeqPresets.add(new RandomizeSeqPresetWaltz(llppdrums, this));
         //rndSeqPresets.add(new RandomizeSeqPresetHotNights(llppdrums, this));
         //presets.add(new RandomizePresetRandom(llppdrums, this));
@@ -121,8 +125,22 @@ public class RndSeqManager implements Tempoizer {
 
     //called on step 0 for autoRandomization
     public void autoRandomize() {
-        for (RndTrackManager rtm : drumSequence.getDrumRandomizers()) {
-            rtm.autoRandomize();
+        //for (RndTrackManager rtm : drumSequence.getDrumRandomizers()) {
+            //rtm.autoRandomize();
+        //}
+
+        for(DrumTrack dt : drumSequence.getTracks()){
+            if(dt.automationsActive()){
+                dt.getRndTrackManager().autoRandomize();
+            }
+        }
+    }
+
+    public void returnAutoRandomizations(int stepNo){
+        for(DrumTrack dt : drumSequence.getTracks()){
+            if(dt.returnActive() && dt.getSteps().get(stepNo).returnActive()){
+                dt.getRndTrackManager().returnAutoRandomization(stepNo);
+            }
         }
     }
 

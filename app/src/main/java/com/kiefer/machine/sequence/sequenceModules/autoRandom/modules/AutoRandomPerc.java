@@ -1,6 +1,7 @@
 package com.kiefer.machine.sequence.sequenceModules.autoRandom.modules;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
@@ -20,6 +21,7 @@ public class AutoRandomPerc extends AutoRandomModuleFloat{
 
     @Override
     public Popup getOneSubPopup(ImageView stepIV, Step step){
+        //Log.e("AutoRandomPerc", "getOneSubPopup()");
         return new AutoRndPercPopup(llppdrums, sequenceModule, this, stepIV, step, 0);
     }
 
@@ -34,8 +36,6 @@ public class AutoRandomPerc extends AutoRandomModuleFloat{
         Boolean[] subsOn = new Boolean[step.getNofSubs()];
         Float[] subsValue = new Float[step.getNofSubs()];
         for(int i = 0; i < step.getNofSubs(); i++){
-            //om inte nån av stepOn eller subON eller att autoRndOn på sub är på (så att nån sub kan bli on), kommer inte perc spela nån roll och blir grå).
-            // OBS detta gäller inte OnOff, den är alltid grön
             subsOn[i] = (step.isOn() && step.isSubOn(i)) || step.getAutoRndOn(i);
             subsValue[i] = sequenceModule.getAutoRndPerc(step, i);
         }

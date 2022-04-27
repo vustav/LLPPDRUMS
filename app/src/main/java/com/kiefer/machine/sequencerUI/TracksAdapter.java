@@ -182,23 +182,8 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TrackViewH
             });
 
         }
-        //}
-        //}).start();
 
-        //viewHolder.stepsScrollView.addView(sequencer.getTrackLayout(position));
         trackViewHolder.stepsScrollView.setScrollX(sequencerUI.getScrollX());
-
-        //Log.e("TracksAdapter.onBind...", "recyclerView children 2: "+llppdrums.getSequencer().getRecyclerViewChildCount());
-        //Log.e("TracksAdapter.onBind...", "-----------------------------------------");
-    }
-
-    private void setListener(final int trackNo, View v, final int btn){
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sequencerUI.getCallback().onTrackItemClicked(trackNo, view, btn);
-            }
-        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -2,6 +2,7 @@ package com.kiefer.machine.sequence.sequenceModules.autoRandom;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
@@ -63,6 +64,7 @@ public class AutoRandom extends SequenceModuleMode {
 
     /** LISTENER **/
     public void onStepTouch(EngineFacade engineFacade, final ImageView stepIV, final Step step, float startX, float startY){
+        //Log.e("AutoRandom", "onStepTouch()");
         selectedModule.onStepTouch(engineFacade, stepIV, step, startX, startY);
     }
 

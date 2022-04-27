@@ -55,6 +55,10 @@ public class RndSeqPresetTrack {
         steps.remove(steps.size()-1);
     }
 
+    public void randomizeStep(int step, int sub){
+        steps.get(step).setSubPerc(sub, .5f);
+    }
+
     /** SET **/
     public void setSubPerc(int step, int sub, float perc){
         steps.get(step).setSubPerc(sub, perc);

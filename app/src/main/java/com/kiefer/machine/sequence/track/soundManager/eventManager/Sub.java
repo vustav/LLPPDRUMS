@@ -1,7 +1,5 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.SubKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -55,8 +53,8 @@ public class Sub {
         this.step = step;
 
         events = new ArrayList<>();
-        events.add(new SnthEvent(llppdrums, step, this, soundManager.getOscillatorManager()));
-        events.add(new SmplEvent(llppdrums, step, this, soundManager.getSmplManager()));
+        events.add(new SnthEvent(llppdrums, step, soundManager.getOscillatorManager()));
+        events.add(new SmplEvent(llppdrums, soundManager.getSmplManager()));
 
         //used when only one sub, so we don't get one sub that is off (with no way of turning it on)
         if(guaranteeOn){
@@ -92,9 +90,20 @@ public class Sub {
         return on;
     }
 
+    //used return is on in AutoRandomization
+    public boolean getPrevOn(){
+        return prevOn;
+    }
+
+    private boolean prevOn; //used return is on in AutoRandomization
+    public void savePrevOn(){
+        prevOn = on;
+    }
+
     public void setOn(boolean on){
+        //wasOn = this.on;
         this.on = on;
-        Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
+        //Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
         if(on && step.isOn()) {
             //Log.e("Sub", "setOn(), 1");
             addToSequencer(true);
@@ -245,9 +254,25 @@ public class Sub {
         return rndPitchReturn;
     }
 
+    public float getPrevPitchModifier() {
+        return prevPitchModifier;
+    }
+
+    public float getPrevVolumeModifier() {
+        return prevVolumeModifier;
+    }
+
     /** SET **/
-    //pitch
+    //vol
+
+    //used return is on in AutoRandomization
+    private float prevVolumeModifier; //used return is on in AutoRandomization
+    public void savePrevVol(){
+        prevVolumeModifier = volumeModifier;
+    }
+
     public void setVolumeModifier(float modifier){
+        //prevVolumeModifier = volumeModifier;
         volumeModifier = modifier;
         updateEventVolume();
     }
@@ -258,9 +283,16 @@ public class Sub {
         }
     }
 
-
     //pitch
+
+    //used return is on in AutoRandomization
+    private float prevPitchModifier; //used return is on in AutoRandomization
+    public void savePrevPitch(){
+        prevPitchModifier = pitchModifier;
+    }
+
     public void setPitchModifier(float modifier){
+        //prevPitchModifier = pitchModifier;
         pitchModifier = modifier;
         updateEventPitch();
     }

@@ -131,7 +131,13 @@ public class SequenceInfo extends InfoHolder implements Info {
         label = llppdrums.getResources().getString(R.string.trackMenuLabel);
         link = new InfoLink(llppdrums, label, TrackMenuInfo.key, nodeTV);
         nodeTV.append(link);
-        nodeTV.append(". "+llppdrums.getResources().getString(R.string.seqTrackTxt2));
+        nodeTV.append(". "+llppdrums.getResources().getString(R.string.seqTrackTxt2)+" ");
+
+        //create a link and append it
+        label = llppdrums.getResources().getString(R.string.trackMenuLabel);
+        link = new InfoLink(llppdrums, label, TrackMenuInfo.key, nodeTV);
+        nodeTV.append(link);
+        nodeTV.append(" "+llppdrums.getResources().getString(R.string.seqTrackTxt3));
 
         layout.addView(nodeLayout);
 

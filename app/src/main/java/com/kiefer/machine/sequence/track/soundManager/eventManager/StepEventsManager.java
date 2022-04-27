@@ -1,9 +1,6 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.StepEventsManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -146,6 +143,19 @@ public class StepEventsManager {
         }
     }
 
+    /** PREV **/
+    public void savePrevOn(int sub){
+        subs.get(sub).savePrevOn();
+    }
+
+    public void savePrevVol(int sub){
+        subs.get(sub).savePrevVol();
+    }
+
+    public void savePrevPitch(int sub){
+        subs.get(sub).savePrevPitch();
+    }
+
     /** POSITION **/
     public void positionEvents(int nOfSteps, boolean onlySynth){
 
@@ -242,6 +252,28 @@ public class StepEventsManager {
         }
     }
 
+    /** PREV **/
+    public void savePrevPan(){
+        prevPan = pan;
+    }
+
+    public float getPrevPan() {
+        return prevPan;
+    }
+
+    public boolean getPrevOn(int sub){
+        return subs.get(sub).getPrevOn();
+    }
+
+    public float getPrevVol(int sub){
+        return subs.get(sub).getPrevVolumeModifier();
+    }
+
+    public float getPrevPitch(int sub){
+        return subs.get(sub).getPrevPitchModifier();
+    }
+
+    /**************/
     public boolean getAutoRndPan(){
         return rndPanPerc > 0;
     }
@@ -374,7 +406,9 @@ public class StepEventsManager {
     }
 
     //pan
+    private float prevPan;
     public void setPan(float pan){
+        //prevPan = this.pan;
         this.pan = pan;
     }
 

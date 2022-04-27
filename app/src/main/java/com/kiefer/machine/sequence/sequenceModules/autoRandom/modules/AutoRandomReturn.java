@@ -7,6 +7,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
 import com.kiefer.graphics.SubsBoolDrawable;
+import com.kiefer.machine.sequence.sequenceModules.Pan;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.popups.Popup;
@@ -18,25 +19,13 @@ public class AutoRandomReturn extends AutoRandomModuleBool{
         super(llppdrums, sequenceModule);
     }
 
-    /** LISTENER **/
-    @Override
-    public void onStepTouch(EngineFacade engineFacade, final ImageView stepIV, final Step step, float startX, float startY){
-        if(step.getNofSubs() > 1){
-            getSubsPopup(stepIV, step);
-        }
-        else {
-            sequenceModule.setAutoRndReturn(step, !sequenceModule.getAutoRndReturn(step, 0), 0);
-            stepIV.setImageDrawable(getDrawable(step));
-        }
-    }
-
     public Popup getSubsPopup(ImageView stepIV, Step step){
-        //return new StepBoolDrawable(llppdrums, step);
         return new AutoRndReturnSubsPopup(llppdrums, sequenceModule, this, step, stepIV);
     }
 
     public Popup getOneSubPopup(ImageView stepIV, Step step){
-        //stepIV.setImageDrawable(getDrawable(step));
+        sequenceModule.setAutoRndReturn(step, !sequenceModule.getAutoRndReturn(step, 0), 0);
+        stepIV.setImageDrawable(getDrawable(step));
         return null;
     }
 
@@ -46,7 +35,7 @@ public class AutoRandomReturn extends AutoRandomModuleBool{
         Boolean[] subsOn = new Boolean[step.getNofSubs()];
         Boolean[] subsValue = new Boolean[step.getNofSubs()];
         for(int i = 0; i < step.getNofSubs(); i++){
-            subsOn[i] = ((step.isOn() && step.isSubOn(i)) || step.getAutoRndOn(i)) && sequenceModule.getAutoRndOn(step, i); //maybe introduce a third color here to show if it's doing anything (like grey in the others)
+            subsOn[i] = ((step.isOn() && step.isSubOn(i)) || step.getAutoRndOn(i)) && sequenceModule.getAutoRndOn(step, i);
             subsValue[i] = sequenceModule.getAutoRndReturn(step, i);
         }
         return new SubsBoolDrawable(llppdrums, subsOn, subsValue);

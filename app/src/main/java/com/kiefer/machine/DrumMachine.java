@@ -277,45 +277,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         selectedSequence.getSelectedSequenceModule().onStepTouch(engineFacade, stepIV, drum, startX, startY, endX, endY, action);
     }
 
-    @Override
-    public void onTrackItemClicked(int trackNo, View view, int btn){
-        //Log.e("DrumMachine", "track: "+trackNo);
-
-        switch (btn){
-            //EXPANDED
-            //synth
-            case 0:
-                openSoundManagerPopup(trackNo);
-                break;
-            //auto
-            case 1:
-                openAutoStepPopup(trackNo, view);
-                break;
-            //rnd
-            case 2:
-                openRndPopup(trackNo, view);
-                break;
-            //fx
-            case 3:
-                openFxManagerPopup(trackNo);
-                break;
-            //mixer
-            case 4:
-                openMixerPopup(trackNo);
-                break;
-            //remove track
-            case 5:
-                selectedSequence.removeTrack(trackNo);
-                break;
-
-            //NOT EXPANDED
-            case 6:
-                //Log.e("DrumMachine", "track: "+trackNo);
-                expandTrackBtns(trackNo, view);
-                break;
-        }
-    }
-
     public void openNamePopup(int trackNo){
         new TrackNamePopup(llppdrums, selectedSequence.getTracks().get(trackNo));
     }

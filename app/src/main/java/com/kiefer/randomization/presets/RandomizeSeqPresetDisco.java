@@ -36,7 +36,7 @@ public class RandomizeSeqPresetDisco extends RandomizeSeqPreset {
         track.setRandomizeVol(false);
         tracks.add(track);
 
-        track  = new RndSeqPresetTrackHHOffbeat(llppdrums, steps, 1);
+        track  = new RndSeqPresetTrackHHOffbeat(llppdrums, steps, 2);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);

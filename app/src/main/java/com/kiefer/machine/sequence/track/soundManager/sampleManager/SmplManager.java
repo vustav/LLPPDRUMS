@@ -165,7 +165,7 @@ public class SmplManager extends SoundSource {
 
     @Override
     public BaseInstrument getInstrument(int instrNo){
-        return (BaseInstrument) sampledInstrument;
+        return sampledInstrument;
     }
 
     /** GFX **/

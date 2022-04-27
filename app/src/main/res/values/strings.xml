@@ -163,6 +163,7 @@
     <string name="randomizerModifiedName">*</string>
     <string name="randomizerClassicRockName">CLASSIC ROCK</string>
     <string name="randomizerRockPlusName">ROCK+</string>
+    <string name="randomizerHiBeatName">HIBEAT</string>
     <string name="randomizerJazzName">JAZZ</string>
     <string name="randomizerModernRockName">MODERN ROCK</string>
     <string name="randomizerWaltzName">WALTZ</string>
@@ -244,7 +245,8 @@
     <string name="seqModuleTxt">Select what to edit in the selected sequence.</string>
     <string name="seqModeTxt">BASE is base values, ex. on/off or volume, RNDM is </string>
     <string name="seqTrackTxt1">This is a track. The button to the left has the tracks name in it. Clicking it will open</string>
-    <string name="seqTrackTxt2">The cells in the track represents steps and works like a classic sequencer, ie clicking a step will change something depending on what\'s selected for editing.</string>
+    <string name="seqTrackTxt2">The cells in the track represents steps and works like a classic sequencer, ie clicking a step will change something depending on what\'s selected for editing. If a cell has more than one dot in it the step has two or more sub steps. Click and hold to edit subs. Open</string>
+    <string name="seqTrackTxt3">to change the # of subs.</string>
     <string name="seqAddRemoveStepTxt">Decrease/increase the number of steps.</string>
     <string name="seqAddTrackTxt">Add a track. This button is always below the tracks so you might have to scroll down to see it.</string>
     <string name="seqTmpTxt">Set the tempo of this sequence. Sequences can have different tempos.</string>
@@ -262,7 +264,7 @@
     <!-- AUTORANDOM -->
     <string name="autoRndIntroTxt">When AUTORANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
     \n\n
-    %: chance a randomization will occur. A full bar means a randomization will always occur which means there\'s a 50% chance it will be ON. A half bar means a 50% chance of randomization which means a 25% chance of it being ON etc.\n\n
+    %: chance a randomization will occur. A full bar means a randomization will always occur which means there\'s a 50% chance it will be ON. A half bar means a 50% chance of randomization which means a 75% chance the value stays the same etc.\n\n
     MIN: smallest possible randomized value.\n\n
     MAX: largest possible randomized value.\n\n
     RTRN: should the value return to what it was before the randomization after being played once.\n\n
@@ -273,6 +275,7 @@
     <string name="trkMenuRemove">Remove track.</string>
 
     <string name="soundManagerName">SOUND MANAGER</string>
+    <string name="nOfSubsName">Set how many sub steps there is in a step.</string>
     <string name="automateStepsName">AUTOMATE TRACK</string>
     <string name="rndTrackName">RANDOMIZE TRACK</string>
     <string name="fxManagerName">FX MANAGER</string>

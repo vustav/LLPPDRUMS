@@ -53,6 +53,8 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     // i onStepTouch() i OnOff finns en timer som ska parera buggen med att lägga till/ta bort events
     // för snabbt i sequencern
 
+            //bugg i RndTrackManager.autoRandomize() med att uppdatera drawables när det bara är en sub
+
     public static boolean disableLoad = false;
     public static final boolean hideUIonPlay = false;
 

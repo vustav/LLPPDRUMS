@@ -1,6 +1,7 @@
 package com.kiefer.machine.sequence.sequenceModules.autoRandom.modules;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
@@ -32,6 +33,7 @@ public abstract class AutoRandomModule {
 
     /** LISTENER **/
     public void onStepTouch(EngineFacade engineFacade, final ImageView stepIV, final Step step, float startX, float startY){
+        Log.e("AutoRandomModule", "onStepTouch()");
         if(step.getNofSubs() > 1){
             getSubsPopup(stepIV, step);
         }

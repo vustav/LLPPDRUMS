@@ -1,6 +1,8 @@
 package com.kiefer.popups.seqModules.autoRnd;
 
 import androidx.core.content.ContextCompat;
+
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -26,6 +28,7 @@ public class AutoRndPercPopup extends Popup {
 
     public AutoRndPercPopup(final LLPPDRUMS llppdrums, final SequenceModule sequenceModule, final AutoRandomModule autoRandomModule, final ImageView iv, final Step step, int sub, AutoRndPercSubsPopup subsPopup, FrameLayout subLayout){
         super(llppdrums);
+        //Log.e("AutoRndPercPopup", "contr()");
 
         //inflate the View
         final FrameLayout popupView = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.popup_seek_bar, null);
@@ -44,18 +47,13 @@ public class AutoRndPercPopup extends Popup {
 
         /** SLÅ IHOP **/
         int shapeColor;
-        //if(sequenceModule instanceof OnOff){
-            //shapeColor = R.color.popupBarColor;
-        //}
-        //else {
 
-            if ((step.isOn() && step.isSubOn(sub)) || step.getAutoRndOn(sub) || sequenceModule instanceof OnOff) {
-                shapeColor = R.color.popupBarColor;
-            }
-            else{
-                shapeColor = R.color.sequencerInactiveStepColor;
-            }
-        //}
+        if ((step.isOn() && step.isSubOn(sub)) || step.getAutoRndOn(sub) || sequenceModule instanceof OnOff) {
+            shapeColor = R.color.popupBarColor;
+        }
+        else{
+            shapeColor = R.color.sequencerInactiveStepColor;
+        }
 
         seekBar.setColors(ContextCompat.getColor(llppdrums, shapeColor), ContextCompat.getColor(llppdrums, R.color.popupBarBg));
         onTouchListener = new View.OnTouchListener() {
@@ -67,7 +65,7 @@ public class AutoRndPercPopup extends Popup {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         seekBar.onTouchEvent(event);
-                        sequenceModule.setAutoRndPerc(step, seekBar.getProgress(), sub);
+                        //sequenceModule.setAutoRndPerc(step, seekBar.getProgress(), sub);
                         break;
                     case MotionEvent.ACTION_UP:
                         seekBar.onTouchEvent(event);
@@ -92,6 +90,7 @@ public class AutoRndPercPopup extends Popup {
 
     /** SET **/
     public void setProgress(float progress){
+        //Log.e("AutoRndPercPopup", "setProgress()");
         seekBar.setProgress(progress);
     }
 }

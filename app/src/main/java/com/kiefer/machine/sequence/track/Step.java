@@ -75,7 +75,7 @@ public class Step {
         }
         //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
         else{
-            stepEventsManager.setSubOn(0, on);
+            stepEventsManager.setSubOn(0, true);
         }
     }
 
@@ -97,6 +97,43 @@ public class Step {
     }
     public void randomizePan(boolean autoRnd){
         stepEventsManager.randomizePan(autoRnd);
+    }
+
+    /** RETURN MEMORY **/
+    //keep track if automations are going to be returned, otherwise don't do unnecessary loops
+
+    int returns = 0;
+    public void returnModified(boolean returnValue){
+        drumTrack.returnModified(returnValue);
+        if(returnValue){
+            returns++;
+        }
+        else{
+            returns--;
+        }
+    }
+
+    public boolean returnActive() {
+        return returns > 0;
+    }
+
+    /** AUTOMATION MEMORY **/
+    //keep track if automations are going to be returned, otherwise don't do unnecessary loops
+
+    int automations = 0;
+    public void automationsModified(boolean autoValue){
+        drumTrack.automationsModified(autoValue);
+        if(autoValue){
+            automations++;
+        }
+        else{
+            automations--;
+        }
+        Log.e("Step", "autos: "+automations);
+    }
+
+    public boolean automationActive() {
+        return automations > 0;
     }
 
     /** GET **/
@@ -219,6 +256,48 @@ public class Step {
         return stepEventsManager.getPitchModifier(sub);
     }
 
+    /** PREV **/
+
+    private boolean prevOn; //used return is on in AutoRandomization
+    public void savePrevOn(){
+        prevOn = on;
+    }
+
+    public void saveSubPrevOn(int sub){
+        stepEventsManager.savePrevOn(sub);
+    }
+
+    public void saveSubPrevVol(int sub){
+        stepEventsManager.savePrevVol(sub);
+    }
+
+    public void saveSubPrevPitch(int sub){
+        stepEventsManager.savePrevPitch(sub);
+    }
+    public void saveSubPrevPan(){
+        stepEventsManager.savePrevPan();
+    }
+
+    public boolean getSubPrevOn(int sub){
+        return stepEventsManager.getPrevOn(sub);
+    }
+
+    public boolean getPrevOn(){
+        return prevOn;
+    }
+
+    public float getSubPrevVol(int sub){
+        return stepEventsManager.getPrevVol(sub);
+    }
+
+    public float getSubPrevPitch(int sub){
+        return stepEventsManager.getPrevPitch(sub);
+    }
+
+    public float getPrevPan(){
+        return stepEventsManager.getPrevPan();
+    }
+
     /** SET **/
     public void setNOfSubs(int subs){
         stepEventsManager.setNOfSubs(subs);
@@ -306,20 +385,22 @@ public class Step {
      */
 
     public void setRndOnPerc(float rndOnPerc, int sub) {
+
+        //register an automation if it was off and is now on ONLY
+        if(rndOnPerc > 0 && !stepEventsManager.getAutoRndOn(sub)){
+            automationsModified(true);
+        }
+        else if(rndOnPerc == 0 && stepEventsManager.getAutoRndOn(sub)){
+            automationsModified(false);
+        }
+
         stepEventsManager.setRndOnPerc(rndOnPerc, sub);
-        //this.rndOnPerc = rndOnPerc;
     }
 
     public void setRndOnReturn(boolean rndOnReturn, int sub) {
+        returnModified(rndOnReturn);
         stepEventsManager.setRndOnReturn(rndOnReturn, sub);
-        //this.rndOnReturn = rndOnReturn;
     }
-/*
-    public void setAutoRndVol(boolean on){
-        autoRndVol = on;
-    }
-
- */
 
     public void setRndVolMin(float rndVolMin, int sub) {
         stepEventsManager.setRndVolMin(rndVolMin, sub);
@@ -332,20 +413,24 @@ public class Step {
     }
 
     public void setRndVolPerc(float rndVolPerc, int sub) {
+
+        //register an automation if it was off and is now on ONLY
+        if(rndVolPerc > 0 && !stepEventsManager.getAutoRndVol(sub)){
+            automationsModified(true);
+        }
+        else if(rndVolPerc == 0 && stepEventsManager.getAutoRndVol(sub)){
+            automationsModified(false);
+        }
+
         stepEventsManager.setRndVolPerc(rndVolPerc, sub);
         //this.rndVolPerc = rndVolPerc;
     }
 
     public void setRndVolReturn(boolean rndVolReturn, int sub) {
+        returnModified(rndVolReturn);
         stepEventsManager.setRndVolReturn(rndVolReturn, sub);
         //this.rndVolReturn = rndVolReturn;
     }
-/*
-    public void setAutoRndPitch(boolean on){
-        autoRndPitch = on;
-    }
-
- */
 
     public void setRndPitchMin(float rndPitchMin, int sub) {
         stepEventsManager.setRndPitchMin(rndPitchMin, sub);
@@ -357,39 +442,52 @@ public class Step {
         //this.rndPitchMax = rndPitchMax;
     }
 
-    public void setRndPitchPerc(float rndVolPerc, int sub) {
-        stepEventsManager.setRndPitchPerc(rndVolPerc, sub);
-        //this.rndPitchPerc = rndVolPerc;
+    public void setRndPitchPerc(float rndPitchPerc, int sub) {
+
+        //register an automation if it was off and is now on ONLY
+        if(rndPitchPerc > 0 && !stepEventsManager.getAutoRndPitch(sub)){
+            automationsModified(true);
+        }
+        else if(rndPitchPerc == 0 && stepEventsManager.getAutoRndPitch(sub)){
+            automationsModified(false);
+        }
+
+        stepEventsManager.setRndPitchPerc(rndPitchPerc, sub);
     }
 
-    public void setRndPitchReturn(boolean rndVolReturn, int sub) {
-        stepEventsManager.setRndPitchReturn(rndVolReturn, sub);
+    public void setRndPitchReturn(boolean rndPitchReturn, int sub) {
+        returnModified(rndPitchReturn);
+        stepEventsManager.setRndPitchReturn(rndPitchReturn, sub);
         //this.rndPitchReturn = rndVolReturn;
     }
-/*
-    public void setAutoRndPan(boolean on){
-        autoRndPan = on;
-    }
 
- */
-
-    public void setRndPanMin(float rndPitchMin) {
-        stepEventsManager.setRndPanMin(rndPitchMin);
+    public void setRndPanMin(float rndPanMin) {
+        stepEventsManager.setRndPanMin(rndPanMin);
         //this.rndPanMin = rndPitchMin;
     }
 
-    public void setRndPanMax(float rndVolMax) {
-        stepEventsManager.setRndPanMax(rndVolMax);
+    public void setRndPanMax(float rndPanMax) {
+        stepEventsManager.setRndPanMax(rndPanMax);
         //this.rndPanMax = rndVolMax;
     }
 
-    public void setRndPanPerc(float rndVolPerc) {
-        stepEventsManager.setRndPanPerc(rndVolPerc);
+    public void setRndPanPerc(float rndPanPerc) {
+
+        //register an automation if it was off and is now on ONLY
+        if(rndPanPerc > 0 && !getAutoRndPan()){
+            automationsModified(true);
+        }
+        else if(rndPanPerc == 0 && getAutoRndPan()){
+            automationsModified(false);
+        }
+
+        stepEventsManager.setRndPanPerc(rndPanPerc);
         //this.rndPanPerc = rndVolPerc;
     }
 
-    public void setRndPanReturn(boolean rndVolReturn) {
-        stepEventsManager.setRndPanReturn(rndVolReturn);
+    public void setRndPanReturn(boolean rndPanReturn) {
+        returnModified(rndPanReturn);
+        stepEventsManager.setRndPanReturn(rndPanReturn);
         //this.rndPanReturn = rndVolReturn;
     }
 

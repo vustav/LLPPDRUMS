@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
+import com.kiefer.machine.sequence.sequenceModules.OnOff;
 import com.kiefer.machine.sequence.sequenceModules.Pan;
 import com.kiefer.machine.sequence.sequenceModules.Pitch;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
@@ -78,7 +79,7 @@ public class RndTrackManager {
         d.randomizePan(autoRnd);
     }
 
-    public void randomize(SequenceModule seqModule){
+    public void randomizeModule(SequenceModule seqModule){
         seqModule.randomize(drumTrack);
     }
 
@@ -144,14 +145,6 @@ public class RndTrackManager {
             drumTrack.randomizeVol();
         }
 
-        //just a little chance of hotting up the pitch and volume here
-        if(r.nextInt(9) == 0){
-            drumTrack.getRndTrackManager().hottenUp(true);
-        }
-        else {
-            drumTrack.getRndTrackManager().hottenUp(false);
-        }
-
         if(llppdrums.getDrumMachine().getSelectedSequence() == drumTrack.getDrumSequence()) {
             drumTrack.updateDrawables();
         }
@@ -182,10 +175,15 @@ public class RndTrackManager {
 
     public void randomizeStepsOn(){
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
-            Step s = drumTrack.getSteps().get(step);
-            s.randomizeStepOn();
-            s.randomizeSubsOn(false);
+            randomizeStepOn(step);
         }
+    }
+
+    public void randomizeStepOn(int step){
+        //Log.e("RndTrackManager","randomizeStepOn()");
+        Step s = drumTrack.getSteps().get(step);
+        s.randomizeStepOn();
+        s.randomizeSubsOn(false);
     }
 
     public void randomizeStepVols(){
@@ -215,100 +213,197 @@ public class RndTrackManager {
         }
     }
 
-    public void hottenUp(boolean pitch){
-        /*
-        for(Step d : drumTrack.getDrums()){
-            d.setVolumeModifier(d.getVolumeModifier() * getMiniRandomMultiplier());
+    public void autoRandomize(){
+        if(drumTrack.automationsActive()) {
+            for (int stepNo = 0; stepNo < drumTrack.getSteps().size(); stepNo++) {
 
-            if(pitch) {
-                d.setPitchModifier(d.getPitchModifier() * getMiniMiniRandomMultiplier());
+                boolean updateDrawables = false;
+                Step s = drumTrack.getSteps().get(stepNo);
+
+                if(s.automationActive()) {
+
+                    //used to turn on the step if a sub is on or off otherwise. Start with the the
+                    // steps on-vale, that way no change is made if no randomization has occured.
+                    boolean atLeastOneSubOn = false;
+
+                    for (int sub = 0; sub < drumTrack.getNOfSubs(); sub++) {
+
+                        //start by randomizing on/off
+                        if (s.getAutoRndOn(sub)) {
+
+                            //start by turning the step on if one sub is set for autoRandomization
+                            drumTrack.getSteps().get(stepNo).setOn(true);
+
+
+                            //if there's only one sub, randomize the step
+                            if (s.getNofSubs() == 1) {
+                                //Log.e("RndTrackManager", "auto one sub");
+
+                                //keep the former state to know if any updates are necessary
+                                boolean wasOn = s.isOn();
+
+                                s.savePrevOn();
+
+                                randomizeStepOn(stepNo);
+
+                                /** nån bugg här som gör att den inte uppdaterar ordentligt så checken är borttagen, fixa vid tid **/
+                                //drawables should be updated if a change has occurred
+                                //if (s.isOn() != wasOn) {
+                                    //we should always update colors here so don't only do this for OnOff
+                                    updateDrawables = true;
+                                //}
+                            }
+                            //otherwise randomize the sub
+                            else {
+                                boolean wasOn = s.isSubOn(sub);
+
+                                s.saveSubPrevOn(sub);
+
+                                randomizeSubOn(s, true, sub);
+
+                                if (s.isSubOn(sub)) {
+                                    atLeastOneSubOn = true;
+                                }
+
+                                if(s.isSubOn(sub) != wasOn){
+                                    updateDrawables = true;
+                                }
+                            }
+                        }
+
+                        //turn on the step if a sub is on (only of more subs than one, otherwise it was handled in randomizeStepOn())
+                        if(s.getNofSubs() > 1){
+                            s.setOn(atLeastOneSubOn);
+                        }
+
+                        //if its on after that, randomize the other values
+                        if (s.isOn()) {
+                            if (s.getAutoRndVol(sub)) {
+                                //if(s.ges)
+                                s.saveSubPrevVol(sub);
+                                randomizeSubVolume(s, true, sub);
+
+                                if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Volume) {
+                                    updateDrawables = true;
+                                }
+                            }
+                            if (s.getAutoRndPitch(sub)) {
+                                s.saveSubPrevPitch(sub);
+                                randomizeSubPitch(s, true, sub);
+
+                                if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pitch) {
+                                    updateDrawables = true;
+                                }
+                            }
+
+                        }
+                    }
+
+                    //pans don't work on subs so use it here
+                    if (s.getAutoRndPan()) {
+                        s.saveSubPrevPan();
+                        randomizePan(s, true);
+
+                        if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pan) {
+                            updateDrawable(stepNo);
+                        }
+                    }
+
+                    //update the drawable if a change occurred in the selected sequence and the playing sequence is selected
+                    if (updateDrawables && llppdrums.getDrumMachine().getPlayingSequence() == llppdrums.getDrumMachine().getSelectedSequence()) {
+                        updateDrawable(stepNo);
+                    }
+                }
+            }
+        }
+    }
+
+    public void returnAutoRandomization(int stepNo){
+        boolean updateDrawables = false;
+
+        if(drumTrack.returnActive()) {
+            Step step = drumTrack.getSteps().get(stepNo);
+
+            if (step.returnActive()) {
+                for (int sub = 0; sub < step.getNofSubs(); sub++) {
+
+                    //on/off
+                    if (step.getRndOnReturn(sub)) {
+
+                        if(step.getNofSubs() == 1){
+                            boolean oldValue = step.isOn();
+
+                            step.setOn(step.getPrevOn());
+
+                            if (oldValue != step.isOn() &&
+                                    llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof OnOff) {
+                                updateDrawables = true;
+                            }
+                        }
+                        else {
+                            boolean oldValue = step.isSubOn(sub);
+
+                            step.setSubOn(sub, step.getSubPrevOn(sub));
+
+                            if (oldValue != step.isSubOn(sub) &&
+                                    llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof OnOff) {
+                                updateDrawables = true;
+                            }
+                        }
+                    }
+
+                    //vol
+                    if (step.getRndVolReturn(sub)) {
+                        float oldValue = step.getVolumeModifier(sub);
+
+                        step.setVolumeModifier(step.getSubPrevVol(sub), sub);
+
+                        if (oldValue != step.getVolumeModifier(sub) &&
+                                llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Volume) {
+                            updateDrawables = true;
+                        }
+                    }
+
+                    //pitch
+                    if (step.getRndPitchReturn(sub)) {
+                        float oldValue = step.getPitchModifier(sub);
+
+                        step.setPitchModifier(step.getSubPrevPitch(sub), sub);
+
+                        if (oldValue != step.getPitchModifier(sub) &&
+                                llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pitch) {
+                            updateDrawables = true;
+                        }
+                    }
+                }
+
+                //pan
+                if (step.getRndPanReturn()) {
+                    float oldValue = step.getPan();
+
+                    step.setPan(step.getPrevPan());
+
+                    if (oldValue != step.getPan() &&
+                            llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pan) {
+                        updateDrawables = true;
+                    }
+                }
             }
         }
 
-         */
-    }
-
-    // .9 - 1.1
-    public float getMiniRandomMultiplier(){
-        return random.nextFloat() * .2f + .9f;
-    }
-
-    // .95 - 1.05
-    public float getMiniMiniRandomMultiplier(){
-        return random.nextFloat() * .1f + .95f;
-    }
-
-    public void autoRandomize(){
-        //is it better to always start a thread and do the loop in it or only start a thread if changes has occured when fetching the drawable??
-        for(int stepNo = 0; stepNo < drumTrack.getSteps().size(); stepNo++){
-            boolean updateDrawables = false;
-            Step d = drumTrack.getSteps().get(stepNo);
-
-            //if(drumTrack.getSteps().get(stepNo).isOn())
-
-            for(int sub = 0; sub < drumTrack.getNOfSubs(); sub++) {
-
-                //start by randomizing on/off
-                if (d.getAutoRndOn(sub)) {
-
-                    //start by turning the step on if one sub is set for autoRandomization
-                    drumTrack.getSteps().get(stepNo).setOn(true);
-
-                    //keep the former state to know if any updates are necessary
-                    boolean wasOn = d.isSubOn(sub);
-
-                    //randomize
-                    randomizeSubOn(d, true, sub);
-
-                    //drawables should be updated if a change has occurred and OnOff is selected
-                    if (d.isSubOn(sub) != wasOn) {
-                        //we should always update colors here so don't only do this for OnOff
-                        updateDrawables = true;
-                    }
-
-                }
-
-                //if its on after that, randomize the other values
-                if (d.isOn()) {
-                    if (d.getAutoRndVol(sub)) {
-                        randomizeSubVolume(d, true, sub);
-
-                        if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Volume) {
-                            updateDrawables = true;
-                        }
-                    }
-                    if (d.getAutoRndPitch(sub)) {
-                        randomizeSubPitch(d, true, sub);
-
-                        if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pitch) {
-                            updateDrawables = true;
-                        }
-                    }
-
-                }
-
-                //update the drawable if a change occurred in the selected sequence and the playing sequence is selected
-                if (updateDrawables && llppdrums.getDrumMachine().getPlayingSequence() == llppdrums.getDrumMachine().getSelectedSequence()) {
-
-                    /** KOLLA OM MAN KAN KÖRA ALLA EFTER LOOPEN IST SÅ KAN MAN GÖRA DET I EGEN TRÅD **/
-                    updateDrawable(stepNo);
-                }
-            }
-
-            //pans don't work on subs so use it here
-            if (d.getAutoRndPan()) {
-                randomizePan(d, true);
-
-                if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pan) {
-                    updateDrawable(stepNo);
-                }
-            }
+        //update the drawable if a change occurred in the selected sequence and the playing sequence is selected
+        if (updateDrawables && llppdrums.getDrumMachine().getPlayingSequence() == llppdrums.getDrumMachine().getSelectedSequence()) {
+            updateDrawable(stepNo);
         }
     }
 
     private void updateDrawable(final int step){
-        Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(drumTrack.getTrackNo(), step);
-        llppdrums.getSequencer().setStepDrawable(drawable, drumTrack.getTrackNo(), step);
+        if(llppdrums.getDrumMachine().getSelectedSequence().isInBaseMode()) {
+            Log.e("RndTrackManager", "UPDATE, seq pos: "+llppdrums.getEngineFacade().getStep());
+            Log.e("RndTrackManager", "UPDATE step: "+step);
+            Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(drumTrack.getTrackNo(), step);
+            llppdrums.getSequencer().setStepDrawable(drawable, drumTrack.getTrackNo(), step);
+        }
     }
 
     /** SET **/

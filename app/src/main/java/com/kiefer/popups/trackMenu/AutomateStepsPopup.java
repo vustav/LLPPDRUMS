@@ -53,14 +53,17 @@ public class AutomateStepsPopup extends Popup {
         label.setTextColor(ColorUtils.getContrastColor(bgColor));
 
         //RND-btn steps
+        /*
         Button rndBtn = popupView.findViewById(R.id.autoStepsRndBtn);
         rndBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getRndTrackManager().randomize(sequenceModule);
+                drumTrack.getRndTrackManager().randomizeModule(sequenceModule);
                 drumTrack.updateDrawables();
             }
         });
+
+         */
 
         //set listeners to the arrows if in OnOff or AutoRandomBool, hide them otherwise
         Button leftArrow = popupView.findViewById(R.id.autoStepsLeftBtn);

@@ -16,28 +16,17 @@ public class SmplEvent extends Event{
     private final LLPPDRUMS llppdrums;
     private SmplManager sampleManager;
     private SampleEvent event;
-    private final Step step;
-    private final Sub sub;
 
-    public SmplEvent(LLPPDRUMS llppdrums, Step step, Sub sub, SmplManager sampleManager){
+    public SmplEvent(LLPPDRUMS llppdrums, SmplManager sampleManager){
         this.llppdrums = llppdrums;
         this.sampleManager = sampleManager;
-        this.step = step;
-        this.sub = sub;
-
-        //if(step.getStepNo() == 0) {
-        //Log.e("SmplEvent", "constr");
-        //}
 
         event = new SampleEvent(sampleManager.getInstrument(0));
         event.setSample(SampleManager.getSample(sampleManager.getSelectedCategory().getSelectedSample().getName()));
 
-        /*
-        if(step.isOn() && sub.isOn()){
-            addToSequencer();
-        }
-
-         */
+        /** The way events work now is that events are added to the sequencer on creation and then never removed, just enabled/disabled **/
+        event.addToSequencer();
+        event.setEnabled(false);
     }
 
     public void updateSamples(){
@@ -46,14 +35,16 @@ public class SmplEvent extends Event{
 
     @Override
     public void addToSequencer(){
-        Log.e("SmplEvent", "addToSequencer()");
-        event.addToSequencer();
+        //Log.e("SmplEvent", "addToSequencer()");
+        //event.addToSequencer();
+        event.setEnabled(true);
     }
 
     @Override
     public void removeFromSequencer(){
-        Log.e("SmplEvent", "removeFromSequencer()");
-        event.removeFromSequencer();
+        //Log.e("SmplEvent", "removeFromSequencer()");
+        //event.removeFromSequencer();
+        event.setEnabled(false);
     }
 
 
@@ -74,18 +65,6 @@ public class SmplEvent extends Event{
 
     @Override
     public void delete(){
-        //Log.e("SmplEvent", "delete");
-        //event.delete();
         llppdrums.getDeleter().addEvent(event);
     }
-
-    /** RESTORE **/
-    /*
-    @Override
-    public EventsKeeper getKeeper(){
-        EventsKeeper keeper = super.getKeeper();
-        return keeper;
-    }
-
-     */
 }
