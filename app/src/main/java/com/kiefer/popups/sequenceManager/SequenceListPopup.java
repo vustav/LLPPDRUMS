@@ -34,43 +34,33 @@ public class SequenceListPopup extends Popup {
 
         LinearLayout listLayout = popupView.findViewById(R.id.listLayout);
 
-        //int nOfLines = 0; //used to know what color the lines should have (since selectedSequence doesn't become a line we can't use i)
-        for(int i = 0; i < llppdrums.getResources().getInteger(R.integer.nOfSequences); i++){
-            //if(i != llppdrums.getDrumMachine().getSelectedSequenceIndex()) {
-                //nOfLines++;
-                TextView tv = new TextView(llppdrums);
-                tv.setWidth(DEF_LIST_WIDTH);
-                tv.setText(Integer.toString(i));
+        for(int i = 0; i < llppdrums.getDrumMachine().getNOfSequences(); i++){
+            TextView tv = new TextView(llppdrums);
+            tv.setWidth(DEF_LIST_WIDTH);
+            tv.setText(llppdrums.getDrumMachine().getSequences().get(i).getName());
 
-                int color;
-                if (i % 2 == 0) {
-                    color = ContextCompat.getColor(llppdrums, R.color.wavesBgEven);
-                } else {
-                    color = ContextCompat.getColor(llppdrums, R.color.wavesBgUneven);
+            int color;
+            if (i % 2 == 0) {
+                color = ContextCompat.getColor(llppdrums, R.color.wavesBgEven);
+            } else {
+                color = ContextCompat.getColor(llppdrums, R.color.wavesBgUneven);
+            }
+            tv.setBackgroundColor(color);
+            tv.setTextSize((int) llppdrums.getResources().getDimension(R.dimen.defaultListTxtSize));
+            tv.setTextColor(ColorUtils.getContrastColor(color));
+
+            final int finalI = i;
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btn.setSelection(llppdrums.getDrumMachine().getSequences().get(finalI).getName());
+                    sequenceManager.setStepSelection(step, finalI);
+                    popupWindow.dismiss();
                 }
-                tv.setBackgroundColor(color);
-                tv.setTextSize((int) llppdrums.getResources().getDimension(R.dimen.defaultListTxtSize));
-                tv.setTextColor(ColorUtils.getContrastColor(color));
-
-                final int finalI = i;
-                tv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //llppdrums.getDrumMachine().getSelectedSequence().load(llppdrums.getDrumMachine().getSequences().get(finalI).getKeeper());
-                        //llppdrums.getDrumMachine().loadSelectedSequence(llppdrums.getDrumMachine().getSequences().get(finalI).getKeeper());
-                        //llppdrums.getSequencer().notifyDataSetChange();
-                        btn.setSelection(Integer.toString(finalI));
-                        sequenceManager.setStepSelection(step, Integer.toString(finalI));
-                        //sequenceManagerPopup.setStepSelection(step, Integer.toString(txtCounter));
-                        popupWindow.dismiss();
-                    }
-                });
-                listLayout.addView(tv);
-            //}
+            });
+            listLayout.addView(tv);
         }
 
-        //show(popupWindow);
-        //popupWindow.showAsDropDown(btn, 0, -100);
         show(popupWindow);
     }
 }

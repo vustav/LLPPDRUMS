@@ -8,16 +8,19 @@ import android.graphics.drawable.Drawable;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.sequenceModules.Pitch;
 import com.kiefer.machine.sequence.track.Step;
 
 public class PitchSubsDrawable extends Drawable {
     private final LLPPDRUMS llppdrums;
+    private final Pitch pitch;
     private final Step step;
     private final Paint shapePaint;
     private final Paint bgPaint;
 
-    public PitchSubsDrawable(LLPPDRUMS llppdrums, Step step) {
+    public PitchSubsDrawable(LLPPDRUMS llppdrums, Pitch ptich, Step step) {
         this.llppdrums = llppdrums;
+        this.pitch = ptich;
         this.step = step;
 
         //create the paints
@@ -59,6 +62,9 @@ public class PitchSubsDrawable extends Drawable {
             offset += drawableWidth;
         }
 
+        if(step.isOn() && step.pitchAutomationActive()) {
+            pitch.addAutoIndication(step, canvas);
+        }
     }
 
     @Override

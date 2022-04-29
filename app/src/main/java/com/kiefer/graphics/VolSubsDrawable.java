@@ -8,10 +8,12 @@ import android.graphics.drawable.Drawable;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.sequenceModules.Volume;
 import com.kiefer.machine.sequence.track.Step;
 
 public class VolSubsDrawable extends Drawable {
     private final LLPPDRUMS llppdrums;
+    private final Volume volume;
     private final Step step;
     private final Paint shapePaint;
     private final Paint bgPaint;
@@ -19,8 +21,9 @@ public class VolSubsDrawable extends Drawable {
     private float modifier = 0;
     private boolean on = true;
 
-    public VolSubsDrawable(LLPPDRUMS llppdrums, Step step) {
+    public VolSubsDrawable(LLPPDRUMS llppdrums, Volume volume, Step step) {
         this.llppdrums = llppdrums;
+        this.volume = volume;
         this.step = step;
 
         //create the paints
@@ -68,6 +71,10 @@ public class VolSubsDrawable extends Drawable {
             canvas.drawRect(offset, 0, drawableWidth + offset, height-(height * step.getVolumeModifier(i)), bgPaint);
             canvas.drawRect(offset, height-(height * step.getVolumeModifier(i)), offset + drawableWidth, height, shapePaint);
             offset += drawableWidth;
+
+            if(step.isOn() && step.volAutomationActive()) {
+                volume.addAutoIndication(step, canvas);
+            }
         }
     }
 

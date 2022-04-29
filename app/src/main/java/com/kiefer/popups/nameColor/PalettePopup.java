@@ -1,4 +1,4 @@
-package com.kiefer.popups.trackMenu;
+package com.kiefer.popups.nameColor;
 
 import android.view.View;
 import android.widget.FrameLayout;
@@ -9,14 +9,13 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSeekBar;
 import com.kiefer.popups.Popup;
-import com.kiefer.popups.trackMenu.TrackNamePopup;
 import com.kiefer.utils.ColorUtils;
 
 public class PalettePopup extends Popup {
     private CSeekBar seekBar;
     private View.OnTouchListener onTouchListener;
 
-    public PalettePopup(final LLPPDRUMS llppdrums, final TrackNamePopup trackNamePopup, View anchor){
+    public PalettePopup(final LLPPDRUMS llppdrums, final NamePopup namePopup, View anchor){
         super(llppdrums);
 
         //inflate the View
@@ -50,7 +49,7 @@ public class PalettePopup extends Popup {
                 cell.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        trackNamePopup.setColor(color);
+                        namePopup.setColor(color);
                         popupWindow.dismiss();
                     }
                 });

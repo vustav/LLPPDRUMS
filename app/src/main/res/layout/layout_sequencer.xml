@@ -83,7 +83,7 @@
         android:layout_below="@id/sequencerTV"/>
 
     <!-- VERTICAL SCROLL -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/sequencerVerticalScrollView"
@@ -99,7 +99,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/sequencerTracksRecyclerView"/>
+                    android:id="@+id/sequencerTracksRecyclerView"
+                    android:overScrollMode="never"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -129,5 +130,5 @@
 -->
                 </LinearLayout>
             </RelativeLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

@@ -9,6 +9,7 @@ import com.kiefer.engine.EngineFacade;
 import com.kiefer.files.keepers.DrumSequenceKeeper;
 import com.kiefer.files.keepers.DrumTrackKeeper;
 import com.kiefer.interfaces.Tempoizer;
+import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.randomization.rndTrackManager.RndTrackManager;
@@ -34,12 +35,12 @@ import java.util.ArrayList;
  * A Sequence holds all the tracks plus the sequencerModule. A Sequencer module decides what's shown in the sequencer and the Tracks holds all the info about themselves.
  * **/
 
-public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
+public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColorizer {
 
     private final LLPPDRUMS llppdrums;
     private final EngineFacade engineFacade;
 
-    private final String sequenceName;
+    private String sequenceName;
     private ArrayList<DrumTrack> tracks;
 
     //rnd
@@ -52,8 +53,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     //private final int tabImgId;
     //private final Bitmap tabBitmap, bgBitmap;
     private final int bitmapId;
-    private final int tabColor;
-    private final Drawable backgroundGradient;
+    private int tabColor;
+    private Drawable backgroundGradient;
 
     //gradients
     private final GradientDrawable stepsGradientDrawable, tempoGradientDrawable, randomGradientDrawable, copyGradientDrawable;
@@ -79,7 +80,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
         bitmapId = ImgUtils.getRandomImageId();
         tabColor = ColorUtils.getRandomColor();
-        backgroundGradient = ColorUtils.getRandomGradientDrawable(tabColor, ColorUtils.getRandomColor());
+        backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), TabManager.HORIZONTAL);
 
         stepsGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         tempoGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
@@ -177,7 +178,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
             //turn on the little play-icon in the tab
             if(engineFacade.isPlaying()) {
-                llppdrums.getDrumMachineFragment().getTabManager().showIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), true);
+                //llppdrums.getDrumMachineFragment().getTabManager().showIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), true);
+                llppdrums.getDrumMachineFragment().showPlayIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), true);
             }
 
         //activate each track
@@ -192,7 +194,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
             //turn off the little play-icon in the tab
             if(engineFacade.isPlaying()) {
-                llppdrums.getDrumMachineFragment().getTabManager().showIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), false);
+                //llppdrums.getDrumMachineFragment().getTabManager().showIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), false);
+                llppdrums.getDrumMachineFragment().showPlayIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), false);
 
                 //unlock the UI if THIS seq is selected on deactivation
                 //if(llppdrums.getDrumMachine().getSelectedSequence() == this){
@@ -214,7 +217,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
         //update the spinner in the fragment
         if(llppdrums.getDrumMachineFragment() != null) {
-            llppdrums.getDrumMachineFragment().setTempo(tempo);
+            //llppdrums.getDrumMachineFragment().setTempo(tempo);
+            llppdrums.getDrumMachineFragment().update();
             //llppdrums.getDrumMachineFragment().setSubs(subs);
 
             if(getNOfSteps() > 1){
@@ -435,7 +439,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
             }
             if(llppdrums.getDrumMachine().getSelectedSequence() == this){
                 if(llppdrums.getDrumMachineFragment() != null) {
-                    llppdrums.getDrumMachineFragment().setTempo(getTempo());
+                    //llppdrums.getDrumMachineFragment().setTempo(getTempo());
+                    llppdrums.getDrumMachineFragment().setTempo();
                 }
             }
         }
@@ -459,10 +464,25 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         rndSeqManager.randomizeSequence();
     }
 
+    /** SET **/
+    @Override
+    public void setColor(int color){
+        tabColor = color;
+        backgroundGradient = ColorUtils.getGradientDrawable(color, ColorUtils.getContrastColor(color), ColorUtils.HORIZONTAL);
+        llppdrums.getDrumMachineFragment().setColor();
+    }
+
+    @Override
+    public void setName(String name){
+        sequenceName = name;
+        llppdrums.getDrumMachineFragment().setName();
+        llppdrums.getDrumMachine().getSequenceManager().updateSequenceName(this);
+    }
+
     /** GET **/
     //TABS
     @Override
-    public String getLabel(){
+    public String getName(){
         return sequenceName;
     }
 
@@ -476,7 +496,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
         return bitmapId;
     }
 
-    public int getTabColor(){
+    @Override
+    public int getColor(){
         return tabColor;
     }
 
@@ -515,7 +536,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
 
     //INFO
     public String getFullName(){
-        return llppdrums.getResources().getString(R.string.seqName)+": "+ getLabel() + llppdrums.getResources().getString(R.string.stringDivider) + selectedSequenceModule.getFullName();
+        return llppdrums.getResources().getString(R.string.seqName)+": "+ getName() + llppdrums.getResources().getString(R.string.stringDivider) + selectedSequenceModule.getFullName();
     }
 
     public int getNOfTracks(){
@@ -654,7 +675,6 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer {
     }
 
     /** AUTOMATION MEMORY **/
-
     int automations = 0;
     public void automationsModified(boolean automationValue){
         if(automationValue){

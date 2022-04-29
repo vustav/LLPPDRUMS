@@ -18,6 +18,7 @@ import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.fx.FxManager;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
 import com.kiefer.popups.fxManager.FxManagerPopup;
+import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndTrackManager.RndTrackManager;
 import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-public class DrumTrack implements Subilizer {
+public class DrumTrack implements Subilizer, NamerColorizer {
     //ACCESSED
     private final LLPPDRUMS llppdrums;
     private final DrumSequence drumSequence;

@@ -127,7 +127,7 @@ public class Pan extends SequenceModule {
     }
 
     @Override
-    public String getLabel() {
+    public String getName() {
         return llppdrums.getResources().getString(R.string.panTabLabel);
     }
 
@@ -147,7 +147,7 @@ public class Pan extends SequenceModule {
 
         //base
         if(modes.indexOf(selectedMode) == 0) {
-            return new PanSubsDrawable(llppdrums, drum);
+            return new PanSubsDrawable(llppdrums, this, drum);
         }
         //random
         else{

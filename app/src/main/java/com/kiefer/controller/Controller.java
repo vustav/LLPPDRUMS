@@ -121,7 +121,7 @@ public class Controller implements Tabable {
     }
 
     @Override
-    public String getLabel(){
+    public String getName(){
         return name;
     }
 

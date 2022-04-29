@@ -258,7 +258,7 @@
     <string name="seqRndManagerPreset">Select a preset.</string>
     <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
     <string name="seqRndManagerSteps">Set the # of steps of the randomized sequence.</string>
-    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select what oscillator preset it should have. \n\nEvery step has a slider in it. If it\'s full it will always be on. If half there\'s a 50% chance etc. \n\nTick the FX-box for effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
+    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select sound preset. \n\nEvery step has a slider in it. If it\'s full it will always be on. If half there\'s a 50% chance etc. \n\nTick the FX-box for randomized effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
     <string name="seqRndManagerAdd">Add a track.</string>
 
     <!-- AUTORANDOM -->

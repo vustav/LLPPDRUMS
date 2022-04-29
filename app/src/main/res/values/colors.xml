@@ -31,6 +31,8 @@
     <color name="randomTopBgColor">#CC5656</color>
 
     <!-- SEQUENCER -->
+    <color name="autoRndDotColor">#B15EEC</color>
+
     <color name="sequencerTvColor">#B88080</color>
     <color name="sequencerBgColor">#ECDFDF</color>
 

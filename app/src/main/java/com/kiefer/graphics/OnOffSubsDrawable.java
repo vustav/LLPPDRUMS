@@ -8,16 +8,20 @@ import android.graphics.drawable.Drawable;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.sequenceModules.OnOff;
+import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.sequence.track.Step;
 
 public class OnOffSubsDrawable extends Drawable {
     private final LLPPDRUMS llppdrums;
+    private final OnOff onOff;
     private final Step step;
     private final Paint shapePaint;
     private final Paint bgPaint;
 
-    public OnOffSubsDrawable(LLPPDRUMS llppdrums, Step step) {
+    public OnOffSubsDrawable(LLPPDRUMS llppdrums, OnOff onOff, Step step) {
         this.llppdrums = llppdrums;
+        this.onOff = onOff;
         this.step = step;
 
         //create the paints
@@ -60,6 +64,10 @@ public class OnOffSubsDrawable extends Drawable {
                 canvas.drawCircle(x + offset, y, radius, shapePaint);
                 offset += width / subs;
             }
+        }
+
+        if(step.onAutomationActive()) {
+            onOff.addAutoIndication(step, canvas);
         }
     }
 

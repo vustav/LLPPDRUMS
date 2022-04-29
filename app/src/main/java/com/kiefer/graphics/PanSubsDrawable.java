@@ -8,16 +8,19 @@ import android.graphics.drawable.Drawable;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.sequenceModules.Pan;
 import com.kiefer.machine.sequence.track.Step;
 
 public class PanSubsDrawable extends Drawable {
     private final LLPPDRUMS llppdrums;
+    private final Pan pan;
     private final Step step;
     private final Paint shapePaint;
     private final Paint bgPaint;
 
-    public PanSubsDrawable(LLPPDRUMS llppdrums, Step step) {
+    public PanSubsDrawable(LLPPDRUMS llppdrums, Pan pan, Step step) {
         this.llppdrums = llppdrums;
+        this.pan = pan;
         this.step = step;
 
         //create the paints
@@ -29,7 +32,7 @@ public class PanSubsDrawable extends Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        float pan = (step.getPan() + 1) / 2;
+        float panValue = (step.getPan() + 1) / 2;
 
         // Get the drawable's bounds
         int width = getBounds().width();
@@ -48,7 +51,11 @@ public class PanSubsDrawable extends Drawable {
         canvas.drawRect(0, 0, width, height, bgPaint);
 
         //draw a line in the middle
-        canvas.drawRect(width * pan, 0, width * pan + lineSize, height, shapePaint);
+        canvas.drawRect(width * panValue, 0, width * panValue + lineSize, height, shapePaint);
+
+        if(step.isOn() && step.panAutomationActive()) {
+            pan.addAutoIndication(step, canvas);
+        }
     }
 
     @Override

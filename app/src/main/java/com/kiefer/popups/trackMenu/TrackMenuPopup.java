@@ -45,8 +45,6 @@ public class TrackMenuPopup extends Popup {
         //add a nice animation
         popupWindow.setAnimationStyle(R.style.popup_animation);
 
-        popupView.findViewById(R.id.sequencerTrackNameBtnGraphics).setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getColor());
-
         //dividers
         /*
         divider0 = popupView.findViewById(R.id.sequencerTrackDivider0);
@@ -58,6 +56,7 @@ public class TrackMenuPopup extends Popup {
         //name/color
         ((TextView)popupView.findViewById(R.id.sequencerTrackNameBtnTV)).setText(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getName());
         ((TextView)popupView.findViewById(R.id.sequencerTrackNameBtnTV)).setTextColor(ColorUtils.getContrastColor(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getColor()));
+        popupView.findViewById(R.id.sequencerTrackNameBtnGraphics).setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getColor());
         popupView.findViewById(R.id.sequencerTrackNameBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

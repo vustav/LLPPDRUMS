@@ -34,12 +34,12 @@ public class CopyFromPopup extends Popup {
         LinearLayout listLayout = popupView.findViewById(R.id.listLayout);
 
         int nOfLines = 0; //used to know what color the lines should have (since selectedSequence doesn't become a line we can't use i)
-        for(int i = 0; i < llppdrums.getResources().getInteger(R.integer.nOfSequences); i++){
+        for(int i = 0; i < llppdrums.getDrumMachine().getNOfSequences(); i++){
             if(i != llppdrums.getDrumMachine().getSelectedSequenceIndex()) {
                 nOfLines++;
                 TextView tv = new TextView(llppdrums);
                 tv.setWidth(DEF_LIST_WIDTH);
-                tv.setText(Integer.toString(i));
+                tv.setText(llppdrums.getDrumMachine().getSequences().get(i).getName());
 
                 int color;
                 if (nOfLines % 2 == 0) {

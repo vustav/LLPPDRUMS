@@ -37,7 +37,7 @@
         android:layout_below="@id/fxManagerRndBtn">
 
         <!-- FX-LIST -->
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -49,7 +49,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fxManagerFxsRecyclerView"/>
+                    android:id="@+id/fxManagerFxsRecyclerView"
+                    android:overScrollMode="never"/>
 
                 <!-- ADD FX -->
                 <Button
@@ -61,7 +62,7 @@
 
                     android:layout_below="@id/fxManagerFxsRecyclerView"/>
             </RelativeLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <!-- SHARED UI -->
         <LinearLayout
@@ -129,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/fxManagerAutomationBg">
 
-                    <ScrollView
+                    <androidx.core.widget.NestedScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/marginSmall"
@@ -145,7 +146,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/fxManagerAutomationRecyclerView"
-                                android:paddingTop="25dp"/>
+                                android:paddingTop="25dp"
+                                android:overScrollMode="never"/>
 
                             <!-- ADD FX -->
                             <Button
@@ -155,7 +157,7 @@
                                 android:textAlignment="center"
                                 android:id="@+id/fxManagerAddAutomationBtn"/>
                         </LinearLayout>
-                    </ScrollView>
+                    </androidx.core.widget.NestedScrollView>
 
                     <!-- LABEL -->
                     <TextView

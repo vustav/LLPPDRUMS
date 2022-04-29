@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.utils.ColorUtils;
 
 import java.util.ArrayList;

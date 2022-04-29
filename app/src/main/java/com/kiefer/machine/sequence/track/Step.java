@@ -1,7 +1,5 @@
 package com.kiefer.machine.sequence.track;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.StepKeeper;
 import com.kiefer.machine.sequence.track.soundManager.SoundManager;
@@ -118,22 +116,71 @@ public class Step {
     }
 
     /** AUTOMATION MEMORY **/
-    //keep track if automations are going to be returned, otherwise don't do unnecessary loops
+    //Step keeps track of individual automations for indication reasons. automationActive still works as expected.
 
-    int automations = 0;
-    public void automationsModified(boolean autoValue){
+    int onAutos = 0;
+    public void onAutosModified(boolean autoValue){
         drumTrack.automationsModified(autoValue);
         if(autoValue){
-            automations++;
+            onAutos++;
         }
         else{
-            automations--;
+            onAutos--;
         }
-        Log.e("Step", "autos: "+automations);
+    }
+
+    public boolean onAutomationActive() {
+        return onAutos > 0;
+    }
+
+    int volAutos = 0;
+    public void volAutosModified(boolean autoValue){
+        drumTrack.automationsModified(autoValue);
+        if(autoValue){
+            volAutos++;
+        }
+        else{
+            volAutos--;
+        }
+    }
+
+    public boolean volAutomationActive() {
+        return volAutos > 0;
+    }
+
+    int pitchAutos = 0;
+    public void pitchAutosModified(boolean autoValue){
+        drumTrack.automationsModified(autoValue);
+        if(autoValue){
+            pitchAutos++;
+        }
+        else{
+            pitchAutos--;
+        }
+    }
+
+    public boolean pitchAutomationActive() {
+        return pitchAutos > 0;
+    }
+
+    int panAutos = 0;
+    public void panAutosModified(boolean autoValue){
+        drumTrack.automationsModified(autoValue);
+        if(autoValue){
+            panAutos++;
+        }
+        else{
+            panAutos--;
+        }
+    }
+
+    public boolean panAutomationActive() {
+        return panAutos > 0;
     }
 
     public boolean automationActive() {
-        return automations > 0;
+        //return panAutomationActive() || volAutomationActive() || pitchAutomationActive() || panAutomationActive();
+        return onAutos + volAutos + pitchAutos + panAutos > 0;
     }
 
     /** GET **/
@@ -388,10 +435,10 @@ public class Step {
 
         //register an automation if it was off and is now on ONLY
         if(rndOnPerc > 0 && !stepEventsManager.getAutoRndOn(sub)){
-            automationsModified(true);
+            onAutosModified(true);
         }
         else if(rndOnPerc == 0 && stepEventsManager.getAutoRndOn(sub)){
-            automationsModified(false);
+            onAutosModified(false);
         }
 
         stepEventsManager.setRndOnPerc(rndOnPerc, sub);
@@ -416,10 +463,10 @@ public class Step {
 
         //register an automation if it was off and is now on ONLY
         if(rndVolPerc > 0 && !stepEventsManager.getAutoRndVol(sub)){
-            automationsModified(true);
+            volAutosModified(true);
         }
         else if(rndVolPerc == 0 && stepEventsManager.getAutoRndVol(sub)){
-            automationsModified(false);
+            volAutosModified(false);
         }
 
         stepEventsManager.setRndVolPerc(rndVolPerc, sub);
@@ -446,10 +493,10 @@ public class Step {
 
         //register an automation if it was off and is now on ONLY
         if(rndPitchPerc > 0 && !stepEventsManager.getAutoRndPitch(sub)){
-            automationsModified(true);
+            pitchAutosModified(true);
         }
         else if(rndPitchPerc == 0 && stepEventsManager.getAutoRndPitch(sub)){
-            automationsModified(false);
+            pitchAutosModified(false);
         }
 
         stepEventsManager.setRndPitchPerc(rndPitchPerc, sub);
@@ -475,10 +522,10 @@ public class Step {
 
         //register an automation if it was off and is now on ONLY
         if(rndPanPerc > 0 && !getAutoRndPan()){
-            automationsModified(true);
+            panAutosModified(true);
         }
         else if(rndPanPerc == 0 && getAutoRndPan()){
-            automationsModified(false);
+            panAutosModified(false);
         }
 
         stepEventsManager.setRndPanPerc(rndPanPerc);

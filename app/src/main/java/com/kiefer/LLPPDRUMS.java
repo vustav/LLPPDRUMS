@@ -22,7 +22,7 @@ import com.kiefer.files.KeeperFileHandler;
 import com.kiefer.ui.tabs.Tab;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.ControllerFragment;
-import com.kiefer.fragments.DrumMachineFragment;
+import com.kiefer.fragments.drumMachine.DrumMachineFragment;
 import com.kiefer.fragments.TopFragment;
 import com.kiefer.ui.tabs.interfaces.TabHoldable;
 import com.kiefer.ui.tabs.interfaces.Tabable;
@@ -444,11 +444,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
     @Override
     public void onTabClicked(Tab tab) {
-        //The user selected a tab in the TopFragment
         switchFragment(tab.getN());
-        Bitmap bgBitmap = ImgUtils.getBgBitmap(this, tab.getBitmapId(), TabManager.HORIZONTAL);
-        background.setBackground(new BitmapDrawable(getResources(), bgBitmap));
-
         topFragment.setTabAppearances(0, tabables, tab.getN());
     }
 
@@ -562,6 +558,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
     public ProjectOptionsManager getProjectOptionsManager() {
         return projectOptionsManager;
+    }
+
+    public FrameLayout getBackground() {
+        return background;
     }
 
     /** SET **/

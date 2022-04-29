@@ -114,7 +114,7 @@ public class Pitch extends SequenceModule {
     }
 
     @Override
-    public String getLabel() {
+    public String getName() {
         return llppdrums.getResources().getString(R.string.pitchTabLabel);
     }
 
@@ -134,7 +134,7 @@ public class Pitch extends SequenceModule {
 
         //base
         if(modes.indexOf(selectedMode) == 0) {
-            return new PitchSubsDrawable(llppdrums, drum);
+            return new PitchSubsDrawable(llppdrums, this, drum);
         }
         //random
         else{

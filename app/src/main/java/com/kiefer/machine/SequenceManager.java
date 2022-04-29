@@ -4,6 +4,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
 import androidx.core.content.ContextCompat;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSeekBar;
 import com.kiefer.files.keepers.SequenceManagerKeeper;
+import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.popups.sequenceManager.SequenceManagerPopup;
 import com.kiefer.ui.SequenceCounter;
 import com.kiefer.utils.ColorUtils;
@@ -23,6 +25,7 @@ import java.util.Random;
 
 public class SequenceManager {
     private final LLPPDRUMS llppdrums;
+    private ArrayList<DrumSequence> drumSequences;
     private SequenceCounter counter;
     private final CSeekBar progressSlider;
 
@@ -42,11 +45,14 @@ public class SequenceManager {
     private final GradientDrawable popupGradient, randomPopupGradient;
     public final int popupGradientColor1;
 
+    private ArrayList<DrumSequence> selectedSequences;
+
     private int nOfActiveBoxes;
     Random random = new Random();
 
-    public SequenceManager(final LLPPDRUMS llppdrums, SequenceManagerKeeper keeper){
+    public SequenceManager(final LLPPDRUMS llppdrums, ArrayList<DrumSequence> drumSequences, SequenceManagerKeeper keeper){
         this.llppdrums = llppdrums;
+        this.drumSequences = drumSequences;
 
         popupGradientColor1 = ColorUtils.getRandomColor();
         popupGradient = ColorUtils.getRandomGradientDrawable(popupGradientColor1, ColorUtils.getRandomColor());
@@ -83,7 +89,6 @@ public class SequenceManager {
             }
         });
 
-        //setup the counter
         setupSequences(keeper);
 
         //add the counter to the layout
@@ -96,7 +101,7 @@ public class SequenceManager {
         counter = new SequenceCounter(llppdrums, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxHeight), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
         counter.setSize((int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxHeight));
 
-        int txtCounter = 0; //used to set selected sequences if there's no keeper
+        selectedSequences = new ArrayList<>();
 
         if(keeper != null){
             setProgress(keeper.progress);
@@ -117,14 +122,19 @@ public class SequenceManager {
         for(int step = 0; step < counter.getLayout().getChildCount(); step++){
 
             if(keeper != null){
+                selectedSequences.add(drumSequences.get(keeper.seqs.get(step)));
                 setStepSelection(step, (keeper.seqs.get(step)));
             }
             else{
                 if(step == 0){
-                    setStepSelection(step, Integer.toString(0));
+                    //Log.e("ASD", "asd: "+(llppdrums.getDrumMachine() == null));
+                    selectedSequences.add(drumSequences.get(0));
+                    setStepSelection(step, 0);
                 }
                 else {
-                    setStepSelection(step, Integer.toString(r.nextInt(llppdrums.getResources().getInteger(R.integer.nOfSequences))));
+                    int seqIndex = r.nextInt(drumSequences.size());
+                    selectedSequences.add(drumSequences.get(seqIndex));
+                    setStepSelection(step, seqIndex);
                 }
             }
 
@@ -148,6 +158,8 @@ public class SequenceManager {
     public void activateSequenceBox(int step){
         counter.reset();
         counter.activateStep(step);
+
+        /** FIIIIXA **/
         changeSequence(Integer.parseInt(counter.getStepTxt(step)));
 
         activeSequenceBoxIndex = step;
@@ -259,7 +271,7 @@ public class SequenceManager {
     }
 
     public String getBoxSelection(int step){
-        return counter.getStepTxt(step);
+        return selectedSequences.get(step).getName();
     }
 
     public SequenceCounter getCounter() {
@@ -267,8 +279,17 @@ public class SequenceManager {
     }
 
     /** SET **/
-    public void setStepSelection(int step, String string){
-        counter.setStepText(step, string);
+    public void updateSequenceName(DrumSequence drumSequence){
+        for(int i = 0; i < selectedSequences.size(); i++){
+            if(selectedSequences.get(i) == drumSequence){
+                counter.setStepText(i, drumSequence.getName());
+            }
+        }
+    }
+
+    public void setStepSelection(int step, int seq){
+        selectedSequences.set(step, drumSequences.get(seq));
+        counter.setStepText(step, drumSequences.get(seq).getName());
     }
 
     public void setRandomizeProgress(boolean randomizeProgress){
@@ -317,9 +338,9 @@ public class SequenceManager {
         sequenceManagerKeeper.nOfActiveBoxes = nOfActiveBoxes;
         sequenceManagerKeeper.restartAtStop = restartAtStop;
 
-        ArrayList<String> seqs = new ArrayList<>();
-        for(int i = 0; i < counter.getSize(); i++){
-            seqs.add(counter.getStepTxt(i));
+        ArrayList<Integer> seqs = new ArrayList<>();
+        for(int i = 0; i < selectedSequences.size(); i++){
+            seqs.add(llppdrums.getDrumMachine().getSequences().indexOf(selectedSequences.get(i)));
         }
         sequenceManagerKeeper.seqs = seqs;
 
@@ -329,8 +350,6 @@ public class SequenceManager {
     public void load(SequenceManagerKeeper k) {
         for (int step = 0; step < counter.getLayout().getChildCount(); step++) {
             setStepSelection(step, (k.seqs.get(step)));
-            //setProgress(k.progress);
-            //setChangeAtPress(k.changeAtPress);
 
         }
         setProgress(k.progress);

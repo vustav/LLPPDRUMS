@@ -1,11 +1,15 @@
 package com.kiefer.machine.sequence.sequenceModules;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
+import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.AutoRandom;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandomModuleBool;
@@ -68,8 +72,6 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
     protected SequenceModule(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
         this.llppdrums = llppdrums;
         this.drumSequence = drumSequence;
-        //this.tabBitmap = tabBitmap;
-        //this.bgBitmap = bgBitmap;
         this.bitmapId = bitmapId;
 
         random = new Random();
@@ -190,4 +192,16 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
     }
 
     /** SET **/
+    public void addAutoIndication(Step step, Canvas canvas){
+        //if(step.automationActive()) {
+            Paint paint = new Paint();
+            paint.setColor(llppdrums.getResources().getColor(R.color.autoRndDotColor));
+
+            float width = canvas.getWidth();
+
+            float radius = width / 5;
+
+            canvas.drawCircle(width, 0, radius, paint);
+        //}
+    }
 }

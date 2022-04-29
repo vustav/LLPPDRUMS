@@ -106,6 +106,8 @@ public class OnOff extends SequenceModule {
                         step.setOn(!step.isOn());
                         final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
                         stepIV.setImageDrawable(drawable);
+
+                        //setImageDrawable(step.getTrackNo(), step.getStepNo(), stepIV, getDrawable(step.getTrackNo(), step.getStepNo()));
                     }
                 }
             }
@@ -234,7 +236,7 @@ public class OnOff extends SequenceModule {
     }
 
     @Override
-    public String getLabel() {
+    public String getName() {
         return llppdrums.getResources().getString(R.string.onoffTabLabel);
     }
 
@@ -257,7 +259,7 @@ public class OnOff extends SequenceModule {
 
         //base
         if(isInBaseMode()) {
-            return new OnOffSubsDrawable(llppdrums, step);
+            return new OnOffSubsDrawable(llppdrums, this, step);
         }
         //random
         else{

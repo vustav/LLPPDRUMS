@@ -1,11 +1,9 @@
 package com.kiefer.machine;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
@@ -18,15 +16,16 @@ import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.trackMenu.AutomateStepsPopup;
 import com.kiefer.popups.trackMenu.TrackMenuPopup;
-import com.kiefer.popups.trackMenu.TrackNamePopup;
+import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.randomization.rndTrackManager.RndTrackManagerPopup;
 import com.kiefer.popups.soundManager.SoundManagerPopup;
 import com.kiefer.ui.tabs.Tab;
 import com.kiefer.ui.tabs.TabManager;
-import com.kiefer.fragments.DrumMachineFragment;
+import com.kiefer.fragments.drumMachine.DrumMachineFragment;
 import com.kiefer.ui.tabs.interfaces.TabHoldable;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.popups.trackMenu.MixerPopup;
+import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
 import com.kiefer.popups.fxManager.FxManagerPopup;
 
@@ -63,14 +62,15 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         savePopupBgId = ImgUtils.getRandomImageId();
         loadPopupBgId = ImgUtils.getRandomImageId();
 
+        setupSequences(llppdrums.getResources().getInteger(R.integer.nOfSequences), keeper);
+
         try {
-            sequenceManager = new SequenceManager(llppdrums, keeper.sequenceManagerKeeper);
+            sequenceManager = new SequenceManager(llppdrums, sequences, keeper.sequenceManagerKeeper);
         }
         catch (Exception e){
-            sequenceManager = new SequenceManager(llppdrums, null);
+            sequenceManager = new SequenceManager(llppdrums, sequences, null);
         }
 
-        setupSequences(llppdrums.getResources().getInteger(R.integer.nOfSequences), keeper);
     }
 
     private void setupSequences(int nOfSequences, DrumMachineKeeper keeper){
@@ -104,7 +104,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
             switch (tab.getTier()){
                 //SEQUENCE
                 case 0:
-                    selectedSequence.deselect(); /** TA BORT GAMLA DRAWABLES FRÅN MINNET?? **/
+                    selectedSequence.deselect();
                     selectedSequence = sequences.get(tab.getN());
 
                     //update the dataSet if new tracks are added
@@ -206,7 +206,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         engineFacade.playSequencer();
 
         //turn on the little play-icon in the tab
-        llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), true);
+        //llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), true);
+        llppdrums.getDrumMachineFragment().showPlayIcon(sequences.indexOf(playingSequence), true);
 
         //lock the UI to prevent laggy actions during playback
         if (selectedSequence == playingSequence) {
@@ -218,14 +219,16 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
     public void pause(){
         engineFacade.pauseSequencer();
-        llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), false);
+        //llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), false);
+        llppdrums.getDrumMachineFragment().showPlayIcon(sequences.indexOf(playingSequence), false);
         unlockUI();
         llppdrums.getDeleter().delete();
     }
     public void stop(){
         sequenceManager.reset();
         engineFacade.stopSequencer();
-        llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), false);
+        //llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), false);
+        llppdrums.getDrumMachineFragment().showPlayIcon(sequences.indexOf(playingSequence), false);
         llppdrums.getSequencer().resetCounter();
         unlockUI();
 
@@ -278,7 +281,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     }
 
     public void openNamePopup(int trackNo){
-        new TrackNamePopup(llppdrums, selectedSequence.getTracks().get(trackNo));
+        new NamePopup(llppdrums, selectedSequence.getTracks().get(trackNo));
     }
 
     public void openSoundManagerPopup(int trackNo){
@@ -344,8 +347,12 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         return bitmapId;
     }
 
+    public int getNOfSequences(){
+        return sequences.size();
+    }
+
     @Override
-    public String getLabel(){
+    public String getName(){
         return  llppdrums.getResources().getString(R.string.machineName);
     }
 
@@ -443,8 +450,9 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     /** RESTORATION **/
     public void loadSelectedSequence(final DrumSequenceKeeper k){
         selectedSequence.load(k);
-        llppdrums.getDrumMachineFragment().setTempo(Integer.parseInt(k.tempo));
+        //llppdrums.getDrumMachineFragment().setTempo(Integer.parseInt(k.tempo));
         //llppdrums.getDrumMachineFragment().setSubs(Integer.parseInt(k.subs));
+        llppdrums.getDrumMachineFragment().update();
     }
 
     //gets a keeper as argument and uses it during creation and sends it further to tracks

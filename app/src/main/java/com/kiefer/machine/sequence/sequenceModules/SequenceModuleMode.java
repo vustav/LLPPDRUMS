@@ -52,7 +52,7 @@ public class SequenceModuleMode implements Tabable{
     }
 
     @Override
-    public String getLabel(){
+    public String getName(){
         return tabLabel;
     }
 }

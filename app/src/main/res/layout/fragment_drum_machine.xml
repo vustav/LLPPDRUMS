@@ -4,6 +4,18 @@
     android:layout_height="match_parent">
 
     <!-- SEQUENCE TABS -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/machineSequenceTabsScroll">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/machineSequenceTabsRecyclerView"
+            android:overScrollMode="never"/>
+    </androidx.core.widget.NestedScrollView>
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -110,6 +122,40 @@
                 android:paddingTop="3dp"
 
                 android:layout_alignParentBottom="true">
+
+                <!-- NAME/COLOR -->
+                <RelativeLayout
+                    android:layout_width="@dimen/sequencerNameBtnWidth"
+                    android:layout_height="@dimen/btnHeightSmall"
+                    android:id="@+id/machineSequenceNameLayout">
+
+                    <!-- BTN -->
+                    <Button
+                        android:layout_width="@dimen/sequencerNameBtnWidth"
+                        android:layout_height="@dimen/btnHeightSmall"
+                        android:id="@+id/machineSequenceNameBtn"
+                        android:padding="@dimen/defaultBtnPadding"/>
+
+                    <!-- GRAPHICS -->
+                    <RelativeLayout
+                        android:layout_width="@dimen/sequencerNameBtnWidth"
+                        android:layout_height="@dimen/btnHeightSmall"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/machineSequenceNameBtnGraphics">
+
+                        <!-- TEXT (can't use btns txt since we have a color above the btn) -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textSize="@dimen/defaultBtnTxtSize"
+                            android:singleLine="true"
+                            android:id="@+id/machineSequenceNameBtnTV"/>
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <!-- TEMPO -->
                 <FrameLayout

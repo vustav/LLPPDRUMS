@@ -1,4 +1,4 @@
-package com.kiefer.popups.trackMenu;
+package com.kiefer.popups.nameColor;
 
 import androidx.core.content.ContextCompat;
 import android.text.Editable;
@@ -11,21 +11,21 @@ import android.widget.PopupWindow;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.popups.Popup;
+import com.kiefer.utils.ImgUtils;
 
-public class TrackNamePopup extends Popup {
-    private final DrumTrack drumTrack;
+public class NamePopup extends Popup {
+    private final NamerColorizer namerColorizer;
     private final FrameLayout colorPicker;
 
-    public TrackNamePopup(final LLPPDRUMS llppdrums, final DrumTrack drumTrack){
+    public NamePopup(final LLPPDRUMS llppdrums, final NamerColorizer namerColorizer){
         super(llppdrums);
-        this.drumTrack = drumTrack;
+        this.namerColorizer = namerColorizer;
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_track_name, null);
         //popupView.setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getRndPopupBgId()));
-        popupView.findViewById(R.id.trackNameBgIV).setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getNamePopupBgId()));
+        popupView.findViewById(R.id.trackNameBgIV).setBackground(ContextCompat.getDrawable(llppdrums, ImgUtils.getRandomImageId()));
 
         //create the popupWindow
         //int width = (int) llppdrums.getResources().getDimension(R.dimen.autoStepsPopupWidth);
@@ -39,21 +39,21 @@ public class TrackNamePopup extends Popup {
 
         //color
         colorPicker = popupView.findViewById(R.id.trackColorPicker);
-        colorPicker.setBackgroundColor(drumTrack.getColor());
+        colorPicker.setBackgroundColor(namerColorizer.getColor());
         colorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new PalettePopup(llppdrums, TrackNamePopup.this, colorPicker);
+                new PalettePopup(llppdrums, NamePopup.this, colorPicker);
             }
         });
 
         //editText
         EditText editText = popupView.findViewById(R.id.trackNameEditText);
-        editText.setText(drumTrack.getName());
+        editText.setText(namerColorizer.getName());
         editText.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                drumTrack.setName(s.toString());
+                namerColorizer.setName(s.toString());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -66,9 +66,7 @@ public class TrackNamePopup extends Popup {
     }
 
     public void setColor(int color){
-        //label.setBackgroundColor(color);
-        //label.setTextColor(ColorUtils.getContrastColor(color));
         colorPicker.setBackgroundColor(color);
-        drumTrack.setColor(color);
+        namerColorizer.setColor(color);
     }
 }

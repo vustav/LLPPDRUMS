@@ -110,7 +110,7 @@ public class Volume extends SequenceModule {
     }
 
     @Override
-    public String getLabel() {
+    public String getName() {
         return llppdrums.getResources().getString(R.string.volumeTabLabel);
     }
 
@@ -130,7 +130,7 @@ public class Volume extends SequenceModule {
 
         //base
         if(modes.indexOf(selectedMode) == 0) {
-            return new VolSubsDrawable(llppdrums, drum);
+            return new VolSubsDrawable(llppdrums, this, drum);
         }
         //random
         else{
