@@ -11,13 +11,13 @@ import com.kiefer.machine.SequenceManager;
 import com.kiefer.popups.controller.FunBtnEditPopup;
 import com.kiefer.popups.controller.SeqBtnEditPopup;
 import com.kiefer.ui.tabs.TabManager;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
 
 /** The controls and the tabs at the top of the screen **/
 
-public class Controller implements Tabable {
+public class Controller implements Tab {
     private LLPPDRUMS llppdrums;
     private EngineFacade engineFacade;
     private SequenceManager sequenceManager;

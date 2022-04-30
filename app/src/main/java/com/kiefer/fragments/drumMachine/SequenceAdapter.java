@@ -6,19 +6,19 @@ import android.widget.FrameLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.ui.tabs.Tab;
+import com.kiefer.ui.tabs.interfaces.Tab;
 
 import java.util.ArrayList;
 
 public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.SequenceTabViewHolder> {
     private final LLPPDRUMS llppdrums;
-    private final ArrayList<Tab> tabs;
+    //private final ArrayList<Tab> tabs;
 
     //private CSpinnerButton cSpinnerButton;
 
     public SequenceAdapter(LLPPDRUMS llppdrums, ArrayList<Tab> tabs) {
         this.llppdrums = llppdrums;
-        this.tabs = tabs;
+        //this.tabs = tabs;
     }
 
     // Create new viewHolder
@@ -32,7 +32,7 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final SequenceAdapter.SequenceTabViewHolder sequenceTabViewHolder, final int position) {
-        Tab tab = tabs.get(sequenceTabViewHolder.getAdapterPosition());
+        //Tab tab = tabs.get(sequenceTabViewHolder.getAdapterPosition());
 
         FrameLayout bg = sequenceTabViewHolder.bgView;
         //bg.addView(tab.getBackground());

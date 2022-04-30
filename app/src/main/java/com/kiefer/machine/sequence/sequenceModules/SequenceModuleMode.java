@@ -1,17 +1,15 @@
 package com.kiefer.machine.sequence.sequenceModules;
 
-import android.graphics.Bitmap;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.ui.tabs.TabManager;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.utils.ImgUtils;
 
 /** BASE (OnOff, Volume etc) is just one of these. AutoRandom extends it and holds all the AutoRandom-classes. **/
 
-public class SequenceModuleMode implements Tabable{
+public class SequenceModuleMode implements Tab {
     protected LLPPDRUMS llppdrums;
     protected DrumSequence drumSequence;
     protected String tabLabel;

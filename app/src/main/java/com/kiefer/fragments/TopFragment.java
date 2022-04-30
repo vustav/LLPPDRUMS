@@ -20,7 +20,7 @@ import com.kiefer.popups.files.LoadPopup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.popups.projectOptions.ProjectOptionsPopup;
 import com.kiefer.ui.tabs.TabManager;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
 
@@ -154,13 +154,13 @@ public class TopFragment extends TabFragment {
         FrameLayout tabsLayout = rootView.findViewById(R.id.topTabsLayout);
         FrameLayout mainBg = llppdrums.findViewById(R.id.mainBg);
         //tabGroup = tabManager.createTabRow(callback.getTabables(0), callback, 0, mainBg);
-        tabManager.createTabRow(callback.getTabables(0), callback, 0, mainBg);
+        tabManager.createTabRow(callback.getTabs(0), callback, 0, mainBg);
         //tabsLayout.addView(tabGroup.getLayout());
         tabsLayout.addView(tabManager.getTabsLayout(0));
 
 
         //set DrumMachine as default
-        callback.onTabClicked(callback.getTabables(0).get(0));
+        callback.onTabClicked(callback.getTabs(0).get(0));
 
         return rootView;
     }
@@ -208,12 +208,12 @@ public class TopFragment extends TabFragment {
     /** GET/SET **/
 
     @Override
-    public void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo){
-        tabManager.setTabBorders(tier, tabables, selectedTabNo);
+    public void setTabAppearances(int tier, ArrayList<Tab> tabs, int selectedTabNo){
+        tabManager.setTabBorders(tier, tabs, selectedTabNo);
 
-        for(int i = 0; i < tabables.size(); i++){
+        for(int i = 0; i < tabs.size(); i++){
 
-            Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabables.get(i).getBitmapId(), i, tabables.size(), tabables.get(i).getOrientation());
+            Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabs.get(i).getBitmapId(), i, tabs.size(), tabs.get(i).getOrientation());
             //tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
             tabManager.getTabsLayout(0).getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
 
@@ -226,7 +226,7 @@ public class TopFragment extends TabFragment {
         ((TextView)tabManager.getTabsLayout(0).getChildAt(selectedTabNo).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtColor));
 
         //set the background for the module
-        Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, tabables.get(selectedTabNo).getBitmapId(), TabManager.HORIZONTAL);
+        Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, tabs.get(selectedTabNo).getBitmapId(), TabManager.HORIZONTAL);
         llppdrums.getBackground().setBackground(new BitmapDrawable(getResources(), bgBitmap));
     }
 }

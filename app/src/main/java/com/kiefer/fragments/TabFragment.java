@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.ui.tabs.interfaces.TabUIHoldable;
 import com.kiefer.ui.tabs.TabManager;
+import com.kiefer.ui.tabs.interfaces.Tab;
 
-public abstract class TabFragment extends Fragment implements TabUIHoldable {
+import java.util.ArrayList;
+
+public abstract class TabFragment extends Fragment {
+
+    public abstract void setTabAppearances(int tier, ArrayList<Tab> tabs, int selectedTabNo);
 
     //Used for communication.
     protected LLPPDRUMS llppdrums;

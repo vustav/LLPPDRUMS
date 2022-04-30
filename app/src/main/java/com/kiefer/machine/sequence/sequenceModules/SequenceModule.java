@@ -1,10 +1,8 @@
 package com.kiefer.machine.sequence.sequenceModules;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
@@ -17,15 +15,15 @@ import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.Popup;
 import com.kiefer.ui.tabs.TabManager;
-import com.kiefer.ui.tabs.interfaces.TabHoldable;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.TabHolder;
+import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class SequenceModule implements TabHoldable, Tabable {
+public abstract class SequenceModule implements TabHolder, Tab {
     protected LLPPDRUMS llppdrums;
     protected DrumSequence drumSequence;
 
@@ -177,8 +175,8 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
     }
 
     @Override
-    public ArrayList<Tabable> getTabables(int tierNo){
-        ArrayList<Tabable> tabs = new ArrayList<>();
+    public ArrayList<Tab> getTabs(int tierNo){
+        ArrayList<Tab> tabs = new ArrayList<>();
         tabs.addAll(modes);
         return tabs;
     }

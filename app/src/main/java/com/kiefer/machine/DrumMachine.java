@@ -21,8 +21,8 @@ import com.kiefer.randomization.rndTrackManager.RndTrackManagerPopup;
 import com.kiefer.popups.soundManager.SoundManagerPopup;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
-import com.kiefer.ui.tabs.interfaces.TabHoldable;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.TabHolder;
+import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.popups.trackMenu.MixerPopup;
 import com.kiefer.utils.ImgUtils;
 import com.kiefer.popups.fxManager.FxManagerPopup;
@@ -34,7 +34,7 @@ import java.util.Random;
  *
  * **/
 
-public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable, Tabable, SequencerUI.OnSequencerClickedListener {
+public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, Tab, SequencerUI.OnSequencerClickedListener {
     private final LLPPDRUMS llppdrums;
     private final EngineFacade engineFacade;
 
@@ -71,7 +71,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         catch (Exception e){
             sequenceManager = new SequenceManager(llppdrums, sequences, null);
         }
-
     }
 
     private void setupSequences(int nOfSequences, DrumMachineKeeper keeper){
@@ -96,17 +95,17 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     //TopFragment.OnTabSelectedListener
     //if a tab in the first tier is clicked we need to recolor all tabs, if its the second tier, only the second and third tier need recoloring etc.
     @Override
-    public void onTabClicked(Tabable tabable) {
+    public void onTabClicked(Tab tab) {
 
         if(llppdrums.getActiveFragment() instanceof DrumMachineFragment){
             DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
 
             int selectedTab;
-            switch (tabable.getTier()){
+            switch (tab.getTier()){
                 //SEQUENCE
                 case 0:
                     selectedSequence.deselect();
-                    selectedSequence = sequences.get(tabable.getTabIndex());
+                    selectedSequence = sequences.get(tab.getTabIndex());
 
                     //update the dataSet if new tracks are added
                     llppdrums.getSequencer().notifyDataSetChange();
@@ -131,29 +130,29 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
                     drumMachineFragment.setTabAppearances(0, getTabables(), selectedTab);
 
                     selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
-                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabables(0), selectedTab);
+                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabs(0), selectedTab);
 
                     selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab);
+                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
                     break;
 
                 //SEQUENCE MODULE
                 case 1:
-                    selectedSequence.setSelectedSequenceModule(tabable.getTabIndex());
+                    selectedSequence.setSelectedSequenceModule(tab.getTabIndex());
 
                     selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
-                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabables(0), selectedTab);
+                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabs(0), selectedTab);
 
                     selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab);
+                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
                     break;
 
                 //MODULE MODE
                 case 2:
-                    selectedSequence.getSelectedSequenceModule().setSelectedMode(tabable.getTabIndex());
+                    selectedSequence.getSelectedSequenceModule().setSelectedMode(tab.getTabIndex());
 
                     selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab);
+                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
                     break;
             }
             updateSeqLabel();
@@ -315,21 +314,21 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
     //TABS
     @Override
-    public ArrayList<Tabable> getTabables(int tierNo) {
-        ArrayList<Tabable> tabs = new ArrayList<>();
+    public ArrayList<Tab> getTabs(int tierNo) {
+        ArrayList<Tab> tabs = new ArrayList<>();
         switch (tierNo) {
             case 0:
                 return getTabables();
             case 1:
-                return selectedSequence.getTabables(0);
+                return selectedSequence.getTabs(0);
             case 2:
-                return selectedSequence.getSelectedSequenceModule().getTabables(0);
+                return selectedSequence.getSelectedSequenceModule().getTabs(0);
         }
         return tabs;
     }
 
-    public ArrayList<Tabable> getTabables() {
-        ArrayList<Tabable> tabs = new ArrayList<>();
+    public ArrayList<Tab> getTabables() {
+        ArrayList<Tab> tabs = new ArrayList<>();
         tabs.addAll(sequences);
         return tabs;
     }

@@ -14,8 +14,8 @@ import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.randomization.rndTrackManager.RndTrackManager;
 import com.kiefer.ui.tabs.TabManager;
-import com.kiefer.ui.tabs.interfaces.TabHoldable;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.TabHolder;
+import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.machine.sequence.sequenceModules.OnOff;
 import com.kiefer.machine.sequence.sequenceModules.Pan;
 import com.kiefer.machine.sequence.sequenceModules.Pitch;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * A Sequence holds all the tracks plus the sequencerModule. A Sequencer module decides what's shown in the sequencer and the Tracks holds all the info about themselves.
  * **/
 
-public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColorizer {
+public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
 
     private final LLPPDRUMS llppdrums;
     private final EngineFacade engineFacade;
@@ -223,9 +223,7 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
 
         //update the spinner in the fragment
         if(llppdrums.getDrumMachineFragment() != null) {
-            //llppdrums.getDrumMachineFragment().setTempo(tempo);
             llppdrums.getDrumMachineFragment().update();
-            //llppdrums.getDrumMachineFragment().setSubs(subs);
 
             if(getNOfSteps() > 1){
                 llppdrums.getSequencer().setRemoveStepBtnEnabled(true);
@@ -544,8 +542,8 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
 
  */
 
-    public ArrayList<Tabable> getTabables(int tierNo){
-        ArrayList<Tabable> tabs = new ArrayList<>();
+    public ArrayList<Tab> getTabs(int tierNo){
+        ArrayList<Tab> tabs = new ArrayList<>();
         tabs.addAll(sequenceModules);
         return tabs;
     }
@@ -644,6 +642,12 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
     //TABS
     @Override
     public int getTabIndex() {
+
+        //initTabIndex is set on restore on startup and used to update tabs before DumMachine is done. Never updated again after that.
+        if(llppdrums.getDrumMachine() == null){
+            return initTabIndex;
+        }
+
         return llppdrums.getDrumMachine().getSequences().indexOf(this);
     }
 
@@ -765,18 +769,22 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
         restore(keeper);
     }
 
+    private int initTabIndex; //set on restore on startup and used to update tabs before DumMachine is done. Never updated again after that.
+
     public void restore(DrumSequenceKeeper keeper){
         setTempo(keeper.tempo);
         for(int trackNo = 0; trackNo < tracks.size(); trackNo++){
             tracks.get(trackNo).restore(keeper.drumTrackKeepers.get(trackNo));
         }
-        setColor(keeper.color);
-        setName(keeper.name);
+        initTabIndex = keeper.tabIndex;
+        //setColor(keeper.color);
+        //setName(keeper.name);
     }
 
     public DrumSequenceKeeper getKeeper(){
         DrumSequenceKeeper keeper = new DrumSequenceKeeper();
 
+        keeper.tabIndex = getTabIndex();
         keeper.name = sequenceName;
         keeper.color = tabColor;
         keeper.nOfTracks = getNOfTracks();

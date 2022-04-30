@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.fragments.TabFragment;
-import com.kiefer.ui.tabs.interfaces.TabHoldable;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.TabHolder;
+import com.kiefer.ui.tabs.interfaces.Tab;
 
 import java.util.ArrayList;
 
@@ -43,15 +43,15 @@ public class TabManager {
     }
 
     /** TABS **/
-    public void createTabRow(ArrayList<Tabable> tabables, OnTabClickedListener callback, int tier, final ViewGroup moduleBackground){
-        createTabTier(tabables, callback, tier, moduleBackground, HORIZONTAL);
+    public void createTabRow(ArrayList<Tab> tabs, OnTabClickedListener callback, int tier, final ViewGroup moduleBackground){
+        createTabTier(tabs, callback, tier, moduleBackground, HORIZONTAL);
     }
 
-    public void createTabColumn(ArrayList<Tabable> tabables, OnTabClickedListener callback, int tier, final ViewGroup moduleBackground){
-        createTabTier(tabables, callback, tier, moduleBackground, VERTICAL);
+    public void createTabColumn(ArrayList<Tab> tabs, OnTabClickedListener callback, int tier, final ViewGroup moduleBackground){
+        createTabTier(tabs, callback, tier, moduleBackground, VERTICAL);
     }
 
-    public void createTabTier(ArrayList<Tabable> tabables, final OnTabClickedListener callback, int tier, final View moduleBackground, final int orientation){
+    public void createTabTier(ArrayList<Tab> tabs, final OnTabClickedListener callback, int tier, final View moduleBackground, final int orientation){
 
         //inflate the right layout to put the tabs in
         LinearLayout tabsLayout;
@@ -63,14 +63,14 @@ public class TabManager {
             tabsLayout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.tab_row, null);
         }
 
-        tabsLayout.setWeightSum(tabables.size());
+        tabsLayout.setWeightSum(tabs.size());
         FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         tabsLayout.setLayoutParams(flp);
 
         //final TabGroup tabGroup = new TabGroup(tabsLayout, tabsArray);
 
-        for(int i = 0; i < tabables.size(); i++){
-            Tabable t = tabables.get(i);
+        for(int i = 0; i < tabs.size(); i++){
+            Tab t = tabs.get(i);
             final String tabName = t.getName();
 
             //inflate the right layout for the tab
@@ -119,10 +119,10 @@ public class TabManager {
                     //moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
 
                     //set borders for all tabs in the View
-                    setTabBorders(tier, tabables, finalI);
+                    setTabBorders(tier, tabs, finalI);
 
                     //call the listener
-                    callback.onTabClicked(tabables.get(finalI));
+                    callback.onTabClicked(tabs.get(finalI));
 
                     return true;
                 }
@@ -137,18 +137,18 @@ public class TabManager {
         return tabLayouts.get(tier);
     }
 
-    public void setTabBorders(int tier, ArrayList<Tabable> tabables, int selectedTab){
+    public void setTabBorders(int tier, ArrayList<Tab> tabs, int selectedTab){
 
         //set up border sizes
         int largeBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderLarge);
         int smallBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderSmall);
 
-        for(int i = 0; i < tabables.size(); i++) {
+        for(int i = 0; i < tabs.size(); i++) {
 
             //set padding on the selected tab
             if (selectedTab == i) {
 
-                if(tabables.get(selectedTab).getOrientation() == VERTICAL) {
+                if(tabs.get(selectedTab).getOrientation() == VERTICAL) {
                     int topBorderSize;
 
                     //the first vertical tab always has a small topPadding, the others have a large
@@ -172,7 +172,7 @@ public class TabManager {
                     }
 
                     int rightBorderSize;
-                    if (selectedTab == tabables.size() - 1) {
+                    if (selectedTab == tabs.size() - 1) {
                         rightBorderSize = 0;
                     } else {
                         rightBorderSize = smallBorderSize;
@@ -182,10 +182,10 @@ public class TabManager {
             }
             //set the padding on all the non-selected tabs
             else {
-                if(tabables.get(selectedTab).getOrientation() == VERTICAL) {
+                if(tabs.get(selectedTab).getOrientation() == VERTICAL) {
                     //the last tab gets a small bottom, the others get 0. This means that only the
                     // top will divide unselected tabs. For selected they have a small bottom that will "blend" with this top to show as a large.
-                    if(i == tabables.size() - 1){
+                    if(i == tabs.size() - 1){
                         tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, smallBorderSize);
                     }
                     else{
@@ -196,7 +196,7 @@ public class TabManager {
                     if(i == 0){
                         tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(0, smallBorderSize, smallBorderSize, largeBorderSize);
                     }
-                    else if(i == tabables.size() - 1){
+                    else if(i == tabs.size() - 1){
                         tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, 0, largeBorderSize);
                     }
                     else{
@@ -208,7 +208,7 @@ public class TabManager {
     }
 
     /** LISTENER INTERFACE **/
-    public interface OnTabClickedListener extends TabHoldable {
-        void onTabClicked(Tabable tabable);
+    public interface OnTabClickedListener extends TabHolder {
+        void onTabClicked(Tab tab);
     }
 }

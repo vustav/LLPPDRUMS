@@ -21,8 +21,8 @@ import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.ControllerFragment;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
 import com.kiefer.fragments.TopFragment;
-import com.kiefer.ui.tabs.interfaces.TabHoldable;
-import com.kiefer.ui.tabs.interfaces.Tabable;
+import com.kiefer.ui.tabs.interfaces.TabHolder;
+import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.machine.DrumMachine;
 import com.kiefer.engine.EngineFacade;
 
@@ -36,7 +36,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 
-public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHoldable {
+public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHolder {
     /** testa att ta bort reset på alla seqs när dom skapas **/
 
     /** händer konstiga grejer i automateTrack, kolla setAutoValueBase() i OnOff med subs och det **/
@@ -78,7 +78,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     private String savedProjectsFolderPath;
 
     //tabs
-    private ArrayList<Tabable> tabables;
+    private ArrayList<Tab> tabs;
 
     //fragments
     private FragmentManager fragmentManager;
@@ -106,14 +106,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         super.onCreate( savedInstanceState );
         setContentView(R.layout.layout_main);
 
-        // Check if we have all the necessary permissions, if not: prompt user
-        //int permission = checkSelfPermission(Manifest.permission.RECORD_AUDIO); /** BEHÖVS INTE, KVAR FÖR ATT ANVÄNDA TILL FILER **/
-        //if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ) {
         init();
-        //}
-        //else {
-        //requestPermissions(new String[] {Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
-        //}
     }
 
     /** PERMISSIONS **/
@@ -124,17 +117,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             String permission = permissions[i];
             int grantResult = grantResults[i];
 
-            //RECORD_AUDIO
-            // BEHÖVS INTE, KVAR FÖR ATT ANVÄNDA TILL FILER
-            /*
-            if (permission.equals(Manifest.permission.RECORD_AUDIO) && grantResult == PackageManager.PERMISSION_GRANTED) {
-                init();
-            } else {
-                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
-            }
-
-             */
-
             //BLUETOOTH
             //verkar inte gå att neka den här permissionen men kanske i nyare android-versioner? Bäst att ha ordentlig check
             if (permission.equals(Manifest.permission.BLUETOOTH) && grantResult == PackageManager.PERMISSION_GRANTED) {
@@ -144,9 +126,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
                 projectOptionsManager.showBTWarning();
                 //requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
             }
-
-            //FILES
-            //verkar inte behövas här heller
         }
     }
 
@@ -306,7 +285,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
         LLPPDRUMSKeeper keeper;
         try{
-            Log.e("LLPPDRUMS", "keeper loaded");
+            //Log.e("LLPPDRUMS", "keeper loaded");
             keeper = (LLPPDRUMSKeeper) keeperFileHandler.readKeepers(lastDataPath);
         }
         catch (Exception e){
@@ -340,16 +319,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         catch (Exception e){
             steps = getResources().getInteger(R.integer.defaultNOfSteps);
         }
-/*
-        int subs;
-        try {
-            subs = keeper.drumMachineKeeper.initSubs;
-        }
-        catch (Exception e){
-            subs = getResources().getInteger(R.integer.defaultNOfSubs);
-        }
-
- */
 
         String driver;
         try {
@@ -366,12 +335,8 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
         infoManager = new InfoManager(this);
 
-        //create the necessary Bitmaps before creating the tabables
-        //int imgId = ImgUtils.getRandomImageId();
-        //Bitmap tabBitmap = ImgUtils.getTabImg(this, imgId, 0, 2, TabManager.HORIZONTAL);
-        //Bitmap bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
         try {
-            drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
+        drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
         }
         catch (Exception e){
             drumMachine = new DrumMachine(this, engineFacade, 0, null);
@@ -380,9 +345,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             toast.show();
         }
 
-        //int imgId = ImgUtils.getRandomImageId();
-        //Bitmap tabBitmap = ImgUtils.getTabImg(this, imgId, 1, 2, TabManager.HORIZONTAL);
-        //Bitmap bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
         try {
             controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, keeper.controllerKeeper);
         }
@@ -391,9 +353,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         }
 
         //add the tabables to the Array
-        tabables = new ArrayList<>();
-        tabables.add(drumMachine);
-        tabables.add(controller);
+        tabs = new ArrayList<>();
+        tabs.add(drumMachine);
+        tabs.add(controller);
 
         sequencerUI = new SequencerUI(this);
         sequencerUI.setSequencerClickedListener(drumMachine);
@@ -439,9 +401,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     }
 
     @Override
-    public void onTabClicked(Tabable tabable) {
-        switchFragment(tabable.getTabIndex());
-        topFragment.setTabAppearances(0, tabables, tabable.getTabIndex());
+    public void onTabClicked(Tab tab) {
+        switchFragment(tab.getTabIndex());
+        topFragment.setTabAppearances(0, tabs, tab.getTabIndex());
     }
 
     /** FRAGMENT HANDLING **/
@@ -507,8 +469,8 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     }
 
     @Override
-    public ArrayList<Tabable> getTabables(int tierNo) {
-        return tabables;
+    public ArrayList<Tab> getTabs(int tierNo) {
+        return tabs;
     }
 
     public FrameLayout getLayout(){
@@ -594,5 +556,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     public void load(final LLPPDRUMSKeeper k){
         drumMachine.load(k.drumMachineKeeper);
         controller.load(k.controllerKeeper);
+        getDrumMachineFragment().update();
     }
 }
