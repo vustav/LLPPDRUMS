@@ -17,12 +17,14 @@ public class SequenceModuleMode implements Tabable{
     protected String tabLabel;
     //protected Bitmap tabBitmap, bgBitmap;
     protected int bitmapId;
+    int tabIndex;
 
-    public SequenceModuleMode(LLPPDRUMS llppdrums, DrumSequence drumSequence){
+    public SequenceModuleMode(LLPPDRUMS llppdrums, DrumSequence drumSequence, int tabIndex){
         this.llppdrums = llppdrums;
         this.drumSequence = drumSequence;
         //this.tabBitmap = tabBitmap;
         //this.bgBitmap = bgBitmap;
+        this.tabIndex = tabIndex;
 
         bitmapId = ImgUtils.getRandomImageId();
         //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 0, 2, TabManager.VERTICAL);
@@ -54,5 +56,16 @@ public class SequenceModuleMode implements Tabable{
     @Override
     public String getName(){
         return tabLabel;
+    }
+
+    //TABS
+    @Override
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+    @Override
+    public int getTier(){
+        return 2;
     }
 }

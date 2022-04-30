@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class Volume extends SequenceModule {
 
-    public Volume(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
-        super(llppdrums, drumSequence, bitmapId);
+    public Volume(LLPPDRUMS llppdrums, DrumSequence drumSequence, int tabIndex){
+        super(llppdrums, drumSequence, tabIndex);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class Volume extends SequenceModule {
         //int imgId = ImgUtils.getRandomImageId();
         //Bitmap tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 0, 2, TabManager.VERTICAL);
         //Bitmap bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
-        modes.add(new SequenceModuleMode(llppdrums, drumSequence));
+        modes.add(new SequenceModuleMode(llppdrums, drumSequence, 0));
 
         //imgId = ImgUtils.getRandomImageId();
         //tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 1, 2, TabManager.VERTICAL);
         //bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
-        modes.add(new AutoRandom(llppdrums, drumSequence, this));
+        modes.add(new AutoRandom(llppdrums, drumSequence, this, 1));
     }
 
     /** POPUP **/

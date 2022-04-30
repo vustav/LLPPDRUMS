@@ -15,41 +15,15 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 
 public class Tab{
-    private String name;
-    private int bitmapId, n, tier, orientation;
-    //private FrameLayout tabLayout, background, border;
-    //private TextView tv;
+    private final String name;
+    private final int bitmapId, n, tier, orientation;
 
-    public Tab(LLPPDRUMS llppdrums, String name, int bitmapId, int n, int tier, int orientation){
+    public Tab(String name, int bitmapId, int n, int tier, int orientation){
         this.name = name;
         this.bitmapId = bitmapId;
         this.n = n;
         this.tier = tier;
         this.orientation = orientation;
-        //this.tv = textView;
-/*
-        //ViewGroup singleTabLayout;
-        if(orientation == VERTICAL){
-            tabLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.tab_single_vertical, null);
-        }
-        else{
-            tabLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.tab_single_horizontal, null);
-        }
-
-        //setup params
-        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-        tabLayout.setLayoutParams(llp);
-
-        //set up the textView
-        tv = tabLayout.findViewById(R.id.tabTxt);
-        tv.setText(name);
-
-
-        //get the two views that Tab needs
-        border = tabLayout.findViewById(R.id.tabBorder);
-        background = tabLayout.findViewById(R.id.tabBg);
-
- */
     }
 
     public String getName() {
@@ -64,26 +38,9 @@ public class Tab{
         return tier;
     }
 
-    /*
-    public FrameLayout getBackground() {
-        return tabLayout;
-    }
-
-     */
-
-    public int getN() {
+    public int getIndex() {
         return n;
     }
-/*
-    public FrameLayout getBorder() {
-        return border;
-    }
-
-    public TextView getTextView() {
-        return tv;
-    }
-
- */
 
     public int getOrientation() {
         return orientation;

@@ -19,13 +19,11 @@ import com.kiefer.popups.trackMenu.TrackMenuPopup;
 import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.randomization.rndTrackManager.RndTrackManagerPopup;
 import com.kiefer.popups.soundManager.SoundManagerPopup;
-import com.kiefer.ui.tabs.Tab;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
 import com.kiefer.ui.tabs.interfaces.TabHoldable;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.popups.trackMenu.MixerPopup;
-import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
 import com.kiefer.popups.fxManager.FxManagerPopup;
 
@@ -40,6 +38,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     private final LLPPDRUMS llppdrums;
     private final EngineFacade engineFacade;
 
+    private int tabIndex;
+
     private SequenceManager sequenceManager;
 
     //bitmaps
@@ -51,10 +51,11 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     private DrumSequence playingSequence, selectedSequence; //playing = currently playing, selected = shown in UI
     private ArrayList<DrumSequence> sequences;
 
-    public DrumMachine(LLPPDRUMS llppdrums, EngineFacade engineFacade, DrumMachineKeeper keeper){
+    public DrumMachine(LLPPDRUMS llppdrums, EngineFacade engineFacade, int tabIndex, DrumMachineKeeper keeper){
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
 
+        this.tabIndex = tabIndex;
 
         bitmapId = ImgUtils.getRandomImageId();
 
@@ -88,24 +89,24 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         }
 
         selectedSequence = sequences.get(0);
-        setPlayingSequence(0);
+        setPlayingSequence(selectedSequence);
     }
 
     /** SELECTION **/
     //TopFragment.OnTabSelectedListener
     //if a tab in the first tier is clicked we need to recolor all tabs, if its the second tier, only the second and third tier need recoloring etc.
     @Override
-    public void onTabClicked(Tab tab) {
+    public void onTabClicked(Tabable tabable) {
 
         if(llppdrums.getActiveFragment() instanceof DrumMachineFragment){
             DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
 
             int selectedTab;
-            switch (tab.getTier()){
+            switch (tabable.getTier()){
                 //SEQUENCE
                 case 0:
                     selectedSequence.deselect();
-                    selectedSequence = sequences.get(tab.getN());
+                    selectedSequence = sequences.get(tabable.getTabIndex());
 
                     //update the dataSet if new tracks are added
                     llppdrums.getSequencer().notifyDataSetChange();
@@ -138,7 +139,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
                 //SEQUENCE MODULE
                 case 1:
-                    selectedSequence.setSelectedSequenceModule(tab.getN());
+                    selectedSequence.setSelectedSequenceModule(tabable.getTabIndex());
 
                     selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
                     drumMachineFragment.setTabAppearances(1, selectedSequence.getTabables(0), selectedTab);
@@ -149,7 +150,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
 
                 //MODULE MODE
                 case 2:
-                    selectedSequence.getSelectedSequenceModule().setSelectedMode(tab.getN());
+                    selectedSequence.getSelectedSequenceModule().setSelectedMode(tabable.getTabIndex());
 
                     selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
                     drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabables(0), selectedTab);
@@ -164,24 +165,20 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     }
 
     /** ACTIVATION **/
-    public void changePlayingSequence(final int seqNo) {
-        //new Thread(new Runnable() {
-        //public void run() {
-        if (sequences.indexOf(playingSequence) != seqNo) {
+    public void changePlayingSequence(DrumSequence drumSequence) {
+        if (playingSequence != drumSequence) {
             if (playingSequence != null) {
                 playingSequence.stop(); //turns off automations
                 playingSequence.deactivate();
             }
-            setPlayingSequence(seqNo);
+            setPlayingSequence(drumSequence);
         }
-        //}
-        //}).start();
     }
 
-    // KOLLA TRÅDAR HÄR, KAN FÅ DET ATT HÄNGA SIG
-    private void setPlayingSequence(int no){
 
-        playingSequence = sequences.get(no);
+    private void setPlayingSequence(DrumSequence drumSequence){
+
+        playingSequence = drumSequence;
 
         //reset the counter if the selected sequence isn't playing and lock the UI if the selected sequence is playing
         if (playingSequence != selectedSequence) {
@@ -423,9 +420,20 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
         return sequenceManager;
     }
 
+    //TABS
     @Override
     public int getOrientation(){
         return TabManager.VERTICAL;
+    }
+
+    @Override
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+    @Override
+    public int getTier(){
+        return 0;
     }
 
     /** SET **/
@@ -450,8 +458,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHoldable
     /** RESTORATION **/
     public void loadSelectedSequence(final DrumSequenceKeeper k){
         selectedSequence.load(k);
-        //llppdrums.getDrumMachineFragment().setTempo(Integer.parseInt(k.tempo));
-        //llppdrums.getDrumMachineFragment().setSubs(Integer.parseInt(k.subs));
         llppdrums.getDrumMachineFragment().update();
     }
 

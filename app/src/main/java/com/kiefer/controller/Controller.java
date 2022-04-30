@@ -33,13 +33,16 @@ public class Controller implements Tabable {
     private int bitmapId;
 
     private String name;
+    private int tabIndex;
 
-    public Controller(LLPPDRUMS llppdrums, EngineFacade engineFacade, SequenceManager sequenceManager, ControllerKeeper keeper){
+    public Controller(LLPPDRUMS llppdrums, EngineFacade engineFacade, SequenceManager sequenceManager, int tabIndex, ControllerKeeper keeper){
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
         //this.tabBitmap = tabBitmap;
         //this.bgBitmap = bgBitmap;
         this.sequenceManager = sequenceManager;
+
+        this.tabIndex = tabIndex;
 
 
         bitmapId = ImgUtils.getRandomImageId();
@@ -135,6 +138,17 @@ public class Controller implements Tabable {
 
     public int getSelectedSeqIndex() {
         return selectedSeqIndex;
+    }
+
+    //TABS
+    @Override
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+    @Override
+    public int getTier(){
+        return 0;
     }
 
     /** FILE HANDLING **/

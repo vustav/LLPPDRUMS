@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class AutoRandomPan extends AutoRandom {
 
-    public AutoRandomPan(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule){
-        super(llppdrums, drumSequence, sequenceModule);
+    public AutoRandomPan(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule, int tabIndex){
+        super(llppdrums, drumSequence, sequenceModule, tabIndex);
     }
 
     @Override

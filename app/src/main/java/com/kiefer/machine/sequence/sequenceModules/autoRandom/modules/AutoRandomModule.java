@@ -33,7 +33,7 @@ public abstract class AutoRandomModule {
 
     /** LISTENER **/
     public void onStepTouch(EngineFacade engineFacade, final ImageView stepIV, final Step step, float startX, float startY){
-        Log.e("AutoRandomModule", "onStepTouch()");
+        //Log.e("AutoRandomModule", "onStepTouch()");
         if(step.getNofSubs() > 1){
             getSubsPopup(stepIV, step);
         }

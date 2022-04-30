@@ -4,8 +4,6 @@ import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +17,6 @@ import com.kiefer.info.InfoManager;
 import com.kiefer.options.projectOptions.ProjectOptionsManager;
 import com.kiefer.machine.sequencerUI.SequencerUI;
 import com.kiefer.files.KeeperFileHandler;
-import com.kiefer.ui.tabs.Tab;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.ControllerFragment;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
@@ -28,7 +25,6 @@ import com.kiefer.ui.tabs.interfaces.TabHoldable;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.machine.DrumMachine;
 import com.kiefer.engine.EngineFacade;
-import com.kiefer.utils.ImgUtils;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -375,10 +371,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         //Bitmap tabBitmap = ImgUtils.getTabImg(this, imgId, 0, 2, TabManager.HORIZONTAL);
         //Bitmap bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
         try {
-            drumMachine = new DrumMachine(this, engineFacade, keeper.drumMachineKeeper);
+            drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
         }
         catch (Exception e){
-            drumMachine = new DrumMachine(this, engineFacade, null);
+            drumMachine = new DrumMachine(this, engineFacade, 0, null);
             String message = "COULDN'T RESTORE";
             Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
             toast.show();
@@ -388,10 +384,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         //Bitmap tabBitmap = ImgUtils.getTabImg(this, imgId, 1, 2, TabManager.HORIZONTAL);
         //Bitmap bgBitmap = ImgUtils.getBgImg(this, imgId, TabManager.HORIZONTAL);
         try {
-            controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), keeper.controllerKeeper);
+            controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, keeper.controllerKeeper);
         }
         catch (Exception e){
-            controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), null);
+            controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, null);
         }
 
         //add the tabables to the Array
@@ -443,9 +439,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     }
 
     @Override
-    public void onTabClicked(Tab tab) {
-        switchFragment(tab.getN());
-        topFragment.setTabAppearances(0, tabables, tab.getN());
+    public void onTabClicked(Tabable tabable) {
+        switchFragment(tabable.getTabIndex());
+        topFragment.setTabAppearances(0, tabables, tabable.getTabIndex());
     }
 
     /** FRAGMENT HANDLING **/

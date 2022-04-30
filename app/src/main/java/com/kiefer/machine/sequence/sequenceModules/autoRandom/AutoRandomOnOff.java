@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class AutoRandomOnOff extends AutoRandom{
 
-    public AutoRandomOnOff(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule){
-        super(llppdrums, drumSequence, sequenceModule);
+    public AutoRandomOnOff(LLPPDRUMS llppdrums, DrumSequence drumSequence, SequenceModule sequenceModule, int tabIndex){
+        super(llppdrums, drumSequence, sequenceModule, tabIndex);
     }
 
     @Override

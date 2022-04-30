@@ -69,14 +69,13 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
     private SequenceModule selectedSequenceModule;
     private ArrayList<SequenceModule> sequenceModules;
 
-    public DrumSequence(LLPPDRUMS llppdrums, EngineFacade engineFacade, int seqNo){
-        this(llppdrums, engineFacade, seqNo, null);
+    public DrumSequence(LLPPDRUMS llppdrums, EngineFacade engineFacade, int tabIndex){
+        this(llppdrums, engineFacade, tabIndex, null);
     }
 
-    public DrumSequence(LLPPDRUMS llppdrums, EngineFacade engineFacade, int seqNo, DrumSequenceKeeper keeper){
+    public DrumSequence(LLPPDRUMS llppdrums, EngineFacade engineFacade, int tabIndex, DrumSequenceKeeper keeper){
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
-        sequenceName = Integer.toString(seqNo);
 
         bitmapId = ImgUtils.getRandomImageId();
         tabColor = ColorUtils.getRandomColor();
@@ -84,7 +83,6 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
 
         stepsGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         tempoGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
-        //subsGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         randomGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         copyGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
 
@@ -93,17 +91,25 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
         subsBgId = ImgUtils.getRandomImageId();
         trackRndManagerBg = ImgUtils.getRandomImageId();
 
-        //fxBtnGraphics = new DrumTrackFxBtnGraphics(llppdrums).getLayout();
-        //mixerBtnGraphics = new DrumTrackMixBtnGraphics(llppdrums).getLayout();
-
-        //this.tabBitmap = tabBitmap;
-        //this.bgBitmap = bgBitmap;
+        String name;
+        if(keeper != null){
+            try {
+                name = keeper.name;
+            }
+            catch (Exception e){
+                name = Integer.toString(tabIndex);
+            }
+        }
+        else{
+            name = Integer.toString(tabIndex);
+        }
+        sequenceName = name;
 
         //use default tempo if no keeper
         int t;
         if(keeper != null){
             try {
-                t = Integer.parseInt(keeper.tempo);
+                t = keeper.tempo;
             }
             catch (Exception e){
                 //Log.e("DrumSequence", e.getMessage());
@@ -143,22 +149,22 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
         //int imgId = ImgUtils.getRandomImageId();
         //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 0, 4, TabManager.VERTICAL);
         //Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
-        sequenceModules.add(new OnOff(llppdrums, this, ImgUtils.getRandomImageId()));
+        sequenceModules.add(new OnOff(llppdrums, this, 0));
 
         //imgId = ImgUtils.getRandomImageId();
         //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 1, 4, TabManager.VERTICAL);
         //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
-        sequenceModules.add(new Volume(llppdrums, this, ImgUtils.getRandomImageId()));
+        sequenceModules.add(new Volume(llppdrums, this, 1));
 
         //imgId = ImgUtils.getRandomImageId();
         //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 2, 4, TabManager.VERTICAL);
         //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
-        sequenceModules.add(new Pitch(llppdrums, this, ImgUtils.getRandomImageId()));
+        sequenceModules.add(new Pitch(llppdrums, this, 2));
 
         //imgId = ImgUtils.getRandomImageId();
         //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 3, 4, TabManager.VERTICAL);
         //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
-        sequenceModules.add(new Pan(llppdrums, this, ImgUtils.getRandomImageId()));
+        sequenceModules.add(new Pan(llppdrums, this, 3));
 
         selectedSequenceModule = sequenceModules.get(0);
     }
@@ -469,14 +475,24 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
     public void setColor(int color){
         tabColor = color;
         backgroundGradient = ColorUtils.getGradientDrawable(color, ColorUtils.getContrastColor(color), ColorUtils.HORIZONTAL);
-        llppdrums.getDrumMachineFragment().setColor();
+
+        llppdrums.getDrumMachineFragment().setTabColor(getTabIndex());
+
+        if(this == llppdrums.getDrumMachine().getSelectedSequence()){
+            llppdrums.getDrumMachineFragment().setBgColor();
+        }
     }
 
     @Override
     public void setName(String name){
         sequenceName = name;
-        llppdrums.getDrumMachineFragment().setName();
         llppdrums.getDrumMachine().getSequenceManager().updateSequenceName(this);
+
+        llppdrums.getDrumMachineFragment().setTabName(getTabIndex());
+
+        if(this == llppdrums.getDrumMachine().getSelectedSequence()){
+            llppdrums.getDrumMachineFragment().setBtnName();
+        }
     }
 
     /** GET **/
@@ -625,6 +641,17 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
         return selectedSequenceModule.isInBaseMode();
     }
 
+    //TABS
+    @Override
+    public int getTabIndex() {
+        return llppdrums.getDrumMachine().getSequences().indexOf(this);
+    }
+
+    @Override
+    public int getTier(){
+        return 0;
+    }
+
     /*
     public LinearLayout getMixerBtnGraphics() {
         return mixerBtnGraphics;
@@ -739,18 +766,22 @@ public class DrumSequence implements TabHoldable, Tabable, Tempoizer, NamerColor
     }
 
     public void restore(DrumSequenceKeeper keeper){
-        setTempo(Integer.parseInt(keeper.tempo));
+        setTempo(keeper.tempo);
         for(int trackNo = 0; trackNo < tracks.size(); trackNo++){
             tracks.get(trackNo).restore(keeper.drumTrackKeepers.get(trackNo));
         }
+        setColor(keeper.color);
+        setName(keeper.name);
     }
 
     public DrumSequenceKeeper getKeeper(){
         DrumSequenceKeeper keeper = new DrumSequenceKeeper();
 
+        keeper.name = sequenceName;
+        keeper.color = tabColor;
         keeper.nOfTracks = getNOfTracks();
         keeper.nOfSteps = getNOfSteps();
-        keeper.tempo = Integer.toString(getTempo());
+        keeper.tempo = getTempo();
         keeper.drumTrackKeepers = new ArrayList<>();
         for(DrumTrack dt : tracks){
             keeper.drumTrackKeepers.add(dt.getKeeper());

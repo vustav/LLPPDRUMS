@@ -27,7 +27,7 @@ public abstract class TabFragment extends Fragment implements TabUIHoldable {
 
         //get a reference to LLPPDRUMS for communication purposes
         llppdrums = (LLPPDRUMS) getActivity();
-        tabManager = new TabManager(llppdrums);
+        tabManager = new TabManager(llppdrums, this);
     }
 
     @Override

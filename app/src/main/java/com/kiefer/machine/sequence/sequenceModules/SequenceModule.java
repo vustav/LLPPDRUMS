@@ -20,6 +20,7 @@ import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.ui.tabs.interfaces.TabHoldable;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.machine.sequence.DrumSequence;
+import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -43,6 +44,8 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
 
     public static String NONE = "0", ALL = "1", EVERY_SECOND = "1/2",EVERY_THIRD = "1/3", EVERY_FOURTH = "1/4", EVERY_FIFTH = "1/5", EVERY_SIXTH = "1/6", EVERY_SEVENTH = "1/7";
     public static int ON = 0, VOL = 1, PITCH = 2, PAN = 3;
+
+    private int tabIndex;
 
     /** ABSTRACT METHODS **/
     public abstract Popup getOneSubPopup(ImageView stepIV, Step step);
@@ -69,10 +72,12 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
 
     public abstract void randomize(DrumTrack drumTrack);
 
-    protected SequenceModule(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
+    protected SequenceModule(LLPPDRUMS llppdrums, DrumSequence drumSequence, int tabIndex){
         this.llppdrums = llppdrums;
         this.drumSequence = drumSequence;
-        this.bitmapId = bitmapId;
+        this.bitmapId = ImgUtils.getRandomImageId();
+
+        this.tabIndex = tabIndex;
 
         random = new Random();
 
@@ -189,6 +194,17 @@ public abstract class SequenceModule implements TabHoldable, Tabable {
         else{
             return ((AutoRandom)modes.get(AUTO_RANDOM)).getAutoStepValues();
         }
+    }
+
+    //TABS
+    @Override
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+    @Override
+    public int getTier(){
+        return 1;
     }
 
     /** SET **/

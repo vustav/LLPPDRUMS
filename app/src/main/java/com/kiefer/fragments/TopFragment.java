@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,7 @@ import com.kiefer.options.projectOptions.ProjectOptionsManager;
 import com.kiefer.popups.files.LoadPopup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.popups.projectOptions.ProjectOptionsPopup;
-import com.kiefer.ui.tabs.Tab;
 import com.kiefer.ui.tabs.TabManager;
-import com.kiefer.ui.tabs.TabGroup;
 import com.kiefer.ui.tabs.interfaces.Tabable;
 import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
@@ -32,7 +29,7 @@ import java.util.ArrayList;
 public class TopFragment extends TabFragment {
     private ProjectOptionsManager projectOptionsManager;
 
-    private TabGroup tabGroup;
+    //private TabGroup tabGroup;
 
     private LinearLayout bg;
     private FrameLayout divider0, divider1, divider2;
@@ -156,12 +153,14 @@ public class TopFragment extends TabFragment {
         //set up the tabs
         FrameLayout tabsLayout = rootView.findViewById(R.id.topTabsLayout);
         FrameLayout mainBg = llppdrums.findViewById(R.id.mainBg);
-        tabGroup = tabManager.getTabRow(callback.getTabables(0), callback, 0, mainBg);
-        tabsLayout.addView(tabGroup.getLayout());
+        //tabGroup = tabManager.createTabRow(callback.getTabables(0), callback, 0, mainBg);
+        tabManager.createTabRow(callback.getTabables(0), callback, 0, mainBg);
+        //tabsLayout.addView(tabGroup.getLayout());
+        tabsLayout.addView(tabManager.getTabsLayout(0));
 
 
         //set DrumMachine as default
-        callback.onTabClicked(tabGroup.getTabs().get(0));
+        callback.onTabClicked(callback.getTabables(0).get(0));
 
         return rootView;
     }
@@ -210,40 +209,24 @@ public class TopFragment extends TabFragment {
 
     @Override
     public void setTabAppearances(int tier, ArrayList<Tabable> tabables, int selectedTabNo){
-        Log.e("TopFragment", "setTabAppearances()");
-        tabManager.setTabBorders(tabGroup, selectedTabNo);
+        tabManager.setTabBorders(tier, tabables, selectedTabNo);
 
-        //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabGroup.getTabs().get(selectedTabNo).getBitmapId(), selectedTabNo, tabables.size(), tabables.get(selectedTabNo).getOrientation());
-        //tabGroup.getLayout().getChildAt(selectedTabNo).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
-/*
-        for(Tab t : tabGroup.getTabs()){
+        for(int i = 0; i < tabables.size(); i++){
 
-            //set the inactive colors on the textView and lower alpha
-            t.getTextView().setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
-            t.getTextView().setTextColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtColor));
-            t.getBackground().setAlpha(Float.parseFloat(llppdrums.getString(R.string.inactiveTabAlpha)));
-        }
+            Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabables.get(i).getBitmapId(), i, tabables.size(), tabables.get(i).getOrientation());
+            //tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
+            tabManager.getTabsLayout(0).getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
 
- */
-        for(int i = 0; i < tabGroup.getLayout().getChildCount(); i++){
-
-            Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabGroup.getTabs().get(i).getBitmapId(), i, tabables.size(), tabables.get(i).getOrientation());
-            tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
-
-            tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
-            ((TextView)tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtColor));
-            //tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabBg).setAlpha(Float.parseFloat(llppdrums.getString(R.string.inactiveTabAlpha)));
-            //tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabBg).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
+            tabManager.getTabsLayout(0).getChildAt(i).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
+            ((TextView)tabManager.getTabsLayout(0).getChildAt(i).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtColor));
         }
 
         //set active colors/full alpha to the selected tab
-        tabGroup.getLayout().getChildAt(selectedTabNo).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtBgColor));
-        ((TextView)tabGroup.getLayout().getChildAt(selectedTabNo).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtColor));
-        //tabGroup.getLayout().getChildAt(selectedTabNo).findViewById(R.id.tabBg).getBackground().setAlpha(1);
-        //tabGroup.getLayout().getChildAt(selectedTabNo).findViewById(R.id.tabBg).setBackgroundColor(llppdrums.getResources().getColor(R.color.defaultArrowColor));
+        tabManager.getTabsLayout(0).getChildAt(selectedTabNo).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtBgColor));
+        ((TextView)tabManager.getTabsLayout(0).getChildAt(selectedTabNo).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtColor));
 
         //set the background for the module
-        Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, tabGroup.getTabs().get(selectedTabNo).getBitmapId(), TabManager.HORIZONTAL);
+        Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, tabables.get(selectedTabNo).getBitmapId(), TabManager.HORIZONTAL);
         llppdrums.getBackground().setBackground(new BitmapDrawable(getResources(), bgBitmap));
     }
 }

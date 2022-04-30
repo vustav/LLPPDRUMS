@@ -23,8 +23,8 @@ import java.util.ArrayList;
 
 public class Pan extends SequenceModule {
 
-    public Pan(LLPPDRUMS llppdrums, DrumSequence drumSequence, int bitmapId){
-        super(llppdrums, drumSequence, bitmapId);
+    public Pan(LLPPDRUMS llppdrums, DrumSequence drumSequence, int tabIndex){
+        super(llppdrums, drumSequence, tabIndex);
     }
 
     //override to never trigger getSubsPopup().. (pan works on steps, not subs, so there's no need for it)
@@ -46,10 +46,10 @@ public class Pan extends SequenceModule {
     void setupModes(){
         modes = new ArrayList<>();
 
-        modes.add(new SequenceModuleMode(llppdrums, drumSequence));
+        modes.add(new SequenceModuleMode(llppdrums, drumSequence, 0));
 
         //since PAN works on steps and not subs it has it's own set of AutoRandom classes
-        modes.add(new AutoRandomPan(llppdrums, drumSequence, this));
+        modes.add(new AutoRandomPan(llppdrums, drumSequence, this, 1));
     }
 
     /** POPUP **/

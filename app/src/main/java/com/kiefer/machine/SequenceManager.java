@@ -103,21 +103,6 @@ public class SequenceManager {
 
         selectedSequences = new ArrayList<>();
 
-        if(keeper != null){
-            setProgress(keeper.progress);
-            setRandomizeProgress(true);
-            setQueue(keeper.queue);
-            setRestartAtStop(keeper.restartAtStop);
-            setNOfActiveBoxes(keeper.nOfActiveBoxes);
-        }
-        else{
-            setProgress(false);
-            setRandomizeProgress(false);
-            setQueue(false);
-            setRestartAtStop(false);
-            setNOfActiveBoxes(8);
-        }
-
         Random r = new Random();
         for(int step = 0; step < counter.getLayout().getChildCount(); step++){
 
@@ -152,6 +137,22 @@ public class SequenceManager {
                 }
             });
         }
+
+        if(keeper != null){
+            setProgress(keeper.progress);
+            setRandomizeProgress(true);
+            setQueue(keeper.queue);
+            setRestartAtStop(keeper.restartAtStop);
+            setNOfActiveBoxes(keeper.nOfActiveBoxes);
+        }
+        else{
+            setProgress(false);
+            setRandomizeProgress(false);
+            setQueue(false);
+            setRestartAtStop(false);
+            setNOfActiveBoxes(8);
+        }
+
         counter.activateStep(activeSequenceBoxIndex);
     }
 
@@ -159,10 +160,9 @@ public class SequenceManager {
         counter.reset();
         counter.activateStep(step);
 
-        /** FIIIIXA **/
-        changeSequence(Integer.parseInt(counter.getStepTxt(step)));
-
         activeSequenceBoxIndex = step;
+
+        changeSequence(selectedSequences.get(step));
     }
 
     private boolean changeAtNext = false;
@@ -207,8 +207,10 @@ public class SequenceManager {
         }
     }
 
-    private void changeSequence(int sequence){
-        llppdrums.getDrumMachine().changePlayingSequence(sequence);
+    private void changeSequence(DrumSequence drumSequence){
+        if(llppdrums.getDrumMachine() != null) {
+            llppdrums.getDrumMachine().changePlayingSequence(drumSequence);
+        }
     }
 
     /** CONTROLLER **/
@@ -230,6 +232,8 @@ public class SequenceManager {
         for(int i = n; i < counter.getSize(); i++){
             counter.enableStep(i, false);
         }
+
+        restart();
     }
 
     /** GET **/
@@ -364,9 +368,13 @@ public class SequenceManager {
         firstPlayedSeq = true;
 
         if(restartAtStop) {
-            activeSequenceBoxIndex = 0;
-            activateSequenceBox(activeSequenceBoxIndex);
+            restart();
         }
+    }
+
+    private void restart(){
+        activeSequenceBoxIndex = 0;
+        activateSequenceBox(activeSequenceBoxIndex);
     }
 
     /** UPDATES **/
