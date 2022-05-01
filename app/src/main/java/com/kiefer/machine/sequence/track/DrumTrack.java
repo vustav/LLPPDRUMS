@@ -406,16 +406,16 @@ public class DrumTrack implements Subilizer, NamerColorizer {
     public void updateDrawables(){
         if(drumSequence == llppdrums.getDrumMachine().getSelectedSequence()) {
             for (int step = 0; step < steps.size(); step++) {
-                try {
+                //try {
                     final ImageView iv = llppdrums.getSequencer().getStepIV(getTrackNo(), step);
                     final Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(getTrackNo(), step);
                     if (iv != null) {
                         iv.setImageDrawable(drawable);
                     }
-                }
-                catch (Exception e){
-                    Log.e("rack.updateDrawables()", Objects.requireNonNull(e.getMessage()));
-                }
+                //}
+                //catch (Exception e){
+                    //Log.e("rack.updateDrawables()", Objects.requireNonNull(e.getMessage()));
+                //}
             }
 
             /** VERKAR HÄNGA SIG EN DEL HÄR MED TRÅDEN PÅ **/

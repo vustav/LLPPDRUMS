@@ -48,7 +48,7 @@ public class SequenceModuleMode implements Tab {
 
     @Override
     public int getOrientation(){
-        return TabManager.VERTICAL;
+        return Tab.VERTICAL;
     }
 
     @Override

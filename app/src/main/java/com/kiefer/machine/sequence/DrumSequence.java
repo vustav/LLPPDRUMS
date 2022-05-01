@@ -79,7 +79,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
 
         bitmapId = ImgUtils.getRandomImageId();
         tabColor = ColorUtils.getRandomColor();
-        backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), TabManager.HORIZONTAL);
+        backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
 
         stepsGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         tempoGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
@@ -533,7 +533,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
 
     @Override
     public int getOrientation(){
-        return TabManager.VERTICAL;
+        return Tab.VERTICAL;
     }
 /*
     public int getTabImgId() {

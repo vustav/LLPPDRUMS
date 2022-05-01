@@ -154,9 +154,9 @@ public class TopFragment extends TabFragment {
         FrameLayout tabsLayout = rootView.findViewById(R.id.topTabsLayout);
         FrameLayout mainBg = llppdrums.findViewById(R.id.mainBg);
         //tabGroup = tabManager.createTabRow(callback.getTabables(0), callback, 0, mainBg);
-        tabManager.createTabRow(callback.getTabs(0), callback, 0, mainBg);
+        tabManager.createTabTier(callback.getTabs(0), callback, 0, Tab.HORIZONTAL);
         //tabsLayout.addView(tabGroup.getLayout());
-        tabsLayout.addView(tabManager.getTabsLayout(0));
+        tabsLayout.addView(tabManager.getLinearLayout(0));
 
 
         //set DrumMachine as default
@@ -215,18 +215,18 @@ public class TopFragment extends TabFragment {
 
             Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabs.get(i).getBitmapId(), i, tabs.size(), tabs.get(i).getOrientation());
             //tabGroup.getLayout().getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
-            tabManager.getTabsLayout(0).getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
+            tabManager.getLinearLayout(0).getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
 
-            tabManager.getTabsLayout(0).getChildAt(i).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
-            ((TextView)tabManager.getTabsLayout(0).getChildAt(i).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtColor));
+            tabManager.getLinearLayout(0).getChildAt(i).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
+            ((TextView)tabManager.getLinearLayout(0).getChildAt(i).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtColor));
         }
 
         //set active colors/full alpha to the selected tab
-        tabManager.getTabsLayout(0).getChildAt(selectedTabNo).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtBgColor));
-        ((TextView)tabManager.getTabsLayout(0).getChildAt(selectedTabNo).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtColor));
+        tabManager.getLinearLayout(0).getChildAt(selectedTabNo).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtBgColor));
+        ((TextView)tabManager.getLinearLayout(0).getChildAt(selectedTabNo).findViewById(R.id.tabTxt)).setTextColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtColor));
 
         //set the background for the module
-        Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, tabs.get(selectedTabNo).getBitmapId(), TabManager.HORIZONTAL);
+        Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, tabs.get(selectedTabNo).getBitmapId(), Tab.HORIZONTAL);
         llppdrums.getBackground().setBackground(new BitmapDrawable(getResources(), bgBitmap));
     }
 }

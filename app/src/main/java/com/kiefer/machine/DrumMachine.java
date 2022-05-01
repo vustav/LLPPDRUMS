@@ -246,7 +246,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
 
     /** RANDOMIZATION **/
     public void randomizeSelectedSequence(){
-        try {
+        //try {
             //a 10% chance the bgColor of topFragment is changed
             Random r = new Random();
             if(r.nextInt(10) == 0){
@@ -254,11 +254,11 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
             }
 
             selectedSequence.randomize();
-        }
-        catch (Exception e){
-            llppdrums.getTopFragment().randomizeBgGradient();
-            Log.e("Exception in: ", "DrumMachine.randomizeSelectedSequence(), msg: "+e.getMessage());
-        }
+        //}
+        //catch (Exception e){
+            //llppdrums.getTopFragment().randomizeBgGradient();
+            //Log.e("Exception in: ", "DrumMachine.randomizeSelectedSequence(), msg: "+e.getMessage());
+        //}
     }
 
     public void randomizeSequences() {
@@ -332,11 +332,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         tabs.addAll(sequences);
         return tabs;
     }
-
-    //@Override
-    //public Bitmap getTabBitmap(){
-        //return tabBitmap;
-    //}
 
     @Override
     public int getBitmapId(){
@@ -422,7 +417,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     //TABS
     @Override
     public int getOrientation(){
-        return TabManager.VERTICAL;
+        return Tab.VERTICAL;
     }
 
     @Override

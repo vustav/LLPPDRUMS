@@ -9,15 +9,21 @@ import android.widget.TextView;
 
 import com.kiefer.R;
 import com.kiefer.machine.fx.Fx;
+import com.kiefer.ui.tabs.TabManager;
+import com.kiefer.ui.tabs.interfaces.Tab;
+
+import java.util.ArrayList;
 
 /**
  * Provide views to RecyclerView with data from  a dataSet.
  */
 public class FxManagerAdapter extends RecyclerView.Adapter<FxManagerAdapter.FxViewHolder>{
     private final FxManagerPopup fxManagerPopup;
+    private final RecyclerView recyclerView;
 
-    public FxManagerAdapter(FxManagerPopup fxManagerPopup) {
+    public FxManagerAdapter(FxManagerPopup fxManagerPopup, RecyclerView recyclerView) {
         this.fxManagerPopup = fxManagerPopup;
+        this.recyclerView = recyclerView;
     }
 
     // Create new viewHolder
@@ -37,7 +43,6 @@ public class FxManagerAdapter extends RecyclerView.Adapter<FxManagerAdapter.FxVi
         //fxViewHolder.bgView.setBackgroundColor(fx.getBgGradient());
         fxViewHolder.bgView.setBackgroundDrawable(fx.getTabGradient());
 
-
         //and the tv
         fxViewHolder.tv.setText(fx.getName());
 
@@ -46,6 +51,16 @@ public class FxManagerAdapter extends RecyclerView.Adapter<FxManagerAdapter.FxVi
             @Override
             public void onClick(View view) {
                 fxManagerPopup.selectFx(fxViewHolder.getAdapterPosition());
+
+                /*
+                ArrayList<Tab> viewHolders = new ArrayList<>();
+                for (int childCount = recyclerView.getChildCount(), i = 0; i < childCount; ++i) {
+                    final FxViewHolder holder = (FxViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
+                    viewHolders.add(holder);
+                }
+                fxManagerPopup.getFxManager().getTabManager().setTabBorders(0, viewHolders, fxViewHolder.getAdapterPosition());
+
+                 */
             }
         });
 
@@ -69,6 +84,7 @@ public class FxManagerAdapter extends RecyclerView.Adapter<FxManagerAdapter.FxVi
     }
 
     /** VIEWHOLDER **/
+    //public static class FxViewHolder extends RecyclerView.ViewHolder implements Tab {
     public static class FxViewHolder extends RecyclerView.ViewHolder {
         final View bgView;
         final TextView tv;
@@ -80,5 +96,24 @@ public class FxManagerAdapter extends RecyclerView.Adapter<FxManagerAdapter.FxVi
             tv = v.findViewById(R.id.fxViewHolderTV);
             removeBtn = v.findViewById(R.id.fxViewHolderRemoveBtn);
         }
+
+        /*
+        public int getBitmapId(){
+            return 0;
+        }
+        public String getName(){
+            return "";
+        }
+        public int getOrientation(){
+            return Tab.VERTICAL;
+        }
+        public int getTier(){
+            return 0;
+        }
+        public int getTabIndex(){
+            return 0;
+        }
+
+         */
     }
 }

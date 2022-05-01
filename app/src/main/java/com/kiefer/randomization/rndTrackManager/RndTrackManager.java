@@ -27,8 +27,6 @@ public class RndTrackManager {
     //rnd-params
     private boolean rndOsc, rndOn, rndVol, rndPitch, rndPan, rndFx, rndMix;
 
-    int onBound = 2;
-
     private Random random;
 
     public RndTrackManager(LLPPDRUMS llppdrums, DrumTrack drumTrack) {
@@ -397,8 +395,8 @@ public class RndTrackManager {
 
     private void updateDrawable(final int step){
         if(llppdrums.getDrumMachine().getSelectedSequence().isInBaseMode()) {
-            Log.e("RndTrackManager", "UPDATE, seq pos: "+llppdrums.getEngineFacade().getStep());
-            Log.e("RndTrackManager", "UPDATE step: "+step);
+            //Log.e("RndTrackManager", "UPDATE, seq pos: "+llppdrums.getEngineFacade().getStep());
+            //Log.e("RndTrackManager", "UPDATE step: "+step);
             Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(drumTrack.getTrackNo(), step);
             llppdrums.getSequencer().setStepDrawable(drawable, drumTrack.getTrackNo(), step);
         }

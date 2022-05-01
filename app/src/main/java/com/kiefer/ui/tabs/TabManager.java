@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.fragments.TabFragment;
 import com.kiefer.ui.tabs.interfaces.TabHolder;
 import com.kiefer.ui.tabs.interfaces.Tab;
 
@@ -21,14 +20,9 @@ import java.util.ArrayList;
 
 public class TabManager {
 
-    public static final int VERTICAL = 0, HORIZONTAL = 1;
-
-    //boolean tabClicked = false; //used to avoid spamming certain functions
-
     //Used for communication.
     protected LLPPDRUMS llppdrums;
-    protected TabFragment tabFragment;
-
+    //protected TabFragment tabFragment;
 
     private ArrayList<LinearLayout> tabLayouts;
 
@@ -36,27 +30,32 @@ public class TabManager {
     //but I implemented this before I had that and it is nice to have
     //protected OnTabClickedListener callback;
 
-    public TabManager(LLPPDRUMS llppdrums, TabFragment tabFragment){
+    public TabManager(LLPPDRUMS llppdrums){
         this.llppdrums = llppdrums;
-        this.tabFragment = tabFragment;
+        //this.tabFragment = tabFragment;
         tabLayouts = new ArrayList<>();
     }
 
     /** TABS **/
-    public void createTabRow(ArrayList<Tab> tabs, OnTabClickedListener callback, int tier, final ViewGroup moduleBackground){
-        createTabTier(tabs, callback, tier, moduleBackground, HORIZONTAL);
+
+    public ArrayList<FrameLayout> createTabLayouts(ArrayList<Tab> tabs, OnTabClickedListener callback, int orientation){
+        //createTabTier(tabs, callback, tier, orientation);
+
+        ArrayList<FrameLayout> tabLayouts = new ArrayList<>();
+
+        for(int i = 0; i < tabs.size(); i++){
+            tabLayouts.add(createSingleTabLayout(tabs, callback, i, orientation));
+        }
+
+        return tabLayouts;
     }
 
-    public void createTabColumn(ArrayList<Tab> tabs, OnTabClickedListener callback, int tier, final ViewGroup moduleBackground){
-        createTabTier(tabs, callback, tier, moduleBackground, VERTICAL);
-    }
-
-    public void createTabTier(ArrayList<Tab> tabs, final OnTabClickedListener callback, int tier, final View moduleBackground, final int orientation){
+    public void createTabTier(ArrayList<Tab> tabs, final OnTabClickedListener callback, int tier, final int orientation){
 
         //inflate the right layout to put the tabs in
         LinearLayout tabsLayout;
 
-        if(orientation == VERTICAL){
+        if(orientation == Tab.VERTICAL){
             tabsLayout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.tab_column, null);
         }
         else{
@@ -69,13 +68,21 @@ public class TabManager {
 
         //final TabGroup tabGroup = new TabGroup(tabsLayout, tabsArray);
 
+
         for(int i = 0; i < tabs.size(); i++){
+
+            FrameLayout singleTabLayout = createSingleTabLayout(tabs, callback, i, orientation);
+
+            //add the tab to the tabs-layout
+            tabsLayout.addView(singleTabLayout);
+
+            /*
             Tab t = tabs.get(i);
             final String tabName = t.getName();
 
             //inflate the right layout for the tab
             ViewGroup singleTabLayout;
-            if(orientation == VERTICAL){
+            if(orientation == Tab.VERTICAL){
                 singleTabLayout = (ViewGroup) llppdrums.getLayoutInflater().inflate(R.layout.tab_single_vertical, null);
             }
             else{
@@ -86,16 +93,9 @@ public class TabManager {
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
             singleTabLayout.setLayoutParams(llp);
 
-            //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, t.getBitmapId(), i, tabables.size(), orientation);
-            //background.setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
-
             //set up the textView
             TextView textView = singleTabLayout.findViewById(R.id.tabTxt);
             textView.setText(tabName);
-
-            //store the tab to access data later
-            //final Tab tab = new Tab(tabName, t.getBitmapId(), i, tier, orientation);
-            //tabsArray.add(tab);
 
             //add the tab to the tabs-layout
             tabsLayout.addView(singleTabLayout);
@@ -114,10 +114,6 @@ public class TabManager {
                         }
                     }
 
-                    //set the drawable of the moduleBackground
-                    //Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, t.getBitmapId(), orientation);
-                    //moduleBackground.setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
-
                     //set borders for all tabs in the View
                     setTabBorders(tier, tabs, finalI);
 
@@ -127,14 +123,68 @@ public class TabManager {
                     return true;
                 }
             });
+
+             */
         }
 
-        //return tabGroup;
         tabLayouts.add(tabsLayout);
     }
 
-    public LinearLayout getTabsLayout(int tier){
+    private FrameLayout createSingleTabLayout(ArrayList<Tab> tabs, final OnTabClickedListener callback, int i, int orientation){
+        Tab t = tabs.get(i);
+        final String tabName = t.getName();
+
+        //inflate the right layout for the tab
+        FrameLayout singleTabLayout;
+        if(orientation == Tab.VERTICAL){
+            singleTabLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.tab_single_vertical, null);
+        }
+        else{
+            singleTabLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.tab_single_horizontal, null);
+        }
+
+        //setup params
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        singleTabLayout.setLayoutParams(llp);
+
+        //set up the textView
+        TextView textView = singleTabLayout.findViewById(R.id.tabTxt);
+        textView.setText(tabName);
+
+        //add the tab to the tabs-layout
+        //tabsLayout.addView(singleTabLayout);
+
+        //int finalI = i;
+
+        //set a listener
+        singleTabLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+                if(llppdrums.getProjectOptionsManager().vibrateOnTouch()){
+                    if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                        Vibrator v = (Vibrator) llppdrums.getSystemService(Context.VIBRATOR_SERVICE);
+                        v.vibrate(llppdrums.getResources().getInteger(R.integer.vibrateInMs));
+                    }
+                }
+
+                //set borders for all tabs in the View
+                setTabBorders(t.getTier(), tabs, t.getTabIndex());
+
+                //call the listener
+                callback.onTabClicked(tabs.get(t.getTabIndex()));
+
+                return true;
+            }
+        });
+        return singleTabLayout;
+    }
+
+    public LinearLayout getLinearLayout(int tier){
         return tabLayouts.get(tier);
+    }
+    public ArrayList<LinearLayout> getLinearLayouts(){
+        return tabLayouts;
     }
 
     public void setTabBorders(int tier, ArrayList<Tab> tabs, int selectedTab){
@@ -148,7 +198,7 @@ public class TabManager {
             //set padding on the selected tab
             if (selectedTab == i) {
 
-                if(tabs.get(selectedTab).getOrientation() == VERTICAL) {
+                if(tabs.get(selectedTab).getOrientation() == Tab.VERTICAL) {
                     int topBorderSize;
 
                     //the first vertical tab always has a small topPadding, the others have a large
@@ -182,7 +232,7 @@ public class TabManager {
             }
             //set the padding on all the non-selected tabs
             else {
-                if(tabs.get(selectedTab).getOrientation() == VERTICAL) {
+                if(tabs.get(selectedTab).getOrientation() == Tab.VERTICAL) {
                     //the last tab gets a small bottom, the others get 0. This means that only the
                     // top will divide unselected tabs. For selected they have a small bottom that will "blend" with this top to show as a large.
                     if(i == tabs.size() - 1){

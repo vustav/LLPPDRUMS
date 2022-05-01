@@ -182,14 +182,14 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
     //use this to be able to run a thread and update the IV in the UI thread (instead of using setStepDrawable())
     public ImageView getStepIV(int track, int step){
         if(recyclerView.getChildAt(track) != null) {
-            try {
+            //try {
                 TracksAdapter.TrackViewHolder holder = (TracksAdapter.TrackViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(track)); //Attempt to invoke virtual method 'android.view.ViewParent android.view.View.getParent()' on a null object reference
                 return ((ImageView) holder.stepsLayout.getChildAt(step));
-            }
-            catch (Exception e){
-                Log.e("SequencerUI.getStepIV()", Objects.requireNonNull(e.getMessage()));
-                return null;
-            }
+            //}
+            //catch (Exception e){
+                //Log.e("SequencerUI.getStepIV()", Objects.requireNonNull(e.getMessage()));
+                //return null;
+            //}
         }
         return null;
     }

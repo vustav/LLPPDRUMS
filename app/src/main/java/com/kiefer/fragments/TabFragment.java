@@ -31,7 +31,7 @@ public abstract class TabFragment extends Fragment {
 
         //get a reference to LLPPDRUMS for communication purposes
         llppdrums = (LLPPDRUMS) getActivity();
-        tabManager = new TabManager(llppdrums, this);
+        tabManager = new TabManager(llppdrums);
     }
 
     @Override

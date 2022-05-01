@@ -171,7 +171,7 @@ public abstract class SequenceModule implements TabHolder, Tab {
 
     @Override
     public int getOrientation(){
-        return TabManager.VERTICAL;
+        return Tab.VERTICAL;
     }
 
     @Override

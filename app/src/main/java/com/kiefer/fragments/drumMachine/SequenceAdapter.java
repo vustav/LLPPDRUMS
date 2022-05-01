@@ -1,31 +1,50 @@
 package com.kiefer.fragments.drumMachine;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kiefer.LLPPDRUMS;
+import com.kiefer.R;
 import com.kiefer.ui.tabs.interfaces.Tab;
 
 import java.util.ArrayList;
 
 public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.SequenceTabViewHolder> {
     private final LLPPDRUMS llppdrums;
+    private DrumMachineFragment drumMachineFragment;
     //private final ArrayList<Tab> tabs;
 
     //private CSpinnerButton cSpinnerButton;
 
-    public SequenceAdapter(LLPPDRUMS llppdrums, ArrayList<Tab> tabs) {
+    public SequenceAdapter(LLPPDRUMS llppdrums, DrumMachineFragment drumMachineFragment) {
         this.llppdrums = llppdrums;
+        this.drumMachineFragment = drumMachineFragment;
         //this.tabs = tabs;
     }
 
     // Create new viewHolder
     @Override
     public SequenceAdapter.SequenceTabViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        //View trackView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tab_single_vertical, viewGroup, false);
-        SequenceAdapter.SequenceTabViewHolder sequenceTabViewHolder = new SequenceAdapter.SequenceTabViewHolder(new FrameLayout(llppdrums));
+        FrameLayout trackView = (FrameLayout) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tab_single_vertical, viewGroup, false);
+        SequenceAdapter.SequenceTabViewHolder sequenceTabViewHolder = new SequenceAdapter.SequenceTabViewHolder(trackView);
+        FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        sequenceTabViewHolder.bgView.setLayoutParams(flp);
+        /*
+        FrameLayout bg = sequenceTabViewHolder.bgView;
+
+        FrameLayout layout = drumMachineFragment.getSequenceTabLayouts().get(sequenceTabViewHolder.getAdapterPosition());
+        if(layout.getParent() != null){
+            ((ViewGroup)layout.getParent()).removeView(layout);
+        }
+
+        bg.addView(drumMachineFragment.getSequenceTabLayouts().get(sequenceTabViewHolder.getAdapterPosition()));
+
+         */
+
         return sequenceTabViewHolder;
     }
 
@@ -33,9 +52,6 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
     @Override
     public void onBindViewHolder(final SequenceAdapter.SequenceTabViewHolder sequenceTabViewHolder, final int position) {
         //Tab tab = tabs.get(sequenceTabViewHolder.getAdapterPosition());
-
-        FrameLayout bg = sequenceTabViewHolder.bgView;
-        //bg.addView(tab.getBackground());
 
         /*
         bg.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +178,8 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
     /** VIEWHOLDER **/
     public static class SequenceTabViewHolder extends RecyclerView.ViewHolder {
         final FrameLayout bgView;
+
+        //final FrameLayout border;
 
         public SequenceTabViewHolder(FrameLayout v) {
             super(v);

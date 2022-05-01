@@ -26,6 +26,7 @@ import com.kiefer.popups.Popup;
 import com.kiefer.popups.fxManager.auto.FxAutomationManagerAdapter;
 import com.kiefer.automation.AutomationManagerTouchHelper;
 import com.kiefer.popups.info.InfoPopup;
+import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.utils.ColorUtils;
 
 public class FxManagerPopup extends Popup {
@@ -103,7 +104,7 @@ public class FxManagerPopup extends Popup {
         fxRecyclerView.setLayoutManager(fxLayoutManager);
 
         //create an adapter
-        fxAdapter = new FxManagerAdapter(this);
+        fxAdapter = new FxManagerAdapter(this, fxRecyclerView);
 
         //create and attach the ItemTouchHelper
         ItemTouchHelper.Callback fxCallback = new FxManagerTouchHelper(fxAdapter);

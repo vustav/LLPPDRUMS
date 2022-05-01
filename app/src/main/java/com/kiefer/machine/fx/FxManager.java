@@ -10,6 +10,7 @@ import com.kiefer.files.keepers.fx.FxKeeper;
 import com.kiefer.files.keepers.fx.FxManagerKeeper;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.popups.fxManager.FxManagerPopup;
+import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
@@ -22,9 +23,14 @@ public class FxManager {
     //private FxManagerUser fxManagerUser;
     private DrumTrack drumTrack;
     private ArrayList<Fx> fxs;
+
+    //used to create random fx and to poopulate the list. Otherwise we'd have to create actual fxs to get access to the info which seems bad
     private ArrayList<FxInfo> fxInfos;
 
     private Fx selectedFx;
+
+    //tabManager used by the popup
+    //private TabManager tabManager;
 
     //IMGs
     private final int fxManagerImgId, fxPopupImgId;
@@ -38,6 +44,8 @@ public class FxManager {
         this.llppdrums = llppdrums;
         this.drumTrack = drumTrack;
         //this.drumTrack = drumTrack;
+
+        //tabManager = new TabManager(llppdrums);
 
         random = new Random();
 
@@ -277,28 +285,21 @@ public class FxManager {
 
     /** RANDOMIZATION **/
     public void randomizeAll() {
-        //Log.e("FxManager", "randomizeAll()");
-        //try {
-            destroy();
-            fxs = new ArrayList<>();
+        destroy();
+        fxs = new ArrayList<>();
 
-            int nOfFxs = random.nextInt(MAX_N_RND_FXS + 1);
+        int nOfFxs = random.nextInt(MAX_N_RND_FXS + 1);
 
-            for(int i = 0; i < nOfFxs; i++){
-                createRandomFx(true);
-            }
+        for(int i = 0; i < nOfFxs; i++){
+            createRandomFx(true);
+        }
 
-            if(fxs.size() > 0){
-                selectedFx = fxs.get(0);
-            }
-            else{
-                setIndicator(); //id < 0 this is calls in createRandomFx()
-            }
-
-        //}
-        //catch (Exception e){
-            //Log.e("FxManager.randomizeAll", e.getMessage());
-        //}
+        if(fxs.size() > 0){
+            selectedFx = fxs.get(0);
+        }
+        else{
+            setIndicator(); //id < 0 this is calls in createRandomFx()
+        }
     }
 
     /** GET **/
@@ -322,6 +323,12 @@ public class FxManager {
     public Fx getSelectedFx() {
         return selectedFx;
     }
+/*
+    public TabManager getTabManager() {
+        return tabManager;
+    }
+
+ */
 
     /** TRANSPORT **/
     public void play(){

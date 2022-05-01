@@ -120,7 +120,7 @@ public class Controller implements Tab {
 
     @Override
     public int getOrientation(){
-        return TabManager.HORIZONTAL;
+        return Tab.HORIZONTAL;
     }
 
     @Override

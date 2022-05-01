@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.ui.tabs.TabManager;
+import com.kiefer.ui.tabs.interfaces.Tab;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,7 +20,7 @@ public class ImgUtils {
 
             int tabSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsSize);
 
-            if (orientation == TabManager.VERTICAL) {
+            if (orientation == Tab.VERTICAL) {
 
                 bitmap = Bitmap.createBitmap(
                         bitmap,
@@ -50,7 +51,7 @@ public class ImgUtils {
 
             int tabSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsSize);
 
-            if (orientation == TabManager.VERTICAL) {
+            if (orientation == Tab.VERTICAL) {
                 bitmap = Bitmap.createBitmap(
                         bitmap,
                         tabSize,
