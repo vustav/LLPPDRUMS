@@ -300,6 +300,14 @@ public class SequenceManager {
 
 
     /** SET **/
+    public void replaceSequence(int from, int to){
+        for(int i = 0; i < selectedSequences.size(); i++){
+            if(selectedSequences.get(i) == llppdrums.getDrumMachine().getSequences().get(from)){
+                setStepSelection(i, to);
+            }
+        }
+    }
+
     public void updateSequenceName(DrumSequence drumSequence){
         for(int i = 0; i < selectedSequences.size(); i++){
             if(selectedSequences.get(i) == drumSequence){

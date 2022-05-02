@@ -63,7 +63,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         savePopupBgId = ImgUtils.getRandomImageId();
         loadPopupBgId = ImgUtils.getRandomImageId();
 
-        setupSequences(llppdrums.getResources().getInteger(R.integer.nOfSequences), keeper);
+        setupSequences(keeper);
 
         try {
             sequenceManager = new SequenceManager(llppdrums, sequences, keeper.sequenceManagerKeeper);
@@ -75,23 +75,21 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         setPlayingSequence(sequenceManager.getPlayingSequence());
     }
 
-    private void setupSequences(int nOfSequences, DrumMachineKeeper keeper){
-        sequences = new ArrayList<>();
-        for(int i = 0; i<nOfSequences; i++){
+    private void setupSequences(DrumMachineKeeper keeper){
 
-            if(keeper != null) {
+        sequences = new ArrayList<>();
+
+        if(keeper != null) {
+            for(int i = 0; i<keeper.sequenceKeepers.size(); i++) {
                 sequences.add(new DrumSequence(llppdrums, engineFacade, i, keeper.sequenceKeepers.get(i)));
                 sequences.get(i).restore(keeper.sequenceKeepers.get(i));
             }
-            else{
-                sequences.add(new DrumSequence(llppdrums, engineFacade, i));
-            }
-        }
-
-        if(keeper != null){
             selectedSequence = sequences.get(keeper.selectedSequence);
         }
         else{
+            for(int i = 0; i<llppdrums.getResources().getInteger(R.integer.nOfSequences); i++) {
+                sequences.add(new DrumSequence(llppdrums, engineFacade, i));
+            }
             selectedSequence = sequences.get(0);
         }
     }
@@ -327,17 +325,17 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     /** RANDOMIZATION **/
     public void randomizeSelectedSequence(){
         //try {
-            //a 10% chance the bgColor of topFragment is changed
-            Random r = new Random();
-            if(r.nextInt(10) == 0){
-                llppdrums.getTopFragment().randomizeBgGradient();
-            }
+        //a 10% chance the bgColor of topFragment is changed
+        Random r = new Random();
+        if(r.nextInt(10) == 0){
+            llppdrums.getTopFragment().randomizeBgGradient();
+        }
 
-            selectedSequence.randomize();
+        selectedSequence.randomize();
         //}
         //catch (Exception e){
-            //llppdrums.getTopFragment().randomizeBgGradient();
-            //Log.e("Exception in: ", "DrumMachine.randomizeSelectedSequence(), msg: "+e.getMessage());
+        //llppdrums.getTopFragment().randomizeBgGradient();
+        //Log.e("Exception in: ", "DrumMachine.randomizeSelectedSequence(), msg: "+e.getMessage());
         //}
     }
 
@@ -408,6 +406,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
                 setPlayingSequence(sequences.get(seqToActivate));
             }
 
+            sequenceManager.replaceSequence(seqToRemove, seqToActivate);
             deleteSequence(seqToRemove);
         }
     }
