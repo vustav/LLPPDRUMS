@@ -208,7 +208,7 @@ public abstract class SequenceModule implements TabHolder, Tab {
 
     @Override
     public int getTier(){
-        return 1;
+        return 0;
     }
 
     /** SET **/

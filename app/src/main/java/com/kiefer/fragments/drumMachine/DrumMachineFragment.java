@@ -4,20 +4,18 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kiefer.R;
 import com.kiefer.fragments.TabFragment;
 import com.kiefer.graphics.customViews.CSpinnerButton;
-import com.kiefer.popups.fxManager.FxManagerTouchHelper;
 import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.popups.sequencer.CopyFromPopup;
 import com.kiefer.popups.sequencer.TempoPopup;
@@ -37,6 +34,8 @@ import com.kiefer.utils.ImgUtils;
 import java.util.ArrayList;
 
 public class DrumMachineFragment extends TabFragment {
+    //private static DrumMachineFragment drumMachineFragment;
+
     boolean onStartup = true; //used to call LinearLayoutManager.onLayoutCompleted() only once
 
     //lockable UI (for disabling during playback)
@@ -52,23 +51,27 @@ public class DrumMachineFragment extends TabFragment {
     //tempo
     private CSpinnerButton tempoSpinnerBtn;
 
+    private RelativeLayout sequenceBg;
+
     //subs
     //private CSpinnerButton subsSpinnerBtn;
 
-    ArrayList<FrameLayout> sequenceTabLayouts;
+    //ArrayList<FrameLayout> sequenceTabLayouts;
 
     //tabs
     //private ArrayList<TabGroup> tabGroupArray; //store the Tabs (a Tabs is a representation of the row/column)
-    ArrayList<ViewGroup> backgroundViews;
+    ArrayList<ViewGroup> tabBackgroundViews;
 
     private RecyclerView recyclerView;
     private SequenceAdapter adapter;
 
     public DrumMachineFragment() {
         // Required empty public constructor
+        //drumMachineFragment = new DrumMachineFragment();
     }
 
     public static DrumMachineFragment newInstance() {
+        //if(drumMachineFragment)
         return new DrumMachineFragment();
     }
 
@@ -95,20 +98,28 @@ public class DrumMachineFragment extends TabFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_drum_machine, container,false);
 
-        backgroundViews = new ArrayList<>();
+        tabBackgroundViews = new ArrayList<>();
 
         //SEQUENCE
+        /*
         FrameLayout sequencerTabsLayout = rootView.findViewById(R.id.machineSequenceTabsLayout);
         RelativeLayout sequenceBg = rootView.findViewById(R.id.machineSequenceBg);
         backgroundViews.add(sequenceBg);
         tabManager.createTabTier(callback.getTabs(0), callback, Tab.VERTICAL);
         sequencerTabsLayout.addView(tabManager.getLinearLayout(0));
 
+         */
+
+        sequenceBg = rootView.findViewById(R.id.machineSequenceBg);
+
         //RECYCLER
+        /*
         sequenceTabLayouts = new ArrayList<>();
         for(int i = 0; i < tabManager.getLinearLayout(0).getChildCount(); i++){
             sequenceTabLayouts.add((FrameLayout) tabManager.getLinearLayout(0).getChildAt(i));
         }
+
+         */
 
         //add playIcons to the first tier
         addPlayIcons();
@@ -121,16 +132,20 @@ public class DrumMachineFragment extends TabFragment {
             @Override
             public void onLayoutCompleted(final RecyclerView.State state) {
                 super.onLayoutCompleted(state);
+
                 if(onStartup) {
-                    adapter.updateBorders(0);
+                    Log.e("DrumMachineFragment", "STARTUP");
+                    adapter.updateBorders(llppdrums.getDrumMachine().getSelectedSequenceIndex());
                 }
                 onStartup = false;
+
+
             }
         });
 
         //create an adapter
         adapter = new SequenceAdapter(llppdrums, this);
-        adapter.updateBorders(0);
+        //adapter.updateBorders(0); /** MÅSTE NOG FIXA SEN **/
 
         //create and attach the ItemTouchHelper
         ItemTouchHelper.Callback fxCallback = new SequenceTouchHelper(llppdrums, adapter);
@@ -146,16 +161,16 @@ public class DrumMachineFragment extends TabFragment {
         //SEQUENCE MODULES
         FrameLayout sequenceModuleTabsLayout = rootView.findViewById(R.id.machineSequenceModuleTabsLayout);
         RelativeLayout sequenceModuleBg = rootView.findViewById(R.id.machineSequenceModuleBg);
-        backgroundViews.add(sequenceModuleBg);
-        tabManager.createTabTier(callback.getTabs(1), callback, Tab.VERTICAL);
-        sequenceModuleTabsLayout.addView(tabManager.getLinearLayout(1));
+        tabBackgroundViews.add(sequenceModuleBg);
+        tabManager.createTabTier(callback.getTabs(0), callback, Tab.VERTICAL);
+        sequenceModuleTabsLayout.addView(tabManager.getLinearLayout(0));
 
         //MODULE MODE
         FrameLayout moduleModeTabsLayout = rootView.findViewById(R.id.machineModuleModeTabsLayout);
         FrameLayout moduleModeBg = rootView.findViewById(R.id.machineModuleModeBg);
-        backgroundViews.add(moduleModeBg);
-        tabManager.createTabTier(callback.getTabs(2), callback, Tab.VERTICAL);
-        moduleModeTabsLayout.addView(tabManager.getLinearLayout(2));
+        tabBackgroundViews.add(moduleModeBg);
+        tabManager.createTabTier(callback.getTabs(1), callback, Tab.VERTICAL);
+        moduleModeTabsLayout.addView(tabManager.getLinearLayout(1));
 
         //sequencer
         //sequencer = new Sequencer(llppdrums);
@@ -244,7 +259,6 @@ public class DrumMachineFragment extends TabFragment {
             public void onAnimationUpdate(ValueAnimator animator) {
                 layout.setBackgroundColor((int) animator.getAnimatedValue());
             }
-
         });
         colorAnimation.start();
 
@@ -267,16 +281,31 @@ public class DrumMachineFragment extends TabFragment {
 
         copyLayout = rootView.findViewById(R.id.sequenceCopyLayout);
 
+        //remove
+        Button removeBtn = rootView.findViewById(R.id.sequenceRemoveBtn);
+        removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llppdrums.getDrumMachine().removeSelectedSequence();
+                adapter.updateBorders(llppdrums.getDrumMachine().getSelectedSequenceIndex());
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         //set selected tabs
-        callback.onTabClicked(callback.getTabs(0).get(llppdrums.getDrumMachine().getSelectedSequenceIndex()));
-        callback.onTabClicked(callback.getTabs(1).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModuleIndex()));
-        callback.onTabClicked(callback.getTabs(2).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getSelectedModeIndex()));
+        //callback.onTabClicked(callback.getTabs(0).get(llppdrums.getDrumMachine().getSelectedSequenceIndex()));
+        llppdrums.getDrumMachine().selectSequenceFromAdapter(llppdrums.getDrumMachine().getSelectedSequenceIndex());
+        callback.onTabClicked(callback.getTabs(0).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModuleIndex()));
+        callback.onTabClicked(callback.getTabs(1).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getSelectedModeIndex()));
+
+        //update();
 
         return rootView;
     }
 
     /** PLAY **/
     private void addPlayIcons(){
+        /*
         for(int i = 0; i < sequenceTabLayouts.size(); i++){
 
             ImageView iv = new ImageView(llppdrums);
@@ -291,9 +320,12 @@ public class DrumMachineFragment extends TabFragment {
 
             sequenceTabLayouts.get(i).addView(iv);
         }
+
+         */
     }
 
     public void showPlayIcon(final int i, final boolean show){
+        /*
         FrameLayout tabLayout = (FrameLayout)tabManager.getLinearLayout(0).getChildAt(i);
         if(show) {
             tabLayout.getChildAt(tabLayout.getChildCount()-1).setVisibility(View.VISIBLE);
@@ -301,6 +333,8 @@ public class DrumMachineFragment extends TabFragment {
         else{
             tabLayout.getChildAt(tabLayout.getChildCount()-1).setVisibility(View.INVISIBLE);
         }
+
+         */
     }
 
     private boolean uiLocked = false; //used to prevent spinner from opening when the UI is locked
@@ -320,9 +354,12 @@ public class DrumMachineFragment extends TabFragment {
     }
 
     /** GET **/
+    /*
     public ArrayList<FrameLayout> getSequenceTabLayouts() {
         return sequenceTabLayouts;
     }
+
+     */
 
     public RecyclerView getRecyclerView() {
         return recyclerView;
@@ -352,41 +389,26 @@ public class DrumMachineFragment extends TabFragment {
         }
     }
 
-    private void setName(){
-        ((TextView)tabManager.getLinearLayout(0).getChildAt(llppdrums.getDrumMachine().getSelectedSequenceIndex()).findViewById(R.id.tabTxt)).setText(llppdrums.getDrumMachine().getSelectedSequence().getName());
-
+    public void setName(){
         nameBtnTV.setText(llppdrums.getDrumMachine().getSelectedSequence().getName());
-    }
-
-    public void setBtnName(){
-        nameBtnTV.setText(llppdrums.getDrumMachine().getSelectedSequence().getName());
+        adapter.notifyDataSetChanged();
         //((TextView)tabManager.getTabsLayout(0).getChildAt(llppdrums.getDrumMachine().getSelectedSequenceIndex()).findViewById(R.id.tabTxt)).setText(llppdrums.getDrumMachine().getSelectedSequence().getName());
 
     }
 
-    public void setTabName(int tabIndex){
-        //nameBtnTV.setText(llppdrums.getDrumMachine().getSelectedSequence().getName());
-        ((TextView)tabManager.getLinearLayout(0).getChildAt(tabIndex).findViewById(R.id.tabTxt)).setText(llppdrums.getDrumMachine().getSequences().get(tabIndex).getName());
-
-    }
-
-    private void setColor(){
+    public void setColor(){
+        /*
         tabManager.getLinearLayout(0).getChildAt(llppdrums.getDrumMachine().getSelectedSequenceIndex()).findViewById(R.id.tabBg).setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getColor());
 
         nameBtnTV.setTextColor(ColorUtils.getContrastColor(llppdrums.getDrumMachine().getSelectedSequence().getColor()));
         nameBtnGraphics.setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getColor());
-        backgroundViews.get(0).setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
+        tabBackgroundViews.get(0).setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
 
-    }
+         */
 
-    public void setBgColor(){
-        nameBtnTV.setTextColor(ColorUtils.getContrastColor(llppdrums.getDrumMachine().getSelectedSequence().getColor()));
+        sequenceBg.setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
         nameBtnGraphics.setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getColor());
-        backgroundViews.get(0).setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
-    }
-
-    public void setTabColor(int tabIndex){
-        tabManager.getLinearLayout(0).getChildAt(tabIndex).findViewById(R.id.tabBg).setBackgroundColor(llppdrums.getDrumMachine().getSequences().get(tabIndex).getColor());
+        adapter.notifyDataSetChanged();
     }
 
     //updates colors with the selected tab
@@ -402,13 +424,13 @@ public class DrumMachineFragment extends TabFragment {
 
         for (int i = 0; i < tabs.size(); i++) {
             //set tab appearance
-            if(tier == 0){
-                tabManager.getLinearLayout(tier).getChildAt(i).findViewById(R.id.tabBg).setBackgroundColor(llppdrums.getDrumMachine().getSequences().get(i).getColor());
-            }
-            else {
+            //if(tier == 0){
+                //tabManager.getLinearLayout(tier).getChildAt(i).findViewById(R.id.tabBg).setBackgroundColor(llppdrums.getDrumMachine().getSequences().get(i).getColor());
+            //}
+            //else {
                 Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, tabs.get(i).getBitmapId(), i, tabs.size(), tabs.get(i).getOrientation());
                 tabManager.getLinearLayout(tier).getChildAt(i).findViewById(R.id.tabBg).setBackground(new BitmapDrawable(llppdrums.getResources(), tabBitmap));
-            }
+            //}
 
             //set the inactive colors on the textView and lower alpha
             tabManager.getLinearLayout(tier).getChildAt(i).findViewById(R.id.tabTxt).setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
@@ -425,12 +447,12 @@ public class DrumMachineFragment extends TabFragment {
         tabManager.getLinearLayout(tier).getChildAt(selectedTabNo).findViewById(R.id.tabBg).setAlpha(1);
 
         //set the background for the module
-        if(tier == 0) {
-            backgroundViews.get(tier).setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
-        }
-        else{
+        //if(tier == 0) {
+            //backgroundViews.get(tier).setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
+        //}
+        //else{
             Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, llppdrums.getDrumMachine().getSelectedSequence().getBitmapId(tier), llppdrums.getDrumMachine().getSelectedSequence().getOrientation());
-            backgroundViews.get(tier).setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
-        }
+            tabBackgroundViews.get(tier).setBackground(new BitmapDrawable(llppdrums.getResources(), bgBitmap));
+        //}
     }
 }

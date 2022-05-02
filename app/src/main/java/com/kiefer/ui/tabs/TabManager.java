@@ -215,6 +215,7 @@ public class TabManager {
     }
 
     public void setTabBorders(ArrayList<FrameLayout> tabLayouts, int selectedTab, int orientation){
+        //Log.e("TabManager", "setTabBorders(), selected: "+selectedTab);
 
         //set up border sizes
         int largeBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderLarge);

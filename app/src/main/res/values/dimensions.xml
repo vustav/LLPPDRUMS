@@ -36,6 +36,7 @@
     <!-- TABS -->
     <!-- doesn't look very good with dp -->
     <dimen name="tabsBorderSmall">2px</dimen>
+    <dimen name="tabsBorderSmallNegative">-2px</dimen>
     <dimen name="tabsBorderLarge">4px</dimen>
 
     <dimen name="tabsPaddingLarge">5dp</dimen>

@@ -142,9 +142,9 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TrackViewH
             //Log.e("TracksAdapter", "------------------------------------");
             final Drawable drawable = llppdrums.getDrumMachine().getSelectedSequenceDrumDrawable(trackViewHolder.getAdapterPosition(), stepNo);
             //stepIV.post(new Runnable() { //modify the View in the UI thread
-                //public void run() {
-                    stepIV.setImageDrawable(drawable);
-                //}
+            //public void run() {
+            stepIV.setImageDrawable(drawable);
+            //}
             //});
 
             stepIV.setOnTouchListener(new View.OnTouchListener() {

@@ -330,9 +330,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
         infoManager = new InfoManager(this);
 
-        //try {
+        try {
         drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
-/*
+
         }
         catch (Exception e){
             drumMachine = new DrumMachine(this, engineFacade, 0, null);
@@ -341,7 +341,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             toast.show();
         }
 
- */
+
 
         try {
             controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, keeper.controllerKeeper);

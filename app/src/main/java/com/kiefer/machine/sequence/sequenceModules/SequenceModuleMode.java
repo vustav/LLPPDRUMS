@@ -64,6 +64,6 @@ public class SequenceModuleMode implements Tab {
 
     @Override
     public int getTier(){
-        return 2;
+        return 1;
     }
 }

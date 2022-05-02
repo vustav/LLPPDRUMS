@@ -2,19 +2,18 @@ package com.kiefer.machine.sequence;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
 import com.kiefer.files.keepers.DrumSequenceKeeper;
 import com.kiefer.files.keepers.DrumTrackKeeper;
-import com.kiefer.files.keepers.SequenceModuleKeeper;
 import com.kiefer.interfaces.Tempoizer;
 import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.randomization.rndTrackManager.RndTrackManager;
-import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.ui.tabs.interfaces.TabHolder;
 import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.machine.sequence.sequenceModules.OnOff;
@@ -79,8 +78,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         this.engineFacade = engineFacade;
 
         bitmapId = ImgUtils.getRandomImageId();
-        tabColor = ColorUtils.getRandomColor();
-        backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
+        //tabColor = ColorUtils.getRandomColor();
+        //backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
 
         stepsGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         tempoGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
@@ -105,6 +104,24 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
             name = Integer.toString(tabIndex);
         }
         sequenceName = name;
+
+        int tabClr;
+        if(keeper != null){
+            try {
+                tabClr = keeper.color;
+            }
+            catch (Exception e){
+                tabClr = ColorUtils.getRandomColor();
+            }
+        }
+        else{
+            tabClr = ColorUtils.getRandomColor();
+        }
+        //Log.e("DrumSequence", "keeper.tabColor, color: "+keeper.tabColor);
+        //Log.e("DrumSequence", "constr, color: "+tabClr);
+        tabColor = tabClr;
+        //tabColor = ColorUtils.getRandomColor();
+        backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
 
         //use default tempo if no keeper
         int t;
@@ -474,6 +491,9 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     @Override
     public void setColor(int color){
         tabColor = color;
+        backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
+        llppdrums.getDrumMachineFragment().setColor();
+        /*
         backgroundGradient = ColorUtils.getGradientDrawable(color, ColorUtils.getContrastColor(color), ColorUtils.HORIZONTAL);
 
         llppdrums.getDrumMachineFragment().setTabColor(getTabIndex());
@@ -481,6 +501,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         if(this == llppdrums.getDrumMachine().getSelectedSequence()){
             llppdrums.getDrumMachineFragment().setBgColor();
         }
+
+         */
     }
 
     @Override
@@ -488,10 +510,10 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         sequenceName = name;
         llppdrums.getDrumMachine().getSequenceManager().updateSequenceName(this);
 
-        llppdrums.getDrumMachineFragment().setTabName(getTabIndex());
+        //llppdrums.getDrumMachineFragment().setTabName(getTabIndex());
 
         if(this == llppdrums.getDrumMachine().getSelectedSequence()){
-            llppdrums.getDrumMachineFragment().setBtnName();
+            llppdrums.getDrumMachineFragment().setName();
         }
     }
 
@@ -522,10 +544,10 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     }
 
     public int getBitmapId(int tier){
-        if(tier == 1){
+        if(tier == 0){
             return selectedSequenceModule.getBitmapId();
         }
-        if(tier == 2){
+        if(tier == 1){
             return selectedSequenceModule.getSelectedMode().getBitmapId();
         }
         else{
@@ -659,7 +681,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
 
     @Override
     public int getTier(){
-        return 0;
+        /** NOT USED AS TABS ANYMORE WITH THE RecyclerView. Consider removing this **/
+        return -666;
     }
 
     /*
@@ -793,6 +816,9 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     public DrumSequenceKeeper getKeeper(){
         DrumSequenceKeeper keeper = new DrumSequenceKeeper();
 
+        //Log.e("DrumSequence", "getKeeper, color: "+getColor());
+        keeper.color = getColor();
+
         keeper.sequenceModuleKeepers = new ArrayList<>();
         for(SequenceModule sm : sequenceModules){
             keeper.sequenceModuleKeepers.add(sm.getKeeper());
@@ -801,7 +827,6 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         keeper.selectedModule = getSelectedSequenceModuleIndex();
         keeper.tabIndex = getTabIndex();
         keeper.name = sequenceName;
-        keeper.color = tabColor;
         keeper.nOfTracks = getNOfTracks();
         keeper.nOfSteps = getNOfSteps();
         keeper.tempo = getTempo();

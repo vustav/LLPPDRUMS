@@ -35,7 +35,7 @@
     <integer name="tempoInterval">10</integer>
 
     <!-- DEFAULTS -->
-    <integer name="nOfSequences">2</integer>
+    <integer name="nOfSequences">3</integer>
 
     <!-- POPUPS -->
     <integer name="popupOffset">30</integer>

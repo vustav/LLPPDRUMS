@@ -1,5 +1,6 @@
 package com.kiefer.fragments.drumMachine;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,10 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
         sequenceTabViewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llppdrums.getDrumMachine().selectSequence(sequenceTabViewHolder.getAdapterPosition());
+                //Log.e("SequenceAdapter", "click------------------------------------------");
                 updateBorders(sequenceTabViewHolder.getAdapterPosition());
+                llppdrums.getDrumMachine().selectSequenceFromAdapter(sequenceTabViewHolder.getAdapterPosition());
+                drumMachineFragment.setColor();
             }
         });
     }
@@ -59,8 +62,6 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
             tabLayouts.add(((SequenceTabViewHolder)rv.getChildViewHolder(rv.getChildAt(i))).view);
         }
 
-        Random r = new Random();
-        //Log.e("SequenceAdapter", "updateBorders(), idnex: "+selectedTabIndex+" :: "+r.nextInt());
         drumMachineFragment.getTabManager().setTabBorders(tabLayouts, selectedTabIndex, Tab.VERTICAL);
     }
 

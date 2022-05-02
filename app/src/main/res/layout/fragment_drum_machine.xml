@@ -3,26 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- RECYCLERVIEW -->
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/machineSequenceTabsScroll">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/machineSequenceTabsRecyclerView"
-            android:overScrollMode="never"/>
-    </androidx.core.widget.NestedScrollView>
-
     <!-- SEQ TABS -->
+    <!--
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/machineSequenceTabsLayout"
 
         android:layout_toEndOf="@id/machineSequenceTabsScroll"/>
+        -->
 
     <!-- SEQUENCE BORDER -->
     <FrameLayout
@@ -32,8 +21,9 @@
         android:paddingTop="@dimen/tabsBorderSmall"
         android:paddingEnd="@dimen/tabsBorderSmall"
         android:paddingBottom="@dimen/tabsBorderSmall"
+        android:layout_marginStart="@dimen/tabsBorderSmallNegative"
 
-        android:layout_toEndOf="@id/machineSequenceTabsLayout">
+        android:layout_toEndOf="@id/machineSequenceTabsScroll">
 
         <!-- SEQUENCE BG -->
         <RelativeLayout
@@ -301,57 +291,35 @@
                             android:id="@+id/sequenceCopyFromContainer"/>
                     </LinearLayout>
                 </FrameLayout>
-
-                <!-- FX -->
-                <!--
-                <RelativeLayout
-                    android:layout_width="@dimen/sequencerFxBtnWidth"
-                    android:layout_height="@dimen/btnHeightSmall"
-                    android:id="@+id/sequenceFxLayout">
-
-                    <Button
-                        android:layout_width="@dimen/sequencerFxBtnWidth"
-                        android:layout_height="@dimen/btnHeightSmall"
-                        android:id="@+id/sequenceFxBtn"
-                        android:padding="@dimen/defaultBtnPadding"/>
-
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/btnHeightSmall"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="9dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="8dp"
-                        android:id="@+id/sequenceFxBtnGraphics"/>
-                </RelativeLayout>
-                -->
-
-                <!-- MIXER -->
-                <!--
-                <RelativeLayout
-                    android:layout_width="@dimen/sequencerMixBtnWidth"
-                    android:layout_height="@dimen/btnHeightSmall"
-                    android:id="@+id/sequenceMixerLayout">
-
-                    <Button
-                        android:layout_width="@dimen/sequencerMixBtnWidth"
-                        android:layout_height="@dimen/btnHeightSmall"
-                        android:id="@+id/sequenceMixerBtn"
-                        android:padding="@dimen/defaultBtnPadding"/>
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/btnHeightSmall"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/sequenceMixerBtnGraphics"/>
-                </RelativeLayout>
-             -->
             </LinearLayout>
+
+            <!-- REMOVE BTN -->
+            <!-- buttons with text seems to get a little marginTop, hence the margin top = -2dp -->
+            <Button
+                android:layout_width="@dimen/btnHeightSmall"
+                android:layout_height="@dimen/btnHeightSmall"
+                android:id="@+id/sequenceRemoveBtn"
+                android:text="-"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:padding="@dimen/defaultBtnPadding"
+                android:layout_marginTop="-2dp"
+
+
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"/>
         </RelativeLayout>
     </FrameLayout>
+
+    <!-- RECYCLERVIEW -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/machineSequenceTabsScroll">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/machineSequenceTabsRecyclerView"
+            android:overScrollMode="never"/>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
