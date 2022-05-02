@@ -37,7 +37,7 @@ import com.kiefer.utils.ImgUtils;
 import java.util.ArrayList;
 
 public class DrumMachineFragment extends TabFragment {
-    //private TabManagerPlay tabManagerPlay;
+    boolean onStartup = true; //used to call LinearLayoutManager.onLayoutCompleted() only once
 
     //lockable UI (for disabling during playback)
     private ArrayList<View> lockableUI;
@@ -101,7 +101,7 @@ public class DrumMachineFragment extends TabFragment {
         FrameLayout sequencerTabsLayout = rootView.findViewById(R.id.machineSequenceTabsLayout);
         RelativeLayout sequenceBg = rootView.findViewById(R.id.machineSequenceBg);
         backgroundViews.add(sequenceBg);
-        tabManager.createTabTier(callback.getTabs(0), callback, 0, Tab.VERTICAL);
+        tabManager.createTabTier(callback.getTabs(0), callback, Tab.VERTICAL);
         sequencerTabsLayout.addView(tabManager.getLinearLayout(0));
 
         //RECYCLER
@@ -116,18 +116,24 @@ public class DrumMachineFragment extends TabFragment {
         //setup the fx-recyclerView
         recyclerView = rootView.findViewById(R.id.machineSequenceTabsRecyclerView);
 
-        // LinearLayoutManager is used here, this will layout the elements in a similar fashion
-        // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
-        // elements are laid out.
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(llppdrums);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        // create a LinearLayoutManager and make it update borders after completing the layout
+        recyclerView.setLayoutManager(new LinearLayoutManager(llppdrums, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public void onLayoutCompleted(final RecyclerView.State state) {
+                super.onLayoutCompleted(state);
+                if(onStartup) {
+                    adapter.updateBorders(0);
+                }
+                onStartup = false;
+            }
+        });
 
         //create an adapter
-        adapter = new SequenceAdapter(llppdrums);
+        adapter = new SequenceAdapter(llppdrums, this);
+        adapter.updateBorders(0);
 
         //create and attach the ItemTouchHelper
-        ItemTouchHelper.Callback fxCallback = new SequenceTouchHelper(adapter);
+        ItemTouchHelper.Callback fxCallback = new SequenceTouchHelper(llppdrums, adapter);
         ItemTouchHelper fxHelper = new ItemTouchHelper(fxCallback);
         fxHelper.attachToRecyclerView(recyclerView);
 
@@ -141,14 +147,14 @@ public class DrumMachineFragment extends TabFragment {
         FrameLayout sequenceModuleTabsLayout = rootView.findViewById(R.id.machineSequenceModuleTabsLayout);
         RelativeLayout sequenceModuleBg = rootView.findViewById(R.id.machineSequenceModuleBg);
         backgroundViews.add(sequenceModuleBg);
-        tabManager.createTabTier(callback.getTabs(1), callback, 1, Tab.VERTICAL);
+        tabManager.createTabTier(callback.getTabs(1), callback, Tab.VERTICAL);
         sequenceModuleTabsLayout.addView(tabManager.getLinearLayout(1));
 
         //MODULE MODE
         FrameLayout moduleModeTabsLayout = rootView.findViewById(R.id.machineModuleModeTabsLayout);
         FrameLayout moduleModeBg = rootView.findViewById(R.id.machineModuleModeBg);
         backgroundViews.add(moduleModeBg);
-        tabManager.createTabTier(callback.getTabs(2), callback, 2, Tab.VERTICAL);
+        tabManager.createTabTier(callback.getTabs(2), callback, Tab.VERTICAL);
         moduleModeTabsLayout.addView(tabManager.getLinearLayout(2));
 
         //sequencer
@@ -262,16 +268,15 @@ public class DrumMachineFragment extends TabFragment {
         copyLayout = rootView.findViewById(R.id.sequenceCopyLayout);
 
         //set selected tabs
-        callback.onTabClicked(callback.getTabs(0).get(0));
-        callback.onTabClicked(callback.getTabs(1).get(0));
-        callback.onTabClicked(callback.getTabs(2).get(0));
+        callback.onTabClicked(callback.getTabs(0).get(llppdrums.getDrumMachine().getSelectedSequenceIndex()));
+        callback.onTabClicked(callback.getTabs(1).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModuleIndex()));
+        callback.onTabClicked(callback.getTabs(2).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getSelectedModeIndex()));
 
         return rootView;
     }
 
     /** PLAY **/
     private void addPlayIcons(){
-        //for(int i = 0; i < tabManager.getLinearLayout(0).getChildCount(); i++){
         for(int i = 0; i < sequenceTabLayouts.size(); i++){
 
             ImageView iv = new ImageView(llppdrums);

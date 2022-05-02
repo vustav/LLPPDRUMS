@@ -2,6 +2,7 @@ package com.kiefer.ui.tabs;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class TabManager {
         return tabLayouts;
     }
 
-    public void createTabTier(ArrayList<Tab> tabs, final OnTabClickedListener callback, int tier, final int orientation){
+    public void createTabTier(ArrayList<Tab> tabs, final OnTabClickedListener callback, final int orientation){
 
         //inflate the right layout to put the tabs in
         LinearLayout tabsLayout;
@@ -66,65 +67,12 @@ public class TabManager {
         FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         tabsLayout.setLayoutParams(flp);
 
-        //final TabGroup tabGroup = new TabGroup(tabsLayout, tabsArray);
-
-
         for(int i = 0; i < tabs.size(); i++){
 
             FrameLayout singleTabLayout = createSingleTabLayout(tabs, callback, i, orientation);
 
             //add the tab to the tabs-layout
             tabsLayout.addView(singleTabLayout);
-
-            /*
-            Tab t = tabs.get(i);
-            final String tabName = t.getName();
-
-            //inflate the right layout for the tab
-            ViewGroup singleTabLayout;
-            if(orientation == Tab.VERTICAL){
-                singleTabLayout = (ViewGroup) llppdrums.getLayoutInflater().inflate(R.layout.tab_single_vertical, null);
-            }
-            else{
-                singleTabLayout = (ViewGroup) llppdrums.getLayoutInflater().inflate(R.layout.tab_single_horizontal, null);
-            }
-
-            //setup params
-            LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-            singleTabLayout.setLayoutParams(llp);
-
-            //set up the textView
-            TextView textView = singleTabLayout.findViewById(R.id.tabTxt);
-            textView.setText(tabName);
-
-            //add the tab to the tabs-layout
-            tabsLayout.addView(singleTabLayout);
-
-            int finalI = i;
-
-            //set a listener
-            singleTabLayout.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent event) {
-
-                    if(llppdrums.getProjectOptionsManager().vibrateOnTouch()){
-                        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                            Vibrator v = (Vibrator) llppdrums.getSystemService(Context.VIBRATOR_SERVICE);
-                            v.vibrate(llppdrums.getResources().getInteger(R.integer.vibrateInMs));
-                        }
-                    }
-
-                    //set borders for all tabs in the View
-                    setTabBorders(tier, tabs, finalI);
-
-                    //call the listener
-                    callback.onTabClicked(tabs.get(finalI));
-
-                    return true;
-                }
-            });
-
-             */
         }
 
         tabLayouts.add(tabsLayout);
@@ -150,11 +98,6 @@ public class TabManager {
         //set up the textView
         TextView textView = singleTabLayout.findViewById(R.id.tabTxt);
         textView.setText(tabName);
-
-        //add the tab to the tabs-layout
-        //tabsLayout.addView(singleTabLayout);
-
-        //int finalI = i;
 
         //set a listener
         singleTabLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -189,6 +132,18 @@ public class TabManager {
 
     public void setTabBorders(int tier, ArrayList<Tab> tabs, int selectedTab){
 
+        /** Merged this and the one below (which exists to be able to use this without Tabs). Just
+         * use the commented code below instead if it's too slow to create ArrayList every time a tab is clicked **/
+
+
+        ArrayList<FrameLayout> tabLayouts = new ArrayList<>();
+        for(int i = 0; i < this.tabLayouts.get(tier).getChildCount(); i++){
+            tabLayouts.add((FrameLayout) this.tabLayouts.get(tier).getChildAt(i));
+        }
+
+        setTabBorders(tabLayouts, selectedTab, tabs.get(selectedTab).getOrientation());
+
+        /*
         //set up border sizes
         int largeBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderLarge);
         int smallBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderSmall);
@@ -210,7 +165,7 @@ public class TabManager {
 
                     //the bottom padding on selected verticals is always small. Since the top for
                     // default unselected tabs are small as well they will "blend" and look large.
-                    tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(largeBorderSize, topBorderSize, 0, smallBorderSize);
+                    this.tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(largeBorderSize, topBorderSize, 0, smallBorderSize);
 
                 }
                 else{
@@ -227,7 +182,7 @@ public class TabManager {
                     } else {
                         rightBorderSize = smallBorderSize;
                     }
-                    tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(leftBorderSize, largeBorderSize, rightBorderSize, 0);
+                    this.tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(leftBorderSize, largeBorderSize, rightBorderSize, 0);
                 }
             }
             //set the padding on all the non-selected tabs
@@ -236,21 +191,99 @@ public class TabManager {
                     //the last tab gets a small bottom, the others get 0. This means that only the
                     // top will divide unselected tabs. For selected they have a small bottom that will "blend" with this top to show as a large.
                     if(i == tabs.size() - 1){
-                        tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, smallBorderSize);
+                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, smallBorderSize);
                     }
                     else{
-                        tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, 0);
+                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, 0);
                     }
                 }
                 else{
                     if(i == 0){
-                        tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(0, smallBorderSize, smallBorderSize, largeBorderSize);
+                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(0, smallBorderSize, smallBorderSize, largeBorderSize);
                     }
                     else if(i == tabs.size() - 1){
-                        tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, 0, largeBorderSize);
+                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, 0, largeBorderSize);
                     }
                     else{
-                        tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, smallBorderSize, largeBorderSize);
+                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, smallBorderSize, largeBorderSize);
+                    }
+                }
+            }
+        }
+
+         */
+    }
+
+    public void setTabBorders(ArrayList<FrameLayout> tabLayouts, int selectedTab, int orientation){
+
+        //set up border sizes
+        int largeBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderLarge);
+        int smallBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderSmall);
+
+        for(int i = 0; i < tabLayouts.size(); i++) {
+
+            //set padding on the selected tab
+            if (selectedTab == i) {
+
+                if(orientation == Tab.VERTICAL) {
+                    int topBorderSize;
+
+                    //the first vertical tab always has a small topPadding, the others have a large
+                    if (selectedTab == 0) {
+                        topBorderSize = smallBorderSize;
+                    } else {
+                        topBorderSize = largeBorderSize;
+                    }
+
+                    //the bottom padding on selected verticals is always small. Since the top for
+                    // default unselected tabs are small as well they will "blend" and look large.
+                    //this.tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(largeBorderSize, topBorderSize, 0, smallBorderSize);
+                    tabLayouts.get(selectedTab).findViewById(R.id.tabBorder).setPadding(largeBorderSize, topBorderSize, 0, smallBorderSize);
+                }
+                else{
+                    int leftBorderSize;
+                    if (selectedTab == 0) {
+                        leftBorderSize = 0;
+                    } else {
+                        leftBorderSize = smallBorderSize;
+                    }
+
+                    int rightBorderSize;
+                    if (selectedTab == tabLayouts.size() - 1) {
+                        rightBorderSize = 0;
+                    } else {
+                        rightBorderSize = smallBorderSize;
+                    }
+                    //this.tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(leftBorderSize, largeBorderSize, rightBorderSize, 0);
+                    tabLayouts.get(selectedTab).findViewById(R.id.tabBorder).setPadding(leftBorderSize, largeBorderSize, rightBorderSize, 0);
+                }
+            }
+            //set the padding on all the non-selected tabs
+            else {
+                if(orientation == Tab.VERTICAL) {
+                    //the last tab gets a small bottom, the others get 0. This means that only the
+                    // top will divide unselected tabs. For selected they have a small bottom that will "blend" with this top to show as a large.
+                    if(i == tabLayouts.size() - 1){
+                        //this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, smallBorderSize);
+                        tabLayouts.get(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, smallBorderSize);
+                    }
+                    else{
+                        //this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, 0);
+                        tabLayouts.get(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, 0);
+                    }
+                }
+                else{
+                    if(i == 0){
+                        //this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(0, smallBorderSize, smallBorderSize, largeBorderSize);
+                        tabLayouts.get(i).findViewById(R.id.tabBorder).setPadding(0, smallBorderSize, smallBorderSize, largeBorderSize);
+                    }
+                    else if(i == tabLayouts.size() - 1){
+                        //this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, 0, largeBorderSize);
+                        tabLayouts.get(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, 0, largeBorderSize);
+                    }
+                    else{
+                        //this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, smallBorderSize, largeBorderSize);
+                        tabLayouts.get(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, smallBorderSize, largeBorderSize);
                     }
                 }
             }

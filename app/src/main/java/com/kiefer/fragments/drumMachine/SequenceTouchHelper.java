@@ -3,9 +3,11 @@ package com.kiefer.fragments.drumMachine;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kiefer.LLPPDRUMS;
 import com.kiefer.popups.fxManager.FxManagerAdapter;
 
 public class SequenceTouchHelper extends ItemTouchHelper.SimpleCallback {
+    private LLPPDRUMS llppdrums;
 
     private SequenceAdapter adapter;
 
@@ -16,8 +18,9 @@ public class SequenceTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     private int dragStart;
 
-    public SequenceTouchHelper(SequenceAdapter adapter){
+    public SequenceTouchHelper(LLPPDRUMS llppdrums, SequenceAdapter adapter){
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        this.llppdrums = llppdrums;
         this.adapter = adapter;
     }
 
@@ -51,9 +54,7 @@ public class SequenceTouchHelper extends ItemTouchHelper.SimpleCallback {
         dragging = false;
 
         if(dragStart != dragEnd && dragDone){
-            /** FIXA MOVE **/
-            //adapter.moveFx(dragStart, dragEnd);
-            /** FIXA MOVE **/
+            llppdrums.getDrumMachine().moveSequence(dragStart, dragEnd);
             dragDone = false;
         }
         adapter.notifyDataSetChanged(); //this will update the listeners in the viewHolder to open the correct popups

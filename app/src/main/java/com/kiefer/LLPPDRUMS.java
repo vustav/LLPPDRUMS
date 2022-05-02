@@ -293,22 +293,17 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             keeper = null;
         }
 
-        /***********************/
         if(disableLoad) {
             keeper = null;
         }
-        /***********************/
-
-
-
 
         int tempo;
         try {
-            Log.e("LLPPDRUMS", "init(), tempo from keeper");
+            //Log.e("LLPPDRUMS", "init(), tempo from keeper");
             tempo = keeper.drumMachineKeeper.initTempo;
         }
         catch (Exception e){
-            Log.e("LLPPDRUMS", "init(), tempo default");
+            //Log.e("LLPPDRUMS", "init(), tempo default");
             tempo = getResources().getInteger(R.integer.defaultTempo);
         }
 
@@ -335,8 +330,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
         infoManager = new InfoManager(this);
 
-        try {
+        //try {
         drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
+/*
         }
         catch (Exception e){
             drumMachine = new DrumMachine(this, engineFacade, 0, null);
@@ -344,6 +340,8 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
             toast.show();
         }
+
+ */
 
         try {
             controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, keeper.controllerKeeper);
@@ -552,7 +550,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         return null;
     }
 
-    //gets a keeper as argument and uses it during creation and sends it further to tracks
     public void load(final LLPPDRUMSKeeper k){
         drumMachine.load(k.drumMachineKeeper);
         controller.load(k.controllerKeeper);

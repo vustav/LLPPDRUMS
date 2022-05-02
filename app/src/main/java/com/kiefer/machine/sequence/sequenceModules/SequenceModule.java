@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
+import com.kiefer.files.keepers.Keeper;
+import com.kiefer.files.keepers.SequenceModuleKeeper;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.AutoRandom;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandomModuleBool;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -163,6 +165,10 @@ public abstract class SequenceModule implements TabHolder, Tab {
         return selectedMode;
     }
 
+    public int getSelectedModeIndex() {
+        return modes.indexOf(selectedMode);
+    }
+
 
     @Override
     public int getBitmapId(){
@@ -217,5 +223,16 @@ public abstract class SequenceModule implements TabHolder, Tab {
 
             canvas.drawCircle(width, 0, radius, paint);
         //}
+    }
+
+    /** RESTORATION **/
+    public SequenceModuleKeeper getKeeper(){
+        SequenceModuleKeeper keeper = new SequenceModuleKeeper();
+        keeper.selectedMode = getSelectedModeIndex();
+        return keeper;
+    }
+
+    public void restore(SequenceModuleKeeper keeper){
+        selectedMode = modes.get(keeper.selectedMode);
     }
 }

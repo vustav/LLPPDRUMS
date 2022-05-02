@@ -8,6 +8,7 @@ import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
 import com.kiefer.files.keepers.DrumSequenceKeeper;
 import com.kiefer.files.keepers.DrumTrackKeeper;
+import com.kiefer.files.keepers.SequenceModuleKeeper;
 import com.kiefer.interfaces.Tempoizer;
 import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
@@ -142,6 +143,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     private int nOfSteps;
 
     /** SETUP **/
+    /** ALLA BEHÖVER ITNE VARSINA. SKULLE KUNNA FLYTTA TILL DrumMachine. **/
     private void setupSequenceModules(){
         sequenceModules = new ArrayList<>();
 
@@ -574,6 +576,10 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         return selectedSequenceModule;
     }
 
+    public int getSelectedSequenceModuleIndex() {
+        return sequenceModules.indexOf(selectedSequenceModule);
+    }
+
     public int getModuleIndex(SequenceModule module){
         return sequenceModules.indexOf(module);
     }
@@ -777,13 +783,22 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
             tracks.get(trackNo).restore(keeper.drumTrackKeepers.get(trackNo));
         }
         initTabIndex = keeper.tabIndex;
-        //setColor(keeper.color);
-        //setName(keeper.name);
+        selectedSequenceModule = sequenceModules.get(keeper.selectedModule);
+
+        for(int i = 0; i<keeper.sequenceModuleKeepers.size(); i++){
+            sequenceModules.get(i).restore(keeper.sequenceModuleKeepers.get(i));
+        }
     }
 
     public DrumSequenceKeeper getKeeper(){
         DrumSequenceKeeper keeper = new DrumSequenceKeeper();
 
+        keeper.sequenceModuleKeepers = new ArrayList<>();
+        for(SequenceModule sm : sequenceModules){
+            keeper.sequenceModuleKeepers.add(sm.getKeeper());
+        }
+
+        keeper.selectedModule = getSelectedSequenceModuleIndex();
         keeper.tabIndex = getTabIndex();
         keeper.name = sequenceName;
         keeper.color = tabColor;

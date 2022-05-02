@@ -92,14 +92,14 @@ public class Counter {
     }
 
     protected void setStepColor(final int step, final int color){
-        llppdrums.runOnUiThread(new Runnable() {
-            public void run() {
+        //llppdrums.runOnUiThread(new Runnable() {
+            //public void run() {
                 RelativeLayout bg = (RelativeLayout) layout.getChildAt(step);
                 TextView tv = (TextView) ((RelativeLayout) layout.getChildAt(step)).getChildAt(0);
                 bg.setBackgroundColor(color);
                 tv.setTextColor(ColorUtils.getContrastColor(color));
-            }
-        });
+            //}
+        //});
     }
 
     public void setStepText(int step, String text){

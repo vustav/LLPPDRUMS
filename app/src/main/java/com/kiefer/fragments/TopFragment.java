@@ -152,10 +152,7 @@ public class TopFragment extends TabFragment {
 
         //set up the tabs
         FrameLayout tabsLayout = rootView.findViewById(R.id.topTabsLayout);
-        FrameLayout mainBg = llppdrums.findViewById(R.id.mainBg);
-        //tabGroup = tabManager.createTabRow(callback.getTabables(0), callback, 0, mainBg);
-        tabManager.createTabTier(callback.getTabs(0), callback, 0, Tab.HORIZONTAL);
-        //tabsLayout.addView(tabGroup.getLayout());
+        tabManager.createTabTier(callback.getTabs(0), callback, Tab.HORIZONTAL);
         tabsLayout.addView(tabManager.getLinearLayout(0));
 
 

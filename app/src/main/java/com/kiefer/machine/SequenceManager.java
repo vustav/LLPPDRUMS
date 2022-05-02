@@ -24,6 +24,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SequenceManager {
+
+    /** TA BORT setPlayingSequence(selectedSequence) i DrumMachines constr om det fixas här **/
+    ;
+
     private final LLPPDRUMS llppdrums;
     private ArrayList<DrumSequence> drumSequences;
     private SequenceCounter counter;
@@ -37,7 +41,7 @@ public class SequenceManager {
 
     private boolean progress, randomizeProgress, queue;
 
-    private int activeSequenceBoxIndex = 0, queuedSeqBoxIndex = -1;
+    private int activeSequenceBoxIndex, queuedSeqBoxIndex = -1;
 
     private final TextView progressTV, queueTV;
     private final Button editBtn;
@@ -112,7 +116,6 @@ public class SequenceManager {
             }
             else{
                 if(step == 0){
-                    //Log.e("ASD", "asd: "+(llppdrums.getDrumMachine() == null));
                     selectedSequences.add(drumSequences.get(0));
                     setStepSelection(step, 0);
                 }
@@ -138,25 +141,34 @@ public class SequenceManager {
             });
         }
 
+        //Log.e("SequenceManager", "setupSequences(), keeper == null: "+(keeper == null));
+        //Log.e("SequenceManager", "setupSequences(), keeper.activeSequenceBoxIndex1: "+keeper.activeSequenceBoxIndex);
         if(keeper != null){
             setProgress(keeper.progress);
             setRandomizeProgress(true);
             setQueue(keeper.queue);
             setRestartAtStop(keeper.restartAtStop);
             setNOfActiveBoxes(keeper.nOfActiveBoxes);
-        }
-        else{
+
+            activeSequenceBoxIndex = keeper.activeSequenceBoxIndex;
+        } else{
             setProgress(false);
             setRandomizeProgress(false);
             setQueue(false);
             setRestartAtStop(false);
             setNOfActiveBoxes(8);
+
+            //restarted at setNOfActiveBoxes() so no need to set activeSequenceBoxIndex = 0 here
         }
+        //Log.e("SequenceManager", "setupSequences(), activeSequenceBoxIndex: "+activeSequenceBoxIndex);
 
         counter.activateStep(activeSequenceBoxIndex);
+
+        activateSequenceBox(activeSequenceBoxIndex);
     }
 
     public void activateSequenceBox(int step){
+        //Log.e("SequenceManager", "activateSequenceBox(), step: "+step);
         counter.reset();
         counter.activateStep(step);
 
@@ -246,6 +258,10 @@ public class SequenceManager {
         return activeSequenceBoxIndex;
     }
 
+    public DrumSequence getPlayingSequence(){
+        return selectedSequences.get(activeSequenceBoxIndex);
+    }
+
     public GradientDrawable getPopupGradient() {
         return popupGradient;
     }
@@ -281,6 +297,7 @@ public class SequenceManager {
     public SequenceCounter getCounter() {
         return counter;
     }
+
 
     /** SET **/
     public void updateSequenceName(DrumSequence drumSequence){
@@ -336,6 +353,10 @@ public class SequenceManager {
     public SequenceManagerKeeper getKeeper(){
         SequenceManagerKeeper sequenceManagerKeeper = new SequenceManagerKeeper();
 
+        Log.e("SequenceManager", "getKeeper(), activeSequenceBoxIndex: "+activeSequenceBoxIndex);
+        sequenceManagerKeeper.activeSequenceBoxIndex = activeSequenceBoxIndex;
+
+
         sequenceManagerKeeper.queue = queue;
         sequenceManagerKeeper.progress = progress;
         sequenceManagerKeeper.randomizeProgress = randomizeProgress;
@@ -354,13 +375,15 @@ public class SequenceManager {
     public void load(SequenceManagerKeeper k) {
         for (int step = 0; step < counter.getLayout().getChildCount(); step++) {
             setStepSelection(step, (k.seqs.get(step)));
-
         }
         setProgress(k.progress);
         setRandomizeProgress(k.randomizeProgress);
         setQueue(k.queue);
         setRestartAtStop(k.restartAtStop);
         setNOfActiveBoxes(k.nOfActiveBoxes);
+
+        activeSequenceBoxIndex = k.activeSequenceBoxIndex;
+        activateSequenceBox(activeSequenceBoxIndex);
     }
 
     public void reset(){

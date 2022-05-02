@@ -71,6 +71,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         catch (Exception e){
             sequenceManager = new SequenceManager(llppdrums, sequences, null);
         }
+
+        setPlayingSequence(sequenceManager.getPlayingSequence());
     }
 
     private void setupSequences(int nOfSequences, DrumMachineKeeper keeper){
@@ -84,11 +86,14 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
             else{
                 sequences.add(new DrumSequence(llppdrums, engineFacade, i));
             }
-            //sequences.get(i).deactivate();
         }
 
-        selectedSequence = sequences.get(0);
-        setPlayingSequence(selectedSequence);
+        if(keeper != null){
+            selectedSequence = sequences.get(keeper.selectedSequence);
+        }
+        else{
+            selectedSequence = sequences.get(0);
+        }
     }
 
     /** SELECTION **/
@@ -96,71 +101,101 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     //if a tab in the first tier is clicked we need to recolor all tabs, if its the second tier, only the second and third tier need recoloring etc.
     @Override
     public void onTabClicked(Tab tab) {
-
         if(llppdrums.getActiveFragment() instanceof DrumMachineFragment){
-            DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
-
-            int selectedTab;
             switch (tab.getTier()){
                 //SEQUENCE
                 case 0:
-                    selectedSequence.deselect();
-                    selectedSequence = sequences.get(tab.getTabIndex());
-
-                    //update the dataSet if new tracks are added
-                    llppdrums.getSequencer().notifyDataSetChange();
-
-                    //update the number of steps shown in the sequencer
-                    llppdrums.getSequencer().updateNOfSteps(selectedSequence.getNOfSteps());
-
-                    //reset the counter if the selected sequence isn't playing and lock the UI if the selected sequence is playing
-                    if (playingSequence != selectedSequence) {
-                        llppdrums.getSequencer().resetCounter();
-                        unlockUI();
-                    }
-                    else if(engineFacade.isPlaying()){
-                        lockUI();
-                    }
-
-                    //tell the sequence to select itself
-                    selectedSequence.select();
-
-                    //set the tab appearances (here all tiers has to be set. If the next tier is clicked only that and those after has to be set etc.)
-                    selectedTab = sequences.indexOf(selectedSequence);
-                    drumMachineFragment.setTabAppearances(0, getTabables(), selectedTab);
-
-                    selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
-                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabs(0), selectedTab);
-
-                    selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
+                    selectSequence(tab.getTabIndex());
                     break;
 
                 //SEQUENCE MODULE
                 case 1:
-                    selectedSequence.setSelectedSequenceModule(tab.getTabIndex());
-
-                    selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
-                    drumMachineFragment.setTabAppearances(1, selectedSequence.getTabs(0), selectedTab);
-
-                    selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
+                    selectSeqMod(tab.getTabIndex());
                     break;
 
                 //MODULE MODE
                 case 2:
-                    selectedSequence.getSelectedSequenceModule().setSelectedMode(tab.getTabIndex());
-
-                    selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
-                    drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
+                    selectSeqModMode(tab.getTabIndex());
                     break;
             }
-            updateSeqLabel();
         }
+    }
+
+    public void selectSequence(int tabIndex){
+        DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
+        int selectedTab;
+
+        if(selectedSequence != null) {
+            selectedSequence.deselect();
+        }
+
+        selectedSequence = sequences.get(tabIndex);
+
+        //update the dataSet if new tracks are added
+        llppdrums.getSequencer().notifyDataSetChange();
+
+        //update the number of steps shown in the sequencer
+        llppdrums.getSequencer().updateNOfSteps(selectedSequence.getNOfSteps());
+
+        //reset the counter if the selected sequence isn't playing and lock the UI if the selected sequence is playing
+        if (playingSequence != selectedSequence) {
+            llppdrums.getSequencer().resetCounter();
+            unlockUI();
+        }
+        else if(engineFacade.isPlaying()){
+            lockUI();
+        }
+
+        //tell the sequence to select itself
+        selectedSequence.select();
+
+        //set the tab appearances (here all tiers has to be set. If the next tier is clicked only that and those after has to be set etc.)
+        selectedTab = sequences.indexOf(selectedSequence);
+        drumMachineFragment.setTabAppearances(0, getTabables(), selectedTab);
+
+        selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
+        drumMachineFragment.setTabAppearances(1, selectedSequence.getTabs(0), selectedTab);
+
+        selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
+        drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
+
+        updateSeqLabel();
+    }
+
+    private void selectSeqMod(int tabIndex){
+        DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
+        int selectedTab;
+
+        selectedSequence.setSelectedSequenceModule(tabIndex);
+
+        selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
+        drumMachineFragment.setTabAppearances(1, selectedSequence.getTabs(0), selectedTab);
+
+        selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
+        drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
+
+        updateSeqLabel();
+    }
+
+    private void selectSeqModMode(int tabIndex){
+        DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
+        int selectedTab;
+
+        selectedSequence.getSelectedSequenceModule().setSelectedMode(tabIndex);
+
+        selectedTab = selectedSequence.getSelectedSequenceModule().getModuleModes().indexOf(selectedSequence.getSelectedSequenceModule().getSelectedMode());
+        drumMachineFragment.setTabAppearances(2, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
+
+        updateSeqLabel();
     }
 
     public void updateSeqLabel(){
         llppdrums.setSeqText(selectedSequence.getFullName());
+    }
+
+    public void moveSequence(final int from, final int to){
+        DrumSequence ds = sequences.remove(from);
+        sequences.add(to, ds);
     }
 
     /** ACTIVATION **/
@@ -179,8 +214,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
 
         playingSequence = drumSequence;
 
-        //reset the counter if the selected sequence isn't playing and lock the UI if the selected sequence is playing
-        if (playingSequence != selectedSequence) {
+        //reset the counter if the selected sequence isn't playing and lock the UI if the selected sequence is playing (the nullcheck is for when it's called on construction before the sequencerUI exists)
+        if (playingSequence != selectedSequence && llppdrums.getSequencer() != null) {
             llppdrums.getSequencer().resetCounter();
             unlockUI();
         }
@@ -466,6 +501,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     public DrumMachineKeeper getKeeper(){
         //Log.e("DrumMachine", "getkEEPER()");
         DrumMachineKeeper keeper = new DrumMachineKeeper();
+        keeper.selectedSequence = getSelectedSequenceIndex();
         keeper.initTempo = sequences.get(0).getTempo(); //since sequence 0 always is active on startup we do this
         keeper.initSteps = sequences.get(0).getNOfSteps(); //since sequence 0 always is active on startup we do this
         keeper.sequenceManagerKeeper = sequenceManager.getKeeper();
