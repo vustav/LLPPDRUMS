@@ -134,7 +134,7 @@ public class DrumMachineFragment extends TabFragment {
                 super.onLayoutCompleted(state);
 
                 if(onStartup) {
-                    Log.e("DrumMachineFragment", "STARTUP");
+                    //Log.e("DrumMachineFragment", "STARTUP");
                     adapter.updateBorders(llppdrums.getDrumMachine().getSelectedSequenceIndex());
                 }
                 onStartup = false;
@@ -283,18 +283,24 @@ public class DrumMachineFragment extends TabFragment {
 
         //remove
         Button removeBtn = rootView.findViewById(R.id.sequenceRemoveBtn);
-        removeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llppdrums.getDrumMachine().removeSelectedSequence();
-                adapter.updateBorders(llppdrums.getDrumMachine().getSelectedSequenceIndex());
-                adapter.notifyDataSetChanged();
-            }
+        removeBtn.setOnClickListener(view -> {
+            llppdrums.getDrumMachine().removeSelectedSequence();
+            adapter.updateBorders(llppdrums.getDrumMachine().getSelectedSequenceIndex());
+            adapter.notifyDataSetChanged();
+        });
+
+        //add
+        Button addBtn = rootView.findViewById(R.id.sequenceAddBtn);
+        addBtn.setOnClickListener(view -> {
+            llppdrums.getDrumMachine().addSequence();
+            adapter.updateBorders(llppdrums.getDrumMachine().getSelectedSequenceIndex());
+            //llppdrums.getDrumMachine().selectSequence(llppdrums.getDrumMachine().getSequences().size()-1);
+            adapter.notifyDataSetChanged();
         });
 
         //set selected tabs
         //callback.onTabClicked(callback.getTabs(0).get(llppdrums.getDrumMachine().getSelectedSequenceIndex()));
-        llppdrums.getDrumMachine().selectSequenceFromAdapter(llppdrums.getDrumMachine().getSelectedSequenceIndex());
+        llppdrums.getDrumMachine().selectSequence(llppdrums.getDrumMachine().getSelectedSequenceIndex());
         callback.onTabClicked(callback.getTabs(0).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModuleIndex()));
         callback.onTabClicked(callback.getTabs(1).get(llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getSelectedModeIndex()));
 
@@ -335,6 +341,12 @@ public class DrumMachineFragment extends TabFragment {
         }
 
          */
+        if(show) {
+            ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.VISIBLE);
+        }
+        else{
+            ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.INVISIBLE);
+        }
     }
 
     private boolean uiLocked = false; //used to prevent spinner from opening when the UI is locked

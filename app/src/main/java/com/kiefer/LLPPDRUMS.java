@@ -341,8 +341,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             toast.show();
         }
 
-
-
         try {
             controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, keeper.controllerKeeper);
         }

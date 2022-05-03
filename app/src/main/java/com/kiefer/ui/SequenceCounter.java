@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.SequenceManager;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.utils.ColorUtils;
 
@@ -15,9 +16,11 @@ import java.util.ArrayList;
 
 public class SequenceCounter extends Counter {
     private final LinearLayout controllerLayout;
+    private final SequenceManager sequenceManager;
 
-    public SequenceCounter(LLPPDRUMS llppdrums, int steps, int width, int height, int txtSize){
+    public SequenceCounter(LLPPDRUMS llppdrums, SequenceManager sequenceManager, int steps, int width, int height, int txtSize){
         super(llppdrums, steps);
+        this.sequenceManager = sequenceManager;
 
         controllerLayout = new LinearLayout(llppdrums);
         createControllerLayout(steps, width, height, txtSize);
@@ -57,6 +60,7 @@ public class SequenceCounter extends Counter {
             if(controllerLayout != null) {
                 if (controllerLayout.getChildAt(i).isEnabled()) {
                     setStepColor(i, ContextCompat.getColor(llppdrums, R.color.counterInactiveBgColor));
+                    //setStepColor(i, sequenceManager.getSelectedSequences().get(i).getColor());
                 }
             }
         }
@@ -67,16 +71,16 @@ public class SequenceCounter extends Counter {
         //if(controllerLayout.getChildAt(step).isEnabled()) {
             super.setStepColor(step, color);
             if (controllerLayout != null) {
-                llppdrums.runOnUiThread(new Runnable() {
-                    public void run() {
+                //llppdrums.runOnUiThread(new Runnable() {
+                    //public void run() {
                         //if(controllerLayout.getChildAt(step).isEnabled()) {
                         RelativeLayout bg = (RelativeLayout) controllerLayout.getChildAt(step);
                         TextView tv = (TextView) ((RelativeLayout) controllerLayout.getChildAt(step)).getChildAt(0);
                         bg.setBackgroundColor(color);
                         tv.setTextColor(ColorUtils.getContrastColor(color));
                         //}
-                    }
-                });
+                    //}
+                //});
             }
         //}
     }

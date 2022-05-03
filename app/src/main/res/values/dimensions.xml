@@ -49,6 +49,8 @@
 
     <dimen name="tabsTextSize">15sp</dimen>
 
+    <dimen name="seqAddRemoveBtnSize">35dp</dimen>
+
     <!-- SEQUENCER -->
     <dimen name="sequencerTrackStepHeight">35dp</dimen>
     <dimen name="sequencerTrackPadding">2dp</dimen>

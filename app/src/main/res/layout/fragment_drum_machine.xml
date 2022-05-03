@@ -3,15 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- SEQ TABS -->
-    <!--
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/machineSequenceTabsLayout"
 
-        android:layout_toEndOf="@id/machineSequenceTabsScroll"/>
-        -->
 
     <!-- SEQUENCE BORDER -->
     <FrameLayout
@@ -21,7 +13,7 @@
         android:paddingTop="@dimen/tabsBorderSmall"
         android:paddingEnd="@dimen/tabsBorderSmall"
         android:paddingBottom="@dimen/tabsBorderSmall"
-        android:layout_marginStart="@dimen/tabsBorderSmallNegative"
+        android:layout_marginStart="-5px"
 
         android:layout_toEndOf="@id/machineSequenceTabsScroll">
 
@@ -296,30 +288,48 @@
             <!-- REMOVE BTN -->
             <!-- buttons with text seems to get a little marginTop, hence the margin top = -2dp -->
             <Button
-                android:layout_width="@dimen/btnHeightSmall"
-                android:layout_height="@dimen/btnHeightSmall"
+                android:layout_width="@dimen/seqAddRemoveBtnSize"
+                android:layout_height="@dimen/seqAddRemoveBtnSize"
                 android:id="@+id/sequenceRemoveBtn"
                 android:text="-"
                 android:textSize="@dimen/defaultBtnTxtSize"
                 android:padding="@dimen/defaultBtnPadding"
-                android:layout_marginTop="-2dp"
-
 
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
     </FrameLayout>
 
-    <!-- RECYCLERVIEW -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/machineSequenceTabsScroll">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/machineSequenceTabsRecyclerView"
-            android:overScrollMode="never"/>
+            android:layout_height="match_parent">
+
+
+            <!-- RECYCLERVIEW -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/machineSequenceTabsRecyclerView"
+                android:overScrollMode="never"/>
+
+            <!-- ADD BTN -->
+            <!-- buttons with text seems to get a little marginTop, hence the margin top = -2dp -->
+            <Button
+                android:layout_width="@dimen/seqAddRemoveBtnSize"
+                android:layout_height="@dimen/seqAddRemoveBtnSize"
+                android:id="@+id/sequenceAddBtn"
+                android:text="+"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:padding="@dimen/defaultBtnPadding"
+
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="-2dp"
+                android:layout_below="@id/machineSequenceTabsRecyclerView"/>
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package com.kiefer.machine;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -81,14 +80,15 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
 
         if(keeper != null) {
             for(int i = 0; i<keeper.sequenceKeepers.size(); i++) {
-                sequences.add(new DrumSequence(llppdrums, engineFacade, i, keeper.sequenceKeepers.get(i)));
+                addSequence(i, keeper.sequenceKeepers.get(i));
                 sequences.get(i).restore(keeper.sequenceKeepers.get(i));
             }
             selectedSequence = sequences.get(keeper.selectedSequence);
         }
         else{
             for(int i = 0; i<llppdrums.getResources().getInteger(R.integer.nOfSequences); i++) {
-                sequences.add(new DrumSequence(llppdrums, engineFacade, i));
+                //sequences.add(new DrumSequence(llppdrums, engineFacade, i));
+                addSequence(i);
             }
             selectedSequence = sequences.get(0);
         }
@@ -123,6 +123,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
 
     /** NOT USED WHEN USING RecyclerView **/
+    /*
     public void selectSequence(int tabIndex){
         DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
         int selectedTab;
@@ -164,7 +165,9 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         updateSeqLabel();
     }
 
-    public void selectSequenceFromAdapter(int tabIndex){
+     */
+
+    public void selectSequence(int tabIndex){
         DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
         int selectedTab;
 
@@ -192,9 +195,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         //tell the sequence to select itself
         selectedSequence.select();
 
-        //set the tab appearances (here all tiers has to be set. If the next tier is clicked only that and those after has to be set etc.)
-        //selectedTab = sequences.indexOf(selectedSequence);
-        //drumMachineFragment.setTabAppearances(0, getTabables(), selectedTab);
+        //sequenceTabs are in a recyclerView and aren't set here
 
         selectedTab = selectedSequence.getSequenceModules().indexOf(selectedSequence.getSelectedSequenceModule());
         drumMachineFragment.setTabAppearances(0, selectedSequence.getTabs(0), selectedTab);
@@ -387,6 +388,16 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
 
     /** ADD/REMOVE SEQUENCES **/
+    public void addSequence(int tabIndex, DrumSequenceKeeper keeper){
+        sequences.add(new DrumSequence(llppdrums, engineFacade, tabIndex, keeper));
+    }
+    public void addSequence(int tabIndex){
+        sequences.add(new DrumSequence(llppdrums, engineFacade, tabIndex));
+    }
+    public void addSequence(){
+        sequences.add(new DrumSequence(llppdrums, engineFacade, sequences.size()));
+    }
+
     public void removeSelectedSequence(){
         if(sequences.size() > 1){
             int seqToRemove = getSelectedSequenceIndex(), seqToActivate;
@@ -400,7 +411,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
             else{
                 seqToActivate = seqToRemove + 1;
             }
-            selectSequenceFromAdapter(seqToActivate);
+            selectSequence(seqToActivate);
 
             if(getPlayingSequenceIndex() == seqToRemove){
                 setPlayingSequence(sequences.get(seqToActivate));

@@ -1,10 +1,11 @@
 package com.kiefer.fragments.drumMachine;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,6 @@ import com.kiefer.R;
 import com.kiefer.ui.tabs.interfaces.Tab;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.SequenceTabViewHolder> {
     private final LLPPDRUMS llppdrums;
@@ -30,7 +30,7 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
     // Create new viewHolder
     @Override
     public SequenceAdapter.SequenceTabViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        FrameLayout trackView = (FrameLayout) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tab_single_vertical, viewGroup, false);
+        FrameLayout trackView = (FrameLayout) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tab_single_vertical_play_icon, viewGroup, false);
         return new SequenceAdapter.SequenceTabViewHolder(trackView);
     }
 
@@ -48,7 +48,7 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
             public void onClick(View v) {
                 //Log.e("SequenceAdapter", "click------------------------------------------");
                 updateBorders(sequenceTabViewHolder.getAdapterPosition());
-                llppdrums.getDrumMachine().selectSequenceFromAdapter(sequenceTabViewHolder.getAdapterPosition());
+                llppdrums.getDrumMachine().selectSequence(sequenceTabViewHolder.getAdapterPosition());
                 drumMachineFragment.setColor();
             }
         });
@@ -76,8 +76,9 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
         final FrameLayout view;
 
         final FrameLayout border;
-        final FrameLayout bg;
+        final RelativeLayout bg;
         final TextView tv;
+        final ImageView playIcon;
 
         public SequenceTabViewHolder(FrameLayout v) {
             super(v);
@@ -85,6 +86,7 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
             border = v.findViewById(R.id.tabBorder);
             bg = v.findViewById(R.id.tabBg);
             tv = v.findViewById(R.id.tabTxt);
+            playIcon = v.findViewById(R.id.tabIcon);
         }
     }
 }

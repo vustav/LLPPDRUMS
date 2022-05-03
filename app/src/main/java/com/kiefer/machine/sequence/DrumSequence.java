@@ -25,6 +25,7 @@ import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Tracks have an OscillatorManager with two Oscillators holding a SynthInstrument each. Drums
@@ -92,16 +93,17 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         trackRndManagerBg = ImgUtils.getRandomImageId();
 
         String name;
+        Random random = new Random();
         if(keeper != null){
             try {
                 name = keeper.name;
             }
             catch (Exception e){
-                name = Integer.toString(tabIndex);
+                name = Integer.toString(random.nextInt(100));;
             }
         }
         else{
-            name = Integer.toString(tabIndex);
+            name = Integer.toString(random.nextInt(100));
         }
         sequenceName = name;
 
@@ -217,9 +219,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         if(llppdrums.getDrumMachine() != null)
             //Log.e("DrumSequence", "----deactivate()----, seq: " + llppdrums.getDrumMachine().getSequences().indexOf(this));
 
-            //turn off the little play-icon in the tab
-            if(engineFacade.isPlaying()) {
-                //llppdrums.getDrumMachineFragment().getTabManager().showIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), false);
+            //turn off the little play-icon in the tab (will get called when new sequences are playing BEFORE their viewHolder is created so do the playingSeq check as well)
+            if(engineFacade.isPlaying() && llppdrums.getDrumMachine().getPlayingSequence() == this) {
                 llppdrums.getDrumMachineFragment().showPlayIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), false);
 
                 //unlock the UI if THIS seq is selected on deactivation

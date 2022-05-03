@@ -102,7 +102,7 @@ public class SequenceManager {
 
     private void setupSequences(SequenceManagerKeeper keeper){
 
-        counter = new SequenceCounter(llppdrums, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxHeight), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
+        counter = new SequenceCounter(llppdrums, this, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxHeight), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
         counter.setSize((int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxHeight));
 
         selectedSequences = new ArrayList<>();
@@ -183,6 +183,7 @@ public class SequenceManager {
         //reset if a box was already queued
         if(changeAtNext){
             counter.setStepColor(queuedSeqBoxIndex, ContextCompat.getColor(llppdrums, R.color.counterInactiveBgColor));
+            //counter.setStepColor(queuedSeqBoxIndex, drumSequences.get(index).getColor());
         }
 
         if(index != queuedSeqBoxIndex) {
@@ -249,6 +250,10 @@ public class SequenceManager {
     }
 
     /** GET **/
+
+    public ArrayList<DrumSequence> getSelectedSequences() {
+        return selectedSequences;
+    }
 
     public int getNOfActiveBoxes() {
         return nOfActiveBoxes;
