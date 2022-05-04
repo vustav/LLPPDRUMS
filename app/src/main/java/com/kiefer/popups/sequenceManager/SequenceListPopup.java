@@ -37,14 +37,18 @@ public class SequenceListPopup extends Popup {
         for(int i = 0; i < llppdrums.getDrumMachine().getNOfSequences(); i++){
             TextView tv = new TextView(llppdrums);
             tv.setWidth(DEF_LIST_WIDTH);
-            tv.setText(llppdrums.getDrumMachine().getSequences().get(i).getName());
+            tv.setText(sequenceManager.getDrumSequences().get(i).getName());
 
+            /*
             int color;
             if (i % 2 == 0) {
                 color = ContextCompat.getColor(llppdrums, R.color.wavesBgEven);
             } else {
                 color = ContextCompat.getColor(llppdrums, R.color.wavesBgUneven);
             }
+
+             */
+            int color = sequenceManager.getDrumSequences().get(i).getColor();
             tv.setBackgroundColor(color);
             tv.setTextSize((int) llppdrums.getResources().getDimension(R.dimen.defaultListTxtSize));
             tv.setTextColor(ColorUtils.getContrastColor(color));

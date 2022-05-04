@@ -102,13 +102,12 @@ public class SequenceManager {
 
     private void setupSequences(SequenceManagerKeeper keeper){
 
+        selectedSequences = new ArrayList<>();
         counter = new SequenceCounter(llppdrums, this, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxHeight), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
         counter.setSize((int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxHeight));
 
-        selectedSequences = new ArrayList<>();
-
         Random r = new Random();
-        for(int step = 0; step < counter.getLayout().getChildCount(); step++){
+        for(int step = 0; step < llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes); step++){
 
             if(keeper != null){
                 selectedSequences.add(drumSequences.get(keeper.seqs.get(step)));
@@ -251,6 +250,10 @@ public class SequenceManager {
 
     /** GET **/
 
+    public ArrayList<DrumSequence> getDrumSequences() {
+        return drumSequences;
+    }
+
     public ArrayList<DrumSequence> getSelectedSequences() {
         return selectedSequences;
     }
@@ -324,6 +327,8 @@ public class SequenceManager {
     public void setStepSelection(int step, int seq){
         selectedSequences.set(step, drumSequences.get(seq));
         counter.setStepText(step, drumSequences.get(seq).getName());
+        counter.setStepColor(step, drumSequences.get(seq).getColor());
+
     }
 
     public void setRandomizeProgress(boolean randomizeProgress){

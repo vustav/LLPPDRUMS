@@ -16,6 +16,8 @@
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/drawable/rnd_anim_3.xml" value="0.109" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/drawable/rnd_anim_5.xml" value="0.109" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/drawable/rnd_anim_7.xml" value="0.109" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/counter_cell.xml" value="0.32065217391304346" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/counter_cell_sequence.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/fragment_drum_machine.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/fragment_top.xml" value="0.2869791666666667" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/layout_sequence_manager.xml" value="0.21145833333333333" />
@@ -27,6 +29,7 @@
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_seq_rnd_options.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_track_btns.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_track_rnd.xml" value="0.32065217391304346" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/tab_single_horizontal_play_icon.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/tab_single_vertical.xml" value="0.1953125" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/tab_single_vertical_play.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/tab_single_vertical_play_icon.xml" value="0.2869791666666667" />

@@ -542,7 +542,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     //TABS
     @Override
     public int getOrientation(){
-        return Tab.VERTICAL;
+        return Tab.HORIZONTAL;
     }
 
     @Override

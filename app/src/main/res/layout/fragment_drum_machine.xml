@@ -300,6 +300,7 @@
         </RelativeLayout>
     </FrameLayout>
 
+    <!-- SEQUENCE TABS -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -308,7 +309,6 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-
 
             <!-- RECYCLERVIEW -->
             <androidx.recyclerview.widget.RecyclerView

@@ -1,5 +1,7 @@
 package com.kiefer.fragments.drumMachine;
 
+import android.content.Context;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,9 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
         sequenceTabViewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.e("SequenceAdapter", "click------------------------------------------");
+                Vibrator vibrator = (Vibrator) llppdrums.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(llppdrums.getResources().getInteger(R.integer.vibrateInMs));
+
                 updateBorders(sequenceTabViewHolder.getAdapterPosition());
                 llppdrums.getDrumMachine().selectSequence(sequenceTabViewHolder.getAdapterPosition());
                 drumMachineFragment.setColor();
