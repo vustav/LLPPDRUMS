@@ -12,7 +12,4 @@ public class DrumTrackKeeper implements Keeper {
     public SoundManagerKeeper soundManagerKeeper;
     public FxManagerKeeper fxManagerKeeper;
     public ArrayList<StepKeeper> stepKeepers;
-
-    public DrumTrackKeeper(){
-    }
 }

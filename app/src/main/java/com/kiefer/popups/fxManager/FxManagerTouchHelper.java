@@ -67,4 +67,8 @@ public class FxManagerTouchHelper extends ItemTouchHelper.SimpleCallback {
     public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         return 0;
     }
+
+    public boolean isDragging() {
+        return dragging;
+    }
 }

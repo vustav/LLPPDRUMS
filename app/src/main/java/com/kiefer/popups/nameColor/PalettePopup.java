@@ -12,8 +12,6 @@ import com.kiefer.popups.Popup;
 import com.kiefer.utils.ColorUtils;
 
 public class PalettePopup extends Popup {
-    private CSeekBar seekBar;
-    private View.OnTouchListener onTouchListener;
 
     public PalettePopup(final LLPPDRUMS llppdrums, final NamePopup namePopup, View anchor){
         super(llppdrums);

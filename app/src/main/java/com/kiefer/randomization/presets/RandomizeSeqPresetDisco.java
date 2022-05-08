@@ -20,11 +20,12 @@ public class RandomizeSeqPresetDisco extends RandomizeSeqPreset {
 
     @Override
     public void createPreset() {
-        int tempo = 120;
-        int steps = 8;
-        int beats = 4;
+        tempo = 120;
+        steps = 8;
+        beats = 4;
 
         ArrayList<RndSeqPresetTrack> tracks = new ArrayList<>();
+
         RndSeqPresetTrack track  = new RndSeqPresetTrackBassBasic(llppdrums, steps, 1, beats);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);

@@ -181,14 +181,16 @@ public class SequenceManager {
 
         //reset if a box was already queued
         if(changeAtNext){
-            counter.setStepColor(queuedSeqBoxIndex, ContextCompat.getColor(llppdrums, R.color.counterInactiveBgColor));
+            //counter.setStepColor(queuedSeqBoxIndex, ContextCompat.getColor(llppdrums, R.color.counterInactiveBgColor));
             //counter.setStepColor(queuedSeqBoxIndex, drumSequences.get(index).getColor());
+            counter.reset(queuedSeqBoxIndex);
         }
 
         if(index != queuedSeqBoxIndex) {
             changeAtNext = true;
             queuedSeqBoxIndex = index;
-            counter.setStepColor(index, ContextCompat.getColor(llppdrums, R.color.queuedSeqColor));
+            //counter.setStepColor(index, ContextCompat.getColor(llppdrums, R.color.queuedSeqColor));
+            counter.queueStep(index);
         }
         //remove the flag if the same box is pushed
         else{
@@ -324,6 +326,14 @@ public class SequenceManager {
         }
     }
 
+    public void updateSequenceColor(DrumSequence drumSequence){
+        for(int i = 0; i < selectedSequences.size(); i++){
+            if(selectedSequences.get(i) == drumSequence){
+                counter.setStepColor(i, drumSequence.getColor());
+            }
+        }
+    }
+
     public void setStepSelection(int step, int seq){
         selectedSequences.set(step, drumSequences.get(seq));
         counter.setStepText(step, drumSequences.get(seq).getName());
@@ -371,7 +381,7 @@ public class SequenceManager {
     public SequenceManagerKeeper getKeeper(){
         SequenceManagerKeeper sequenceManagerKeeper = new SequenceManagerKeeper();
 
-        Log.e("SequenceManager", "getKeeper(), activeSequenceBoxIndex: "+activeSequenceBoxIndex);
+        //Log.e("SequenceManager", "getKeeper(), activeSequenceBoxIndex: "+activeSequenceBoxIndex);
         sequenceManagerKeeper.activeSequenceBoxIndex = activeSequenceBoxIndex;
 
 

@@ -5,11 +5,27 @@
     android:layout_height="wrap_content">
 
     <!-- LABEL -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/trackRndLabel"
-        android:layout_margin="@dimen/tabsTVMargin"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/trackRndLabel"
+            android:layout_margin="@dimen/tabsTVMargin"/>
+
+        <!-- HELP -->
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+            android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+            android:src="@drawable/anim_icon_info_btn"
+            android:id="@+id/trackRndInfoBtn"
+
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
 
     <!-- PRESETS -->
     <!-- SPINNER (just a container) -->
@@ -30,16 +46,6 @@
             android:textSize="@dimen/defaultBtnTxtSize"
             android:id="@+id/trackRndBtn"
             android:layout_marginTop="@dimen/marginLarge"/>
-
-        <!-- HELP -->
-        <ImageView
-            android:layout_width="@dimen/infoBtnSize"
-            android:layout_height="@dimen/infoBtnSize"
-            android:layout_marginTop="@dimen/infoBtnDefaultMargin"
-            android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
-            android:src="@drawable/icon_info_btn"
-            android:id="@+id/trackRndInfoBtn"
-            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
     <!-- RND OSC -->
@@ -96,7 +102,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VOL"/>
+                    android:text="STEP VOL"/>
             </LinearLayout>
 
             <!-- RND PITCH -->
@@ -160,7 +166,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MIXER"/>
+                    android:text="TRACK VOL"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

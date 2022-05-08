@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kiefer.R;
@@ -77,15 +78,28 @@ public class TopFragment extends TabFragment {
         });
 
         //set up the play btn
-        Button playBtn = rootView.findViewById(R.id.topPlayBtn);
-        playBtn.setOnClickListener(new View.OnClickListener() {
+        ImageView playIcon = rootView.findViewById(R.id.topPlayIcon);
+        RelativeLayout pauseIcon = rootView.findViewById(R.id.topPauseIcon);
+
+        Button playPauseBtn = rootView.findViewById(R.id.topPlayBtn);
+        playPauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llppdrums.getDrumMachine().play();
+                if(llppdrums.getEngineFacade().isPlaying()){
+                    llppdrums.getDrumMachine().pause();
+                    playIcon.setVisibility(View.VISIBLE);
+                    pauseIcon.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    llppdrums.getDrumMachine().play();
+                    playIcon.setVisibility(View.INVISIBLE);
+                    pauseIcon.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         //set up the pause btn
+        /*
         Button pauseBtn = rootView.findViewById(R.id.topPauseBtn);
         pauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,12 +108,16 @@ public class TopFragment extends TabFragment {
             }
         });
 
+         */
+
         //set up the stop btn
         Button stopBtn = rootView.findViewById(R.id.topStopBtn);
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 llppdrums.getDrumMachine().stop();
+                playIcon.setVisibility(View.VISIBLE);
+                pauseIcon.setVisibility(View.INVISIBLE);
             }
         });
 

@@ -10,15 +10,21 @@ import android.widget.PopupWindow;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.popups.Popup;
+import com.kiefer.utils.ColorUtils;
 
 public class AutomationStepsPopup extends Popup {
 
     public AutomationStepsPopup(LLPPDRUMS llppdrums, final AutomationManager automationManager, final AutomationManagerAdapter automationAdapter, final int index, final LinearLayout anchor){
         super(llppdrums);
 
-        //inflate the View
-        final LinearLayout popupView = new LinearLayout(llppdrums);
-        popupView.setWeightSum(automationManager.getAutomations().get(index).getNOfSteps());
+        FrameLayout popupView = new FrameLayout(llppdrums);
+        int padding = (int) llppdrums.getResources().getDimension(R.dimen.defaultBtnPadding);
+        popupView.setPadding(padding, padding, padding, padding);
+        popupView.setBackgroundColor(ColorUtils.getRandomColor());
+
+        final LinearLayout stepsLayout = new LinearLayout(llppdrums);
+        stepsLayout.setWeightSum(automationManager.getAutomations().get(index).getNOfSteps());
+        popupView.addView(stepsLayout);
 
         //create the popupWindow
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -41,7 +47,7 @@ public class AutomationStepsPopup extends Popup {
 
             setStepColor(stepLayout, automationManager.getAutomations().get(index).isStepOn(step));
 
-            popupView.addView(stepLayout);
+            stepsLayout.addView(stepLayout);
 
             final int finalStep = step;
             stepLayout.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +62,8 @@ public class AutomationStepsPopup extends Popup {
             });
         }
 
-        popupWindow.showAsDropDown(anchor, -stepWidth * automationManager.getAutomations().get(index).getNOfSteps() / 2, -30);
+        //popupWindow.showAsDropDown(anchor, -stepWidth * automationManager.getAutomations().get(index).getNOfSteps() / 2, -30);
+        show(popupWindow);
     }
 
     private void setStepColor(FrameLayout stepLayout, boolean on){

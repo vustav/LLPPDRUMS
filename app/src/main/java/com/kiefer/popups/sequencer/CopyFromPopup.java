@@ -57,7 +57,7 @@ public class CopyFromPopup extends Popup {
                     public void onClick(View view) {
                         //llppdrums.getDrumMachine().getSelectedSequence().load(llppdrums.getDrumMachine().getSequences().get(finalI).getKeeper());
                         llppdrums.getDrumMachine().loadSelectedSequence(llppdrums.getDrumMachine().getSequences().get(finalI).getKeeper());
-                        llppdrums.getSequencer().notifyDataSetChange();
+                        llppdrums.getSequencerUI().notifyDataSetChange();
                         popupWindow.dismiss();
                     }
                 });

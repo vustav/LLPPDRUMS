@@ -1,7 +1,6 @@
 package com.kiefer.randomization.rndTrackManager;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.sequenceModules.OnOff;
@@ -230,7 +229,6 @@ public class RndTrackManager {
                             //start by turning the step on if one sub is set for autoRandomization
                             drumTrack.getSteps().get(stepNo).setOn(true);
 
-
                             //if there's only one sub, randomize the step
                             if (s.getNofSubs() == 1) {
                                 //Log.e("RndTrackManager", "auto one sub");
@@ -245,8 +243,8 @@ public class RndTrackManager {
                                 /** nån bugg här som gör att den inte uppdaterar ordentligt så checken är borttagen, fixa vid tid **/
                                 //drawables should be updated if a change has occurred
                                 //if (s.isOn() != wasOn) {
-                                    //we should always update colors here so don't only do this for OnOff
-                                    updateDrawables = true;
+                                //we should always update colors here so don't only do this for OnOff
+                                updateDrawables = true;
                                 //}
                             }
                             //otherwise randomize the sub
@@ -291,7 +289,6 @@ public class RndTrackManager {
                                     updateDrawables = true;
                                 }
                             }
-
                         }
                     }
 
@@ -398,7 +395,7 @@ public class RndTrackManager {
             //Log.e("RndTrackManager", "UPDATE, seq pos: "+llppdrums.getEngineFacade().getStep());
             //Log.e("RndTrackManager", "UPDATE step: "+step);
             Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(drumTrack.getTrackNo(), step);
-            llppdrums.getSequencer().setStepDrawable(drawable, drumTrack.getTrackNo(), step);
+            llppdrums.getSequencerUI().setStepDrawable(drawable, drumTrack.getTrackNo(), step);
         }
     }
 

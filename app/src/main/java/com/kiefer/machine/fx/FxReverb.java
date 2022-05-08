@@ -201,7 +201,7 @@ public class FxReverb extends Fx {
 
     @Override
     public FxKeeper getKeeper(){
-        FxReverbKeeper keeper = new FxReverbKeeper(getIndex(), isOn(), automationManager.getKeeper());
+        FxReverbKeeper keeper = new FxReverbKeeper(getFxNo(), isOn(), automationManager.getKeeper());
         keeper.size = Float.toString(((Reverb)fx).getSize());
         keeper.damp = Float.toString(((Reverb)fx).getHFDamp());
         keeper.mix = Float.toString(((Reverb)fx).getMix());

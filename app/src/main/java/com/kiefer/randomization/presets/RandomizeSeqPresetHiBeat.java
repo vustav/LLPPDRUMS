@@ -19,9 +19,9 @@ public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
 
     @Override
     public void createPreset() {
-        int tempo = 120;
-        int steps = 12;
-        int beats = 4;
+        tempo = 120;
+        steps = 12;
+        beats = 4;
 
         ArrayList<RndSeqPresetTrack> tracks = new ArrayList<>();
         RndSeqPresetTrack track  = new RndSeqPresetTrackBassBasic(llppdrums, steps, 1, beats);

@@ -2,6 +2,7 @@ package com.kiefer.randomization.presets;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.files.keepers.rndSeqManager.RandomizeSeqPresetKeeper;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 
@@ -12,6 +13,7 @@ public abstract class RandomizeSeqPreset {
     protected RndSeqManager rndSeqManager;
     protected Random random;
     protected String name;
+    protected int tempo, steps, beats;
 
     public RandomizeSeqPreset(LLPPDRUMS llppdrums, RndSeqManager rndSeqManager, String name){
         this.llppdrums = llppdrums;
@@ -50,5 +52,15 @@ public abstract class RandomizeSeqPreset {
     /** GET **/
     public String getName(){
         return name;
+    }
+
+    /** RESTORE **/
+    public RandomizeSeqPresetKeeper getKeeper(){
+        RandomizeSeqPresetKeeper keeper = new RandomizeSeqPresetKeeper();
+        keeper.name = name;
+        keeper.tempo = tempo;
+        keeper.steps = steps;
+        keeper.beats = beats;
+        return keeper;
     }
 }

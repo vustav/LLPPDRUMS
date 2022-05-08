@@ -11,8 +11,6 @@ import nl.igorski.mwengine.core.BaseInstrument;
 public abstract class SoundSource {
     public abstract void activate();
     public abstract void deactivate();
-    //public abstract void positionEvents(int nOfSteps, int step);
-    //public abstract void randomizePitch(boolean autoRnd, int sub);
 
     /** PLAY **/
     public abstract void playDrum();

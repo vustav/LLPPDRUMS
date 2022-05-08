@@ -30,15 +30,15 @@ public class OscPresetHHClosed extends OscPreset {
         }
         osc0.setVolume(getRndmizer(.7f, .9f));
         osc0.setOscillatorPitch((int)(maxPitch * .8 * getMiniRandomMultiplier()));
-        osc0.setAttackTime(maxAtk / 20f * getMiniRandomMultiplier());
-        osc0.setDecayTime(maxDecay / 15f * getMiniRandomMultiplier());
+        osc0.setAttackTime(maxAtk / 35f * getMiniRandomMultiplier());
+        osc0.setDecayTime(maxDecay / 35f * getMiniRandomMultiplier());
         osc0.setOn(true);
 
         osc1.setWaveForm(4); //noise
         osc1.setVolume(getRndmizer(.8f, 1));
         osc1.setOscillatorPitch((int)(maxPitch * .9 * getMiniRandomMultiplier()));
-        osc1.setAttackTime(maxAtk / 21f * getMiniRandomMultiplier());
-        osc1.setDecayTime(maxDecay / 15f * getMiniRandomMultiplier());
+        osc1.setAttackTime(maxAtk / 35f * getMiniRandomMultiplier());
+        osc1.setDecayTime(maxDecay / 35f * getMiniRandomMultiplier());
         osc1.setOn(true);
     }
 

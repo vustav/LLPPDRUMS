@@ -168,7 +168,7 @@ public class FxBitCrusher extends Fx {
 
     @Override
     public FxKeeper getKeeper(){
-        FxBitCrusherKeeper keeper = new FxBitCrusherKeeper(getIndex(), isOn(), automationManager.getKeeper());
+        FxBitCrusherKeeper keeper = new FxBitCrusherKeeper(getFxNo(), isOn(), automationManager.getKeeper());
         keeper.amount = Float.toString(((BitCrusher)fx).getAmount());
         keeper.inMix = Float.toString(((BitCrusher)fx).getInputMix());
         keeper.outMix = Float.toString(((BitCrusher)fx).getOutputMix());

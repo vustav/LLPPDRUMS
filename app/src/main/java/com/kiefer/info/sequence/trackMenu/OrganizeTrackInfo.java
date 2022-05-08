@@ -11,17 +11,17 @@ import com.kiefer.R;
 import com.kiefer.info.Info;
 import com.kiefer.utils.ColorUtils;
 
-public class AutomateTrackInfo implements Info {
+public class OrganizeTrackInfo implements Info {
     private final LLPPDRUMS llppdrums;
-    public static String key = "autoTrackInfo";
+    public static String key = "organizeTrackInfo";
 
-    public AutomateTrackInfo(LLPPDRUMS llppdrums){
+    public OrganizeTrackInfo(LLPPDRUMS llppdrums){
         this.llppdrums = llppdrums;
     }
 
     @Override
     public String getName(){
-        return llppdrums.getResources().getString(R.string.automateStepsName);
+        return llppdrums.getResources().getString(R.string.organizeStepsName);
     }
 
     @Override

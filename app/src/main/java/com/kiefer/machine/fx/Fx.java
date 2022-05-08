@@ -28,17 +28,17 @@ public abstract class Fx implements Automatable {
     protected int gradientColorTwo;
 
     private boolean on;
-    private final int index; //this is the number in fxInfos in FxManager, not its position in the chain
+    private final int fxNo; //this is the number in fxInfos in FxManager, not its position in the chain
 
     private final int automationBgId;
 
     //PARAMS
     protected ArrayList<String> paramNames; //has to be populated by children!
 
-    public Fx(LLPPDRUMS llppdrums, DrumTrack drumTrack, int index, boolean automation){
+    public Fx(LLPPDRUMS llppdrums, DrumTrack drumTrack, int fxNo, boolean automation){
         this.drumTrack = drumTrack;
         this.llppdrums = llppdrums;
-        this.index = index;
+        this.fxNo = fxNo;
 
         gradientColorTwo = ColorUtils.getRandomColor();
 
@@ -136,8 +136,8 @@ public abstract class Fx implements Automatable {
         return fx;
     }
 
-    public int getIndex() {
-        return index;
+    public int getFxNo() {
+        return fxNo;
     }
 
     /** SET **/

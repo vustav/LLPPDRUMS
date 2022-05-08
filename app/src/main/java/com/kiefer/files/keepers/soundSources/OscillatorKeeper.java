@@ -8,8 +8,4 @@ public class OscillatorKeeper implements Keeper {
     public boolean on;
     public int waveForm;
     public String atk, decay;
-
-    public OscillatorKeeper(){
-        //set by the creator
-    }
 }

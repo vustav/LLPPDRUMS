@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.popups.fxManager.FxManagerAdapter;
 
 public class SequenceTouchHelper extends ItemTouchHelper.SimpleCallback {
     private LLPPDRUMS llppdrums;
@@ -55,6 +54,8 @@ public class SequenceTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         if(dragStart != dragEnd && dragDone){
             llppdrums.getDrumMachine().moveSequence(dragStart, dragEnd);
+            //adapter.updateBorders(llppdrums.getDrumMachine().getSelectedSequenceIndex());
+            //adapter.updateTVColors(llppdrums.getDrumMachine().getSelectedSequenceIndex());
             dragDone = false;
         }
         adapter.notifyDataSetChanged(); //this will update the listeners in the viewHolder to open the correct popups
@@ -69,5 +70,9 @@ public class SequenceTouchHelper extends ItemTouchHelper.SimpleCallback {
     @Override
     public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         return 0;
+    }
+
+    public boolean isDragging() {
+        return dragging;
     }
 }

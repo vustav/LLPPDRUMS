@@ -64,18 +64,18 @@ public class FxManager {
     }
 
     //has to be in the same order as fxInfos
-    private Fx getNewFx(int index, boolean randomizeAutomation){
-        switch (index){
+    private Fx getNewFx(int fxNo, boolean randomizeAutomation){
+        switch (fxNo){
             case 0:
-                return new FxFlanger(llppdrums, drumTrack, index, randomizeAutomation);
+                return new FxFlanger(llppdrums, drumTrack, fxNo, randomizeAutomation);
             case 1:
-                return new FxDelay(llppdrums, drumTrack, index, randomizeAutomation);
+                return new FxDelay(llppdrums, drumTrack, fxNo, randomizeAutomation);
             case 2:
-                return new FxReverb(llppdrums, drumTrack, index, randomizeAutomation);
+                return new FxReverb(llppdrums, drumTrack, fxNo, randomizeAutomation);
             case 3:
-                return new FxBitCrusher(llppdrums, drumTrack, index, randomizeAutomation);
+                return new FxBitCrusher(llppdrums, drumTrack, fxNo, randomizeAutomation);
             case 4:
-                return new FxDecimator(llppdrums, drumTrack, index, randomizeAutomation);
+                return new FxDecimator(llppdrums, drumTrack, fxNo, randomizeAutomation);
         }
         return null;
     }
@@ -322,6 +322,10 @@ public class FxManager {
 
     public Fx getSelectedFx() {
         return selectedFx;
+    }
+
+    public int getSelectedFxIndex(){
+        return fxs.indexOf(selectedFx);
     }
 /*
     public TabManager getTabManager() {

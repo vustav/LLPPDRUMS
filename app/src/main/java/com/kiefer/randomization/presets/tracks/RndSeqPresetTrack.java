@@ -3,6 +3,10 @@ package com.kiefer.randomization.presets.tracks;
 import android.graphics.drawable.GradientDrawable;
 
 import com.kiefer.LLPPDRUMS;
+import com.kiefer.files.keepers.Keeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetStepKeeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetSubKeeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetTrackKeeper;
 import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
 import com.kiefer.utils.NmbrUtils;
@@ -22,15 +26,30 @@ public class RndSeqPresetTrack {
 
     private boolean randomizeFx, randomizePan, randomizeVol;
 
+    public RndSeqPresetTrack(LLPPDRUMS llppdrums, RndSeqPresetTrackKeeper keeper){
+        this.llppdrums = llppdrums;
+
+        gradientDrawable = ColorUtils.getGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor(), ColorUtils.HORIZONTAL);
+        oscListImgId = ImgUtils.getRandomImageId();
+
+        presetCategory = keeper.presetCategory;
+        name = keeper.name;
+
+        setupSteps(keeper.nOfSteps, keeper.nOfSubs);
+
+        randomizeFx = keeper.randomizeFx;
+        randomizePan = keeper.randomizePan;
+        randomizeVol = keeper.randomizeVol;
+
+        restore(keeper);
+    }
+
     public RndSeqPresetTrack(LLPPDRUMS llppdrums, String presetCategory, int nOfSteps, int nOfSubs, String name){
         this.llppdrums = llppdrums;
         this.presetCategory = presetCategory;
         this.name = name;
         gradientDrawable = ColorUtils.getGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor(), ColorUtils.HORIZONTAL);
         oscListImgId = ImgUtils.getRandomImageId();
-
-        //this.nOfSteps = nOfSteps;
-        //this.nOfSubs = nOfSubs;
 
         setupSteps(nOfSteps, nOfSubs);
 
@@ -52,7 +71,9 @@ public class RndSeqPresetTrack {
     }
 
     public void removeStep(){
-        steps.remove(steps.size()-1);
+        if(steps.size() > 1) {
+            steps.remove(steps.size() - 1);
+        }
     }
 
     public void randomizeStep(int step, int sub){
@@ -132,6 +153,36 @@ public class RndSeqPresetTrack {
         return name;
     }
 
+    /** RESTORATION **/
+    public RndSeqPresetTrackKeeper getKeeper(){
+        RndSeqPresetTrackKeeper keeper = new RndSeqPresetTrackKeeper();
+        keeper.randomizeFx = randomizeFx;
+        keeper.randomizePan = randomizePan;
+        keeper.randomizeVol = randomizeVol;
+        keeper.nOfSteps = steps.size();
+        keeper.nOfSubs = getnOfSubs();
+
+        ArrayList<RndSeqPresetStepKeeper> stepKeepers = new ArrayList<>();
+        for(int i = 0; i < steps.size(); i++){
+            stepKeepers.add(steps.get(i).getKeeper());
+        }
+        keeper.rndSeqPresetStepKeepers = stepKeepers;
+        return keeper;
+    }
+
+    public void restore(RndSeqPresetTrackKeeper keeper){
+        //setupSteps(keeper.nOfSteps, keeper.nOfSubs);
+        //presetCategory = keeper.presetCategory;
+        //name = keeper.name;
+        //randomizeFx = keeper.randomizeFx;
+        //randomizePan = keeper.randomizePan;
+        //randomizeVol = keeper.randomizeVol;
+
+        for(int i = 0; i < steps.size(); i++){
+            steps.get(i).restore(keeper.rndSeqPresetStepKeepers.get(i));
+        }
+    }
+
     /** STEP CLASS **/
     public class Step{
         ArrayList<Sub> subs;
@@ -203,6 +254,30 @@ public class RndSeqPresetTrack {
         public int getNofSubs(){
             return subs.size();
         }
+
+        /** RESTORATION **/
+        public RndSeqPresetStepKeeper getKeeper(){
+            RndSeqPresetStepKeeper keeper = new RndSeqPresetStepKeeper();
+            keeper.minPan = Float.toString(minPan);
+            keeper.maxPan = Float.toString(maxPan);
+
+            ArrayList<RndSeqPresetSubKeeper> rndSeqPresetSubKeepers = new ArrayList<>();
+            for(Sub s : subs){
+                rndSeqPresetSubKeepers.add(s.getKeeper());
+            }
+            keeper.rndSeqPresetSubKeepers = rndSeqPresetSubKeepers;
+
+            return keeper;
+        }
+
+        public void restore(RndSeqPresetStepKeeper keeper){
+            minPan = Float.parseFloat(keeper.minPan);
+            maxPan = Float.parseFloat(keeper.maxPan);
+
+            for(int i = 0; i < subs.size(); i++){
+                subs.get(i).restore(keeper.rndSeqPresetSubKeepers.get(i));
+            }
+        }
     }
 
     /** SUB CLASS **/
@@ -216,7 +291,6 @@ public class RndSeqPresetTrack {
             maxVol = 1f;
             minPitch = 0f;
             maxPitch = 1f;
-            //minPitch = NmbrUtils.getRndmizer(0f, 1f);
         }
 
         /** SET **/
@@ -245,6 +319,28 @@ public class RndSeqPresetTrack {
 
         public float getPitch() {
             return NmbrUtils.getRndmizer(minPitch, maxPitch);
+        }
+
+        /** RESTORE **/
+        public RndSeqPresetSubKeeper getKeeper(){
+            RndSeqPresetSubKeeper keeper = new RndSeqPresetSubKeeper();
+            keeper.perc = Float.toString(perc);
+            keeper.minVol = Float.toString(minVol);
+            keeper.maxVol = Float.toString(maxVol);
+            keeper.minPitch = Float.toString(minPitch);
+            keeper.maxPitch = Float.toString(maxPitch);
+            keeper.presetCategory = presetCategory;
+
+            return keeper;
+        }
+
+        public void restore(RndSeqPresetSubKeeper keeper){
+            perc = Float.parseFloat(keeper.perc);
+            minVol = Float.parseFloat(keeper.minVol);
+            maxVol = Float.parseFloat(keeper.maxVol);
+            minPitch = Float.parseFloat(keeper.minPitch);
+            maxPitch = Float.parseFloat(keeper.maxPitch);
+            presetCategory = keeper.presetCategory;
         }
     }
 }

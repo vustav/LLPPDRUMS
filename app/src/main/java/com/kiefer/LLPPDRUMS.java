@@ -331,7 +331,12 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         infoManager = new InfoManager(this);
 
         //try {
-        drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
+        if(keeper != null) {
+            drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
+        }
+        else{
+            drumMachine = new DrumMachine(this, engineFacade, 0, null);
+        }
 /*
         }
         catch (Exception e){
@@ -343,10 +348,12 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
  */
 
-        try {
+        //try {
+        if(keeper != null){
             controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, keeper.controllerKeeper);
         }
-        catch (Exception e){
+        //catch (Exception e){
+        else{
             controller = new Controller(this, engineFacade, drumMachine.getSequenceManager(), 1, null);
         }
 
@@ -488,7 +495,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         return controller;
     }
 
-    public SequencerUI getSequencer(){
+    public SequencerUI getSequencerUI(){
         return sequencerUI;
     }
 

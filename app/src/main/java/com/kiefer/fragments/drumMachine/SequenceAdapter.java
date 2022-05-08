@@ -2,6 +2,7 @@ package com.kiefer.fragments.drumMachine;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.ui.tabs.interfaces.Tab;
+import com.kiefer.utils.ColorUtils;
+import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
 
@@ -25,8 +28,6 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
     public SequenceAdapter(LLPPDRUMS llppdrums, DrumMachineFragment drumMachineFragment) {
         this.llppdrums = llppdrums;
         this.drumMachineFragment = drumMachineFragment;
-
-        updateBorders(0);
     }
 
     // Create new viewHolder
@@ -42,7 +43,9 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
         FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 200);
         sequenceTabViewHolder.view.setLayoutParams(flp);
 
-        sequenceTabViewHolder.bg.setBackgroundColor(llppdrums.getDrumMachine().getSequences().get(sequenceTabViewHolder.getAdapterPosition()).getColor());
+        int bgColor = llppdrums.getDrumMachine().getSequences().get(sequenceTabViewHolder.getAdapterPosition()).getColor();
+
+        sequenceTabViewHolder.bg.setBackgroundColor(bgColor);
         sequenceTabViewHolder.tv.setText(llppdrums.getDrumMachine().getSequences().get(sequenceTabViewHolder.getAdapterPosition()).getName());
 
         sequenceTabViewHolder.view.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +54,25 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
                 Vibrator vibrator = (Vibrator) llppdrums.getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(llppdrums.getResources().getInteger(R.integer.vibrateInMs));
 
+                updateTVColors(sequenceTabViewHolder.getAdapterPosition());
                 updateBorders(sequenceTabViewHolder.getAdapterPosition());
+
                 llppdrums.getDrumMachine().selectSequence(sequenceTabViewHolder.getAdapterPosition());
-                drumMachineFragment.setColor();
+                drumMachineFragment.setColor(true);
             }
         });
+    }
+
+    public void updateTVColors(int selectedTabIndex){
+        //Log.e("SequenceAdapter", "updateTvColors()");
+        for(int i = 0; i < drumMachineFragment.getRecyclerView().getChildCount(); i++){
+            ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(i))).tv.setTextColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtColor));
+            ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(i))).tv.setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));
+            ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(i))).tv.setAlpha(Float.parseFloat(llppdrums.getString(R.string.inactiveTabAlpha)));
+        }
+        ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(selectedTabIndex))).tv.setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtBgColor));
+        ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(selectedTabIndex))).tv.setTextColor(llppdrums.getResources().getColor(R.color.tabsActiveTxtColor));
+        ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(selectedTabIndex))).tv.setAlpha(1);
     }
 
     public void updateBorders(int selectedTabIndex){

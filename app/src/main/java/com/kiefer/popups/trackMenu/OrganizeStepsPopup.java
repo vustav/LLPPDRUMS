@@ -3,6 +3,7 @@ package com.kiefer.popups.trackMenu;
 import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.info.sequence.trackMenu.AutomateTrackInfo;
+import com.kiefer.info.sequence.trackMenu.OrganizeTrackInfo;
 import com.kiefer.machine.sequence.sequenceModules.OnOff;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.AutoRandom;
@@ -22,13 +23,13 @@ import com.kiefer.popups.Popup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.utils.ColorUtils;
 
-public class AutomateStepsPopup extends Popup {
+public class OrganizeStepsPopup extends Popup {
 
-    public AutomateStepsPopup(final LLPPDRUMS llppdrums, View parent, final SequenceModule sequenceModule, final DrumTrack drumTrack){
+    public OrganizeStepsPopup(final LLPPDRUMS llppdrums, View parent, final SequenceModule sequenceModule, final DrumTrack drumTrack){
         super(llppdrums);
 
         //inflate the View
-        final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_auto_steps, null);
+        final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_organize_steps, null);
         popupView.setBackgroundColor(drumTrack.getColor());
 
         //create the popupWindow
@@ -45,8 +46,8 @@ public class AutomateStepsPopup extends Popup {
 
         //label
         //String name = llppdrums.getResources().getString(R.string.automateStepsName) + drumTrack.getOscillatorManager().getName();
-        String name = llppdrums.getResources().getString(R.string.automateStepsLabel) + drumTrack.getTrackNo();
-        TextView label = popupView.findViewById(R.id.autoStepsLabel);
+        String name = llppdrums.getResources().getString(R.string.organizeStepsLabel) + drumTrack.getTrackNo();
+        TextView label = popupView.findViewById(R.id.organizeStepsLabel);
         label.setText(name);
         int bgColor = drumTrack.getColor();
         label.setBackgroundColor(bgColor);
@@ -66,8 +67,8 @@ public class AutomateStepsPopup extends Popup {
          */
 
         //set listeners to the arrows if in OnOff or AutoRandomBool, hide them otherwise
-        Button leftArrow = popupView.findViewById(R.id.autoStepsLeftBtn);
-        Button rightArrow = popupView.findViewById(R.id.autoStepsRightBtn);
+        Button leftArrow = popupView.findViewById(R.id.organizeStepsLeftBtn);
+        Button rightArrow = popupView.findViewById(R.id.organizeStepsRightBtn);
         if(sequenceModule instanceof OnOff || //OnOff
                 (!sequenceModule.isInBaseMode() && ((AutoRandom) sequenceModule.getModuleModes().get(SequenceModule.AUTO_RANDOM)).getSelectedModule() instanceof AutoRandomModuleBool)) { //AutoRandomBool
             //set up the left arrow
@@ -75,7 +76,7 @@ public class AutomateStepsPopup extends Popup {
                 @Override
                 public void onClick(View view) {
                     sequenceModule.pushLeft(drumTrack);
-                    llppdrums.getSequencer().notifyDataSetChange();
+                    llppdrums.getSequencerUI().notifyDataSetChange();
                 }
             });
 
@@ -84,43 +85,55 @@ public class AutomateStepsPopup extends Popup {
                 @Override
                 public void onClick(View view) {
                     sequenceModule.pushRight(drumTrack);
-                    llppdrums.getSequencer().notifyDataSetChange();
+                    llppdrums.getSequencerUI().notifyDataSetChange();
                 }
             });
         }
         else{
-            leftArrow.setVisibility(View.INVISIBLE);
-            rightArrow.setVisibility(View.INVISIBLE);
+            //leftArrow.setVisibility(View.INVISIBLE);
+            //rightArrow.setVisibility(View.INVISIBLE);
+
+            ((ViewGroup)leftArrow.getParent()).removeView(leftArrow);
+            ((ViewGroup)rightArrow.getParent()).removeView(rightArrow);
         }
 
         //SUBS
-        LinearLayout subLayout = popupView.findViewById(R.id.autoStepsSubsLayout);
-        subLayout.setWeightSum(drumTrack.getNOfSubs());
-
-        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(0, (int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall), 1);
-        llp.setMarginStart(2);
-
-        for(int sub = 0; sub < drumTrack.getAutoStepSubValues().size(); sub++){
-            FrameLayout stepLayout = new FrameLayout(llppdrums);
-            stepLayout.setLayoutParams(llp);
+        LinearLayout subsLayout = popupView.findViewById(R.id.organizeStepsSubsLayout);
 
 
-            setLayoutColor(stepLayout, drumTrack.getAutoStepSubValues().get(sub));
 
-            final int finalSub = sub;
-            stepLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final boolean on = drumTrack.getAutoStepSubValues().get(finalSub);
-                    drumTrack.setAutoStepSubValue(finalSub, !on);
-                    setLayoutColor(stepLayout, !on);
-                }
-            });
-            subLayout.addView(stepLayout);
+        if(drumTrack.getNOfSubs() == 1){
+            //subsLayout.setVisibility(View.INVISIBLE);
+            ((ViewGroup)subsLayout.getParent()).removeView(subsLayout);
+        }
+        else {
+            subsLayout.setWeightSum(drumTrack.getNOfSubs());
+
+            LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(0, (int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall), 1);
+            llp.setMarginStart(2);
+
+            for (int sub = 0; sub < drumTrack.getAutoStepSubValues().size(); sub++) {
+                FrameLayout stepLayout = new FrameLayout(llppdrums);
+                stepLayout.setLayoutParams(llp);
+
+
+                setLayoutColor(stepLayout, drumTrack.getAutoStepSubValues().get(sub));
+
+                final int finalSub = sub;
+                stepLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final boolean on = drumTrack.getAutoStepSubValues().get(finalSub);
+                        drumTrack.setAutoStepSubValue(finalSub, !on);
+                        setLayoutColor(stepLayout, !on);
+                    }
+                });
+                subsLayout.addView(stepLayout);
+            }
         }
 
         //populate the list
-        LinearLayout listLayout = popupView.findViewById(R.id.autoStepsLinearLayout);
+        LinearLayout listLayout = popupView.findViewById(R.id.organizeStepsLinearLayout);
         for(int i = 0; i < sequenceModule.getAutoStepValues().size(); i++){
             //for(final String s : sequencerModule.getAutoStepValues()){
             TextView tv = new TextView(llppdrums);
@@ -147,18 +160,18 @@ public class AutomateStepsPopup extends Popup {
                         sequenceModule.setAutoValue(drumTrack, s, sub);
                     }
 
-                    llppdrums.getSequencer().notifyDataSetChange();
+                    llppdrums.getSequencerUI().notifyDataSetChange();
                 }
             });
             listLayout.addView(tv);
         }
 
         //set up the infoBtn
-        ImageView infoBtn = popupView.findViewById(R.id.autoStepsInfoBtn);
+        ImageView infoBtn = popupView.findViewById(R.id.organizeStepsInfoBtn);
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new InfoPopup(llppdrums, AutomateTrackInfo.key);
+                new InfoPopup(llppdrums, OrganizeTrackInfo.key);
             }
         });
 

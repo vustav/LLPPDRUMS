@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,11 +27,11 @@ import com.kiefer.popups.Popup;
 import com.kiefer.popups.fxManager.auto.FxAutomationManagerAdapter;
 import com.kiefer.automation.AutomationManagerTouchHelper;
 import com.kiefer.popups.info.InfoPopup;
-import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.utils.ColorUtils;
 
 public class FxManagerPopup extends Popup {
     final private FxManager fxManager;
+    boolean start = true;
 
     //fx-recyclerView
     final private RecyclerView fxRecyclerView;
@@ -39,8 +40,12 @@ public class FxManagerPopup extends Popup {
     //automation-recyclerView
     final private RecyclerView automationRecyclerView;
     final private FxAutomationManagerAdapter automationAdapter;
+    private FxManagerTouchHelper fxTouchHelper;
+
+    final private FrameLayout fxListBorder;
 
     //edit area
+    final private FrameLayout editAreaBorder;
     final private FrameLayout editArea; //the layout where the fxs add their UI
     final private LinearLayout editAreaBg; //the layout with the editArea and shared UI, the reference is for coloring
 
@@ -99,16 +104,27 @@ public class FxManagerPopup extends Popup {
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
-        LinearLayoutManager fxLayoutManager = new LinearLayoutManager(llppdrums);
-        fxLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        fxRecyclerView.setLayoutManager(fxLayoutManager);
+
 
         //create an adapter
-        fxAdapter = new FxManagerAdapter(this, fxRecyclerView);
+        fxAdapter = new FxManagerAdapter(llppdrums, this, fxRecyclerView);
+
+        // create a LinearLayoutManager and make it update borders and colors (this works both after drag and when adding/remocing viewHolders)
+        fxRecyclerView.setLayoutManager(new LinearLayoutManager(llppdrums, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public void onLayoutCompleted(final RecyclerView.State state) {
+                super.onLayoutCompleted(state);
+                if(!fxTouchHelper.isDragging()) {
+                    if(fxManager.getFxs().size() > 0 && start) {
+                        fxAdapter.updateBorders(fxManager.getSelectedFxIndex());
+                    }
+                }
+            }
+        });
 
         //create and attach the ItemTouchHelper
-        ItemTouchHelper.Callback fxCallback = new FxManagerTouchHelper(fxAdapter);
-        ItemTouchHelper fxHelper = new ItemTouchHelper(fxCallback);
+        fxTouchHelper = new FxManagerTouchHelper(fxAdapter);
+        ItemTouchHelper fxHelper = new ItemTouchHelper(fxTouchHelper);
         fxHelper.attachToRecyclerView(fxRecyclerView);
 
         //add the adapter to the recyclerView
@@ -154,7 +170,10 @@ public class FxManagerPopup extends Popup {
         //add the adapter to the recyclerView
         automationRecyclerView.setAdapter(automationAdapter);
 
+        fxListBorder = popupView.findViewById(R.id.fxManagerListBorder);
+
         //setup the edit area
+        editAreaBorder = popupView.findViewById(R.id.fxManagerSharedBorder);
         editArea = popupView.findViewById(R.id.fxManagerFxEditArea);
         editAreaBg = popupView.findViewById(R.id.fxManagerEditBg);
 
@@ -258,6 +277,8 @@ public class FxManagerPopup extends Popup {
 
     public void showSharedUI(boolean show){
         if(show){
+            fxListBorder.setVisibility(View.VISIBLE);
+            editAreaBorder.setVisibility(View.VISIBLE);
             fxInfoBtn.setVisibility(View.VISIBLE);
             onCb.setVisibility(View.VISIBLE);
             cSpinnerButton.setVisibility(View.VISIBLE);
@@ -266,6 +287,8 @@ public class FxManagerPopup extends Popup {
             automationLayout.setBackground(ContextCompat.getDrawable(llppdrums, fxManager.getSelectedFx().getAutomationBgId()));
         }
         else{
+            fxListBorder.setVisibility(View.INVISIBLE);
+            editAreaBorder.setVisibility(View.INVISIBLE);
             fxInfoBtn.setVisibility(View.INVISIBLE);
             onCb.setVisibility(View.INVISIBLE);
             cSpinnerButton.setVisibility(View.INVISIBLE);

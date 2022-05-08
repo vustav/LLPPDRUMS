@@ -2,7 +2,6 @@ package com.kiefer.machine.sequence.track;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -24,7 +23,6 @@ import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 public class DrumTrack implements Subilizer, NamerColorizer {
@@ -157,7 +155,7 @@ public class DrumTrack implements Subilizer, NamerColorizer {
 
         if(llppdrums.getDrumMachine() != null) {
             if (llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
-                llppdrums.getSequencer().notifyDataSetChange();
+                llppdrums.getSequencerUI().notifyDataSetChange();
             }
         }
 
@@ -407,7 +405,7 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         if(drumSequence == llppdrums.getDrumMachine().getSelectedSequence()) {
             for (int step = 0; step < steps.size(); step++) {
                 //try {
-                    final ImageView iv = llppdrums.getSequencer().getStepIV(getTrackNo(), step);
+                    final ImageView iv = llppdrums.getSequencerUI().getStepIV(getTrackNo(), step);
                     final Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(getTrackNo(), step);
                     if (iv != null) {
                         iv.setImageDrawable(drawable);
@@ -530,12 +528,12 @@ public class DrumTrack implements Subilizer, NamerColorizer {
 
     public void setName(String name){
         this.name = name;
-        llppdrums.getSequencer().setTrackName(getTrackNo(), name);
+        llppdrums.getSequencerUI().setTrackName(getTrackNo(), name);
     }
 
     public void setColor(int color){
         this.color = color;
-        llppdrums.getSequencer().setTrackColor(getTrackNo(), color);
+        llppdrums.getSequencerUI().setTrackColor(getTrackNo(), color);
     }
 
     public void setAutoStepSubValue(int sub, boolean on){
@@ -735,17 +733,6 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
             steps.get(sequencerPosition).handleSequencerPositionChange(sequencerPosition);
         }
-
-        /** THIS IS ONLY DUE TO A BUG WHERE SynthEvents' positions when using subs resets after
-         * being played once. Updating at every 0 fixes this. **/
-        /*
-        if(sequencerPosition == 0) {
-            for (Step step : steps) {
-                step.positionEvents(getNOfSteps(), true);
-            }
-        }
-
-         */
     }
 
     /** POPUP **/

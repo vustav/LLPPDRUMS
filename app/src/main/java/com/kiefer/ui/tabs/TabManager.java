@@ -38,7 +38,6 @@ public class TabManager {
     }
 
     /** TABS **/
-
     public ArrayList<FrameLayout> createTabLayouts(ArrayList<Tab> tabs, OnTabClickedListener callback, int orientation){
         //createTabTier(tabs, callback, tier, orientation);
 
@@ -142,76 +141,6 @@ public class TabManager {
         }
 
         setTabBorders(tabLayouts, selectedTab, tabs.get(selectedTab).getOrientation());
-
-        /*
-        //set up border sizes
-        int largeBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderLarge);
-        int smallBorderSize = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderSmall);
-
-        for(int i = 0; i < tabs.size(); i++) {
-
-            //set padding on the selected tab
-            if (selectedTab == i) {
-
-                if(tabs.get(selectedTab).getOrientation() == Tab.VERTICAL) {
-                    int topBorderSize;
-
-                    //the first vertical tab always has a small topPadding, the others have a large
-                    if (selectedTab == 0) {
-                        topBorderSize = smallBorderSize;
-                    } else {
-                        topBorderSize = largeBorderSize;
-                    }
-
-                    //the bottom padding on selected verticals is always small. Since the top for
-                    // default unselected tabs are small as well they will "blend" and look large.
-                    this.tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(largeBorderSize, topBorderSize, 0, smallBorderSize);
-
-                }
-                else{
-                    int leftBorderSize;
-                    if (selectedTab == 0) {
-                        leftBorderSize = 0;
-                    } else {
-                        leftBorderSize = smallBorderSize;
-                    }
-
-                    int rightBorderSize;
-                    if (selectedTab == tabs.size() - 1) {
-                        rightBorderSize = 0;
-                    } else {
-                        rightBorderSize = smallBorderSize;
-                    }
-                    this.tabLayouts.get(tier).getChildAt(selectedTab).findViewById(R.id.tabBorder).setPadding(leftBorderSize, largeBorderSize, rightBorderSize, 0);
-                }
-            }
-            //set the padding on all the non-selected tabs
-            else {
-                if(tabs.get(selectedTab).getOrientation() == Tab.VERTICAL) {
-                    //the last tab gets a small bottom, the others get 0. This means that only the
-                    // top will divide unselected tabs. For selected they have a small bottom that will "blend" with this top to show as a large.
-                    if(i == tabs.size() - 1){
-                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, smallBorderSize);
-                    }
-                    else{
-                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, largeBorderSize, 0);
-                    }
-                }
-                else{
-                    if(i == 0){
-                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(0, smallBorderSize, smallBorderSize, largeBorderSize);
-                    }
-                    else if(i == tabs.size() - 1){
-                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, 0, largeBorderSize);
-                    }
-                    else{
-                        this.tabLayouts.get(tier).getChildAt(i).findViewById(R.id.tabBorder).setPadding(smallBorderSize, smallBorderSize, smallBorderSize, largeBorderSize);
-                    }
-                }
-            }
-        }
-
-         */
     }
 
     public void setTabBorders(ArrayList<FrameLayout> tabLayouts, int selectedTab, int orientation){

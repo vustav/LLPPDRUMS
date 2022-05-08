@@ -62,16 +62,12 @@ public class SmplManager extends SoundSource {
     /** ACTIVATION **/
     @Override
     public void activate(){
-        //if(sampledInstrument.getAudioChannel().getMuted()) {
         sampledInstrument.getAudioChannel().setMuted(false);
-        //}
     }
 
     @Override
     public void deactivate(){
-        //if(!sampledInstrument.getAudioChannel().getMuted()) {
         sampledInstrument.getAudioChannel().setMuted(true);
-        //}
     }
 
     /** PLAY **/
@@ -83,7 +79,6 @@ public class SmplManager extends SoundSource {
     /** RANDOMIZE **/
     @Override
     public void randomizeAll(){
-        //randomizeVolume();
         setRandomPreset();
     }
 

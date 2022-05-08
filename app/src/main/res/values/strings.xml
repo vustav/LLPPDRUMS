@@ -64,7 +64,7 @@
 
     <!-- POPUPS -->
     <string name="soundManagerLabel">SOUND MANAGER TRACK:\u0020</string>
-    <string name="automateStepsLabel">AUTOMATE TRACK:\u0020</string>
+    <string name="organizeStepsLabel">STEP ORGANIZER:\u0020</string>
     <string name="rndTrackLabel">RANDOMIZE TRACK:\u0020</string>
     <string name="fxManagerLabel">FX MANAGER TRACK:\u0020</string>
     <string name="mixerLabel">MIXER TRACK:\u0020</string>
@@ -276,7 +276,7 @@
 
     <string name="soundManagerName">SOUND MANAGER</string>
     <string name="nOfSubsName">Set how many sub steps there is in a step.</string>
-    <string name="automateStepsName">AUTOMATE TRACK</string>
+    <string name="organizeStepsName">ORGANIZE STEPS</string>
     <string name="rndTrackName">RANDOMIZE TRACK</string>
     <string name="fxManagerName">FX MANAGER</string>
     <string name="mixerName">MIXER</string>
@@ -284,7 +284,7 @@
     <!-- OSC -->
     <string name="oscIntro">Create a sound with one or two oscillators.</string>
 
-    <!-- AUTO TRACK -->
+    <!-- ORGANIZE STEPS -->
     <string name="autoTrackIntro">...</string>
     <string name="autoTrackJump">Push everything one step to the left/right.</string>
     <string name="autoTrackSteps">Turn every, every 2nd, 3rd, etc step ON.</string>

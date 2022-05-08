@@ -37,7 +37,7 @@
     <color name="sequencerBgColor">#ECDFDF</color>
 
     <color name="sequencerInactiveStepColor">#505050</color>
-    <color name="sequencerActiveStepColor">#A11111</color>
+    <color name="sequencerActiveStepColor">#EE5E5E</color>
     <color name="sequencerStepBgColor">#000000</color>
 
     <color name="sequencerVolBgColor">#000000</color>
@@ -57,7 +57,7 @@
     <color name="counterActiveBgColor">#5A41E4</color>
 
     <color name="seqIndicatorOnColor">#1DDC27</color>
-    <color name="seqIndicatorOffColor">#FF0000</color>
+    <color name="seqIndicatorOffColor">#E4A4A4</color>
 
     <color name="popupBarColor">#45E948</color>
     <color name="popupBarBg">#000000</color>

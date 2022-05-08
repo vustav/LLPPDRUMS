@@ -12,15 +12,22 @@ import com.kiefer.R;
 import com.kiefer.graphics.SubsSliderDrawable;
 import com.kiefer.popups.Popup;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
+import com.kiefer.utils.ColorUtils;
 
 public class RndSeqManagerPercSubPopup extends Popup {
 
     public RndSeqManagerPercSubPopup(LLPPDRUMS llppdrums, RndSeqManagerPopup rndSeqManagerPopup, final RndSeqPresetTrack.Step step, final ImageView subIV) {
         super(llppdrums);
 
-        //inflate the View
-        final LinearLayout popupView = new LinearLayout(llppdrums);
-        popupView.setWeightSum(step.getNofSubs());
+        FrameLayout popupView = new FrameLayout(llppdrums);
+        int padding = (int) llppdrums.getResources().getDimension(R.dimen.defaultBtnPadding);
+        popupView.setPadding(padding, padding, padding, padding);
+        popupView.setBackgroundColor(ColorUtils.getRandomColor());
+
+        final LinearLayout stepsLayout = new LinearLayout(llppdrums);
+
+        stepsLayout.setWeightSum(step.getNofSubs());
+        popupView.addView(stepsLayout);
 
         //create the popupWindow
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -47,7 +54,7 @@ public class RndSeqManagerPercSubPopup extends Popup {
             //subLayout.setBackground(new AutoRndSliderSubsDrawable(llppdrums, true, step.getSubPerc(sub)));
 
 
-            popupView.addView(subLayout);
+            stepsLayout.addView(subLayout);
 
             //final int finalSub = sub;
             //subLayout.setOnClickListener(getListener(subLayout, sub));

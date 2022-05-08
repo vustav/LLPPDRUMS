@@ -51,7 +51,7 @@ public class Counter {
 
     public void addStep(){
 
-        FrameLayout stepLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.counter_cell, null);
+        RelativeLayout stepLayout = (RelativeLayout) llppdrums.getLayoutInflater().inflate(R.layout.counter_cell, null);
 
         //stepLayout.setPadding(0, -5, 0, 0);
         //RelativeLayout stepLayout = new RelativeLayout(llppdrums);

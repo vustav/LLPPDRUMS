@@ -67,6 +67,10 @@ public class RndSeqManagerPopup extends Popup {
         label.setBackgroundColor(bgColor);
         label.setTextColor(ColorUtils.getContrastColor(bgColor));
 
+        //set the bg of the top row
+        LinearLayout presetLayout = popupView.findViewById(R.id.seqRndOptionsTopRowBg);
+        presetLayout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
+
         //preset spinner
         cSpinnerButton = new CSpinnerButton(llppdrums);
         cSpinnerButton.setSelection(rndSeqManager.getSelectedRandomizePreset().getName());
@@ -80,9 +84,6 @@ public class RndSeqManagerPopup extends Popup {
 
         FrameLayout spinnerContainer = popupView.findViewById(R.id.seqRndOptionsPresetContainer);
         spinnerContainer.addView(cSpinnerButton);
-
-        LinearLayout presetLayout = popupView.findViewById(R.id.seqRndOptionsPresetLayout);
-        presetLayout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         //set up the infoBtn
         ImageView infoBtn = popupView.findViewById(R.id.seqRndOptionsBaseInfoBtn);

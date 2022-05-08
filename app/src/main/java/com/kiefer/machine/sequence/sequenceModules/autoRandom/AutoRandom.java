@@ -1,8 +1,6 @@
 package com.kiefer.machine.sequence.sequenceModules.autoRandom;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
@@ -53,13 +51,13 @@ public class AutoRandom extends SequenceModuleMode {
     /** SELECTION **/
     public void select(){
         //Log.e("", "AutoRandom.select()");
-        llppdrums.getSequencer().setSequencerDrawables(drumSequence.getTracks());
-        llppdrums.getSequencer().setAutoRndModeLabel(selectedModule.getLabel());
-        llppdrums.getSequencer().setAutoRndModeVisibility(true);
+        llppdrums.getSequencerUI().setSequencerDrawables(drumSequence.getTracks());
+        llppdrums.getSequencerUI().setAutoRndModeLabel(selectedModule.getLabel());
+        llppdrums.getSequencerUI().setAutoRndModeVisibility(true);
 
     }
     public void deselect(){
-        llppdrums.getSequencer().setAutoRndModeVisibility(false);
+        llppdrums.getSequencerUI().setAutoRndModeVisibility(false);
     }
 
     /** LISTENER **/

@@ -11,36 +11,29 @@
         android:id="@+id/seqRndOptionsLabel"
         android:layout_margin="@dimen/tabsTVMargin"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/btnHeightLarge"
-        android:orientation="horizontal"
-        android:id="@+id/seqRndOptionsTop"
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seqRndOptionsTopBorder"
+        android:padding="@dimen/tabsBorderSmall"
+        android:background="@color/tabsBorderColor"
 
         android:layout_below="@id/seqRndOptionsLabel">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btnHeightLarge"
+            android:orientation="horizontal"
+            android:id="@+id/seqRndOptionsTopRowBg"
+            android:padding="@dimen/defaultBtnPadding">
+
             <!-- PRESET -->
+
+            <!-- SPINNER (just a container) -->
             <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/tabsBorderColor"
-                android:padding="@dimen/tabsBorderSmall"
-
-                android:id="@+id/seqRndOptionsPresetBorder">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/seqRndOptionsPresetLayout">
-
-                    <!-- SPINNER (just a container) -->
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/seqRndOptionsPresetContainer"/>
-                </LinearLayout>
-            </FrameLayout>
+                android:layout_height="match_parent"
+                android:id="@+id/seqRndOptionsPresetContainer"/>
 
             <!-- TEMPO -->
             <FrameLayout
@@ -50,9 +43,7 @@
                 android:padding="@dimen/tabsBorderSmall"
                 android:id="@+id/seqRndOptionsTempoBorder"
 
-                android:layout_marginStart="@dimen/tabsBorderLarge"
-                android:layout_toEndOf="@id/seqRndOptionsPresetBorder"
-                android:layout_alignParentBottom="true">
+                android:layout_marginStart="@dimen/tabsBorderLarge">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -105,9 +96,7 @@
                 android:padding="@dimen/tabsBorderSmall"
                 android:id="@+id/seqRndOptionsStepsBorder"
 
-                android:layout_marginStart="@dimen/tabsBorderLarge"
-                android:layout_toEndOf="@id/seqRndOptionsTempoBorder"
-                android:layout_alignParentBottom="true">
+                android:layout_marginStart="@dimen/tabsBorderLarge">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -168,23 +157,26 @@
                     </FrameLayout>
                 </LinearLayout>
             </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
 
-        <!-- HELP -->
-        <ImageView
-            android:layout_width="@dimen/infoBtnSize"
-            android:layout_height="@dimen/infoBtnSize"
-            android:layout_marginTop="@dimen/infoBtnDefaultMargin"
-            android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
-            android:src="@drawable/anim_icon_info_btn"
-            android:id="@+id/seqRndOptionsBaseInfoBtn"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+    <!-- HELP -->
+    <ImageView
+        android:layout_width="@dimen/infoBtnSize"
+        android:layout_height="@dimen/infoBtnSize"
+        android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+        android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+        android:src="@drawable/anim_icon_info_btn"
+        android:id="@+id/seqRndOptionsBaseInfoBtn"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
 
     <!-- TRACKS -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/seqRndOptionsTop"
+        android:layout_below="@id/seqRndOptionsTopBorder"
 
         android:layout_marginTop="@dimen/tabsPaddingSmall">
 

@@ -2,13 +2,13 @@ package com.kiefer.machine.sequence;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
 import com.kiefer.files.keepers.DrumSequenceKeeper;
 import com.kiefer.files.keepers.DrumTrackKeeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
 import com.kiefer.interfaces.Tempoizer;
 import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
@@ -155,7 +155,14 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         }
         setupTracks(nOfTracks, keeper);
 
-        rndSeqManager = new RndSeqManager(llppdrums, this, tracks.get(0).getSoundManager().getPresetCategories()); //track doesn't matter, just get any presets
+        RndSeqManagerKeeper rndSeqManagerKeeper;
+        if(keeper != null) {
+            rndSeqManagerKeeper = keeper.rndSeqManagerKeeper;
+        }
+        else{
+            rndSeqManagerKeeper = null;
+        }
+        rndSeqManager = new RndSeqManager(llppdrums, this, tracks.get(0).getSoundManager().getPresetCategories(), rndSeqManagerKeeper);
 
         deactivate();
     }
@@ -246,10 +253,10 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
             llppdrums.getDrumMachineFragment().update();
 
             if(getNOfSteps() > 1){
-                llppdrums.getSequencer().setRemoveStepBtnEnabled(true);
+                llppdrums.getSequencerUI().setRemoveStepBtnEnabled(true);
             }
             else{
-                llppdrums.getSequencer().setRemoveStepBtnEnabled(false);
+                llppdrums.getSequencerUI().setRemoveStepBtnEnabled(false);
             }
         }
 
@@ -317,7 +324,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         //activate the track to add it and its drums to the engine if this sequence is playing
         if(llppdrums.getDrumMachine() != null) {
             if(llppdrums.getDrumMachine().getSelectedSequence() == this) {
-                llppdrums.getSequencer().addTrack();
+                llppdrums.getSequencerUI().addTrack();
             }
             if (llppdrums.getDrumMachine().getPlayingSequence() == this) {
                 drumTrack.activate();
@@ -368,7 +375,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
             dt.destroy();
 
             if(this == llppdrums.getDrumMachine().getSelectedSequence()) {
-                llppdrums.getSequencer().removeTrack(trackNo);
+                llppdrums.getSequencerUI().removeTrack(trackNo);
             }
 
             //dt.destroy();
@@ -420,17 +427,18 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
 
         //update the sequencerUI
         if(this == llppdrums.getDrumMachine().getSelectedSequence()) {
-            llppdrums.getSequencer().addStep();
+            llppdrums.getSequencerUI().addStep();
         }
 
         //seems AudioEvents aren't added to the sequencer without this...
         setTempo(tempo);
         setNOfSteps(getNOfSteps());
+
     }
 
     public void removeStep(){
         nOfSteps--;
-        if (getNOfSteps() > 1) {
+        //if (getNOfSteps() > 1) {
             if (this == llppdrums.getDrumMachine().getPlayingSequence()) {
                 engineFacade.updateNOfSteps();
             }
@@ -441,13 +449,14 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
             }
 
             if(this == llppdrums.getDrumMachine().getSelectedSequence()) {
-                llppdrums.getSequencer().removeStep();
+                llppdrums.getSequencerUI().removeStep();
             }
 
             //not sure if needed here but seems to be needed when adding
             setTempo(tempo);
             setNOfSteps(getNOfSteps());
-        }
+
+        //}
 
         if(!llppdrums.getEngineFacade().isPlaying()){
             llppdrums.getDeleter().delete();
@@ -492,18 +501,13 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     @Override
     public void setColor(int color){
         tabColor = color;
+        llppdrums.getDrumMachine().getSequenceManager().updateSequenceColor(this);
+
         backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
-        llppdrums.getDrumMachineFragment().setColor();
-        /*
-        backgroundGradient = ColorUtils.getGradientDrawable(color, ColorUtils.getContrastColor(color), ColorUtils.HORIZONTAL);
 
-        llppdrums.getDrumMachineFragment().setTabColor(getTabIndex());
-
-        if(this == llppdrums.getDrumMachine().getSelectedSequence()){
-            llppdrums.getDrumMachineFragment().setBgColor();
+        if(this == llppdrums.getDrumMachine().getSelectedSequence()) {
+            llppdrums.getDrumMachineFragment().setColor(true);
         }
-
-         */
     }
 
     @Override
@@ -514,7 +518,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         //llppdrums.getDrumMachineFragment().setTabName(getTabIndex());
 
         if(this == llppdrums.getDrumMachine().getSelectedSequence()){
-            llppdrums.getDrumMachineFragment().setName();
+            llppdrums.getDrumMachineFragment().setName(true);
         }
     }
 
@@ -812,6 +816,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         for(int i = 0; i<keeper.sequenceModuleKeepers.size(); i++){
             sequenceModules.get(i).restore(keeper.sequenceModuleKeepers.get(i));
         }
+
+        rndSeqManager.restore(keeper.rndSeqManagerKeeper);
     }
 
     public DrumSequenceKeeper getKeeper(){
@@ -835,6 +841,9 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         for(DrumTrack dt : tracks){
             keeper.drumTrackKeepers.add(dt.getKeeper());
         }
+
+        keeper.rndSeqManagerKeeper = rndSeqManager.getKeeper();
+
         return keeper;
     }
 

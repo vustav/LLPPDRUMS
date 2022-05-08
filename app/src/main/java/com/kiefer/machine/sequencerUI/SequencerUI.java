@@ -201,7 +201,7 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
         //get the scrollView to put the counter in and set padding to make it match the steps only of the tracks
         counterScroll = rootView.findViewById(R.id.sequencerCounter);
         int paddingLeft, paddingRight;
-        paddingLeft = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderSmall) * 1 + (int) llppdrums.getResources().getDimension(R.dimen.sequencerSingleBtnWidth);
+        paddingLeft = (int) llppdrums.getResources().getDimension(R.dimen.tabsBorderSmall) + (int) llppdrums.getResources().getDimension(R.dimen.sequencerSingleBtnWidth);
         paddingRight = 0;
         counterScroll.setPadding(paddingLeft, 0, paddingRight, 0);
 

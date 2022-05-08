@@ -23,8 +23,8 @@ public class FxFlanger extends Fx {
     private float rate, width, feedback, delay, mix;
     private SeekBar rateSeekBar, widthSeekBar, feedbackSeekBar, delaySeekBar, mixSeekBar;
 
-    public FxFlanger(LLPPDRUMS llppdrums, DrumTrack drumTrack, int index, boolean automation){
-        super(llppdrums, drumTrack, index, automation);
+    public FxFlanger(LLPPDRUMS llppdrums, DrumTrack drumTrack, int fxNo, boolean automation){
+        super(llppdrums, drumTrack, fxNo, automation);
 
         Random r = new Random();
 
@@ -231,7 +231,7 @@ public class FxFlanger extends Fx {
 
     @Override
     public FxKeeper getKeeper(){
-        FxFlangerKeeper keeper = new FxFlangerKeeper(getIndex(), isOn(), automationManager.getKeeper());
+        FxFlangerKeeper keeper = new FxFlangerKeeper(getFxNo(), isOn(), automationManager.getKeeper());
         keeper.rate = Float.toString(((Flanger)fx).getRate());
         keeper.width = Float.toString(((Flanger)fx).getWidth());
         keeper.feedback = Float.toString(((Flanger)fx).getFeedback());

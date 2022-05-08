@@ -62,7 +62,7 @@ public class LoadAdapter extends RecyclerView.Adapter<LoadAdapter.LoadViewHolder
             public void onClick(View view) {
                 if(loadPopup.getContent().get(pos).isFile()) {
                     llppdrums.load((LLPPDRUMSKeeper) llppdrums.getKeeperFileHandler().readKeepers(loadPopup.getContent().get(pos).getPath()));
-                    llppdrums.getSequencer().notifyDataSetChange();
+                    llppdrums.getSequencerUI().notifyDataSetChange();
                 }
                 loadPopup.dismiss();
             }

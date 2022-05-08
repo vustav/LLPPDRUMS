@@ -344,13 +344,8 @@ public class EngineFacade {
                     //if(sequencerPosition % subs == 0) {
                     //int step = sequencerPosition / subs;
                     //llppdrums.handleSequencerPositionChange(sequencerPosition / DrumSequence.N_OF_SUB_STEPS);
-                    llppdrums.runOnUiThread( new Runnable() {
-                        public void run() {
-                            sequencerPosition = _sequencerController.getStepPosition();
-                            //Log.e("EngineFacade", "handleNotification(), sequencerPosition: "+sequencerPosition);
-                            llppdrums.handleSequencerPositionChange(sequencerPosition);
-                        }
-                    });
+                        sequencerPosition = _sequencerController.getStepPosition();
+                        llppdrums.handleSequencerPositionChange(sequencerPosition);
                     //}
                     //postStats(sequencerPosition);
 

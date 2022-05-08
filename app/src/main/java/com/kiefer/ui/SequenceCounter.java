@@ -2,18 +2,14 @@ package com.kiefer.ui;
 
 import androidx.core.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ViewAnimator;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.machine.SequenceManager;
-import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.utils.ColorUtils;
 
 import java.util.ArrayList;
@@ -36,25 +32,16 @@ public class SequenceCounter extends Counter {
     @Override
     public void addStep(){
 
-        FrameLayout stepLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.counter_cell_sequence, null);
+        RelativeLayout stepLayout = (RelativeLayout) llppdrums.getLayoutInflater().inflate(R.layout.counter_cell_sequence, null);
 
-        //RelativeLayout stepLayout = new RelativeLayout(llppdrums);
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(width, height);
         stepLayout.setLayoutParams(llp);
 
-        //setStepColor(i, ContextCompat.getColor(llppdrums, R.color.counterInactiveBgColor));
-
         //tv
-        //TextView tv = new TextView(llppdrums);
         TextView tv = stepLayout.findViewById(R.id.counterCellTv);
         tv.setText(Integer.toString(layout.getChildCount() + 1));
         tv.setTextSize(llppdrums.getResources().getDimension(R.dimen.sequencerCounterTxtSize));
 
-        //ImageView iv = stepLayout.findViewById(R.id.counterCellIv);
-        //iv.setVisibility(View.INVISIBLE);
-        //showPlayIcon(false);
-
-        //stepLayout.addView(tv);
         layout.addView(stepLayout);
 
         reset();
@@ -62,8 +49,7 @@ public class SequenceCounter extends Counter {
 
     private void createControllerLayout(int steps, int width, int height, int txtSize){
         for(int step = 0; step < steps; step++){
-            FrameLayout stepLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.counter_cell_sequence, null);
-            //RelativeLayout stepLayout = new RelativeLayout(llppdrums);
+            RelativeLayout stepLayout = (RelativeLayout) llppdrums.getLayoutInflater().inflate(R.layout.counter_cell_sequence_border, null);
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(width, height);
             stepLayout.setLayoutParams(llp);
 
@@ -75,59 +61,58 @@ public class SequenceCounter extends Counter {
             //stepLayout.addView(tv);
             controllerLayout.addView(stepLayout);
         }
-
-        //reset(); //sets colors to base
     }
 
     /** SET **/
     @Override
     public void activateStep(int step){
-        /*
-        super.activateStep(step);
-        setStepColor(step, ContextCompat.getColor(llppdrums, R.color.counterActiveBgColor));
+        llppdrums.runOnUiThread(() -> {
+            layout.getChildAt(step).findViewById(R.id.counterCellPlayIv).setVisibility(View.VISIBLE);
 
-         */
-        //((ViewGroup)layout.getChildAt(step)).getChildAt(2).setVisibility(View.VISIBLE);
-        //((ViewGroup)controllerLayout.getChildAt(step)).getChildAt(2).setVisibility(View.VISIBLE);
-        layout.getChildAt(step).findViewById(R.id.counterCellIv).setVisibility(View.VISIBLE);
-        controllerLayout.getChildAt(step).findViewById(R.id.counterCellIv).setVisibility(View.VISIBLE);
+            if(controllerLayout != null) {
+                controllerLayout.getChildAt(step).findViewById(R.id.counterCellPlayIv).setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void queueStep(int step){
+        llppdrums.runOnUiThread(() -> {
+            layout.getChildAt(step).findViewById(R.id.counterCellQueueIv).setVisibility(View.VISIBLE);
+
+            if(controllerLayout != null) {
+                controllerLayout.getChildAt(step).findViewById(R.id.counterCellQueueIv).setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
     public void reset(){
         super.reset();
         for(int i = 0; i < layout.getChildCount(); i++){
+            reset(i);
+        }
+    }
 
-            //((ViewGroup)layout.getChildAt(i)).getChildAt(2).setVisibility(View.INVISIBLE);
-            layout.getChildAt(i).findViewById(R.id.counterCellIv).setVisibility(View.INVISIBLE);
+    public void reset(int i){
+        layout.getChildAt(i).findViewById(R.id.counterCellPlayIv).setVisibility(View.INVISIBLE);
+        layout.getChildAt(i).findViewById(R.id.counterCellQueueIv).setVisibility(View.INVISIBLE);
 
-            if(controllerLayout != null) {
-                if (controllerLayout.getChildAt(i).isEnabled()) {
-                    setStepColor(i, sequenceManager.getSelectedSequences().get(i).getColor());
-                    controllerLayout.getChildAt(i).findViewById(R.id.counterCellIv).setVisibility(View.INVISIBLE);
-                    //controllerLayout.findViewById(R.id.counterCellIv).setVisibility(View.INVISIBLE);
-                }
+        if(controllerLayout != null) {
+            if (controllerLayout.getChildAt(i).isEnabled()) {
+                setStepColor(i, sequenceManager.getSelectedSequences().get(i).getColor());
+                controllerLayout.getChildAt(i).findViewById(R.id.counterCellPlayIv).setVisibility(View.INVISIBLE);
+                controllerLayout.getChildAt(i).findViewById(R.id.counterCellQueueIv).setVisibility(View.INVISIBLE);
             }
         }
     }
 
     @Override
     public void setStepColor(final int step, final int color){
-        //if(controllerLayout.getChildAt(step).isEnabled()) {
         super.setStepColor(step, color);
         if (controllerLayout != null) {
-            //llppdrums.runOnUiThread(new Runnable() {
-            //public void run() {
-            //if(controllerLayout.getChildAt(step).isEnabled()) {
-            //RelativeLayout bg = (RelativeLayout) controllerLayout.getChildAt(step);
-            //TextView tv = (TextView) ((RelativeLayout) controllerLayout.getChildAt(step)).getChildAt(1);
             controllerLayout.getChildAt(step).findViewById(R.id.counterCellBg).setBackgroundColor(color);
             ((TextView)controllerLayout.getChildAt(step).findViewById(R.id.counterCellTv)).setTextColor(ColorUtils.getContrastColor(color));
-            //}
-            //}
-            //});
         }
-        //}
     }
 
     @Override
@@ -146,21 +131,14 @@ public class SequenceCounter extends Counter {
     }
 
     public void setSelectedSeqBox(int step){
+        int color;
         for(int i = 0; i < layout.getChildCount(); i++){
-            //TextView tv = controllerLayout.getChildAt(i).findViewById(R.id.counterCellTv);
-            controllerLayout.getChildAt(i).findViewById(R.id.counterCellTv).setBackgroundColor(0x00000000);
+            color = sequenceManager.getSelectedSequences().get(i).getColor();
+            controllerLayout.getChildAt(i).findViewById(R.id.counterCellBorder).setBackgroundColor(color);
         }
 
-        int color = ContextCompat.getColor(llppdrums, R.color.selectedSeqColor);
-        //TextView selectedTv = (TextView) ((RelativeLayout) controllerLayout.getChildAt(step)).getChildAt(1);
-        //controllerLayout.findViewById(R.id.counterCellTv).setBackgroundColor(color);
-        controllerLayout.getChildAt(step).findViewById(R.id.counterCellTv).setBackgroundColor(color);
-/*
-        ((ViewGroup)layout.getChildAt(step)).getChildAt(1).setVisibility(View.VISIBLE);
-        ((ViewGroup)controllerLayout.getChildAt(step)).getChildAt(1).setVisibility(View.VISIBLE);
-
- */
-
+        color = ColorUtils.getContrastColor(sequenceManager.getSelectedSequences().get(step).getColor());
+        controllerLayout.getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(color);
     }
 
     @Override

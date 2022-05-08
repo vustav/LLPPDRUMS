@@ -13,7 +13,7 @@ import com.kiefer.files.keepers.DrumMachineKeeper;
 import com.kiefer.files.keepers.DrumSequenceKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.Step;
-import com.kiefer.popups.trackMenu.AutomateStepsPopup;
+import com.kiefer.popups.trackMenu.OrganizeStepsPopup;
 import com.kiefer.popups.trackMenu.TrackMenuPopup;
 import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.randomization.rndTrackManager.RndTrackManagerPopup;
@@ -64,13 +64,16 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
 
         setupSequences(keeper);
 
-        try {
+        //try {
+        if(keeper != null){
             sequenceManager = new SequenceManager(llppdrums, sequences, keeper.sequenceManagerKeeper);
         }
-        catch (Exception e){
+        //catch (Exception e){
+        else{
             sequenceManager = new SequenceManager(llppdrums, sequences, null);
         }
 
+        //this is done when sequenceManager is created but for some reason it crashes without this, fix!!
         setPlayingSequence(sequenceManager.getPlayingSequence());
     }
 
@@ -178,14 +181,14 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         selectedSequence = sequences.get(tabIndex);
 
         //update the dataSet if new tracks are added
-        llppdrums.getSequencer().notifyDataSetChange();
+        llppdrums.getSequencerUI().notifyDataSetChange();
 
         //update the number of steps shown in the sequencer
-        llppdrums.getSequencer().updateNOfSteps(selectedSequence.getNOfSteps());
+        llppdrums.getSequencerUI().updateNOfSteps(selectedSequence.getNOfSteps());
 
         //reset the counter if the selected sequence isn't playing and lock the UI if the selected sequence is playing
         if (playingSequence != selectedSequence) {
-            llppdrums.getSequencer().resetCounter();
+            llppdrums.getSequencerUI().resetCounter();
             unlockUI();
         }
         else if(engineFacade.isPlaying()){
@@ -259,8 +262,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         playingSequence = drumSequence;
 
         //reset the counter if the selected sequence isn't playing and lock the UI if the selected sequence is playing (the nullcheck is for when it's called on construction before the sequencerUI exists)
-        if (playingSequence != selectedSequence && llppdrums.getSequencer() != null) {
-            llppdrums.getSequencer().resetCounter();
+        if (playingSequence != selectedSequence && llppdrums.getSequencerUI() != null) {
+            llppdrums.getSequencerUI().resetCounter();
             unlockUI();
         }
         else if(engineFacade.isPlaying()){
@@ -304,7 +307,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         engineFacade.stopSequencer();
         //llppdrums.getDrumMachineFragment().getTabManager().showIcon(sequences.indexOf(playingSequence), false);
         llppdrums.getDrumMachineFragment().showPlayIcon(sequences.indexOf(playingSequence), false);
-        llppdrums.getSequencer().resetCounter();
+        llppdrums.getSequencerUI().resetCounter();
         unlockUI();
 
         playingSequence.stop();
@@ -313,13 +316,13 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
 
     private void lockUI(){
         if(LLPPDRUMS.hideUIonPlay) {
-            llppdrums.getSequencer().lockUI();
+            llppdrums.getSequencerUI().lockUI();
             llppdrums.getDrumMachineFragment().lockUI();
         }
     }
 
     private void unlockUI(){
-        llppdrums.getSequencer().unlockUI();
+        llppdrums.getSequencerUI().unlockUI();
         llppdrums.getDrumMachineFragment().unlockUI();
     }
 
@@ -364,7 +367,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
 
     public void openAutoStepPopup(int trackNo, View parent){
-        new AutomateStepsPopup(llppdrums, parent, selectedSequence.getSelectedSequenceModule(), selectedSequence.getTracks().get(trackNo));
+        new OrganizeStepsPopup(llppdrums, parent, selectedSequence.getSelectedSequenceModule(), selectedSequence.getTracks().get(trackNo));
     }
 
     public void openRndPopup(int trackNo, View parent){
@@ -418,6 +421,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
             }
 
             sequenceManager.replaceSequence(seqToRemove, seqToActivate);
+
             deleteSequence(seqToRemove);
         }
     }

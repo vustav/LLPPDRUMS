@@ -6,8 +6,4 @@ import java.util.ArrayList;
 
 public class OscillatorManagerKeeper implements Keeper {
     public ArrayList<OscillatorKeeper> oscillatorKeepers;
-
-    public OscillatorManagerKeeper(){
-
-    }
 }

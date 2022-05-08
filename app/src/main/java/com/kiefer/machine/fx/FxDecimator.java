@@ -146,7 +146,7 @@ public class FxDecimator extends Fx {
 
     @Override
     public FxKeeper getKeeper(){
-        FxDecimatorKeeper keeper = new FxDecimatorKeeper(getIndex(), isOn(), automationManager.getKeeper());
+        FxDecimatorKeeper keeper = new FxDecimatorKeeper(getFxNo(), isOn(), automationManager.getKeeper());
         keeper.bits = ((Decimator)fx).getBits();
         keeper.rate = Float.toString(((Decimator)fx).getRate());
         return keeper;

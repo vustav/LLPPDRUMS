@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/counterCellBorder">
+    android:id="@+id/counterCellBg">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/counterCellBg">
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/drawable_triangle_play_red"
+        android:id="@+id/counterCellPlayIv"
+        android:layout_marginStart="@dimen/marginSmall"
+        android:visibility="invisible"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/counterCellTv"
-            android:textSize="@dimen/tabsTextSize"
-            android:layout_margin="@dimen/tabsTVMargin"/>
+        android:layout_alignParentBottom="true"/>
 
-        <!-- this isn't used in the sequenceUI-counter and we should separate them -->
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/drawable_triangle_red"
-            android:id="@+id/counterCellIv"
-            android:layout_marginStart="@dimen/marginSmall"
-            android:visibility="invisible"/>
-    </RelativeLayout>
-</FrameLayout>
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/drawable_triangle_play_grey"
+        android:id="@+id/counterCellQueueIv"
+        android:layout_marginStart="@dimen/marginSmall"
+        android:visibility="invisible"
+
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/counterCellTv"
+        android:textSize="@dimen/tabsTextSize"
+        android:layout_marginStart="@dimen/tabsTVMargin"
+
+
+        android:layout_alignParentTop="true"/>
+</RelativeLayout>

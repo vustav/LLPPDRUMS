@@ -20,8 +20,7 @@
         <ImageView
             android:layout_width="@dimen/tabsTVHeight"
             android:layout_height="@dimen/tabsTVHeight"
-            android:src="@drawable/drawable_triangle_red"
-            android:rotation="90"
+            android:src="@drawable/drawable_triangle_play_red"
             android:id="@+id/tabIcon"
             android:layout_marginStart="@dimen/marginSmall"
 

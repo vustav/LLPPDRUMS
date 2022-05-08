@@ -3,7 +3,6 @@ package com.kiefer.machine.fx;
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -177,7 +176,7 @@ public class FxDelay extends Fx {
 
     @Override
     public FxKeeper getKeeper(){
-        FxDelayKeeper keeper = new FxDelayKeeper(getIndex(), isOn(), automationManager.getKeeper());
+        FxDelayKeeper keeper = new FxDelayKeeper(getFxNo(), isOn(), automationManager.getKeeper());
         keeper.time = ((Delay)fx).getDelayTime();
         //Log.e("FxDelay", "getKeeper, time: "+((Delay)fx).getDelayTime());
         keeper.feedback = Float.toString(((Delay)fx).getFeedback());

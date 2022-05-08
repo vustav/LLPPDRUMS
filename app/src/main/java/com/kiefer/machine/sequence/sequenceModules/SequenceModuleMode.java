@@ -3,7 +3,6 @@ package com.kiefer.machine.sequence.sequenceModules;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.machine.sequence.DrumSequence;
-import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.utils.ImgUtils;
 
@@ -33,7 +32,7 @@ public class SequenceModuleMode implements Tab {
 
     /** SELECTION **/
     public void select(){
-        llppdrums.getSequencer().setSequencerDrawables(drumSequence.getTracks());
+        llppdrums.getSequencerUI().setSequencerDrawables(drumSequence.getTracks());
     }
     public void deselect(){
         //overridden in Auto

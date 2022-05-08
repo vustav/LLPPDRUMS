@@ -40,16 +40,44 @@
                         android:layout_height="match_parent"
                         android:id="@+id/topPlayBtn"/>
 
+                    <!-- PLAY -->
                     <ImageView
                         android:layout_width="@dimen/transportPlayBtnIcon"
                         android:layout_height="@dimen/transportPlayBtnIcon"
                         android:layout_marginStart="25dp"
                         android:layout_marginTop="5dp"
                         android:src="@drawable/drawable_triangle_black"
-                        android:rotation="90"/>
+                        android:rotation="90"
+                        android:id="@+id/topPlayIcon"/>
+
+                    <!-- PAUSE -->
+                    <RelativeLayout
+                        android:layout_width="@dimen/transportBtnIcon"
+                        android:layout_height="@dimen/transportBtnIcon"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/topPauseIcon"
+                        android:visibility="invisible">
+
+                        <FrameLayout
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"
+                            android:background="#000000"
+
+                            android:id="@+id/pauseLeft"/>
+
+                        <FrameLayout
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"
+                            android:background="#000000"
+
+                            android:layout_marginStart="4dp"
+                            android:layout_toEndOf="@id/pauseLeft"/>
+                    </RelativeLayout>
                 </FrameLayout>
 
                 <!-- PAUSE -->
+                <!--
                 <FrameLayout
                     android:layout_width="@dimen/transportBtnWidth"
                     android:layout_height="@dimen/transportBtnHeight">
@@ -81,6 +109,7 @@
                             android:layout_toEndOf="@id/pauseLeft"/>
                     </RelativeLayout>
                 </FrameLayout>
+                -->
 
                 <!-- STOP -->
                 <FrameLayout
@@ -110,7 +139,7 @@
 
             <!-- OPTIONS -->
             <Button
-                android:layout_width="@dimen/btnWidthLarge"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/btnHeightSmall"
                 android:id="@+id/topOptionsBtn"
                 android:textSize="@dimen/defaultBtnTxtSize"

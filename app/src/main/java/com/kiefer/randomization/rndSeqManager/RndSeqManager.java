@@ -1,14 +1,15 @@
 package com.kiefer.randomization.rndSeqManager;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.files.keepers.Keeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetTrackKeeper;
 import com.kiefer.interfaces.Tempoizer;
+import com.kiefer.randomization.presets.RandomizeSeqPresetCustom;
 import com.kiefer.randomization.presets.RandomizeSeqPresetRockPlus;
 import com.kiefer.randomization.presets.RandomizeSeqPreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetDisco;
 import com.kiefer.randomization.presets.RandomizeSeqPresetHiBeat;
 import com.kiefer.machine.sequence.DrumSequence;
-import com.kiefer.randomization.presets.RandomizeSeqPresetJazz;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackRandom;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -34,7 +35,7 @@ public class RndSeqManager implements Tempoizer {
 
     private int tempo;
 
-    public RndSeqManager(LLPPDRUMS llppdrums, DrumSequence drumSequence, ArrayList<String> soundPresetCategories) {
+    public RndSeqManager(LLPPDRUMS llppdrums, DrumSequence drumSequence, ArrayList<String> soundPresetCategories, RndSeqManagerKeeper keeper) {
         this.llppdrums = llppdrums;
         this.drumSequence = drumSequence;
         this.soundPresetCategories = soundPresetCategories;
@@ -44,19 +45,21 @@ public class RndSeqManager implements Tempoizer {
 
         setupPresets();
 
+        if(keeper != null){
+            restore(keeper);
+        }
+        else {
+            Random r = new Random();
+            selectedRandomizeSeqPreset = rndSeqPresets.get(r.nextInt(rndSeqPresets.size()));
+            selectedRandomizeSeqPreset.createPreset();
+        }
     }
 
     private void setupPresets() {
         rndSeqPresets = new ArrayList<>();
         rndSeqPresets.add(new RandomizeSeqPresetRockPlus(llppdrums, this));
-        //rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetDisco(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetHiBeat(llppdrums, this));
-        //presets.add(new RandomizePresetRandom(llppdrums, this));
-
-        Random r = new Random();
-        selectedRandomizeSeqPreset = rndSeqPresets.get(r.nextInt(rndSeqPresets.size()));
-        selectedRandomizeSeqPreset.createPreset();
     }
 
     /** RND SEQ **/
@@ -195,7 +198,26 @@ public class RndSeqManager implements Tempoizer {
     }
 
     /** RESTORE **/
-    public Keeper getKeeper(){
-        return null;
+    public RndSeqManagerKeeper getKeeper(){
+        RndSeqManagerKeeper keeper = new RndSeqManagerKeeper();
+        keeper.randomizeSeqPresetKeeper = selectedRandomizeSeqPreset.getKeeper();
+        keeper.rndSeqPresetTrackKeepers = new ArrayList<>();
+        for(RndSeqPresetTrack t : tracks){
+            keeper.rndSeqPresetTrackKeepers.add(t.getKeeper());
+        }
+        return keeper;
+    }
+
+    public void restore(RndSeqManagerKeeper keeper){
+        RandomizeSeqPresetCustom randomizeSeqPresetCustom = new RandomizeSeqPresetCustom(llppdrums, this, keeper);
+        randomizeSeqPresetCustom.createPreset();
+        selectedRandomizeSeqPreset = randomizeSeqPresetCustom;
+        /*
+        tracks = new ArrayList<>();
+        for(RndSeqPresetTrackKeeper k : keeper.rndSeqPresetTrackKeepers){
+            tracks.add(new RndSeqPresetTrack(llppdrums, k));
+        }
+
+         */
     }
 }

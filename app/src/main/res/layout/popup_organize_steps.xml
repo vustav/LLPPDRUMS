@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- HELP -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- LABEL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/organizeStepsLabel"
+            android:layout_margin="@dimen/tabsTVMargin"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/infoBtnDefaultMargin"
+            android:layout_marginEnd="@dimen/infoBtnDefaultMargin"
+            android:src="@drawable/anim_icon_info_btn"
+            android:id="@+id/organizeStepsInfoBtn"
+
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <!-- JUMP -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/arrowsLayout"
+
+            android:layout_centerInParent="true">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightLarge"
+                android:id="@+id/organizeStepsLeftBtn"
+                android:text="\u003c\u003c\u003c"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightLarge"
+                android:id="@+id/organizeStepsRightBtn"
+                android:text="\u003e\u003e\u003e"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- SUBS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btnHeightSmall"
+        android:orientation="horizontal"
+        android:id="@+id/organizeStepsSubsLayout"
+        android:padding="@dimen/marginSmall"/>
+
+    <!-- LIST -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginLarge">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/organizeStepsLinearLayout"
+            android:layout_marginTop="@dimen/marginLarge"/>
+    </ScrollView>
+</LinearLayout>
