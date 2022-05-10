@@ -3,6 +3,8 @@ package com.kiefer.automation;
 import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 
+import com.kiefer.LLPPDRUMS;
+import com.kiefer.R;
 import com.kiefer.files.keepers.AutomationKeeper;
 import com.kiefer.files.keepers.AutomationManagerKeeper;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -12,12 +14,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class AutomationManager {
+    LLPPDRUMS llppdrums;
     private final DrumTrack drumTrack;
     private final Automatable automatable;
     private ArrayList<Automation> automations;
     private final Random random;
 
-    public AutomationManager(DrumTrack drumTrack, Automatable automatable){
+    public AutomationManager(LLPPDRUMS llppdrums, DrumTrack drumTrack, Automatable automatable){
+        this.llppdrums = llppdrums;
         this.drumTrack = drumTrack;
         this.automatable = automatable;
         random = new Random();
@@ -61,10 +65,6 @@ public class AutomationManager {
 
     public void setStepOn(int index, int step, boolean on){
         automations.get(index).setStepOn(step, on);
-    }
-
-    public void setParam(int index, String param){
-        automations.get(index).setParam(param);
     }
 
     public void setParam(int index, int param){
@@ -118,12 +118,24 @@ public class AutomationManager {
     /** AUTOMATION **/
     public void automate(int step, boolean popupShowing){
         for(Automation a : automations){
-            a.automate(step, popupShowing);
+
+            //if the automation is ON or the fx is ON do it, otherwise don't
+            if(a.param.equals(llppdrums.getResources().getString(R.string.fxOn)) || automatable.isOn()){
+                a.automate(step, popupShowing);
+            }
         }
     }
     public void resetAutomation(){
         for(Automation a : automations){
             a.reset();
+        }
+    }
+
+    public void changeInBaseValue(String param, float value){
+        for(Automation a : automations){
+            if(a.getParam().equals(param)){
+                a.changeInBaseValue(value);
+            }
         }
     }
 
@@ -152,15 +164,12 @@ public class AutomationManager {
     /** INNER CLASSES **/
     public class Automation{
         private boolean on = true;
-        //private int bgImgId, listImgId;
         private final GradientDrawable bgGradient, listGradient;
         private String param;
         private float value;
         private ArrayList<Boolean> steps;
 
         private Automation(int nOfSteps){
-            //bgImgId = ImgUtils.getRandomImageId();
-            //listImgId = ImgUtils.getRandomImageId();
             bgGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
             listGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
 
@@ -267,6 +276,13 @@ public class AutomationManager {
             }
         }
 
+        public void changeInBaseValue(float value){
+            if(hasAutomated) {
+                //automatable.turnOffAutoValue(param, value, popupShowing);
+                originalValue = value;
+            }
+        }
+
         /** AUTOMATION **/
         private void automate(int step, boolean popupShowing){
             this.popupShowing = popupShowing;
@@ -277,9 +293,6 @@ public class AutomationManager {
                 if (lastStep == -1) {
                     lastStep = getNOfSteps() - 1;
                 }
-
-                //Log.e("AutomationManager", "automate(), step: "+step);
-                //Log.e("AutomationManager", "automate(), lastStep: "+lastStep);
 
                 //if this step is automated and the last wasn't, make a change
                 if (steps.get(step) && !steps.get(lastStep)) {

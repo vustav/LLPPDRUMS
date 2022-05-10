@@ -215,18 +215,6 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
         counterScroll.addView(counter.getLayout());
     }
 
-    private void setActiveCounterColor(final RelativeLayout bg, TextView tv){
-        int bgColor = ContextCompat.getColor(llppdrums, R.color.counterActiveBgColor);
-        bg.setBackgroundColor(bgColor);
-        tv.setTextColor(ColorUtils.getContrastColor(bgColor));
-    }
-
-    private void setInactiveCounterColor(final RelativeLayout bg, final TextView tv){
-        final int bgColor = ContextCompat.getColor(llppdrums, R.color.counterInactiveBgColor);
-        bg.setBackgroundColor(bgColor);
-        tv.setTextColor(ColorUtils.getContrastColor(bgColor));
-    }
-
     private void updateCounter(int step, boolean playing){
         resetCounter();
         if(playing) {
@@ -263,12 +251,7 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
             adapter.createStep(holder.stepsLayout);
 
             //update the scrollViews position
-            holder.stepsScrollView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    holder.stepsScrollView.fullScroll(View.FOCUS_RIGHT);
-                }
-            }, llppdrums.getResources().getInteger(R.integer.recyclerViewUpdateDelay));
+            holder.stepsScrollView.postDelayed(() -> holder.stepsScrollView.fullScroll(View.FOCUS_RIGHT), llppdrums.getResources().getInteger(R.integer.recyclerViewUpdateDelay));
         }
 
         //update the counter
@@ -330,8 +313,8 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
 
     //change the drawables in the steps when changing sequence or mode
     public void setSequencerDrawables(final ArrayList<DrumTrack> drumTracks){
-        new Thread(new Runnable() { //thread for creating the Drawable
-            public void run() {
+        //new Thread(new Runnable() { //thread for creating the Drawable
+            //public void run() {
                 for(int track = 0; track<drumTracks.size(); track++){
                     for(int step = 0; step< drumTracks.get(track).getNOfSteps(); step++){
                         final Step drum = drumTracks.get(track).getSteps().get(step);
@@ -339,16 +322,20 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
 
                             final ImageView iv = ((ImageView) ((TracksAdapter.TrackViewHolder) recyclerView.findViewHolderForAdapterPosition(track)).stepsLayout.getChildAt(step));
                             final Drawable drawable = llppdrums.getDrumMachine().getDrumDrawable(drum);
+                            /*
                             iv.post(new Runnable() { //modify the View in the UI thread
                                 public void run() {
                                     iv.setImageDrawable(drawable);
                                 }
                             });
+
+                             */
+                            llppdrums.runOnUiThread(() -> iv.setImageDrawable(drawable));
                         }
                     }
                 }
-            }
-        }).start();
+            //}
+        //}).start();
     }
 
     public void notifyDataSetChange(){

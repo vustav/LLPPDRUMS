@@ -86,7 +86,7 @@ public class FxDecimator extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(1), seekBar.getProgress());
             }
         });
 
@@ -106,7 +106,7 @@ public class FxDecimator extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(2), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -159,7 +159,7 @@ public class FxDecimator extends Fx {
 
         //on
         if(param.equals(paramNames.get(0))){
-            super.turnOnAutoValue(param, autoValue, popupShowing);
+            return super.turnOnAutoValue(param, autoValue, popupShowing);
         }
 
         //bits

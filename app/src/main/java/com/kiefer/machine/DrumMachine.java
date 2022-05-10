@@ -180,9 +180,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
 
         selectedSequence = sequences.get(tabIndex);
 
-        //update the dataSet if new tracks are added
-        llppdrums.getSequencerUI().notifyDataSetChange();
-
         //update the number of steps shown in the sequencer
         llppdrums.getSequencerUI().updateNOfSteps(selectedSequence.getNOfSteps());
 
@@ -207,6 +204,9 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         drumMachineFragment.setTabAppearances(1, selectedSequence.getSelectedSequenceModule().getTabs(0), selectedTab);
 
         updateSeqLabel();
+
+        //update the dataSet if new tracks are added
+        llppdrums.getSequencerUI().notifyDataSetChange();
     }
 
     private void selectSeqMod(int tabIndex){
@@ -354,8 +354,10 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     /** SEQ-EVENTS **/
     @Override
     public void onStepTouch(int track, int step, ImageView stepIV, float startX, float startY, float endX, float endY, int action){
-        Step drum = selectedSequence.getTracks().get(track).getSteps().get(step);
-        selectedSequence.getSelectedSequenceModule().onStepTouch(engineFacade, stepIV, drum, startX, startY, endX, endY, action);
+        if(Math.abs(startX - endX) < 5) {
+            Step drum = selectedSequence.getTracks().get(track).getSteps().get(step);
+            selectedSequence.getSelectedSequenceModule().onStepTouch(engineFacade, stepIV, drum, startX, startY, endX, endY, action);
+        }
     }
 
     public void openNamePopup(int trackNo){

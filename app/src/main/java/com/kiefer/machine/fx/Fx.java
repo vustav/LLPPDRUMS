@@ -1,6 +1,7 @@
 package com.kiefer.machine.fx;
 
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.View;
 
 import com.kiefer.LLPPDRUMS;
@@ -50,7 +51,7 @@ public abstract class Fx implements Automatable {
         automationBgId = ImgUtils.getRandomImageId();
 
         setupParamNames();
-        automationManager = new AutomationManager(drumTrack, this);
+        automationManager = new AutomationManager(llppdrums, drumTrack, this);
         if(automation){
             randomizeAutomation();
         }
@@ -120,7 +121,7 @@ public abstract class Fx implements Automatable {
     }
 
     public boolean isOn(){
-        //Log.e("Fx", "getOn: "+on);
+        //Log.e("Fx", "isOn: "+on);
         return on;
     }
 
@@ -166,17 +167,16 @@ public abstract class Fx implements Automatable {
     /** THIS IS JUST ON/OFF, OVERRIDE IN CHILDREN FOR ALL OTHER CASES **/
     @Override
     public float turnOnAutoValue(String param, float autoValue, boolean popupShowing) {
+
         if (param.equals(paramNames.get(0))) { //on
-            boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+
 
             boolean ogOn = isOn();
 
-            if(updateUI) {
+            if(popupShowing && drumTrack.getFxManager().getSelectedFx() == this) {
                 drumTrack.getFxManagerPopup().getOnCb().setChecked(!ogOn); //doesn't seem to be triggering the listener here...
-                drumTrack.getFxManager().turnFxOn(this, !ogOn);
-            } else {
-                drumTrack.getFxManager().turnFxOn(this, !ogOn);
             }
+            drumTrack.getFxManager().turnFxOn(this, !ogOn);
 
             //use 1 and 0 instead of booleans here
             if (ogOn) {
@@ -190,17 +190,15 @@ public abstract class Fx implements Automatable {
 
     @Override
     public void turnOffAutoValue(String param, float oldValue, boolean popupShowing) {
+
         if (param.equals(paramNames.get(0))) { //on
-            boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
 
             boolean ogOn = oldValue == 1;
 
-            if (updateUI) {
+            if (popupShowing && drumTrack.getFxManager().getSelectedFx() == this) {
                 drumTrack.getFxManagerPopup().getOnCb().setChecked(ogOn); //doesn't seem to be triggering the listener here...
-                drumTrack.getFxManager().turnFxOn(this, ogOn);
-            } else {
-                drumTrack.getFxManager().turnFxOn(this, ogOn);
             }
+            drumTrack.getFxManager().turnFxOn(this, ogOn);
         }
     }
 }

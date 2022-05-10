@@ -42,6 +42,7 @@ public class KeeperFileHandler {
             return (Keeper)readFile(path, errorMessage);
         }
         catch (Exception e){
+            Log.e("KIEFER", e.getMessage());
             return null;
         }
     }

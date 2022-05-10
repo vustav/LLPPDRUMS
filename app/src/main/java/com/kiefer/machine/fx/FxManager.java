@@ -142,16 +142,6 @@ public class FxManager {
                 destroyFx(fx);
             }
         }
-
-        /** SKA FUNKA MED SENASTE UPDATEN MEN TA TILLBAKS RESET OM DET KRÅNGLAR **/
-        //this one is added here since when randomizing from RndTrack Manager fxs doesn't always get removed properly, but it shouldn't be needed here
-        //since destroyFx(fx) calls  removeFxFromEngine(fx);
-        /*
-        for(ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()){
-            pc.reset();
-        }
-
-         */
     }
 
     private void removeFxFromEngine(Fx fx){
@@ -201,7 +191,6 @@ public class FxManager {
     }
 
     public void turnFxOn(Fx fx, Boolean on){
-        //Log.e("FxManager", "fx: "+fxs.indexOf(selectedFx)+", "+on);
         fx.setOn(on);
         if(on){
             rearrangeFxs();
@@ -327,12 +316,6 @@ public class FxManager {
     public int getSelectedFxIndex(){
         return fxs.indexOf(selectedFx);
     }
-/*
-    public TabManager getTabManager() {
-        return tabManager;
-    }
-
- */
 
     /** TRANSPORT **/
     public void play(){

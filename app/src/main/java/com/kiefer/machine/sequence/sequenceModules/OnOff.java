@@ -29,23 +29,15 @@ public class OnOff extends SequenceModule {
     @Override
     void setupModes(){
         modes = new ArrayList<>();
-
-        //create the necessary Bitmaps before creating the modes and adding them to the array
-        //int imgId = ImgUtils.getRandomImageId();
-        //Bitmap tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 0, 2, TabManager.VERTICAL);
-        //Bitmap bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
         modes.add(new SequenceModuleMode(llppdrums, drumSequence, 0));
-
-        //imgId = ImgUtils.getRandomImageId();
-        //tabBitmap = ImgUtils.getTabImg(llppdrums, imgId, 1, 2, TabManager.VERTICAL);
-        //bgBitmap = ImgUtils.getBgImg(llppdrums, imgId, TabManager.VERTICAL);
         modes.add(new AutoRandomOnOff(llppdrums, drumSequence, this, 1));
     }
 
     /** LISTENER **/
+    private float currentX = 0;
     @Override
     public void onStepTouch(EngineFacade engineFacade, final ImageView stepIV, final Step step, float startX, float startY, float endX, float endY, int action){
-        //Log.e("OnOff", "onStepTouch()");
+        currentX = endX;
         if(action == MotionEvent.ACTION_DOWN){
 
             //base
@@ -61,7 +53,11 @@ public class OnOff extends SequenceModule {
 
                         public void onFinish() {
                             if (!release) {
-                                getSubsPopup(stepIV, step);
+                                /** FÖRSÖK FIXA NÅT SÅ DEN INTE ÖPPNAS OM MAN SCROLLAR (den i DrumMachine funkar inte på onOff) **/
+                                //if(Math.abs(startX - currentX) < 1) {
+                                    //Log.e("ASD", ": "+(Math.abs(startX - currentX)));
+                                    getSubsPopup(stepIV, step);
+                                //}
                             }
                         }
                     }.start();

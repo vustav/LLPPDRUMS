@@ -1,5 +1,7 @@
 package com.kiefer.popups.info.commandManager;
 
+import android.util.Log;
+
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -90,6 +92,7 @@ public class InfoCommandManager {
             return iUndoList.getLast();
         }
         catch (NoSuchElementException exception){
+            Log.e("InfoCommandManager", exception.getMessage());
             return null;
         }
     }
@@ -99,6 +102,7 @@ public class InfoCommandManager {
             return iRedoList.getLast();
         }
         catch (NoSuchElementException exception){
+            Log.e("InfoCommandManager", exception.getMessage());
             return null;
         }
     }

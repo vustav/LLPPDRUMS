@@ -352,11 +352,9 @@ public class EngineFacade {
                     //Log.d( LOG_TAG, "seq. position: " + sequencerPosition + ", buffer offset: " + aNotificationValue + ", elapsed samples: " + elapsedSamples );
                     break;
                 case RECORDED_SNIPPET_READY:
-                    llppdrums.runOnUiThread( new Runnable() {
-                        public void run() {
-                            // we run the saving on a different thread to prevent buffer under runs while rendering audio
-                            engine.saveRecordedSnippet( aNotificationValue ); // notification value == snippet buffer index
-                        }
+                    llppdrums.runOnUiThread(() -> {
+                        // we run the saving on a different thread to prevent buffer under runs while rendering audio
+                        engine.saveRecordedSnippet( aNotificationValue ); // notification value == snippet buffer index
                     });
                     break;
                 case RECORDED_SNIPPET_SAVED:

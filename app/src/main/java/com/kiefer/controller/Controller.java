@@ -52,6 +52,16 @@ public class Controller implements Tab {
         seqPopupGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         funPopupGradient = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
 
+
+        if(keeper != null){
+            seqBtnManager = new SeqBtnManager(this, sequenceManager, keeper.seqBtnManagerKeeper);
+            funBtnManager = new FunBtnManager(this, keeper.funBtnManagerKeeper);
+        }
+        else{
+            seqBtnManager = new SeqBtnManager(this, sequenceManager, null);
+            funBtnManager = new FunBtnManager(this, null);
+        }
+        /*
         try {
             seqBtnManager = new SeqBtnManager(this, sequenceManager, keeper.seqBtnManagerKeeper);
             funBtnManager = new FunBtnManager(this, keeper.funBtnManagerKeeper);
@@ -60,6 +70,8 @@ public class Controller implements Tab {
             seqBtnManager = new SeqBtnManager(this, sequenceManager, null);
             funBtnManager = new FunBtnManager(this, null);
         }
+
+         */
 
         name = llppdrums.getResources().getString(R.string.controllerName);
 

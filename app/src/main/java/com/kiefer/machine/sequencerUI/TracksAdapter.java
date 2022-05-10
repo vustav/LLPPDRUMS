@@ -81,13 +81,9 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TrackViewH
 
         //Log.e("TracksAdapter", "onBindViewHolder(), trackNo: "+position);
 
+        /********** FIXA SÅ VARJE SEQUENCE HAR EN SCROLL X SOMA MAN KOMMER TILLBAKS TILL ***************/
         //update the scrollViews position
-        trackViewHolder.stepsScrollView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                trackViewHolder.stepsScrollView.setScrollX(sequencerUI.getScrollX());
-            }
-        }, llppdrums.getResources().getInteger(R.integer.recyclerViewUpdateDelay));
+        trackViewHolder.stepsScrollView.postDelayed(() -> trackViewHolder.stepsScrollView.setScrollX(sequencerUI.getScrollX()), llppdrums.getResources().getInteger(R.integer.recyclerViewUpdateDelay));
 
         trackViewHolder.singleBtn.setSelection(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackViewHolder.getAdapterPosition()).getName());
 
@@ -101,31 +97,8 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.TrackViewH
         //set the bgColor
         trackViewHolder.bgView.setBackgroundColor(llppdrums.getDrumMachine().getTrackColor(trackViewHolder.getAdapterPosition()));
 
-        /** FÅR LITE UI-THREAD-PROBLEM MED DEN HÄR TRÅDEN MEN JOBBA MED DEN OM DET LAGGAR MASSA **/
-        //new Thread(new Runnable() { //thread for creating the Drawable
-        //public void run() {
         for(int step = 0; step < trackViewHolder.stepsLayout.getChildCount(); step++) {
 
-            /** HACK **/
-            /*
-            Since recyclerView.getChildCount() (which should return the number of tracks) isn't updated
-            yet (it returns the amount of children in the tab we're leaving, not the one we just selected)
-            in Sequencer.updateNOfSteps() we get errors with the amount of steps in the tracks that
-            aren't counted. This is a buggy fix for that. It's very weird without this.
-             */
-                    /*
-                    llppdrums.runOnUiThread(new Runnable() {
-                        public void run() {
-                            while(trackViewHolder.stepsLayout.getChildCount() < llppdrums.getDrumMachine().getSelectedSequenceNOfSteps()){
-                                createStep(trackViewHolder.stepsLayout);
-                            }
-                            while(trackViewHolder.stepsLayout.getChildCount() > llppdrums.getDrumMachine().getSelectedSequenceNOfSteps()){
-                                removeStep(trackViewHolder.stepsLayout);
-                            }
-                        }
-                    });
-
-                     */
             while(trackViewHolder.stepsLayout.getChildCount() < llppdrums.getDrumMachine().getSelectedSequenceNOfSteps()){
                 createStep(trackViewHolder.stepsLayout);
             }

@@ -60,21 +60,19 @@ public class CSpinnerButton extends RelativeLayout {
 
     @Override
     public void setAlpha(final float alpha){
-        llppdrums.runOnUiThread(new Runnable() {
-            public void run() {
+        //llppdrums.runOnUiThread(new Runnable() {
+            //public void run() {
                 button.setAlpha(alpha);
                 //iv.setAlpha(alpha);
-            }
-        });
+            //}
+        //});
     }
 
     @Override
     public void setEnabled(final boolean enabled){
-        llppdrums.runOnUiThread(new Runnable() {
-            public void run() {
-                button.setEnabled(enabled);
-                //iv.setEnabled(enabled);
-            }
+        llppdrums.runOnUiThread(() -> {
+            button.setEnabled(enabled);
+            //iv.setEnabled(enabled);
         });
     }
 }

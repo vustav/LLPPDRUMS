@@ -96,7 +96,7 @@ public class FxDelay extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(1), seekBar.getProgress());
             }
         });
 
@@ -116,7 +116,7 @@ public class FxDelay extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(2), ((float)seekBar.getProgress()) / floatMultiplier);
             }
         });
 
@@ -136,7 +136,7 @@ public class FxDelay extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(3), ((float)seekBar.getProgress()) / floatMultiplier);
             }
         });
 
@@ -191,7 +191,7 @@ public class FxDelay extends Fx {
 
         //on
         if(param.equals(paramNames.get(0))){
-            super.turnOnAutoValue(param, autoValue, popupShowing);
+            return super.turnOnAutoValue(param, autoValue, popupShowing);
         }
 
         //time
@@ -245,36 +245,33 @@ public class FxDelay extends Fx {
         boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
 
         //on
-        if(param.equals(paramNames.get(0))){
+        if (param.equals(paramNames.get(0))) {
             super.turnOffAutoValue(param, oldValue, popupShowing);
         }
 
         //time
-        else if(param.equals(paramNames.get(1))){
-            if(updateUI) {
-                timeSeekBar.setProgress((int)oldValue);
-            }
-            else{
-                setTime((int)oldValue);
+        else if (param.equals(paramNames.get(1))) {
+            if (updateUI) {
+                timeSeekBar.setProgress((int) oldValue);
+            } else {
+                setTime((int) oldValue);
             }
         }
 
         //feedback
-        else if(param.equals(paramNames.get(2))){
-            if(updateUI) {
-                feedbackSeekBar.setProgress((int)(oldValue * floatMultiplier));
-            }
-            else{
+        else if (param.equals(paramNames.get(2))) {
+            if (updateUI) {
+                feedbackSeekBar.setProgress((int) (oldValue * floatMultiplier));
+            } else {
                 setFeedback(oldValue);
             }
         }
 
         //mix
-        else if(param.equals(paramNames.get(3))){
-            if(updateUI) {
-                mixSeekBar.setProgress((int)(oldValue * floatMultiplier));
-            }
-            else{
+        else if (param.equals(paramNames.get(3))) {
+            if (updateUI) {
+                mixSeekBar.setProgress((int) (oldValue * floatMultiplier));
+            } else {
                 setMix(oldValue);
             }
         }

@@ -379,10 +379,8 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                //int permission = checkSelfPermission(Manifest.permission.BLUETOOTH);
-                //if ( permission == PackageManager.PERMISSION_GRANTED ) {
+                Log.e("LLPPDRUMS", "BTCheck!");
                 projectOptionsManager.BTCheck();
-                //}
             }
         });
 

@@ -132,13 +132,7 @@ public class InfoPopup extends Popup {
 
 
         //this will run after the UI is ready
-        llppdrums.getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                setListSVPosition(infoKey);
-            }
-
-        });
+        llppdrums.getWindow().getDecorView().post(() -> setListSVPosition(infoKey));
 
     }
 

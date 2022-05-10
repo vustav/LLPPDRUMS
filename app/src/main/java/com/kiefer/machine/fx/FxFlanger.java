@@ -105,7 +105,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(1), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -125,7 +125,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(2), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -145,7 +145,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(3), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -165,7 +165,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(4), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -185,7 +185,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(5), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -247,7 +247,7 @@ public class FxFlanger extends Fx {
 
         //on
         if(param.equals(paramNames.get(0))){
-            super.turnOnAutoValue(param, autoValue, popupShowing);
+            return super.turnOnAutoValue(param, autoValue, popupShowing);
         }
 
         //rate

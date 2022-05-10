@@ -3,6 +3,7 @@ package com.kiefer.machine.fx;
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -86,7 +87,7 @@ public class FxBitCrusher extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(1), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -106,7 +107,7 @@ public class FxBitCrusher extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(2), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -126,7 +127,7 @@ public class FxBitCrusher extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                automationManager.changeInBaseValue(paramNames.get(3), (float)(seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -182,7 +183,8 @@ public class FxBitCrusher extends Fx {
 
         //on
         if(param.equals(paramNames.get(0))){
-            super.turnOnAutoValue(param, autoValue, popupShowing);
+            return super.turnOnAutoValue(param, autoValue, popupShowing);
+            //Log.e("AutomationManager", "automate(), orgVal: ");
         }
 
         //amount

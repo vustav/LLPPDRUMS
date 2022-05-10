@@ -135,6 +135,9 @@ public class RndTrackManager {
         if(rndTrack.getRandomizeFx()) {
             drumTrack.getFxManager().randomizeAll();
         }
+        else{
+            drumTrack.getFxManager().reset();
+        }
 
         if (rndTrack.getRandomizeVol()){
             drumTrack.randomizeVol();

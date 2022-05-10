@@ -101,11 +101,6 @@ public class FxManagerPopup extends Popup {
         //setup the fx-recyclerView
         fxRecyclerView = popupView.findViewById(R.id.fxManagerFxsRecyclerView);
 
-        // LinearLayoutManager is used here, this will layout the elements in a similar fashion
-        // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
-        // elements are laid out.
-
-
         //create an adapter
         fxAdapter = new FxManagerAdapter(llppdrums, this, fxRecyclerView);
 
