@@ -73,7 +73,7 @@
     <!-- not expanded -->
     <dimen name="sequencerSingleBtnWidth">75dp</dimen>
 
-    <dimen name="sequencerCounterTxtSize">4sp</dimen>
+    <dimen name="sequencerCounterTxtSize">3sp</dimen>
 
     <!-- FX MANAGER -->
     <dimen name="fxViewHolderWidth">130dp</dimen>
@@ -89,8 +89,8 @@
     <dimen name="loadViewHolderWidth">130dp</dimen>
 
     <!-- SEQUENCE MANAGER -->
-    <dimen name="seqManagerBoxWidth">20dp</dimen>
-    <dimen name="seqManagerBoxHeight">20dp</dimen>
+    <dimen name="seqManagerBoxWidth">26dp</dimen>
+    <dimen name="seqManagerBoxHeight">30dp</dimen>
     <dimen name="seqManagerInfoTxtSize">7sp</dimen>
 
     <!-- SEQUENCE MANAGER POPUP -->

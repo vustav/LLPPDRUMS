@@ -76,41 +76,6 @@
                     </RelativeLayout>
                 </FrameLayout>
 
-                <!-- PAUSE -->
-                <!--
-                <FrameLayout
-                    android:layout_width="@dimen/transportBtnWidth"
-                    android:layout_height="@dimen/transportBtnHeight">
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/topPauseBtn"/>
-
-                    <RelativeLayout
-                        android:layout_width="@dimen/transportBtnIcon"
-                        android:layout_height="@dimen/transportBtnIcon"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp">
-
-                        <FrameLayout
-                            android:layout_width="8dp"
-                            android:layout_height="match_parent"
-                            android:background="#000000"
-
-                            android:id="@+id/pauseLeft"/>
-
-                        <FrameLayout
-                            android:layout_width="8dp"
-                            android:layout_height="match_parent"
-                            android:background="#000000"
-
-                            android:layout_marginStart="4dp"
-                            android:layout_toEndOf="@id/pauseLeft"/>
-                    </RelativeLayout>
-                </FrameLayout>
-                -->
-
                 <!-- STOP -->
                 <FrameLayout
                     android:layout_width="@dimen/transportBtnWidth"
@@ -201,40 +166,9 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/transportBtnHeight"
             android:id="@+id/topFragmentSequenceManagerLayout"
+            android:paddingTop="1dp"
 
             android:layout_alignParentEnd="true"/>
-        <!--
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/transportBtnHeight"
-
-            android:layout_alignParentEnd="true">
-
-            <TextView
-                android:layout_width="55dp"
-                android:layout_height="match_parent"
-                android:id="@+id/sequencesBtn0"
-                android:text="0"/>
-
-            <TextView
-                android:layout_width="55dp"
-                android:layout_height="match_parent"
-                android:id="@+id/sequencesBtn1"
-                android:text="1"/>
-
-            <TextView
-                android:layout_width="55dp"
-                android:layout_height="match_parent"
-                android:id="@+id/sequencesBtn2"
-                android:text="2"/>
-
-            <TextView
-                android:layout_width="55dp"
-                android:layout_height="match_parent"
-                android:id="@+id/sequencesBtn3"
-                android:text="3"/>
-        </LinearLayout>
-        -->
     </RelativeLayout>
 
     <!-- TABS -->

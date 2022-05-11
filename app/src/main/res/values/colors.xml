@@ -37,7 +37,7 @@
     <color name="sequencerBgColor">#ECDFDF</color>
 
     <color name="sequencerInactiveStepColor">#505050</color>
-    <color name="sequencerActiveStepColor">#EE5E5E</color>
+    <color name="sequencerActiveStepColor">#ED8383</color>
     <color name="sequencerStepBgColor">#000000</color>
 
     <color name="sequencerVolBgColor">#000000</color>

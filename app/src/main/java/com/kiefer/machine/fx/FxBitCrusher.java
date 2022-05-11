@@ -87,7 +87,7 @@ public class FxBitCrusher extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(1), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(1), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -107,7 +107,7 @@ public class FxBitCrusher extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(2), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(2), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -127,7 +127,7 @@ public class FxBitCrusher extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(3), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(3), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 

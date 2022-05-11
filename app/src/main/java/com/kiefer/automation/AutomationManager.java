@@ -131,6 +131,8 @@ public class AutomationManager {
         }
     }
 
+    //FXs call this every time a parameter is changed. Without this the change won't stick id done
+    //when an automation is active since it'll return to the saved old value when it ends
     public void changeInBaseValue(String param, float value){
         for(Automation a : automations){
             if(a.getParam().equals(param)){
@@ -276,9 +278,10 @@ public class AutomationManager {
             }
         }
 
+        //FXs call this every time a parameter is changed. Without this the change won't stick id done
+        //when an automation is active since it'll return to the saved old value when it ends
         public void changeInBaseValue(float value){
             if(hasAutomated) {
-                //automatable.turnOffAutoValue(param, value, popupShowing);
                 originalValue = value;
             }
         }

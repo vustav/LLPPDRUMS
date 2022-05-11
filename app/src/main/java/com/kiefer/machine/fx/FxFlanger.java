@@ -3,6 +3,7 @@ package com.kiefer.machine.fx;
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -105,7 +106,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(1), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(1), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -125,7 +126,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(2), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(2), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -145,7 +146,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(3), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(3), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -165,7 +166,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(4), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(4), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -185,7 +186,7 @@ public class FxFlanger extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(5), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(5), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
@@ -253,8 +254,8 @@ public class FxFlanger extends Fx {
         //rate
         else if(param.equals(paramNames.get(1))){
             float ogRate = rate;
-            //int autoRate = (int)(autoValue * floatMultiplier);
 
+            //triggar lyssnaren så kan ha if/else
             if(updateUI) {
                 rateSeekBar.setProgress((int)(autoValue * floatMultiplier));
             }

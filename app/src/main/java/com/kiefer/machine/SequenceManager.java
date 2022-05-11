@@ -43,7 +43,7 @@ public class SequenceManager {
 
     private int activeSequenceBoxIndex, queuedSeqBoxIndex = -1;
 
-    private final TextView progressTV, queueTV;
+    //private final TextView progressTV, queueTV;
     private final Button editBtn;
 
     private final GradientDrawable popupGradient, randomPopupGradient;
@@ -82,8 +82,8 @@ public class SequenceManager {
         progressSliderLayout.addView(progressSlider);
 
         //set up the info
-        progressTV = view.findViewById(R.id.sequenceManagerProgressInfoTV);
-        queueTV = view.findViewById(R.id.sequenceManagerQueueInfoTV);
+        //progressTV = view.findViewById(R.id.sequenceManagerProgressInfoTV);
+        //queueTV = view.findViewById(R.id.sequenceManagerQueueInfoTV);
 
         editBtn = view.findViewById(R.id.sequenceManagerEditBtn);
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +103,7 @@ public class SequenceManager {
     private void setupSequences(SequenceManagerKeeper keeper){
 
         selectedSequences = new ArrayList<>();
-        counter = new SequenceCounter(llppdrums, this, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxHeight), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
+        counter = new SequenceCounter(llppdrums, this, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxHeight), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
         counter.setSize((int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxHeight));
 
         Random r = new Random();
@@ -347,6 +347,7 @@ public class SequenceManager {
 
     public void setProgress(boolean on){
         progress = on;
+        /*
         String onString = llppdrums.getResources().getString(R.string.seqManagerProgressLabel)+": ";
         if(on){
             onString += "ON";
@@ -355,10 +356,13 @@ public class SequenceManager {
             onString += "OFF";
         }
         progressTV.setText(onString);
+
+         */
     }
 
     public void setQueue(boolean on){
         queue = on;
+        /*
         String onString = llppdrums.getResources().getString(R.string.seqManagerQueueLabel)+": ";
         if(on){
             onString += "ON";
@@ -367,6 +371,8 @@ public class SequenceManager {
             onString += "OFF";
         }
         queueTV.setText(onString);
+
+         */
     }
 
     public void setRestartAtStop(boolean restartAtStop) {

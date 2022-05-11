@@ -12,7 +12,7 @@
         <!-- PROGRESS -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="5dp"
             android:id="@+id/sequenceManagerProgressSliderLayout"/>
 
             <!-- BOXES -->
@@ -22,19 +22,20 @@
                 android:id="@+id/sequenceManagerCounterLayout"/>
 
         <!-- INFO -->
+        <!--
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <!-- PROGRESS -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/seqManagerInfoTxtSize"
                 android:id="@+id/sequenceManagerProgressInfoTV"/>
 
-            <!-- QUEUE -->
+
             <TextView
                 android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"
@@ -42,6 +43,7 @@
                 android:textSize="@dimen/seqManagerInfoTxtSize"
                 android:id="@+id/sequenceManagerQueueInfoTV"/>
         </LinearLayout>
+        -->
     </LinearLayout>
 
     <!-- EDIT -->

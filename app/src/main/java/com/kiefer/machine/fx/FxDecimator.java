@@ -74,8 +74,6 @@ public class FxDecimator extends Fx {
         bitsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                //bits = seekBar.getProgress();
-                //((Decimator)fx).setBits(bits);
                 setBits(seekBar.getProgress());
             }
 
@@ -106,7 +104,7 @@ public class FxDecimator extends Fx {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                automationManager.changeInBaseValue(paramNames.get(2), (float)(seekBar.getProgress() / floatMultiplier));
+                automationManager.changeInBaseValue(paramNames.get(2), ((float)seekBar.getProgress() / floatMultiplier));
             }
         });
 
