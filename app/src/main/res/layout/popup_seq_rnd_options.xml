@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/tabsPaddingSmall">
 
@@ -174,24 +175,30 @@
 
     <!-- TRACKS -->
     <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/seqRndOptionsTopBorder"
 
         android:layout_marginTop="@dimen/tabsPaddingSmall">
 
+        <com.kiefer.graphics.customViews.ObservableHorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/seqRndOptionsTracksScrollView"
+            android:scrollbars="none">
+
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <!-- FXs RECYCLERVIEW -->
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/seqRndOptionsRecyclerView"
                 android:overScrollMode="never"/>
 
-            <!-- ADD FX -->
+            <!-- ADD TRACK -->
             <Button
                 android:layout_width="@dimen/btnHeightSmall"
                 android:layout_height="@dimen/btnHeightSmall"
@@ -202,6 +209,6 @@
 
                 android:layout_below="@id/seqRndOptionsRecyclerView"/>
         </RelativeLayout>
+        </com.kiefer.graphics.customViews.ObservableHorizontalScrollView>
     </androidx.core.widget.NestedScrollView>
-
 </RelativeLayout>

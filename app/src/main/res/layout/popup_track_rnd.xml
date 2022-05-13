@@ -48,7 +48,6 @@
             android:layout_marginTop="@dimen/marginLarge"/>
     </RelativeLayout>
 
-    <!-- RND OSC -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -57,6 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <!-- RND OSC -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,6 +88,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ON"/>
+            </LinearLayout>
+
+            <!-- RND SUBS -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackRndSubsCheck"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SUBS"/>
             </LinearLayout>
 
             <!-- RND VOL -->

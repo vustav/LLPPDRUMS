@@ -46,7 +46,7 @@ public class DrumTrack implements Subilizer, NamerColorizer {
 
     //data
     private ArrayList<Step> steps;
-    private final ArrayList<Boolean> autoStepSubValues;
+    private final ArrayList<Boolean> organizeStepsSubValues;
 
     //private int initNOfSteps;
     private int nOfSubs;
@@ -73,13 +73,13 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         randomizeName();
         color = ColorUtils.getRandomColor();
 
-        autoStepSubValues = new ArrayList<>();
+        organizeStepsSubValues = new ArrayList<>();
         for(int i = 0; i<nOfSubs; i++){
             if(i == 0){
-                autoStepSubValues.add(true);
+                organizeStepsSubValues.add(true);
             }
             else{
-                autoStepSubValues.add(false);
+                organizeStepsSubValues.add(false);
             }
         }
 
@@ -160,11 +160,11 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         }
 
         //update autoStepValues
-        while(autoStepSubValues.size() < nOfSubs){
-            autoStepSubValues.add(false);
+        while(organizeStepsSubValues.size() < nOfSubs){
+            organizeStepsSubValues.add(false);
         }
-        while(autoStepSubValues.size() > nOfSubs){
-            autoStepSubValues.remove(autoStepSubValues.size()-1);
+        while(organizeStepsSubValues.size() > nOfSubs){
+            organizeStepsSubValues.remove(organizeStepsSubValues.size()-1);
         }
     }
 
@@ -224,9 +224,14 @@ public class DrumTrack implements Subilizer, NamerColorizer {
     public void setStepOn(int step, boolean on){
         steps.get(step).setOn(on);
     }
-    public void setSubOn(int step, boolean on, int sub){
-        //Log.e("DrumTrack", "setSubOn(), steps.size(): "+steps.size());
+    public boolean isStepOn(int step){
+        return steps.get(step).isOn();
+    }
+    public void setSubOn(int step, int sub, boolean on){
         steps.get(step).setSubOn(sub, on);
+    }
+    public boolean getSubOn(int step, int sub){
+        return steps.get(step).isSubOn(sub);
     }
 
     public void setStepOn(int step, boolean on, ArrayList<Boolean> autoStepValues){
@@ -514,6 +519,10 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         rndTrackManager.setRndOn(rndOn);
     }
 
+    public void setRndSubs(boolean rndSubs) {
+        rndTrackManager.setRndSubs(rndSubs);
+    }
+
     public void setRndVol(boolean rndVol) {
         rndTrackManager.setRndVol(rndVol);
     }
@@ -536,13 +545,13 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         llppdrums.getSequencerUI().setTrackColor(getTrackNo(), color);
     }
 
-    public void setAutoStepSubValue(int sub, boolean on){
-        autoStepSubValues.set(sub, on);
+    public void setOrganizeStepsSubValue(int sub, boolean on){
+        organizeStepsSubValues.set(sub, on);
     }
 
     /** GET **/
-    public ArrayList<Boolean> getAutoStepSubValues(){
-        return autoStepSubValues;
+    public ArrayList<Boolean> getOrganizeStepsSubValues(){
+        return organizeStepsSubValues;
     }
 
     public DrumSequence getDrumSequence() {
@@ -571,6 +580,10 @@ public class DrumTrack implements Subilizer, NamerColorizer {
 
     public boolean getRndOn() {
         return rndTrackManager.getRndOn();
+    }
+
+    public boolean getRndSubs() {
+        return rndTrackManager.getRndSubs();
     }
 
     public boolean getRndVol() {

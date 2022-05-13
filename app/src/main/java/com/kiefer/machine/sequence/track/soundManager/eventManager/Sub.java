@@ -1,5 +1,7 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager;
 
+import android.util.Log;
+
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.SubKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -103,7 +105,7 @@ public class Sub {
     public void setOn(boolean on){
         //wasOn = this.on;
         this.on = on;
-        //Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
+        Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
         if(on && step.isOn()) {
             //Log.e("Sub", "setOn(), 1");
             addToSequencer(true);

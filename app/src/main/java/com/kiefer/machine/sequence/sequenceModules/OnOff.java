@@ -140,21 +140,10 @@ public class OnOff extends SequenceModule {
     }
 
     private int autoStepInterval = -1;
-    /*
-    //override to store autoStepInterval
-    @Override
-    public void setAutoValue(final DrumTrack drumTrack, String s, int sub) {
-        super.setAutoValue(drumTrack, s, sub); //random is handled here
-        if(isInBaseMode()) {
-            autoStepInterval = Integer.parseInt(s.substring(s.length()-1));
-            setAutoValueBase(drumTrack, s, sub);
-        }
-    }
-
-     */
 
     //since setAutoValue() is dependent on what mode we're in it can't be used for presets (if in random the patterns would end up there instead)
     //SO USE THIS WHEN BUILDING PRESETS
+
     @Override
     public float setAutoValueBase(final DrumTrack drumTrack, String s, int sub){
         autoStepInterval = Integer.parseInt(s.substring(s.length()-1));
@@ -163,7 +152,7 @@ public class OnOff extends SequenceModule {
             if (autoStepInterval != 0) {
                 if (step % autoStepInterval == 0) {
                     //if (!drum.isOn()) {
-                    drumTrack.setStepOn(step, true, drumTrack.getAutoStepSubValues());
+                    drumTrack.setStepOn(step, true, drumTrack.getOrganizeStepsSubValues());
                     //}
                 } else {
                     if (drum.isOn()) {
@@ -179,6 +168,39 @@ public class OnOff extends SequenceModule {
         }
         return autoStepInterval;
     }
+
+    /*
+    @Override
+    public float setAutoValueBase(final DrumTrack drumTrack, String s, int sub){
+        boolean aSubIsOn = false;
+        autoStepInterval = Integer.parseInt(s.substring(s.length()-1));
+        for (int stepNo = 0; stepNo < drumTrack.getSteps().size(); stepNo++) {
+            Step step = drumTrack.getSteps().get(stepNo);
+            if (autoStepInterval != 0) {
+                if (stepNo % autoStepInterval == 0) {
+                    step.setSubOn(sub, true);
+                    aSubIsOn = true;
+                } else {
+                    if (step.isOn()) {
+                        //drumTrack.setStepOn(stepNo, false);
+                        step.setOn(false);
+                    }
+                }
+            }
+            else {
+                if (step.isOn()) {
+                    //drumTrack.setStepOn(stepNo, false);
+                    step.setOn(false);
+                }
+            }
+            if(aSubIsOn){
+                step.setOn(true);
+            }
+        }
+        return autoStepInterval;
+    }
+
+     */
 
     @Override
     public void pushLeft(DrumTrack drumTrack){

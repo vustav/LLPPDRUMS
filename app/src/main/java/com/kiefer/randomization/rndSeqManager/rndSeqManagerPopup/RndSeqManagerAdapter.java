@@ -161,26 +161,6 @@ public class RndSeqManagerAdapter extends RecyclerView.Adapter<RndSeqManagerAdap
     public void setNOfSubs(int trackNo, int nOfSubs){
         rndSeqManager.getTracks().get(trackNo).setNOfSubs(nOfSubs);
         notifyDataSetChanged();
-        /*
-        this.nOfSubs = nOfSubs;
-        for(Step d : steps){
-            d.setNOfSubs(getNOfSteps(), nOfSubs);
-        }
-        positionDrums();
-
-        if(llppdrums.getDrumMachine().getSelectedSequence() == drumSequence) {
-            llppdrums.getSequencer().notifyDataSetChange();
-        }
-
-        //update autoStepValues
-        while(autoStepValues.size() < nOfSubs){
-            autoStepValues.add(false);
-        }
-        while(autoStepValues.size() > nOfSubs){
-            autoStepValues.remove(autoStepValues.size()-1);
-        }
-
-         */
     }
 
     @Override

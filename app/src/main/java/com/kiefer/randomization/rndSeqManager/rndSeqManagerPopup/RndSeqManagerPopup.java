@@ -44,7 +44,7 @@ public class RndSeqManagerPopup extends Popup {
 
         //create the popupWindow
         int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-        int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
@@ -53,7 +53,7 @@ public class RndSeqManagerPopup extends Popup {
         Point size = new Point();
         display.getSize(size);
 
-        popupWindow.setWidth(size.x-size.x/5);
+        popupWindow.setWidth(size.x-size.x/13);
         popupWindow.setHeight(size.y-size.y/20);
         popupWindow.setFocusable(true);
 

@@ -87,7 +87,7 @@ public class FxManagerPopup extends Popup {
         rndBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fxManager.randomizeAll();
+                fxManager.randomizeAll(false);
                 fxAdapter.notifyDataSetChanged();
                 editArea.removeAllViews();
 

@@ -126,11 +126,13 @@ public abstract class SequenceModule implements TabHolder, Tab {
 
     /** AUTO **/
     public void setAutoValue(final DrumTrack drumTrack, String s, int sub) {
-        if(isInBaseMode()) {
-            setAutoValueBase(drumTrack, s, sub);//seqModules do their thing here
-        }
-        else {
-            ((AutoRandom)modes.get(AUTO_RANDOM)).setAutoValue(drumTrack, s, sub);
+        if(drumTrack.getOrganizeStepsSubValues().get(sub) || this instanceof OnOff) { //all modules except OnOff work only on the selected subs and ignores the others. OnOff turns off the selected subs and therefore handles this differently
+            if (isInBaseMode()) {
+                setAutoValueBase(drumTrack, s, sub);//seqModules do their thing here
+
+            } else {
+                ((AutoRandom) modes.get(AUTO_RANDOM)).setAutoValue(drumTrack, s, sub);
+            }
         }
     }
 

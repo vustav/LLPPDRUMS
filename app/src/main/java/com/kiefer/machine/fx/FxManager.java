@@ -273,11 +273,15 @@ public class FxManager {
     }
 
     /** RANDOMIZATION **/
-    public void randomizeAll() {
+    public void randomizeAll(boolean allowZero) {
         destroy();
         fxs = new ArrayList<>();
 
         int nOfFxs = random.nextInt(MAX_N_RND_FXS + 1);
+
+        if(!allowZero && nOfFxs == 0){
+            nOfFxs += 1;
+        }
 
         for(int i = 0; i < nOfFxs; i++){
             createRandomFx(true);

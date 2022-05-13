@@ -15,6 +15,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.info.sequence.trackMenu.OrganizeTrackInfo;
 import com.kiefer.machine.sequence.sequenceModules.OnOff;
+import com.kiefer.machine.sequence.sequenceModules.Pan;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.AutoRandom;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandomModuleBool;
@@ -90,9 +91,6 @@ public class OrganizeStepsPopup extends Popup {
             });
         }
         else{
-            //leftArrow.setVisibility(View.INVISIBLE);
-            //rightArrow.setVisibility(View.INVISIBLE);
-
             ((ViewGroup)leftArrow.getParent()).removeView(leftArrow);
             ((ViewGroup)rightArrow.getParent()).removeView(rightArrow);
         }
@@ -100,10 +98,7 @@ public class OrganizeStepsPopup extends Popup {
         //SUBS
         LinearLayout subsLayout = popupView.findViewById(R.id.organizeStepsSubsLayout);
 
-
-
-        if(drumTrack.getNOfSubs() == 1){
-            //subsLayout.setVisibility(View.INVISIBLE);
+        if(drumTrack.getNOfSubs() == 1 || sequenceModule instanceof Pan){
             ((ViewGroup)subsLayout.getParent()).removeView(subsLayout);
         }
         else {
@@ -112,19 +107,20 @@ public class OrganizeStepsPopup extends Popup {
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(0, (int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall), 1);
             llp.setMarginStart(2);
 
-            for (int sub = 0; sub < drumTrack.getAutoStepSubValues().size(); sub++) {
+            for (int sub = 0; sub < drumTrack.getOrganizeStepsSubValues().size(); sub++) {
                 FrameLayout stepLayout = new FrameLayout(llppdrums);
                 stepLayout.setLayoutParams(llp);
 
 
-                setLayoutColor(stepLayout, drumTrack.getAutoStepSubValues().get(sub));
+                setLayoutColor(stepLayout, drumTrack.getOrganizeStepsSubValues().get(sub));
 
                 final int finalSub = sub;
                 stepLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final boolean on = drumTrack.getAutoStepSubValues().get(finalSub);
-                        drumTrack.setAutoStepSubValue(finalSub, !on);
+                        final boolean on = drumTrack.getOrganizeStepsSubValues().get(finalSub);
+                        //if()
+                        drumTrack.setOrganizeStepsSubValue(finalSub, !on);
                         setLayoutColor(stepLayout, !on);
                     }
                 });

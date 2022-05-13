@@ -53,7 +53,6 @@ public class RndTrackManagerPopup extends Popup {
         //preset spinner
         cSpinnerButton = new CSpinnerButton(llppdrums);
         cSpinnerButton.setSelection("PRESETS");
-        //cSpinnerButton.setSelection(rndSeqManager.getSelectedRandomizePreset().getName());
 
         cSpinnerButton.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,9 +65,6 @@ public class RndTrackManagerPopup extends Popup {
 
         spinnerContainer.addView(cSpinnerButton);
 
-        //LinearLayout presetLayout = popupView.findViewById(R.id.seqRndOptionsPresetLayout);
-        //presetLayout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
-
         //the btn
         Button rndBtn = popupView.findViewById(R.id.trackRndBtn);
         rndBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +72,11 @@ public class RndTrackManagerPopup extends Popup {
             public void onClick(View view) {
 
                 boolean updateDrawables = false;
+
+                if(drumTrack.getRndSubs()) {
+                    drumTrack.getRndTrackManager().randomizeSubs();
+                    updateDrawables = true;
+                }
 
                 if(drumTrack.getRndOsc()){
                     drumTrack.getSoundManager().randomizeAll();
@@ -90,27 +91,23 @@ public class RndTrackManagerPopup extends Popup {
                 if(drumTrack.getRndVol()) {
                     drumTrack.getRndTrackManager().randomizeStepVols();
                     updateDrawables = true;
-                    //drumTrack.updateDrawables();
                 }
 
                 if(drumTrack.getRndPitch()) {
                     drumTrack.getRndTrackManager().randomizeStepPitches();
                     updateDrawables = true;
-                    //drumTrack.updateDrawables();
                 }
 
                 if(drumTrack.getRndPan()) {
                     drumTrack.getRndTrackManager().randomizeStepPans();
                     updateDrawables = true;
-                    //drumTrack.updateDrawables();
                 }
 
                 if(drumTrack.getRndFx()) {
-                    drumTrack.getFxManager().randomizeAll();
+                    drumTrack.getFxManager().randomizeAll(true);
                 }
 
                 if(drumTrack.getRndMix()) {
-                    //drumTrack.randomizePan();
                     drumTrack.randomizeVol();
                 }
 
@@ -137,6 +134,16 @@ public class RndTrackManagerPopup extends Popup {
             @Override
             public void onClick(View view) {
                 drumTrack.setRndOn(onCheck.isChecked());
+            }
+        });
+
+        //subs-check
+        final CheckBox subsCheck = popupView.findViewById(R.id.trackRndSubsCheck);
+        subsCheck.setChecked(drumTrack.getRndOn());
+        subsCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drumTrack.setRndSubs(subsCheck.isChecked());
             }
         });
 
