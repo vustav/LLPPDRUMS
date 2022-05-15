@@ -27,7 +27,6 @@ public class TrackMenuInfo extends InfoHolder implements Info {
         infos.add(new OrganizeTrackInfo(llppdrums));
         infos.add(new RandomizeTrackInfo(llppdrums));
         infos.add(new FxManagerInfo(llppdrums));
-        infos.add(new MixerInfo(llppdrums));
     }
 
     @Override
@@ -145,11 +144,7 @@ public class TrackMenuInfo extends InfoHolder implements Info {
 
         //get a ref to the tv
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
-
-        //create the link and append it
-        label = llppdrums.getResources().getString(R.string.mixerName);
-        link = new InfoLink(llppdrums, label, MixerInfo.key, nodeTV);
-        nodeTV.append(link);
+        nodeTV.setText(llppdrums.getResources().getString(R.string.trackVolName));
 
         layout.addView(nodeLayout);
 

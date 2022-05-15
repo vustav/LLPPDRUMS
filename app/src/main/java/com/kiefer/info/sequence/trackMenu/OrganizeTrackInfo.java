@@ -51,6 +51,17 @@ public class OrganizeTrackInfo implements Info {
 
         layout.addView(nodeLayout);
 
+        /** SUBS **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_auto_steps_subs));
+
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.autoTrackSubs);
+
+        layout.addView(nodeLayout);
+
         /** STEPS **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 

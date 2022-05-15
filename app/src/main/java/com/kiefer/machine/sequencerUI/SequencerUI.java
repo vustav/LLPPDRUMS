@@ -330,7 +330,8 @@ public class SequencerUI implements ObservableHorizontalScrollView.ObservableHor
                             });
 
                              */
-                            llppdrums.runOnUiThread(() -> iv.setImageDrawable(drawable));
+                            //llppdrums.runOnUiThread(() -> iv.setImageDrawable(drawable));
+                            iv.setImageDrawable(drawable);
                         }
                     }
                 }

@@ -281,14 +281,14 @@ public class DrumMachineFragment extends TabFragment {
 
     /** PLAY **/
     public void showPlayIcon(final int i, final boolean show){
-        llppdrums.runOnUiThread(() -> {
+        //llppdrums.runOnUiThread(() -> {
             if(show) {
                 ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.VISIBLE);
             }
             else{
                 ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.INVISIBLE);
             }
-        });
+        //});
     }
 
     private boolean uiLocked = false; //used to prevent spinner from opening when the UI is locked

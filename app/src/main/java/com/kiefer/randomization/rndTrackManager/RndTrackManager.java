@@ -109,15 +109,10 @@ public class RndTrackManager {
                     drumTrack.setSubOn(stepNo, sub, true);
                     drumTrack.setSubVolume(stepNo, step.getSubVol(sub), sub);
                     drumTrack.setSubPitchModifier(stepNo, step.getSubPitch(sub), sub);
-                    //aSubIsOn = true;
+                    aSubIsOn = true;
                 }
                 else{
                     drumTrack.setSubOn(stepNo, sub, false);
-                }
-
-                //flag for turning on if at least one sub is on
-                if(drumTrack.isStepOn(stepNo) && drumTrack.getSubOn(stepNo, sub)){
-                    aSubIsOn = true;
                 }
             }
 

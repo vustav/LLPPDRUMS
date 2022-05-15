@@ -22,7 +22,6 @@ import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
 import com.kiefer.ui.tabs.interfaces.TabHolder;
 import com.kiefer.ui.tabs.interfaces.Tab;
-import com.kiefer.popups.trackMenu.MixerPopup;
 import com.kiefer.utils.ImgUtils;
 import com.kiefer.popups.fxManager.FxManagerPopup;
 
@@ -378,10 +377,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
 
     public void openFxManagerPopup(int trackNo){
         new FxManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo));
-    }
-
-    public void openMixerPopup(int trackNo){
-        new MixerPopup(llppdrums, selectedSequence.getTracks().get(trackNo));
     }
 
     public void openRandomOptionsPopup(){

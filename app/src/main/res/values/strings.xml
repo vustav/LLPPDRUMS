@@ -212,11 +212,12 @@
     <!-- MAIN -->
     <string name="mainIntroTxt1">The two main modules are</string>
     <string name="mainIntroTxt2">SEQUENCES is for setting up the sequences and CONTROLLER for controlling them in realtime.</string>
-    <string name="mainIntroTxt3">\n\nYou have four independent sequences (numbered tabs to the left) that plays in the order set in the sequence manager (top right). Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
+    <string name="mainIntroTxt3">\n\nYou have any number of independent sequences (represented by colored tabs to the left) that plays in the order set in the</string>
+    <string name="mainIntroTxt4"> (top right). Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
     <string name="mainTransportTxt">Basic controls.</string>
     <string name="mainFilesTxt">LOAD/SAVE/CLEAR the project. CLEAR is destructive.</string>
     <string name="mainSeqManTxt1">Shows the order of progression (if PROGRESSION is on). Clicking a cell will change to that sequence immediately or at the next measure depending on QUEUE. EDIT opens</string>
-    <string name="mainSeqManTxt2">\n\nPurple is the sequence currently playing. Pink is queued for change at the next measure.</string>
+    <string name="mainSeqManTxt2">\n\nRed triangle is the sequence currently playing. Grey is queued for change at the next measure.</string>
     <string name="mainSeqManTxt3">\n\nThe green bar indicates what step the sequencer is on no matter what sequence is playing. </string>
 
     <!-- PROJECT OPTIONS -->
@@ -238,7 +239,7 @@
     <string name="seqManBoxesTxt3">\n\nRESET PROGRESSION resets progression when the sequence is stopped.</string>
 
     <!-- SEQUENCE -->
-    <string name="seqIntroTxt1">There are four sequences that are completely independent of each other (steps, tempo etc). You decide if you want one to play over and over or let them progress and in what order in</string>
+    <string name="seqIntroTxt1">You can create any number of sequences that are completely independent of each other (steps, tempo etc). You decide if you want one to play over and over or let them progress and in what order in</string>
     <string name="seqIntroTxt2">. You can also change what sequence is playing manually either in</string>
     <string name="seqIntroTxt3">or by clicking one in the top left window.</string>
     <string name="seqSequenceTxt">Select which sequence to edit.</string>
@@ -254,17 +255,17 @@
     <string name="seqCpyTxt">Make this sequence a copy of another sequence. Will not automatically change if you change anything in the copied sequence.</string>
 
     <!-- RND SEQUENCE MANAGER-->
-    <string name="seqRndManagerIntro">Intructions for the randomizations, either by using a preset or by creating from scratch.</string>
+    <string name="seqRndManagerIntro">Blueprint for the randomizations, either by using a preset or by creating from scratch.</string>
     <string name="seqRndManagerPreset">Select a preset.</string>
     <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
     <string name="seqRndManagerSteps">Set the # of steps of the randomized sequence.</string>
-    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select sound preset. \n\nEvery step has a slider in it. If it\'s full it will always be on. If half there\'s a 50% chance etc. \n\nTick the FX-box for randomized effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
+    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select sound preset. The number is the number of sub steps. \n\nEvery step has one or more sliders in it depending on # of sub steps. If it\'s full it will always be on. Half means 50% etc. \n\nTick the FX-box for randomized effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
     <string name="seqRndManagerAdd">Add a track.</string>
 
     <!-- AUTORANDOM -->
     <string name="autoRndIntroTxt">When AUTORANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
     \n\n
-    %: chance a randomization will occur. A full bar means a randomization will always occur which means there\'s a 50% chance it will be ON. A half bar means a 50% chance of randomization which means a 75% chance the value stays the same etc.\n\n
+    %: chance a randomization will occur. A full bar means a randomization will always occur. A half bar means a 50% chance of randomization.\n\n
     MIN: smallest possible randomized value.\n\n
     MAX: largest possible randomized value.\n\n
     RTRN: should the value return to what it was before the randomization after being played once.\n\n
@@ -279,7 +280,7 @@
     <string name="organizeStepsName">ORGANIZE STEPS</string>
     <string name="rndTrackName">RANDOMIZE TRACK</string>
     <string name="fxManagerName">FX MANAGER</string>
-    <string name="mixerName">MIXER</string>
+    <string name="trackVolName">Track volume</string>
 
     <!-- OSC -->
     <string name="oscIntro">Create a sound with one or two oscillators.</string>
@@ -287,7 +288,9 @@
     <!-- ORGANIZE STEPS -->
     <string name="autoTrackIntro">...</string>
     <string name="autoTrackJump">Push everything one step to the left/right.</string>
-    <string name="autoTrackSteps">Turn every, every 2nd, 3rd, etc step ON.</string>
+    <string name="autoTrackSubs">Select which subs to modify.</string>
+    <string name="autoTrackSteps">If ON is selected and 1/3 is clicked the selected sub/s in every 3rd step will be turned on, and all others off, etc.
+    \n\nIf anything other than ON is selected the selected subs in every step will get the value selected.</string>
 
     <!-- RND TRACK -->
     <string name="rndTrackIntro">Randomize everything or parts of the track.</string>

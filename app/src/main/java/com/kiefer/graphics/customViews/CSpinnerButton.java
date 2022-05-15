@@ -70,9 +70,9 @@ public class CSpinnerButton extends RelativeLayout {
 
     @Override
     public void setEnabled(final boolean enabled){
-        llppdrums.runOnUiThread(() -> {
+        //llppdrums.runOnUiThread(() -> {
             button.setEnabled(enabled);
             //iv.setEnabled(enabled);
-        });
+        //});
     }
 }

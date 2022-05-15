@@ -66,23 +66,23 @@ public class SequenceCounter extends Counter {
     /** SET **/
     @Override
     public void activateStep(int step){
-        llppdrums.runOnUiThread(() -> {
+        //llppdrums.runOnUiThread(() -> {
             layout.getChildAt(step).findViewById(R.id.counterCellPlayIv).setVisibility(View.VISIBLE);
 
             if(controllerLayout != null) {
                 controllerLayout.getChildAt(step).findViewById(R.id.counterCellPlayIv).setVisibility(View.VISIBLE);
             }
-        });
+        //});
     }
 
     public void queueStep(int step){
-        llppdrums.runOnUiThread(() -> {
+        //llppdrums.runOnUiThread(() -> {
             layout.getChildAt(step).findViewById(R.id.counterCellQueueIv).setVisibility(View.VISIBLE);
 
             if(controllerLayout != null) {
                 controllerLayout.getChildAt(step).findViewById(R.id.counterCellQueueIv).setVisibility(View.VISIBLE);
             }
-        });
+        //});
     }
 
     @Override

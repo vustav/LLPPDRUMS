@@ -335,21 +335,11 @@ public class EngineFacade {
                     // we can calculate the amount of samples pending until the next step position is reached
                     // which in turn allows us to calculate the engine latency
 
-                    //int elapsedSamples = _sequencerController.getBufferPosition();
-
-                    //see the start of init() for an explanation
-                    //notificationThread.run();
-                    //Log.e("EF Update", "step: "+sequencerPosition);
-
-                    //if(sequencerPosition % subs == 0) {
-                    //int step = sequencerPosition / subs;
-                    //llppdrums.handleSequencerPositionChange(sequencerPosition / DrumSequence.N_OF_SUB_STEPS);
-                        sequencerPosition = _sequencerController.getStepPosition();
+                    //we get UIthread-errors here without this. Maybe since the engine runs in its own thread?
+                    sequencerPosition = _sequencerController.getStepPosition();
+                    llppdrums.runOnUiThread(() -> {
                         llppdrums.handleSequencerPositionChange(sequencerPosition);
-                    //}
-                    //postStats(sequencerPosition);
-
-                    //Log.d( LOG_TAG, "seq. position: " + sequencerPosition + ", buffer offset: " + aNotificationValue + ", elapsed samples: " + elapsedSamples );
+                    });
                     break;
                 case RECORDED_SNIPPET_READY:
                     llppdrums.runOnUiThread(() -> {

@@ -67,6 +67,12 @@ public class MainInfo extends InfoHolder implements Info {
         nodeTV.append(". ");
         nodeTV.append(llppdrums.getResources().getString(R.string.mainIntroTxt2));
         nodeTV.append(llppdrums.getResources().getString(R.string.mainIntroTxt3));
+        nodeTV.append(" ");
+        label = llppdrums.getResources().getString(R.string.seqManagerLabel);
+        link = new InfoLink(llppdrums, label, SequenceManagerInfo.key, nodeTV);
+        nodeTV.append(link);
+        nodeTV.append(" ");
+        nodeTV.append(llppdrums.getResources().getString(R.string.mainIntroTxt4));
 
         layout.addView(nodeLayout);
 
