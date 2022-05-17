@@ -354,6 +354,7 @@ public class DrumMachineFragment extends TabFragment {
     public void setColor(boolean updateAdapter){
         sequenceBg.setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
         nameBtnGraphics.setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getColor());
+        nameBtnTV.setTextColor(ColorUtils.getContrastColor(llppdrums.getDrumMachine().getSelectedSequence().getColor()));
 
         if(updateAdapter) {
             adapter.notifyDataSetChanged();

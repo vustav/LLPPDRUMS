@@ -13,9 +13,8 @@ import android.widget.TextView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
-import com.kiefer.info.sequence.trackMenu.RandomizeTrackInfo;
+import com.kiefer.info.sequence.trackMenu.RndTrackManagerInfo;
 import com.kiefer.machine.sequence.track.DrumTrack;
-import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.Popup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.utils.ColorUtils;
@@ -202,7 +201,7 @@ public class RndTrackManagerPopup extends Popup {
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new InfoPopup(llppdrums, RandomizeTrackInfo.key);
+                new InfoPopup(llppdrums, RndTrackManagerInfo.key);
             }
         });
 

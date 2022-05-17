@@ -2,6 +2,7 @@ package com.kiefer.info.main;
 
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,13 +40,24 @@ public class ProjectOptionsInfo implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
-        //1
-        FrameLayout nodeLayout1 = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+        /** INTRO **/
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
-        TextView nodeTV1 = nodeLayout1.findViewById(R.id.infoNodeTV);
+        TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.projOptnsIntroTxt);
+
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_main_options));
+
+        layout.addView(nodeLayout);
+
+        /** DRIVER **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+
+        TextView nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV1.setText(R.string.projOptnsDriverTxt);
 
-        layout.addView(nodeLayout1);
+        layout.addView(nodeLayout);
 
         return layout;
     }

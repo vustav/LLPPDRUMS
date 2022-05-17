@@ -2,6 +2,7 @@ package com.kiefer.info.sequence;
 
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ public class AutoRandomInfo implements Info {
 
     @Override
     public String getName(){
-        return "AUTORANDOMIZATION";
+        return "AUTO RANDOMIZATION";
     }
 
     @Override
@@ -40,10 +41,32 @@ public class AutoRandomInfo implements Info {
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_hor, null);
+
+        TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.autoRndIntroTxt);
+
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_auto_tab));
+
+        layout.addView(nodeLayout);
+
+        /** INFO **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
 
         TextView nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV1.setText(R.string.autoRndIntroTxt);
+        nodeTV1.setText(R.string.autoRndInfoTxt);
+
+        layout.addView(nodeLayout);
+
+        /** DOT **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_auto_dot));
+
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.autoRndDotTxt);
 
         layout.addView(nodeLayout);
 

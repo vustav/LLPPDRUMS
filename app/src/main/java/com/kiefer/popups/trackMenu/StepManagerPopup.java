@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.info.sequence.trackMenu.OrganizeTrackInfo;
+import com.kiefer.info.sequence.trackMenu.StepManagerInfo;
 import com.kiefer.machine.sequence.sequenceModules.OnOff;
 import com.kiefer.machine.sequence.sequenceModules.Pan;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
@@ -24,9 +24,9 @@ import com.kiefer.popups.Popup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.utils.ColorUtils;
 
-public class OrganizeStepsPopup extends Popup {
+public class StepManagerPopup extends Popup {
 
-    public OrganizeStepsPopup(final LLPPDRUMS llppdrums, View parent, final SequenceModule sequenceModule, final DrumTrack drumTrack){
+    public StepManagerPopup(final LLPPDRUMS llppdrums, View parent, final SequenceModule sequenceModule, final DrumTrack drumTrack){
         super(llppdrums);
 
         //inflate the View
@@ -47,7 +47,7 @@ public class OrganizeStepsPopup extends Popup {
 
         //label
         //String name = llppdrums.getResources().getString(R.string.automateStepsName) + drumTrack.getOscillatorManager().getName();
-        String name = llppdrums.getResources().getString(R.string.organizeStepsLabel) + drumTrack.getTrackNo();
+        String name = llppdrums.getResources().getString(R.string.stepManagerLabel) + drumTrack.getTrackNo();
         TextView label = popupView.findViewById(R.id.organizeStepsLabel);
         label.setText(name);
         int bgColor = drumTrack.getColor();
@@ -167,7 +167,7 @@ public class OrganizeStepsPopup extends Popup {
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new InfoPopup(llppdrums, OrganizeTrackInfo.key);
+                new InfoPopup(llppdrums, StepManagerInfo.key);
             }
         });
 

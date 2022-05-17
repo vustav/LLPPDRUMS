@@ -5,6 +5,7 @@
     <dimen name="marginLarge">10dp</dimen>
     <dimen name="marginXLarge">10dp</dimen>
 
+    <dimen name="btnHeightTop">42dp</dimen>
     <dimen name="btnHeightSmall">40dp</dimen>
     <dimen name="btnHeightTempo">35dp</dimen>
     <dimen name="btnHeightLarge">55dp</dimen>

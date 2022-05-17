@@ -1,10 +1,5 @@
 package com.kiefer.machine.sequence.track.soundManager.eventManager.event;
 
-import com.kiefer.machine.sequence.track.soundManager.eventManager.old.EventsOLD;
-import com.kiefer.utils.NmbrUtils;
-
-import java.util.Random;
-
 public abstract class Event {
 
     protected float DURATION = 1f;

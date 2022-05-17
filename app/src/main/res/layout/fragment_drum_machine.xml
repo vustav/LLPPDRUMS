@@ -125,8 +125,7 @@
                             android:id="@+id/machineModuleModeBg"
                             android:paddingStart="@dimen/tabsTVMargin"
                             android:paddingTop="@dimen/tabsTVMargin"
-                            android:paddingEnd="@dimen/tabsTVMargin"
-                            android:paddingBottom="@dimen/tabsTVMargin">
+                            android:paddingEnd="@dimen/tabsTVMargin">
 
                             <!-- SEQ -->
                             <FrameLayout

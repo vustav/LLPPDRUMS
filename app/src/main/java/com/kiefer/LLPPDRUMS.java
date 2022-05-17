@@ -37,25 +37,15 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHolder {
-    /** testa att ta bort reset på alla seqs när dom skapas **/
-
-    /** händer konstiga grejer i automateTrack, kolla setAutoValueBase() i OnOff med subs och det **/
+    /** TRÅDAR **/
+    /* notifications i EngineFacade körs i UI-tråden. Tror engine går i egen tråd som dom kanske kommer i en annan? */
 
     /** TILLFÄLLIGA FIXAR **/
-    // i handleSequencerPositionChange() i DrumTrack kallas positionEvents för att positionera SynthEvents
-    // som bara håller sin position en gång, sen hamnar som på närmsta föregående steg. Borde vara
-    // en bugg som fixzas och  då kan detta tas bort.
-
-    // i onStepTouch() i OnOff finns en timer som ska parera buggen med att lägga till/ta bort events
-    // för snabbt i sequencern
-
-    //bugg i RndTrackManager.autoRandomize() med att uppdatera drawables när det bara är en sub
 
     public static boolean disableLoad = false;
     public static final boolean hideUIonPlay = false;
 
     private static String LOG_TAG = "MWEngineFacade"; // logcat identifier
-
 
     public static int RECORD_AUDIO_PERMISSION_CODE = 34564576;
     public static final int BLUETOOTH_CONNECT_PERMISSION_CODE = 956;
@@ -167,15 +157,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         super.onSaveInstanceState(bundle);
         createKeeper();
     }
-/*
-    @Override
-    protected void onPause(){
-        super.onPause();
-        createKeeper();
-    }
-
- */
-
 
     public void createKeeper(){
         //Log.e("LLPPDRUMS", "createKeeper()");
@@ -184,69 +165,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             keeperFileHandler.write(keeper, folderPath, getString(R.string.lastDataFileName), false);
         }
     }
-
-    /** MEMORY **/
-    /*
-    public void onTrimMemory(int level) {
-
-        // Determine which lifecycle or system event was raised.
-        switch (level) {
-
-            case ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN:
-
-
-                   //Release any UI objects that currently hold memory.
-                   //The user interface has moved to the background.
-
-                Log.e("LLPPDRUMS", "onTrimMemory(), 1");
-
-                break;
-
-            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE:
-            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW:
-            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL:
-
-
-                   //Release any memory that your app doesn't need to run.
-
-                   //The device is running low on memory while the app is running.
-                   //The event raised indicates the severity of the memory-related event.
-                   //If the event is TRIM_MEMORY_RUNNING_CRITICAL, then the system will
-                   //begin killing background processes.
-
-                Log.e("LLPPDRUMS", "onTrimMemory(), 2");
-
-                break;
-
-            case ComponentCallbacks2.TRIM_MEMORY_BACKGROUND:
-            case ComponentCallbacks2.TRIM_MEMORY_MODERATE:
-            case ComponentCallbacks2.TRIM_MEMORY_COMPLETE:
-
-
-                   //Release as much memory as the process can.
-
-                   //The app is on the LRU list and the system is running low on memory.
-                   //The event raised indicates where the app sits within the LRU list.
-                   //If the event is TRIM_MEMORY_COMPLETE, the process will be one of
-                   //the first to be terminated.
-
-                Log.e("LLPPDRUMS", "onTrimMemory(), 3");
-
-                break;
-
-            default:
-
-                  //Release any non-critical data structures.
-
-                  //The app received an unrecognized memory level value
-                  //from the system. Treat this as a generic low-memory message.
-
-                Log.e("LLPPDRUMS", "onTrimMemory(), 4");
-                break;
-        }
-    }
-
-     */
 
     /** INIT **/
     private void init() {

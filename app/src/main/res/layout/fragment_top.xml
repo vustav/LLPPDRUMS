@@ -31,13 +31,14 @@
                 android:orientation="horizontal"
                 android:id="@+id/topTransportLayout">
 
-                <!-- PLAY -->
+                <!-- PLAY/PAUSE -->
                 <FrameLayout
-                    android:layout_width="@dimen/transportBtnWidth"
-                    android:layout_height="@dimen/transportBtnHeight">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
                     <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/transportBtnWidth"
+                        android:layout_height="@dimen/btnHeightTop"
                         android:id="@+id/topPlayBtn"/>
 
                     <!-- PLAY -->
@@ -78,11 +79,12 @@
 
                 <!-- STOP -->
                 <FrameLayout
-                    android:layout_width="@dimen/transportBtnWidth"
-                    android:layout_height="@dimen/transportBtnHeight">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
                     <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/transportBtnWidth"
+                        android:layout_height="@dimen/btnHeightTop"
                         android:id="@+id/topStopBtn"/>
 
                     <ImageView
@@ -93,6 +95,20 @@
                         android:src="@drawable/drawable_square_black"/>
                 </FrameLayout>
             </LinearLayout>
+
+            <!-- SEQUENCES -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/transportBtnHeight"
+                android:id="@+id/topFragmentSequenceManagerLayout"
+                android:paddingTop="1dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
 
             <!-- DIVIDER -->
             <FrameLayout
@@ -105,7 +121,7 @@
             <!-- OPTIONS -->
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/btnHeightSmall"
+                android:layout_height="@dimen/btnHeightTop"
                 android:id="@+id/topOptionsBtn"
                 android:textSize="@dimen/defaultBtnTxtSize"
                 android:text="OPTNS"/>
@@ -118,65 +134,38 @@
                 android:id="@+id/topFragmentDivider1"
                 android:layout_margin="@dimen/dividerMargin"/>
 
-            <!-- LOAD/SAVE -->
-            <LinearLayout
+            <!-- LOAD -->
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="@dimen/btnHeightTop"
+                android:id="@+id/topLoadBtn"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:singleLine="true"
+                android:text="LOAD"/>
 
-                <!-- LOAD -->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/btnHeightSmall"
-                    android:id="@+id/topLoadBtn"
-                    android:textSize="@dimen/defaultBtnTxtSize"
-                    android:singleLine="true"
-                    android:text="LOAD"/>
+            <!-- SAVE -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightTop"
+                android:id="@+id/topSaveBtn"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:singleLine="true"
+                android:text="SAVE"/>
 
-                <!-- SAVE -->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/btnHeightSmall"
-                    android:id="@+id/topSaveBtn"
-                    android:textSize="@dimen/defaultBtnTxtSize"
-                    android:singleLine="true"
-                    android:text="SAVE"/>
-
-                <!-- CLEAR -->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/btnHeightSmall"
-                    android:id="@+id/topClearBtn"
-                    android:textSize="@dimen/defaultBtnTxtSize"
-                    android:singleLine="true"
-                    android:text="CLEAR"/>
-
-            </LinearLayout>
-
-            <!-- DIVIDER -->
-            <FrameLayout
-                android:layout_width="@dimen/dividerWidth"
-                android:layout_height="match_parent"
-                android:background="@color/dividerColor"
-                android:id="@+id/topFragmentDivider2"
-                android:layout_margin="@dimen/dividerMargin"/>
+            <!-- CLEAR -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightTop"
+                android:id="@+id/topClearBtn"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:singleLine="true"
+                android:text="CLEAR"/>
         </LinearLayout>
-
-        <!-- SEQUENCES -->
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/transportBtnHeight"
-            android:id="@+id/topFragmentSequenceManagerLayout"
-            android:paddingTop="1dp"
-
-            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
     <!-- TABS -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tabsSize"
-        android:id="@+id/topTabsLayout"
-
-        android:layout_alignParentBottom="true"/>
-
+        android:layout_height="match_parent"
+        android:id="@+id/topTabsLayout"/>
 </LinearLayout>

@@ -46,13 +46,24 @@ public class SequenceManagerInfo extends InfoHolder implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
-        /** ORDER **/
+        /** INTRO **/
         FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
+        TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqManIntroTxt);
+
         ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_man_intro));
+
+        layout.addView(nodeLayout);
+
+        /** ORDER **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_man_order));
 
-        TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.seqManOrderTxt);
 
         layout.addView(nodeLayout);

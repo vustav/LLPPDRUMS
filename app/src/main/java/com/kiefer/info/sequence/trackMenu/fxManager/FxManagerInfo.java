@@ -11,6 +11,7 @@ import com.kiefer.R;
 import com.kiefer.info.Info;
 import com.kiefer.info.InfoHolder;
 import com.kiefer.info.link.InfoLink;
+import com.kiefer.info.sequence.trackMenu.TrackMenuInfo;
 import com.kiefer.utils.ColorUtils;
 
 public class FxManagerInfo extends InfoHolder implements Info {
@@ -51,17 +52,36 @@ public class FxManagerInfo extends InfoHolder implements Info {
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_fx));
+
+        //get a ref to the tv
         TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.fxManagerIntro);
+        nodeTV.append(" ");
+
+        //create the link and append it
+        String label = llppdrums.getResources().getString(R.string.trackMenuLabel);
+        InfoLink link = new InfoLink(llppdrums, label, TrackMenuInfo.key, nodeTV);
+        nodeTV.append(link);
+        nodeTV.append(".");
+
+        layout.addView(nodeLayout);
+
+        /** INTRO2 **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.fxManagerIntro2);
 
         layout.addView(nodeLayout);
 
         /** RND **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
-        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_fx_manager_rnd));
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
@@ -98,9 +118,9 @@ public class FxManagerInfo extends InfoHolder implements Info {
         nodeTV.setText(R.string.fxManagerFxs);
 
         //create the link and append it
-        String label = llppdrums.getResources().getString(R.string.fxFlangerName);
+        label = llppdrums.getResources().getString(R.string.fxFlangerName);
         nodeTV.append(" ");
-        InfoLink link = new InfoLink(llppdrums, label, FlangerInfo.key, nodeTV);
+        link = new InfoLink(llppdrums, label, FlangerInfo.key, nodeTV);
         nodeTV.append(link);
 
         label = llppdrums.getResources().getString(R.string.fxDelayName);

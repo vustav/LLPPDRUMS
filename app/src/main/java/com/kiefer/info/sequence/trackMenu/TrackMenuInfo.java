@@ -24,8 +24,8 @@ public class TrackMenuInfo extends InfoHolder implements Info {
     @Override
     public void setupInfos(){
         infos.add(new SoundManagerInfo(llppdrums));
-        infos.add(new OrganizeTrackInfo(llppdrums));
-        infos.add(new RandomizeTrackInfo(llppdrums));
+        infos.add(new StepManagerInfo(llppdrums));
+        infos.add(new RndTrackManagerInfo(llppdrums));
         infos.add(new FxManagerInfo(llppdrums));
     }
 
@@ -50,13 +50,24 @@ public class TrackMenuInfo extends InfoHolder implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
-        /** NAME **/
+        /** INTRO **/
         FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
+        TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.trkMenuIntro);
+
         ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_track));
+
+        layout.addView(nodeLayout);
+
+        /** NAME **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_name));
 
-        TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.trkMenuName);
 
         layout.addView(nodeLayout);
@@ -65,7 +76,7 @@ public class TrackMenuInfo extends InfoHolder implements Info {
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_osc));
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_sound));
 
         //get a ref to the tv
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
@@ -88,18 +99,18 @@ public class TrackMenuInfo extends InfoHolder implements Info {
 
         layout.addView(nodeLayout);
 
-        /** AUTO **/
+        /** STEPS MANAGER **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_auto));
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_step));
 
         //get a ref to the tv
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
 
         //create the link and append it
-        label = llppdrums.getResources().getString(R.string.organizeStepsName);
-        link = new InfoLink(llppdrums, label, OrganizeTrackInfo.key, nodeTV);
+        label = llppdrums.getResources().getString(R.string.stepManagerName);
+        link = new InfoLink(llppdrums, label, StepManagerInfo.key, nodeTV);
         nodeTV.append(link);
 
         layout.addView(nodeLayout);
@@ -115,7 +126,7 @@ public class TrackMenuInfo extends InfoHolder implements Info {
 
         //create the link and append it
         label = llppdrums.getResources().getString(R.string.rndTrackName);
-        link = new InfoLink(llppdrums, label, RandomizeTrackInfo.key, nodeTV);
+        link = new InfoLink(llppdrums, label, RndTrackManagerInfo.key, nodeTV);
         nodeTV.append(link);
 
         layout.addView(nodeLayout);

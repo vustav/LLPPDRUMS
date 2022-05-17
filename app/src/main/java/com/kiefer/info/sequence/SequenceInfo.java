@@ -27,7 +27,7 @@ public class SequenceInfo extends InfoHolder implements Info {
     public void setupInfos(){
         infos.add(new TrackMenuInfo(llppdrums));
         infos.add(new AutoRandomInfo(llppdrums));
-        infos.add(new SeqRndOptionsInfo(llppdrums));
+        infos.add(new RndSeqManagerInfo(llppdrums));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SequenceInfo extends InfoHolder implements Info {
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert_bottom, null);
 
         TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.seqIntroTxt1);
@@ -72,12 +72,15 @@ public class SequenceInfo extends InfoHolder implements Info {
         nodeTV.append(" ");
         nodeTV.append(llppdrums.getResources().getString(R.string.seqIntroTxt3));
 
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_main_seqmanager));
+
         layout.addView(nodeLayout);
 
         /** SEQUENCE **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_hor, null);
 
-        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq));
 
         //get a ref to the tv
@@ -163,6 +166,17 @@ public class SequenceInfo extends InfoHolder implements Info {
 
         layout.addView(nodeLayout);
 
+        /** NAME **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_name));
+
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqNameTxt);
+
+        layout.addView(nodeLayout);
+
         /** TMP **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
@@ -186,7 +200,7 @@ public class SequenceInfo extends InfoHolder implements Info {
 
         //create a link and append it
         label = "RANDOMIZE SEQUENCE OPTIONS";
-        link = new InfoLink(llppdrums, label, SeqRndOptionsInfo.key, nodeTV);
+        link = new InfoLink(llppdrums, label, RndSeqManagerInfo.key, nodeTV);
         nodeTV.append(link);
         nodeTV.append(".");
 
@@ -200,6 +214,17 @@ public class SequenceInfo extends InfoHolder implements Info {
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.seqCpyTxt);
+
+        layout.addView(nodeLayout);
+
+        /** REMOVE **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_remove));
+
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRemoveTxt);
 
         layout.addView(nodeLayout);
 

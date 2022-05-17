@@ -11,11 +11,11 @@ import com.kiefer.R;
 import com.kiefer.info.Info;
 import com.kiefer.utils.ColorUtils;
 
-public class SeqRndOptionsInfo implements Info {
+public class RndSeqManagerInfo implements Info {
     private final LLPPDRUMS llppdrums;
     public static String key = "seqRndOptBaseInfo";
 
-    public SeqRndOptionsInfo(LLPPDRUMS llppdrums){
+    public RndSeqManagerInfo(LLPPDRUMS llppdrums){
         this.llppdrums = llppdrums;
     }
 
@@ -41,17 +41,28 @@ public class SeqRndOptionsInfo implements Info {
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRndManagerIntro);
+
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd));
+
+        layout.addView(nodeLayout);
+
+        /** INTRO2 **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
 
         TextView nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV1.setText(R.string.seqRndManagerIntro);
+        nodeTV1.setText(R.string.seqRndManagerIntro2);
 
         layout.addView(nodeLayout);
 
         /** PRESET **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
-        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd_preset));
 
         nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);

@@ -13,7 +13,7 @@ import com.kiefer.files.keepers.DrumMachineKeeper;
 import com.kiefer.files.keepers.DrumSequenceKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.Step;
-import com.kiefer.popups.trackMenu.OrganizeStepsPopup;
+import com.kiefer.popups.trackMenu.StepManagerPopup;
 import com.kiefer.popups.trackMenu.TrackMenuPopup;
 import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.randomization.rndTrackManager.RndTrackManagerPopup;
@@ -368,7 +368,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
 
     public void openAutoStepPopup(int trackNo, View parent){
-        new OrganizeStepsPopup(llppdrums, parent, selectedSequence.getSelectedSequenceModule(), selectedSequence.getTracks().get(trackNo));
+        new StepManagerPopup(llppdrums, parent, selectedSequence.getSelectedSequenceModule(), selectedSequence.getTracks().get(trackNo));
     }
 
     public void openRndPopup(int trackNo, View parent){

@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
-import com.kiefer.info.sequence.SeqRndOptionsInfo;
+import com.kiefer.info.sequence.RndSeqManagerInfo;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.popups.Popup;
 import com.kiefer.popups.sequencer.TempoPopup;
@@ -90,7 +90,7 @@ public class RndSeqManagerPopup extends Popup {
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new InfoPopup(llppdrums, SeqRndOptionsInfo.key);
+                new InfoPopup(llppdrums, RndSeqManagerInfo.key);
             }
         });
 

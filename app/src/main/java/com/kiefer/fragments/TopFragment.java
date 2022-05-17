@@ -33,7 +33,7 @@ public class TopFragment extends TabFragment {
     //private TabGroup tabGroup;
 
     private LinearLayout bg;
-    private FrameLayout divider0, divider1, divider2;
+    private FrameLayout divider0, divider1;
 
     //private boolean changeSeqRunning = false; //used to avoid spamming certain functions
 
@@ -65,7 +65,6 @@ public class TopFragment extends TabFragment {
         bg = rootView.findViewById(R.id.topFragmentBg);
         divider0 = rootView.findViewById(R.id.topFragmentDivider0);
         divider1 = rootView.findViewById(R.id.topFragmentDivider1);
-        divider2 = rootView.findViewById(R.id.topFragmentDivider2);
         randomizeBgGradient();
 
         //set up the infoBtn
@@ -194,7 +193,6 @@ public class TopFragment extends TabFragment {
         int dividerColor = ColorUtils.getContrastColor(gdColor1);
         divider0.setBackgroundColor(dividerColor);
         divider1.setBackgroundColor(dividerColor);
-        divider2.setBackgroundColor(dividerColor);
 
         //set the gradient
         bg.setBackground(gd);

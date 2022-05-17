@@ -28,7 +28,7 @@
     <!-- MACHINE -->
     <string name="machineName">SEQUENCES</string>
     <string name="machineTabName">SEQUENCES</string>
-    <string name="trackRandomOptionsBtn">OPTNS</string>
+    <string name="trackRandomOptionsBtn">EDIT</string>
 
     <!-- SYNTH -->
     <string name="oscAtkTime">ATK</string>
@@ -63,11 +63,10 @@
     <string name="trackMenuLabel">TRACK MENU</string>
 
     <!-- POPUPS -->
-    <string name="soundManagerLabel">SOUND MANAGER TRACK:\u0020</string>
-    <string name="organizeStepsLabel">STEP ORGANIZER:\u0020</string>
-    <string name="rndTrackLabel">RANDOMIZE TRACK:\u0020</string>
-    <string name="fxManagerLabel">FX MANAGER TRACK:\u0020</string>
-    <string name="mixerLabel">MIXER TRACK:\u0020</string>
+    <string name="soundManagerLabel">SOUND MANAGER:\u0020</string>
+    <string name="stepManagerLabel">STEP MANAGER:\u0020</string>
+    <string name="rndTrackLabel">RNDMIZE TRACK MANAGER:\u0020</string>
+    <string name="fxManagerLabel">FX MANAGER:\u0020</string>
 
     <!-- SEQ MODULES -->
     <string name="seqModBaseModeName">BASE</string>
@@ -154,7 +153,7 @@
     <string name="fxPresetSnareName">SNARE</string>
 
     <!-- RANDOM -->
-    <string name="randomizeSeqLabel">RNDMIZE SEQ OPTIONS</string>
+    <string name="randomizeSeqLabel">RNDMIZE SEQ MANAGER</string>
 
     <string name="randomizeBtn">RNDMIZE</string>
     <string name="randomizeStepsBtn">RNDMIZE STPS</string>
@@ -213,7 +212,7 @@
     <string name="mainIntroTxt1">The two main modules are</string>
     <string name="mainIntroTxt2">SEQUENCES is for setting up the sequences and CONTROLLER for controlling them in realtime.</string>
     <string name="mainIntroTxt3">\n\nYou have any number of independent sequences (represented by colored tabs to the left) that plays in the order set in the</string>
-    <string name="mainIntroTxt4"> (top right). Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
+    <string name="mainIntroTxt4">. Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
     <string name="mainTransportTxt">Basic controls.</string>
     <string name="mainFilesTxt">LOAD/SAVE/CLEAR the project. CLEAR is destructive.</string>
     <string name="mainSeqManTxt1">Shows the order of progression (if PROGRESSION is on). Clicking a cell will change to that sequence immediately or at the next measure depending on QUEUE. EDIT opens</string>
@@ -221,6 +220,7 @@
     <string name="mainSeqManTxt3">\n\nThe green bar indicates what step the sequencer is on no matter what sequence is playing. </string>
 
     <!-- PROJECT OPTIONS -->
+    <string name="projOptnsIntroTxt">You access project options by clicking this button in the top row.</string>
     <string name="projOptnsDriverTxt">Choose either OpenSL or AAudio as the driver. Try what works best with your hardware.</string>
 
     <!-- CONTROLLER -->
@@ -233,6 +233,7 @@
     <string name="controllerFunTxt2">. Holding or clicking FUN will do whatever\'s set in options.</string>
 
     <!-- SEQUENCE MANAGER -->
+    <string name="seqManIntroTxt">You access the sequence manager by clicking the edit button.</string>
     <string name="seqManOrderTxt">Change the order of progression by clicking a box and selecting a new. The slider enables/disables boxes.</string>
     <string name="seqManBoxesTxt1">If PROGRESSION is turned off the same sequence will always play unless changed manually. If it\'s turned on it will either progress in the order above or change to a random sequence, depending on RANDOMIZE. EDIT opens</string>
     <string name="seqManBoxesTxt2">\n\nIf QUEUE is on manual sequence changes will occur at the start of the next measure. If off it\'s instant.</string>
@@ -241,8 +242,8 @@
     <!-- SEQUENCE -->
     <string name="seqIntroTxt1">You can create any number of sequences that are completely independent of each other (steps, tempo etc). You decide if you want one to play over and over or let them progress and in what order in</string>
     <string name="seqIntroTxt2">. You can also change what sequence is playing manually either in</string>
-    <string name="seqIntroTxt3">or by clicking one in the top left window.</string>
-    <string name="seqSequenceTxt">Select which sequence to edit.</string>
+    <string name="seqIntroTxt3">or by clicking one here:</string>
+    <string name="seqSequenceTxt">Select which sequence to edit. Create a new sequence by clicking the \'+\'-button</string>
     <string name="seqModuleTxt">Select what to edit in the selected sequence.</string>
     <string name="seqModeTxt">BASE is base values, ex. on/off or volume, RNDM is </string>
     <string name="seqTrackTxt1">This is a track. The button to the left has the tracks name in it. Clicking it will open</string>
@@ -250,60 +251,66 @@
     <string name="seqTrackTxt3">to change the # of subs.</string>
     <string name="seqAddRemoveStepTxt">Decrease/increase the number of steps.</string>
     <string name="seqAddTrackTxt">Add a track. This button is always below the tracks so you might have to scroll down to see it.</string>
+    <string name="seqNameTxt">Change the name and color of the sequence.</string>
     <string name="seqTmpTxt">Set the tempo of this sequence. Sequences can have different tempos.</string>
     <string name="seqRndTxt">Randomize this sequence. OPTNS opens</string>
-    <string name="seqCpyTxt">Make this sequence a copy of another sequence. Will not automatically change if you change anything in the copied sequence.</string>
+    <string name="seqCpyTxt">Make this sequence a copy of another sequence. A copied sequence is not in any way linked to the original meaning changes will not apply on the copy.</string>
+    <string name="seqRemoveTxt">Remove the sequence.</string>
 
     <!-- RND SEQUENCE MANAGER-->
-    <string name="seqRndManagerIntro">Blueprint for the randomizations, either by using a preset or by creating from scratch.</string>
+    <string name="seqRndManagerIntro">Access the randomize sequence manager by clicking the edit button.</string>
+    <string name="seqRndManagerIntro2">Blueprint for the randomizations, either by using a preset or by creating from scratch.</string>
     <string name="seqRndManagerPreset">Select a preset.</string>
     <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
     <string name="seqRndManagerSteps">Set the # of steps of the randomized sequence.</string>
-    <string name="seqRndManagerTracks">These represents tracks in the randomized sequence. \n\nIn the spinner you select sound preset. The number is the number of sub steps. \n\nEvery step has one or more sliders in it depending on # of sub steps. If it\'s full it will always be on. Half means 50% etc. \n\nTick the FX-box for randomized effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
+    <string name="seqRndManagerTracks">These represents tracks. \n\nIn the first spinner you select a sound preset. In the second spinner with a number in it you select the number of sub steps. \n\nEvery step has one or more sliders in it depending on # of sub steps. If it\'s full it will always be on. Half means 50% etc. \n\nTick the FX-box for randomized effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
     <string name="seqRndManagerAdd">Add a track.</string>
 
     <!-- AUTORANDOM -->
-    <string name="autoRndIntroTxt">When AUTORANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
+    <string name="autoRndIntroTxt">Access auto randomization by clicking this tab.</string>
+    <string name="autoRndInfoTxt">When AUTO RANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
     \n\n
     %: chance a randomization will occur. A full bar means a randomization will always occur. A half bar means a 50% chance of randomization.\n\n
     MIN: smallest possible randomized value.\n\n
     MAX: largest possible randomized value.\n\n
     RTRN: should the value return to what it was before the randomization after being played once.\n\n
     You select which one to edit in the top left corner of the sequencer.</string>
+    <string name="autoRndDotTxt">If an auto randomization is active this purple dot will show on the step when in BASE mode.</string>
 
     <!-- TRK MENU -->
-    <string name="trkMenuName">Change a tracks name and color.</string>
+    <string name="trkMenuIntro">Access the track menu by clicking the button with a name and arrows to the left of the track you want to edit.</string>
+    <string name="trkMenuName">Change name and color.</string>
     <string name="trkMenuRemove">Remove track.</string>
 
     <string name="soundManagerName">SOUND MANAGER</string>
-    <string name="nOfSubsName">Set how many sub steps there is in a step.</string>
-    <string name="organizeStepsName">ORGANIZE STEPS</string>
-    <string name="rndTrackName">RANDOMIZE TRACK</string>
+    <string name="nOfSubsName">Set the number of sub steps.</string>
+    <string name="stepManagerName">STEP MANAGER</string>
+    <string name="rndTrackName">RNDMIZE TRACK MANAGER</string>
     <string name="fxManagerName">FX MANAGER</string>
-    <string name="trackVolName">Track volume</string>
+    <string name="trackVolName">Track volume.</string>
 
-    <!-- OSC -->
-    <string name="oscIntro">Create a sound with one or two oscillators.</string>
+    <!-- SOUND MANAGER -->
+    <string name="soundManagerIntro">Access the sound manager by clicking this button in the</string>
+    <string name="soundManagerTxt">Create a sound with one or two oscillators.</string>
 
-    <!-- ORGANIZE STEPS -->
-    <string name="autoTrackIntro">...</string>
-    <string name="autoTrackJump">Push everything one step to the left/right.</string>
-    <string name="autoTrackSubs">Select which subs to modify.</string>
-    <string name="autoTrackSteps">If ON is selected and 1/3 is clicked the selected sub/s in every 3rd step will be turned on, and all others off, etc.
+    <!-- STEPS MANAGER -->
+    <string name="stepsManagerIntro">Access the step manager by clicking this button in the</string>
+    <string name="stepsManagerJump">Push everything one step to the left/right.</string>
+    <string name="stepsManagerSubs">Select which subs to modify.</string>
+    <string name="stepsManagerSteps">If ON is selected and 1/3 is clicked the selected sub/s in every 3rd step will be turned on, and all others off, etc.
     \n\nIf anything other than ON is selected the selected subs in every step will get the value selected.</string>
 
     <!-- RND TRACK -->
-    <string name="rndTrackIntro">Randomize everything or parts of the track.</string>
+    <string name="rndTrackIntro">Access the randomize track manager by clicking this button in the</string>
+    <string name="rndTrackTxt">Randomize everything or parts of the track.</string>
 
     <!-- FX MANAGER -->
-    <string name="fxManagerIntro">Every track can have an unlimited amount of effects and all their parameters can be fully automated.</string>
+    <string name="fxManagerIntro">Access the fx manager by clicking this button in the</string>
+    <string name="fxManagerIntro2">Every track can have an unlimited amount of effects and all their parameters can be fully automated.</string>
     <string name="fxManagerRnd">Randomize everything. This can not be undone.</string>
     <string name="fxManagerList">List of the effects in the order they effect the signal with the top one being first. Hold and drag an effect to change order. Click an effect to edit it. Clicking \n\'-\' removes the effect.</string>
     <string name="fxManagerAdd">Add a new random effect to the chain.</string>
     <string name="fxManagerFxs">The effects are:</string>
     <string name="fxManagerAutoList">Every effect can have an unlimited number of automations on all their parameters, or several automations on the same parameter etc. \n\"+\" adds a new randomized automation.</string>
     <string name="fxManagerAutoSingle">Select what parameter to automate in the spinner and the value in the slider. The value will be applied in the selected steps, in unselected steps the value set in the effect will be used. \n\"-\" removes the automation.</string>
-
-    <!-- MIXER -->
-    <string name="mixerIntro">Basic mixer. !!NOT FINISHED!!</string>
 </resources>
