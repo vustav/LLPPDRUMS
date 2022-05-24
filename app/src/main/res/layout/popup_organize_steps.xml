@@ -44,13 +44,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/btnHeightLarge"
                 android:id="@+id/organizeStepsLeftBtn"
-                android:text="\u003c\u003c\u003c"/>
+                android:text="\u003c\u003c"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/btnHeightLarge"
                 android:id="@+id/organizeStepsRightBtn"
-                android:text="\u003e\u003e\u003e"/>
+                android:text="\u003e\u003e"/>
         </LinearLayout>
     </RelativeLayout>
 

@@ -60,18 +60,18 @@ public class Step {
         }
     }
     //vars = should the autoRnd variables be used or not??
-    public void randomizeSubOn(boolean autoRnd, int sub) {
+    public void randomizeSubOn(int sub) {
         if(stepEventsManager.getNOfSubs() > 1) {
-            stepEventsManager.randomizeOn(autoRnd, sub);
+            stepEventsManager.randomizeOn(sub);
         }
         //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
         else{
             stepEventsManager.setSubOn(0, on);
         }
     }
-    public void randomizeSubsOn(boolean autoRnd) {
+    public void randomizeSubsOn() {
         if(stepEventsManager.getNOfSubs() > 1) {
-            stepEventsManager.randomizeSubsOn(autoRnd);
+            stepEventsManager.randomizeSubsOn();
         }
         //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
         else{
@@ -79,24 +79,23 @@ public class Step {
         }
     }
 
-    public void randomizeVol(boolean autoRnd, int sub){
-        stepEventsManager.randomizeVol(autoRnd, sub);
+    public void randomizeVol(int sub){
+        stepEventsManager.randomizeVol(sub);
     }
 
-    public void randomizeVols(boolean autoRnd){
-        stepEventsManager.randomizeVols(autoRnd);
+    public void randomizeVols(){
+        stepEventsManager.randomizeVols();
     }
 
-    public void randomizePitch(boolean autoRnd, int sub){
-        //events.randomizePitch(autoRnd, sub);
-        stepEventsManager.randomizePitch(autoRnd, sub);
+    public void randomizePitch(int sub){
+        stepEventsManager.randomizePitch(sub);
     }
 
-    public void randomizePitches(boolean autoRnd){
-        stepEventsManager.randomizePitches(autoRnd);
+    public void randomizePitches(){
+        stepEventsManager.randomizePitches();
     }
-    public void randomizePan(boolean autoRnd){
-        stepEventsManager.randomizePan(autoRnd);
+    public void randomizePan(){
+        stepEventsManager.randomizePan();
     }
 
     /** RETURN MEMORY **/
@@ -356,6 +355,7 @@ public class Step {
     public void setOn(boolean on){
         //boolean wasOn = this.on;
         this.on = on;
+        //Log.e("Step", "setOn(): "+on);
 
         //if (on && !wasOn) {
         if(on){
@@ -588,7 +588,15 @@ public class Step {
     /** RESET **/
     public void reset(){
         setOn(false);
+        resetAutos();
         stepEventsManager.reset();
+    }
+
+    private void resetAutos(){
+        onAutos = 0;
+        panAutos = 0;
+        volAutos = 0;
+        pitchAutos = 0;
     }
 
     /** RESTORATION **/

@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -69,7 +70,7 @@ public class InfoPopup extends Popup {
         }
 
         //setup undo/redo
-        ImageView undoBtn = popupView.findViewById(R.id.infoManagerUndoBtn);
+        Button undoBtn = popupView.findViewById(R.id.infoManagerUndoBtn);
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +89,7 @@ public class InfoPopup extends Popup {
             }
         });
 
-        ImageView redoBtn = popupView.findViewById(R.id.infoManagerRedoBtn);
+        Button redoBtn = popupView.findViewById(R.id.infoManagerRedoBtn);
         redoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

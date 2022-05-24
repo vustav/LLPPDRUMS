@@ -75,7 +75,7 @@ public class FxManagerPopup extends Popup {
         popupWindow.setAnimationStyle(R.style.popup_animation);
 
         //setup the TV
-        String name = llppdrums.getResources().getString(R.string.fxManagerLabel) + drumTrack.getTrackNo();
+        String name = llppdrums.getResources().getString(R.string.fxManagerLabel) + drumTrack.getName();
         TextView label = popupView.findViewById(R.id.fxManagerLabel);
         label.setText(name);
         int bgColor = drumTrack.getColor();

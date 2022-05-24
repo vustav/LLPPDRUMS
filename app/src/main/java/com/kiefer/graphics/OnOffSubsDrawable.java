@@ -5,6 +5,7 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
@@ -67,7 +68,7 @@ public class OnOffSubsDrawable extends Drawable {
         }
 
         if(step.onAutomationActive()) {
-            onOff.addAutoIndication(step, canvas);
+            onOff.addAutoIndication(canvas);
         }
     }
 

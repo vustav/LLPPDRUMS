@@ -31,7 +31,7 @@ public class RndSeqManagerInfo implements Info {
 
     @Override
     public ViewGroup getLayout(){
-        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.info, null);
+        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.layout_info, null);
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
@@ -40,13 +40,21 @@ public class RndSeqManagerInfo implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
+        /** IMG **/
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv, null);
+
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd_img));
+
+        layout.addView(nodeLayout);
+
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.seqRndManagerIntro);
 
-        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd));
 
         layout.addView(nodeLayout);
@@ -54,8 +62,8 @@ public class RndSeqManagerInfo implements Info {
         /** INTRO2 **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
 
-        TextView nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV1.setText(R.string.seqRndManagerIntro2);
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRndManagerIntro2);
 
         layout.addView(nodeLayout);
 
@@ -65,8 +73,8 @@ public class RndSeqManagerInfo implements Info {
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd_preset));
 
-        nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV1.setText(R.string.seqRndManagerPreset);
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRndManagerPreset);
 
         layout.addView(nodeLayout);
 
@@ -76,8 +84,8 @@ public class RndSeqManagerInfo implements Info {
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd_tmp));
 
-        nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV1.setText(R.string.seqRndManagerTempo);
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRndManagerTempo);
 
         layout.addView(nodeLayout);
 
@@ -87,8 +95,8 @@ public class RndSeqManagerInfo implements Info {
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd_stps));
 
-        nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV1.setText(R.string.seqRndManagerSteps);
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRndManagerSteps);
 
         layout.addView(nodeLayout);
 
@@ -98,12 +106,14 @@ public class RndSeqManagerInfo implements Info {
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd_trk));
 
-        nodeTV1 = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV1.setText(R.string.seqRndManagerTracks);
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRndManagerTracks);
 
         layout.addView(nodeLayout);
 
         /** ADD **/
+        nodeTV.append(llppdrums.getResources().getString(R.string.seqRndManagerAdd));
+        /*
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
@@ -113,6 +123,8 @@ public class RndSeqManagerInfo implements Info {
         nodeTV1.setText(R.string.seqRndManagerAdd);
 
         layout.addView(nodeLayout);
+
+         */
 
         return layout;
     }

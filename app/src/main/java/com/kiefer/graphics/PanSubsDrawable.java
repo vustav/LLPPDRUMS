@@ -54,7 +54,7 @@ public class PanSubsDrawable extends Drawable {
         canvas.drawRect(width * panValue, 0, width * panValue + lineSize, height, shapePaint);
 
         if(step.isOn() && step.panAutomationActive()) {
-            pan.addAutoIndication(step, canvas);
+            pan.addAutoIndication(canvas);
         }
     }
 

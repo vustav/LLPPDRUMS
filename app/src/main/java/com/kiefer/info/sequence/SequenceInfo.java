@@ -42,7 +42,7 @@ public class SequenceInfo extends InfoHolder implements Info {
 
     @Override
     public ViewGroup getLayout(){
-        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.info, null);
+        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.layout_info, null);
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
@@ -51,8 +51,16 @@ public class SequenceInfo extends InfoHolder implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
+        /** IMG **/
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv, null);
+
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_img));
+
+        layout.addView(nodeLayout);
+
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert_bottom, null);
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert_bottom, null);
 
         TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.seqIntroTxt1);
@@ -72,7 +80,7 @@ public class SequenceInfo extends InfoHolder implements Info {
         nodeTV.append(" ");
         nodeTV.append(llppdrums.getResources().getString(R.string.seqIntroTxt3));
 
-        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_main_seqmanager));
 
         layout.addView(nodeLayout);
@@ -142,9 +150,13 @@ public class SequenceInfo extends InfoHolder implements Info {
         nodeTV.append(link);
         nodeTV.append(" "+llppdrums.getResources().getString(R.string.seqTrackTxt3));
 
+        nodeTV.append(llppdrums.getResources().getString(R.string.seqAddRemoveStepTxt));
+        nodeTV.append(llppdrums.getResources().getString(R.string.seqAddTrackTxt));
+
         layout.addView(nodeLayout);
 
-        /** ADD/REMOVE STEPS **/
+        /*
+        // ADD/REMOVE STEPS
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
@@ -155,7 +167,7 @@ public class SequenceInfo extends InfoHolder implements Info {
 
         layout.addView(nodeLayout);
 
-        /** ADD TRACK **/
+        // ADD TRACK
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
@@ -165,6 +177,7 @@ public class SequenceInfo extends InfoHolder implements Info {
         nodeTV.setText(R.string.seqAddTrackTxt);
 
         layout.addView(nodeLayout);
+        */
 
         /** NAME **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
@@ -218,6 +231,8 @@ public class SequenceInfo extends InfoHolder implements Info {
         layout.addView(nodeLayout);
 
         /** REMOVE **/
+        nodeTV.append(llppdrums.getResources().getString(R.string.seqRemoveTxt));
+        /*
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
@@ -227,6 +242,8 @@ public class SequenceInfo extends InfoHolder implements Info {
         nodeTV.setText(R.string.seqRemoveTxt);
 
         layout.addView(nodeLayout);
+
+         */
 
         return layout;
     }

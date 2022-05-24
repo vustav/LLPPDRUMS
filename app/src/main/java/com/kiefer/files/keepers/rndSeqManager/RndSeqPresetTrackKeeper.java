@@ -7,6 +7,6 @@ import java.util.ArrayList;
 public class RndSeqPresetTrackKeeper implements Keeper {
     public String presetCategory, name;
     public int nOfSteps, nOfSubs;
-    public boolean randomizeFx, randomizePan, randomizeVol;
+    public boolean autoRnd, randomizeFx, randomizePan, randomizeVol;
     public ArrayList<RndSeqPresetStepKeeper> rndSeqPresetStepKeepers;
 }

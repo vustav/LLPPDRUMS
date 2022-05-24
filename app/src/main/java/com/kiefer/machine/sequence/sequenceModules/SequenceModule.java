@@ -214,7 +214,7 @@ public abstract class SequenceModule implements TabHolder, Tab {
     }
 
     /** SET **/
-    public void addAutoIndication(Step step, Canvas canvas){
+    public void addAutoIndication(Canvas canvas){
         //if(step.automationActive()) {
             Paint paint = new Paint();
             paint.setColor(llppdrums.getResources().getColor(R.color.autoRndDotColor));

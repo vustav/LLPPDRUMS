@@ -51,32 +51,32 @@ public class RndTrackManager {
         rndMix = random.nextInt(2) == 0;
     }
 
-    public void randomizeSubOn(Step d, boolean autoRnd, int sub) {
-        d.randomizeSubOn(autoRnd, sub);
+    public void randomizeSubOn(Step d, int sub) {
+        d.randomizeSubOn(sub);
     }
 
-    public void randomizeSubsOn(Step d, boolean autoRnd) {
-        d.randomizeSubsOn(autoRnd);
+    public void randomizeSubsOn(Step d) {
+        d.randomizeSubsOn();
     }
 
-    public void randomizeSubVolume(Step d, boolean autoRnd, int sub) {
-        d.randomizeVol(autoRnd, sub);
+    public void randomizeSubVolume(Step d, int sub) {
+        d.randomizeVol(sub);
     }
 
-    public void randomizeSubVolumes(Step d, boolean autoRnd) {
-        d.randomizeVols(autoRnd);
+    public void randomizeSubVolumes(Step d) {
+        d.randomizeVols();
     }
 
-    public void randomizeSubPitch(Step d, boolean autoRnd, int sub) {
-        d.randomizePitch(autoRnd, sub);
+    public void randomizeSubPitch(Step d, int sub) {
+        d.randomizePitch(sub);
     }
 
-    public void randomizeSubPitches(Step d, boolean autoRnd) {
-        d.randomizePitches(autoRnd);
+    public void randomizeSubPitches(Step d) {
+        d.randomizePitches();
     }
 
-    public void randomizePan(Step d, boolean autoRnd) {
-        d.randomizePan(autoRnd);
+    public void randomizePan(Step d) {
+        d.randomizePan();
     }
 
     public void randomizeModule(SequenceModule seqModule){
@@ -86,6 +86,8 @@ public class RndTrackManager {
     public static final String RANDOM = "RANDOM";
     public void randomize(RndSeqPresetTrack rndTrack){
         Random r = new Random();
+
+        drumTrack.reset(false);
 
         drumTrack.setNOfSubs(666, rndTrack.getnOfSubs()); //trackNo doesn't matter since the drumTrack is the subilizer
 
@@ -114,6 +116,11 @@ public class RndTrackManager {
                 else{
                     drumTrack.setSubOn(stepNo, sub, false);
                 }
+
+                if(rndTrack.getAutoRnd()) {
+                    drumTrack.getSteps().get(stepNo).setRndOnPerc(.1f, sub);
+                    drumTrack.getSteps().get(stepNo).setRndOnReturn(true, sub);
+                }
             }
 
             drumTrack.setStepOn(stepNo, aSubIsOn); //turn off the step if no subs are on
@@ -127,7 +134,8 @@ public class RndTrackManager {
             drumTrack.getFxManager().randomizeAll(true);
         }
         else{
-            drumTrack.getFxManager().reset();
+            //börjar med reset så behövs inte
+            //drumTrack.getFxManager().reset();
         }
 
         if (rndTrack.getRandomizeVol()){
@@ -146,20 +154,15 @@ public class RndTrackManager {
             final Step d = drumTrack.getSteps().get(step);
 
             //randomize
-            randomizeSubsOn(d, false);
-
-
-            //new Thread(new Runnable() {
-            //public void run() {
+            randomizeSubsOn(d);
 
             //if its on after that, randomize the other values
             if (d.isOn()) {
-                randomizeSubVolumes(d, false);
-                randomizeSubPitches(d, false);
-                randomizePan(d, false);
+                randomizeSubVolumes(d);
+                randomizeSubPitches(d);
+                randomizePan(d);
             }
         }
-        //drumTrack.updateDrawables();
     }
 
     public void randomizeStepsOn(){
@@ -172,7 +175,7 @@ public class RndTrackManager {
         //Log.e("RndTrackManager","randomizeStepOn()");
         Step s = drumTrack.getSteps().get(step);
         s.randomizeStepOn();
-        s.randomizeSubsOn(false);
+        s.randomizeSubsOn();
     }
 
     public void randomizeStepVols(){
@@ -180,7 +183,7 @@ public class RndTrackManager {
             final Step d = drumTrack.getSteps().get(step);
 
             //randomize
-            randomizeSubVolumes(d, false);
+            randomizeSubVolumes(d);
         }
     }
 
@@ -194,7 +197,7 @@ public class RndTrackManager {
             final Step d = drumTrack.getSteps().get(step);
 
             //randomize
-            randomizeSubPitches(d, false);
+            randomizeSubPitches(d);
         }
     }
 
@@ -203,7 +206,7 @@ public class RndTrackManager {
             final Step d = drumTrack.getSteps().get(step);
 
             //randomize
-            randomizePan(d, false);
+            randomizePan(d);
         }
     }
 
@@ -230,29 +233,45 @@ public class RndTrackManager {
 
                             //if there's only one sub, randomize the step
                             if (s.getNofSubs() == 1) {
+                                //aSubIsOn = s.isOn();
                                 //Log.e("RndTrackManager", "auto one sub");
 
                                 //keep the former state to know if any updates are necessary
-                                //boolean wasOn = s.isOn();
+                                boolean wasOn = s.isOn();
 
                                 s.savePrevOn();
 
-                                randomizeStepOn(stepNo);
+                                float r = random.nextFloat();
+                                //Log.e("RndTRackManager", "autoRnd(): r: "+r);
+                                if(r < s.getRndOnPerc(sub)) {
+                                    //Log.e("RndTRackManager", "autoRnd(): s.getRndOnPerc(sub): "+s.getRndOnPerc(sub));
+                                    randomizeStepOn(stepNo);
+                                }
+                                aSubIsOn = s.isOn();
 
-                                /** nån bugg här som gör att den inte uppdaterar ordentligt så checken är borttagen, fixa vid tid **/
+                                /** BUGGAR HÄR SÅ CHECKEN ÄR BORTA, FIXA **/
                                 //drawables should be updated if a change has occurred
                                 //if (s.isOn() != wasOn) {
-                                //we should always update colors here so don't only do this for OnOff
-                                updateDrawables = true;
+                                    //we should always update colors here so don't only do this for OnOff
+                                    updateDrawables = true;
                                 //}
                             }
                             //otherwise randomize the sub
                             else {
+                                //aSubIsOn = s.isSubOn(sub);
                                 boolean wasOn = s.isSubOn(sub);
 
                                 s.saveSubPrevOn(sub);
 
-                                randomizeSubOn(s, true, sub);
+                                if(random.nextFloat() < s.getRndOnPerc(sub)) {
+                                    randomizeSubOn(s, sub);
+                                    //Log.e("RndTRackManager", "rndSub: "+s.ges);
+                                }
+                                if(s.isSubOn(sub)){
+                                    aSubIsOn = true;
+                                }
+
+                                //if(s.isSubOn(sub))xcbsdfgsdfg
 
                                 if(s.isSubOn(sub) != wasOn){
                                     updateDrawables = true;
@@ -260,13 +279,16 @@ public class RndTrackManager {
                             }
                         }
 
+                        /** BORDE FIXA SÅ RANDOMIZE RETURNERAR BOOLEAN SOM ÄR TRUE OM FÖRÄNDRING ÄGT RUM OCH BARA UPPDATERAR DRAWABLES OM SÅ ÄR FALLET **/
+
                         //if its on after that, randomize the other values
-                        if (s.isOn()) {
-                            aSubIsOn = true;
+                        if (s.isOn() && s.isSubOn(sub)) {
                             if (s.getAutoRndVol(sub)) {
-                                //if(s.ges)
                                 s.saveSubPrevVol(sub);
-                                randomizeSubVolume(s, true, sub);
+
+                                if(random.nextFloat() < s.getRndVolPerc(sub)) {
+                                    randomizeSubVolume(s, sub);
+                                }
 
                                 if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Volume) {
                                     updateDrawables = true;
@@ -274,29 +296,39 @@ public class RndTrackManager {
                             }
                             if (s.getAutoRndPitch(sub)) {
                                 s.saveSubPrevPitch(sub);
-                                randomizeSubPitch(s, true, sub);
+
+                                if(random.nextFloat() < s.getRndVolPerc(sub)) {
+                                    randomizeSubPitch(s, sub);
+                                }
 
                                 if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pitch) {
                                     updateDrawables = true;
                                 }
                             }
                         }
+
                     }
 
                     //pans don't work on subs so use it here
                     if (s.getAutoRndPan()) {
                         s.saveSubPrevPan();
-                        randomizePan(s, true);
+
+                        if(random.nextFloat() < s.getRndPanPerc()) {
+                            randomizePan(s);
+                        }
 
                         if (llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof Pan) {
                             updateDrawable(stepNo);
                         }
                     }
 
+                    drumTrack.setStepOn(stepNo, aSubIsOn); //turn off the step if no subs are on
+                    //Log.e("RndTRackManager", "-----------");
+
                     //turn the step on if at least one sub is on
-                    if(aSubIsOn){
-                        s.setOn(true);
-                    }
+                    //if(aSubIsOn){
+                    //s.setOn(true);
+                    //}
 
                     //update the drawable if a change occurred in the selected sequence and the playing sequence is selected
                     if (updateDrawables && llppdrums.getDrumMachine().getPlayingSequence() == llppdrums.getDrumMachine().getSelectedSequence()) {
@@ -305,7 +337,6 @@ public class RndTrackManager {
                 }
             }
         }
-        Log.e("RndTRackManager", "automate-------------------------------------------");
     }
 
     public void returnAutoRandomization(int stepNo){
@@ -315,6 +346,7 @@ public class RndTrackManager {
             Step step = drumTrack.getSteps().get(stepNo);
 
             if (step.returnActive()) {
+                boolean aSubIsOn = false;
                 for (int sub = 0; sub < step.getNofSubs(); sub++) {
 
                     //on/off
@@ -324,6 +356,7 @@ public class RndTrackManager {
                             boolean oldValue = step.isOn();
 
                             step.setOn(step.getPrevOn());
+                            aSubIsOn = step.isOn();
 
                             if (oldValue != step.isOn() &&
                                     llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof OnOff) {
@@ -334,6 +367,7 @@ public class RndTrackManager {
                             boolean oldValue = step.isSubOn(sub);
 
                             step.setSubOn(sub, step.getSubPrevOn(sub));
+                            aSubIsOn = step.isSubOn(sub);
 
                             if (oldValue != step.isSubOn(sub) &&
                                     llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule() instanceof OnOff) {
@@ -366,6 +400,7 @@ public class RndTrackManager {
                         }
                     }
                 }
+                drumTrack.setStepOn(stepNo, aSubIsOn); //turn off the step if no subs are on
 
                 //pan
                 if (step.getRndPanReturn()) {

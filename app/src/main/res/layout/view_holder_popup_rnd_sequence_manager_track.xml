@@ -41,6 +41,23 @@
             android:id="@+id/rndSeqFxCB"/>
     </LinearLayout>
 
+    <!-- AUTO RND -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AUTORND"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rndSeqAutoRndCB"/>
+    </LinearLayout>
+
     <!-- REMOVE -->
     <Button
         android:layout_width="wrap_content"

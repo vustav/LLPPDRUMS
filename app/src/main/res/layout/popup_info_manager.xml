@@ -4,26 +4,25 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/tabsPaddingSmall">
 
+    <!-- UNDO/REDO -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:id="@+id/infoManagerUndoRedoLayout">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <Button
+            android:layout_width="@dimen/btnHeightSmall"
+            android:layout_height="@dimen/btnHeightSmall"
             android:id="@+id/infoManagerUndoBtn"
-            android:src="@drawable/anim_button_orange_red"
-            android:rotation="-90"
-            android:layout_marginStart="-20dp"/>
+            android:text="\u003c\u003c"/>
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+        <Button
+            android:layout_width="@dimen/btnHeightSmall"
+            android:layout_height="@dimen/btnHeightSmall"
             android:id="@+id/infoManagerRedoBtn"
-            android:src="@drawable/anim_button_orange_red"
-            android:rotation="90"/>
+            android:text="\u003e\u003e"/>
     </LinearLayout>
 
     <ScrollView

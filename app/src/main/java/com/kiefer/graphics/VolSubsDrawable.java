@@ -73,7 +73,7 @@ public class VolSubsDrawable extends Drawable {
             offset += drawableWidth;
 
             if(step.isOn() && step.volAutomationActive()) {
-                volume.addAutoIndication(step, canvas);
+                volume.addAutoIndication(canvas);
             }
         }
     }

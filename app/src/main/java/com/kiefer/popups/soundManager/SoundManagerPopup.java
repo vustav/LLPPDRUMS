@@ -54,7 +54,7 @@ public class SoundManagerPopup extends Popup {
         popupWindow.setAnimationStyle(R.style.popup_animation);
 
         //setup the TV
-        String name = llppdrums.getResources().getString(R.string.soundManagerLabel) + drumTrack.getTrackNo();
+        String name = llppdrums.getResources().getString(R.string.soundManagerLabel) + drumTrack.getName();
         TextView label = popupView.findViewById(R.id.soundManagerLabel);
         label.setText(name);
         int bgColor = drumTrack.getColor();

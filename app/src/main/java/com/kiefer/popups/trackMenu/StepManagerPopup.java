@@ -47,7 +47,7 @@ public class StepManagerPopup extends Popup {
 
         //label
         //String name = llppdrums.getResources().getString(R.string.automateStepsName) + drumTrack.getOscillatorManager().getName();
-        String name = llppdrums.getResources().getString(R.string.stepManagerLabel) + drumTrack.getTrackNo();
+        String name = llppdrums.getResources().getString(R.string.stepManagerLabel) + drumTrack.getName();
         TextView label = popupView.findViewById(R.id.organizeStepsLabel);
         label.setText(name);
         int bgColor = drumTrack.getColor();

@@ -225,7 +225,7 @@
 
     <!-- CONTROLLER -->
     <string name="controllerIntroTxt">The idea of CONTROLLER is to do things to sequences and ex. effects in a live setting. The big buttons lets you take off your socks and push them with your toes if you want to.</string>
-    <string name="controllerCounterTxt">Purple shows the currently playing sequence. Red shows selected sequence (the one SEQ- and FUN-btns will operate on). Pink is queued for change at the next measure.</string>
+    <string name="controllerCounterTxt">The square shows selected sequence (the one SEQ- and FUN-btns will operate on). Red triangle is the sequence currently playing. Grey is queued for change at the next measure.</string>
     <string name="controllerArrowsTxt">Select which sequence SEQ- and FUN-btns operate on.</string>
     <string name="controllerSeqTxt1">Control sequence-related actions, ex. playing another sequence while the button is pressed etc. EDIT opens</string>
     <string name="controllerSeqTxt2">. Holding or clicking SEQ will do whatever\'s set in options.</string>
@@ -249,13 +249,13 @@
     <string name="seqTrackTxt1">This is a track. The button to the left has the tracks name in it. Clicking it will open</string>
     <string name="seqTrackTxt2">The cells in the track represents steps and works like a classic sequencer, ie clicking a step will change something depending on what\'s selected for editing. If a cell has more than one dot in it the step has two or more sub steps. Click and hold to edit subs. Open</string>
     <string name="seqTrackTxt3">to change the # of subs.</string>
-    <string name="seqAddRemoveStepTxt">Decrease/increase the number of steps.</string>
-    <string name="seqAddTrackTxt">Add a track. This button is always below the tracks so you might have to scroll down to see it.</string>
+    <string name="seqAddRemoveStepTxt">\n\nThe \"+\" and \"-\" buttons in the top right decreases/increases the number of steps.</string>
+    <string name="seqAddTrackTxt">\n\nThe \"+\" button below the tracks adds a track. This button is always below the tracks so you might have to scroll down to see it.</string>
     <string name="seqNameTxt">Change the name and color of the sequence.</string>
     <string name="seqTmpTxt">Set the tempo of this sequence. Sequences can have different tempos.</string>
     <string name="seqRndTxt">Randomize this sequence. OPTNS opens</string>
     <string name="seqCpyTxt">Make this sequence a copy of another sequence. A copied sequence is not in any way linked to the original meaning changes will not apply on the copy.</string>
-    <string name="seqRemoveTxt">Remove the sequence.</string>
+    <string name="seqRemoveTxt">\n\nThe \"-\" button in the bottom right removes the sequence.</string>
 
     <!-- RND SEQUENCE MANAGER-->
     <string name="seqRndManagerIntro">Access the randomize sequence manager by clicking the edit button.</string>
@@ -264,23 +264,23 @@
     <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
     <string name="seqRndManagerSteps">Set the # of steps of the randomized sequence.</string>
     <string name="seqRndManagerTracks">These represents tracks. \n\nIn the first spinner you select a sound preset. In the second spinner with a number in it you select the number of sub steps. \n\nEvery step has one or more sliders in it depending on # of sub steps. If it\'s full it will always be on. Half means 50% etc. \n\nTick the FX-box for randomized effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
-    <string name="seqRndManagerAdd">Add a track.</string>
+    <string name="seqRndManagerAdd">\n\n\"+\" adds a track.</string>
 
     <!-- AUTORANDOM -->
-    <string name="autoRndIntroTxt">Access auto randomization by clicking this tab.</string>
-    <string name="autoRndInfoTxt">When AUTO RANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
+    <string name="autoRndIntroTxt">Access autorandomization by clicking this tab.</string>
+    <string name="autoRndInfoTxt">When AUTORANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
     \n\n
     %: chance a randomization will occur. A full bar means a randomization will always occur. A half bar means a 50% chance of randomization.\n\n
     MIN: smallest possible randomized value.\n\n
     MAX: largest possible randomized value.\n\n
     RTRN: should the value return to what it was before the randomization after being played once.\n\n
     You select which one to edit in the top left corner of the sequencer.</string>
-    <string name="autoRndDotTxt">If an auto randomization is active this purple dot will show on the step when in BASE mode.</string>
+    <string name="autoRndDotTxt">If an autorandomization is active this purple dot will show on the step when in BASE mode.</string>
 
     <!-- TRK MENU -->
     <string name="trkMenuIntro">Access the track menu by clicking the button with a name and arrows to the left of the track you want to edit.</string>
     <string name="trkMenuName">Change name and color.</string>
-    <string name="trkMenuRemove">Remove track.</string>
+    <string name="trkMenuRemove">\"-\" removes the track.</string>
 
     <string name="soundManagerName">SOUND MANAGER</string>
     <string name="nOfSubsName">Set the number of sub steps.</string>
@@ -308,9 +308,9 @@
     <string name="fxManagerIntro">Access the fx manager by clicking this button in the</string>
     <string name="fxManagerIntro2">Every track can have an unlimited amount of effects and all their parameters can be fully automated.</string>
     <string name="fxManagerRnd">Randomize everything. This can not be undone.</string>
-    <string name="fxManagerList">List of the effects in the order they effect the signal with the top one being first. Hold and drag an effect to change order. Click an effect to edit it. Clicking \n\'-\' removes the effect.</string>
-    <string name="fxManagerAdd">Add a new random effect to the chain.</string>
+    <string name="fxManagerList">List of the effects in the order they effect the signal with the top one being first. Hold and drag an effect to change order. Click an effect to edit it. \n\n\"-\" removes the effect.</string>
+    <string name="fxManagerAdd">\n\n\"+\" adds a new random effect to the chain.</string>
     <string name="fxManagerFxs">The effects are:</string>
-    <string name="fxManagerAutoList">Every effect can have an unlimited number of automations on all their parameters, or several automations on the same parameter etc. \n\"+\" adds a new randomized automation.</string>
-    <string name="fxManagerAutoSingle">Select what parameter to automate in the spinner and the value in the slider. The value will be applied in the selected steps, in unselected steps the value set in the effect will be used. \n\"-\" removes the automation.</string>
+    <string name="fxManagerAutoList">Every effect can have an unlimited number of automations on all their parameters, or several automations on the same parameter etc. \n\n\"+\" adds a new randomized automation.</string>
+    <string name="fxManagerAutoSingle">Select what parameter to automate in the spinner and the value in the slider. The value will be applied in the selected steps, in unselected steps the value set in the effect will be used. \n\n\"-\" removes the automation.</string>
 </resources>

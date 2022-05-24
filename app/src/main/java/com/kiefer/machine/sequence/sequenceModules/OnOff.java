@@ -270,10 +270,7 @@ public class OnOff extends SequenceModule {
 
     @Override
     public Drawable getDrawable(int trackNo, int stepNo){
-        //Log.e("OnOff", "++++++++++++++++++++++++++++++++++");
-        //Log.e("OnOff", "getDrawable(), trackNo: "+trackNo);
         Step step = drumSequence.getTracks().get(trackNo).getSteps().get(stepNo);
-        //Log.e("OnOff", "++++++++++++++++++++++++++++++++++");
 
         //base
         if(isInBaseMode()) {
@@ -286,13 +283,6 @@ public class OnOff extends SequenceModule {
     }
 
     /** SET **/
-    /*
-    @Override
-    public void setAutoRndOn(Drum drum, boolean on){
-        drum.setAutoRndOn(on);
-    }
-
-     */
     @Override
     public void setAutoRndMin(Step step, float min, int sub){
         //

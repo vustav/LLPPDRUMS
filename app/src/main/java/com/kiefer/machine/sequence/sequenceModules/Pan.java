@@ -96,7 +96,7 @@ public class Pan extends SequenceModule {
     public void randomize(DrumTrack drumTrack){
         for (int step = 0; step < drumTrack.getSteps().size(); step++) {
             Step d = drumTrack.getSteps().get(step);
-            d.randomizePan(false);
+            d.randomizePan();
         }
     }
 

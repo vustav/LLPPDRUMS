@@ -42,7 +42,7 @@ public class FxManagerInfo extends InfoHolder implements Info {
 
     @Override
     public ViewGroup getLayout() {
-        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.info, null);
+        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.layout_info, null);
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
@@ -51,10 +51,18 @@ public class FxManagerInfo extends InfoHolder implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
-        /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+        /** IMG **/
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv, null);
 
         ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_fx_manager_img));
+
+        layout.addView(nodeLayout);
+
+        /** INTRO **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_fx));
 
         //get a ref to the tv
@@ -101,6 +109,9 @@ public class FxManagerInfo extends InfoHolder implements Info {
         layout.addView(nodeLayout);
 
         /** ADD **/
+        nodeTV.append(llppdrums.getResources().getString(R.string.fxManagerAdd));
+
+        /*
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
@@ -110,6 +121,8 @@ public class FxManagerInfo extends InfoHolder implements Info {
         nodeTV.setText(R.string.fxManagerAdd);
 
         layout.addView(nodeLayout);
+
+         */
 
         /** FXS **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);

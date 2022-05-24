@@ -68,8 +68,8 @@ public class Sub {
 
         setupAutoRndParams();
 
-        randomizeVol(false);
-        randomizePitch(false);
+        randomizeVol();
+        randomizePitch();
     }
 
     private void setupAutoRndParams(){
@@ -105,7 +105,7 @@ public class Sub {
     public void setOn(boolean on){
         //wasOn = this.on;
         this.on = on;
-        Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
+        //Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
         if(on && step.isOn()) {
             //Log.e("Sub", "setOn(), 1");
             addToSequencer(true);
@@ -153,38 +153,16 @@ public class Sub {
     }
 
     /** RND **/
-    public void randomizeOn(boolean autoRnd) {
-        if(autoRnd) {
-            float r = random.nextFloat();
-            if (rndOnPerc >= r) {
-                setOn(random.nextInt(2) == 1);
-            }
-        }
-        else{
-            setOn(random.nextInt(2) == 1);
-        }
+    public void randomizeOn() {
+        setOn(random.nextInt(2) == 1);
     }
 
-    public void randomizeVol(boolean autoRnd){
-        if(autoRnd){
-            if(rndVolPerc >= random.nextFloat()) {
-                setVolumeModifier(NmbrUtils.getRndmizer(rndVolMin, rndVolMax));
-            }
-        }
-        else{
-            setVolumeModifier(random.nextFloat());
-        }
+    public void randomizeVol(){
+        setVolumeModifier(random.nextFloat());
     }
 
-    public void randomizePitch(boolean autoRnd){
-        if(autoRnd){
-            if(rndPitchPerc >= random.nextFloat()) {
-                setPitchModifier(NmbrUtils.getRndmizer(rndPitchMin, rndPitchMax));
-            }
-        }
-        else{
-            setPitchModifier(random.nextFloat());
-        }
+    public void randomizePitch(){
+        setPitchModifier(random.nextFloat());
     }
 
     /** GET **/
@@ -359,6 +337,10 @@ public class Sub {
             e.delete();
         }
         events = null;
+    }
+
+    public void reset(){
+        setupAutoRndParams();
     }
 
     /** RESTORE **/

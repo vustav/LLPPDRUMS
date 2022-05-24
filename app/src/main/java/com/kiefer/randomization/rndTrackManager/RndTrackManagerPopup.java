@@ -42,7 +42,7 @@ public class RndTrackManagerPopup extends Popup {
         popupWindow.setAnimationStyle(R.style.popup_animation);
 
         //label
-        String name = llppdrums.getResources().getString(R.string.rndTrackLabel) + drumTrack.getTrackNo();
+        String name = llppdrums.getResources().getString(R.string.rndTrackLabel) + drumTrack.getName();
         TextView label = popupView.findViewById(R.id.trackRndLabel);
         label.setText(name);
         int bgColor = drumTrack.getColor();

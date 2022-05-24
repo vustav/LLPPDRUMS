@@ -44,7 +44,7 @@ public class StepEventsManager {
 
         setupAutoRndParams();
 
-        randomizePan(false);
+        randomizePan();
     }
 
     private void setupAutoRndParams(){
@@ -163,7 +163,7 @@ public class StepEventsManager {
         //Log.e("StepEventsManager", "subs size: "+subs.size());
 
         //if(step.getStepNo() == 0) {
-            //Log.e("StepEventsManager", "positionEvents");
+        //Log.e("StepEventsManager", "positionEvents");
         //}
         //this.step = step;
         int samplesPerStep = getSamplesPerStep(nOfSteps);
@@ -192,9 +192,9 @@ public class StepEventsManager {
     protected int getPosInSamples(int samplesPerStep){
 
         //if(step.getStepNo() == -1){
-            //Log.e("StepEventsManager", "samplesPerStep: "+samplesPerStep);
-            //Log.e("StepEventsManager", "drumTrack.getSteps().size(): "+drumTrack.getSteps().size());
-            //return samplesPerStep * drumTrack.getSteps().size();
+        //Log.e("StepEventsManager", "samplesPerStep: "+samplesPerStep);
+        //Log.e("StepEventsManager", "drumTrack.getSteps().size(): "+drumTrack.getSteps().size());
+        //return samplesPerStep * drumTrack.getSteps().size();
         //}
 
         return samplesPerStep * step.getStepNo();
@@ -206,50 +206,43 @@ public class StepEventsManager {
     }
 
     /** RND **/
-    public void randomizeOn(boolean autoRnd, int sub) {
-        subs.get(sub).randomizeOn(autoRnd);
+    public void randomizeOn(int sub) {
+        subs.get(sub).randomizeOn();
         //events.get(sub).randomizeOn(autoRnd);
     }
-    public void randomizeSubsOn(boolean autoRnd) {
+    public void randomizeSubsOn() {
         //for(EventsOLD.Event e : events) {
-            //e.randomizeOn(autoRnd);
+        //e.randomizeOn(autoRnd);
         //}
         for(Sub s : subs){
-            s.randomizeOn(autoRnd);
+            s.randomizeOn();
         }
     }
-    public void randomizeVol(boolean autoRnd, int sub){
-        subs.get(sub).randomizeVol(autoRnd);
+    public void randomizeVol(int sub){
+        subs.get(sub).randomizeVol();
     }
-    public void randomizeVols(boolean autoRnd){
+    public void randomizeVols(){
         for(Sub s : subs){
-            s.randomizeVol(autoRnd);
+            s.randomizeVol();
         }
     }
-    public void randomizePitch(boolean autoRnd, int sub){
-        subs.get(sub).randomizePitch(autoRnd);
+    public void randomizePitch(int sub){
+        subs.get(sub).randomizePitch();
     }
-    public void randomizePitches(boolean autoRnd){
+    public void randomizePitches(){
         //for(EventsOLD.Event e : events){
-            //e.randomizePitch(autoRnd);
+        //e.randomizePitch(autoRnd);
         //}
 
         for(Sub s : subs){
-            s.randomizePitch(autoRnd);
+            s.randomizePitch();
         }
     }
 
     /** PAN (all subs will have the same pan so it's handled here, everything else is handled in subs) **/
-    public void randomizePan(boolean autoRnd){
+    public void randomizePan(){
         Random random = new Random();
-        if(autoRnd){
-            if(rndPanPerc >= random.nextFloat()) {
-                setPan(NmbrUtils.getRndmizer(rndPanMin, rndPanMax));
-            }
-        }
-        else{
-            setPan(random.nextFloat());
-        }
+        setPan(random.nextFloat());
     }
 
     /** PREV **/
@@ -500,13 +493,12 @@ public class StepEventsManager {
     public void reset(){
         setRndPanPerc(0);
         for(Sub s : subs) {
-            s.setRndOnPerc(0);
-            s.setRndVolPerc(0);
-            s.setRndPitchPerc(0);
+            s.reset();
         }
     }
 
-    /** DESTRUCTION **/public void destroy(){
+    /** DESTRUCTION **/
+    public void destroy(){
         turnOff();
         deleteSubs();
         subs = null;

@@ -41,7 +41,7 @@ public class TrackMenuInfo extends InfoHolder implements Info {
 
     @Override
     public ViewGroup getLayout(){
-        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.info, null);
+        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.layout_info, null);
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
@@ -160,15 +160,15 @@ public class TrackMenuInfo extends InfoHolder implements Info {
         layout.addView(nodeLayout);
 
         /** REMOVE **/
-        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
-        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_trk_menu_remove));
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.trkMenuRemove);
 
         layout.addView(nodeLayout);
+
+
 
         return layout;
     }

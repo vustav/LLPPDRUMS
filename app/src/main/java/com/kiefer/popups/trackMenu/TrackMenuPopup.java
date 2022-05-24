@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -31,12 +32,10 @@ public class TrackMenuPopup extends Popup {
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_track_btns, null);
-
-        //popupView.findViewById(R.id.trackBgIV).setBackground(ContextCompat.getDrawable(llppdrums, llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getBtnsPopupBgId()));
-        popupView.findViewById(R.id.trackBgIV).setBackground(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getBtnsPopupGradient());
+        popupView.setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(trackNo).getColor());
 
         //create the popupWindow
-        //int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        //int width = RelativeLayout.LayoutParams.MATCH_PARENT;
         int width = (int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall) * 12;
         int height = (int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall) + (int) llppdrums.getResources().getDimension(R.dimen.sequencerTrackPadding) * 2;
         boolean focusable = true;

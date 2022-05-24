@@ -63,7 +63,7 @@ public class PitchSubsDrawable extends Drawable {
         }
 
         if(step.isOn() && step.pitchAutomationActive()) {
-            pitch.addAutoIndication(step, canvas);
+            pitch.addAutoIndication(canvas);
         }
     }
 

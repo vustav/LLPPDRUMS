@@ -106,6 +106,7 @@
     <dimen name="controllerButtonsTxt">25sp</dimen>
 
     <!-- INFO -->
+    <dimen name="infoNodeFullImgHeight">150dp</dimen>
     <dimen name="infoNodeImgHeight">50dp</dimen>
     <dimen name="infoBtnSize">30dp</dimen>
     <dimen name="infoBtnDefaultMargin">3dp</dimen>

@@ -170,7 +170,6 @@ public abstract class Fx implements Automatable {
 
         if (param.equals(paramNames.get(0))) { //on
 
-
             boolean ogOn = isOn();
 
             if(popupShowing && drumTrack.getFxManager().getSelectedFx() == this) {

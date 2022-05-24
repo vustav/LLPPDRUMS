@@ -38,7 +38,7 @@ public class ControllerInfo extends InfoHolder implements Info {
 
     @Override
     public ViewGroup getLayout(){
-        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.info, null);
+        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.layout_info, null);
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
@@ -47,8 +47,16 @@ public class ControllerInfo extends InfoHolder implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
+        /** IMG **/
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv, null);
+
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_contr_img));
+
+        layout.addView(nodeLayout);
+
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
 
         TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.controllerIntroTxt);
@@ -58,7 +66,7 @@ public class ControllerInfo extends InfoHolder implements Info {
         /** COUNTER **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
-        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_contr_counter));
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
@@ -67,7 +75,7 @@ public class ControllerInfo extends InfoHolder implements Info {
         layout.addView(nodeLayout);
 
         /** ARROWS **/
-        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_double_iv_tv_vert, null);
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_double_iv_tv_hor, null);
 
         //add the first image
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV1);

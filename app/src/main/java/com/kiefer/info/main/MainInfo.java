@@ -40,7 +40,7 @@ public class MainInfo extends InfoHolder implements Info {
 
     @Override
     public ViewGroup getLayout(){
-        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.info, null);
+        LinearLayout layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.layout_info, null);
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
@@ -49,8 +49,16 @@ public class MainInfo extends InfoHolder implements Info {
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));
 
+        /** IMG **/
+        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv, null);
+
+        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_main_img));
+
+        layout.addView(nodeLayout);
+
         /** INTRO **/
-        FrameLayout nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
 
         TextView nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.mainIntroTxt1);
@@ -79,11 +87,34 @@ public class MainInfo extends InfoHolder implements Info {
         /** TRANSPORT **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
-        ImageView nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_main_transport));
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.mainTransportTxt);
+
+        layout.addView(nodeLayout);
+
+        /** SEQ MANAGER **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_main_seqmanager));
+
+        //get a ref to the tv
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+
+        //set the initial text
+        nodeTV.setText(R.string.mainSeqManTxt1);
+        nodeTV.append(" ");
+
+        //create a link and append it
+        label = llppdrums.getResources().getString(R.string.seqManagerLabel);
+        link = new InfoLink(llppdrums, label, SequenceManagerInfo.key, nodeTV);
+        nodeTV.append(link);
+        nodeTV.append(".");
+        nodeTV.append(llppdrums.getResources().getString(R.string.mainSeqManTxt2));
+        nodeTV.append(llppdrums.getResources().getString(R.string.mainSeqManTxt3));
 
         layout.addView(nodeLayout);
 
@@ -111,29 +142,6 @@ public class MainInfo extends InfoHolder implements Info {
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.mainFilesTxt);
-
-        layout.addView(nodeLayout);
-
-        /** SEQ MANAGER **/
-        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
-
-        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_main_seqmanager));
-
-        //get a ref to the tv
-        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
-
-        //set the initial text
-        nodeTV.setText(R.string.mainSeqManTxt1);
-        nodeTV.append(" ");
-
-        //create a link and append it
-        label = llppdrums.getResources().getString(R.string.seqManagerLabel);
-        link = new InfoLink(llppdrums, label, SequenceManagerInfo.key, nodeTV);
-        nodeTV.append(link);
-        nodeTV.append(".");
-        nodeTV.append(llppdrums.getResources().getString(R.string.mainSeqManTxt2));
-        nodeTV.append(llppdrums.getResources().getString(R.string.mainSeqManTxt3));
 
         layout.addView(nodeLayout);
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/nodeTVBgColor"
+        android:padding="@dimen/tabsPaddingSmall"
+        android:layout_marginTop="@dimen/tabsPaddingSmall">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/infoNodeImgHeight"
+                android:layout_height="wrap_content"
+                android:id="@+id/infoNodeIV1"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:layout_width="@dimen/infoNodeImgHeight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tabsPaddingSmall"
+                android:id="@+id/infoNodeIV2"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/infoNodeTV"
+            android:textColor="@color/nodeTVTxtColor"/>
+    </LinearLayout>
+</FrameLayout>

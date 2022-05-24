@@ -53,7 +53,6 @@ public class DrumTrack implements Subilizer, NamerColorizer {
 
     //graphics
     private final int mixerPopupBgId, namePopupBgId;
-    private final GradientDrawable btnsPopupGradientDrawable;
     private final LinearLayout autoBtnGraphics, fxBtnGraphics, mixerBtnGraphics;
 
     public DrumTrack(LLPPDRUMS llppdrums, DrumSequence drumSequence, int steps, DrumTrackKeeper keeper) {
@@ -88,8 +87,6 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         mixerBtnGraphics = new DrumTrackMixBtnGraphics(llppdrums).getLayout();
         mixerPopupBgId = ImgUtils.getRandomImageId();
         namePopupBgId = ImgUtils.getRandomImageId();
-
-        btnsPopupGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
 
         rndTrackManager = new RndTrackManager(llppdrums, this);
 
@@ -656,10 +653,6 @@ public class DrumTrack implements Subilizer, NamerColorizer {
 
     public int getMixerPopupBgId() {
         return mixerPopupBgId;
-    }
-
-    public GradientDrawable getBtnsPopupGradient() {
-        return btnsPopupGradientDrawable;
     }
 
     public int getNamePopupBgId() {

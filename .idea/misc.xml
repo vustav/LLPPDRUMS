@@ -28,6 +28,10 @@
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/counter_cell_sequence_border.xml" value="0.3098958333333333" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/fragment_drum_machine.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/fragment_top.xml" value="0.2869791666666667" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/info.xml" value="0.32065217391304346" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/info_node_double_iv_tv_hor.xml" value="0.221875" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/info_node_double_iv_tv_vert.xml" value="0.32065217391304346" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/info_node_iv.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/info_node_iv_tv_hor.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/info_node_iv_tv_vert.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/info_node_tv.xml" value="0.22291666666666668" />
@@ -38,6 +42,8 @@
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_auto_steps.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_fx_manager.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_fx_manager_bit_crusher.xml" value="0.16927083333333334" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_info_manager.xml" value="0.32065217391304346" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_organize_steps.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_seek_bar.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_seq_rnd_options.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_sequence_manager.xml" value="0.3098958333333333" />

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kiefer.R;
 import com.kiefer.info.main.MainInfo;
@@ -222,7 +224,18 @@ public class TopFragment extends TabFragment {
 
     @Override
     public void setTabAppearances(int tier, ArrayList<Tab> tabs, int selectedTabNo){
-        tabManager.setTabBorders(tier, tabs, selectedTabNo);
+
+        try {
+            tabManager.setTabBorders(tier, tabs, selectedTabNo);
+        }
+        catch(Exception e){
+
+            Log.e("TopFragment", e.getMessage());
+            String message = "AJAJAJ";
+            Toast toast = Toast.makeText(llppdrums,
+                    message, Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
         for(int i = 0; i < tabs.size(); i++){
 

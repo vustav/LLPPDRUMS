@@ -147,6 +147,16 @@ public class RndSeqManagerAdapter extends RecyclerView.Adapter<RndSeqManagerAdap
             }
         });
 
+        //and the autoRndBtn-cb
+        rndSeqManagerTrackViewHolder.autoRndCB.setChecked(rndSeqManager.getTracks().get(rndSeqManagerTrackViewHolder.getAdapterPosition()).getAutoRnd());
+        rndSeqManagerTrackViewHolder.autoRndCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rndSeqManager.getTracks().get(rndSeqManagerTrackViewHolder.getAdapterPosition()).setAutoRnd(rndSeqManagerTrackViewHolder.autoRndCB.isChecked());
+                rndSeqManagerPopup.addModifiedMarker();
+            }
+        });
+
         //and the removeBtn
         rndSeqManagerTrackViewHolder.removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +193,7 @@ public class RndSeqManagerAdapter extends RecyclerView.Adapter<RndSeqManagerAdap
         final View bgView;
         final FrameLayout soundSpinnerLayout, subsSpinnerLayout;
         final LinearLayout stepsLayout;
-        final CheckBox fxCB;
+        final CheckBox fxCB, autoRndCB;
         final Button removeBtn;
 
         public RndSeqManagerTrackViewHolder(View v) {
@@ -194,6 +204,7 @@ public class RndSeqManagerAdapter extends RecyclerView.Adapter<RndSeqManagerAdap
             stepsLayout = v.findViewById(R.id.rndSeqStepsLayout);
             removeBtn = v.findViewById(R.id.rndSeqRemoveTrackBtn);
             fxCB = v.findViewById(R.id.rndSeqFxCB);
+            autoRndCB = v.findViewById(R.id.rndSeqAutoRndCB);
         }
     }
 }

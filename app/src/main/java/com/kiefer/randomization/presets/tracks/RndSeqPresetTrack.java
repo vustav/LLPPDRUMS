@@ -24,7 +24,7 @@ public class RndSeqPresetTrack {
     private GradientDrawable gradientDrawable;
     private final int oscListImgId;
 
-    private boolean randomizeFx, randomizePan, randomizeVol;
+    private boolean autoRnd, randomizeFx, randomizePan, randomizeVol;
 
     public RndSeqPresetTrack(LLPPDRUMS llppdrums, RndSeqPresetTrackKeeper keeper){
         this.llppdrums = llppdrums;
@@ -37,6 +37,7 @@ public class RndSeqPresetTrack {
 
         setupSteps(keeper.nOfSteps, keeper.nOfSubs);
 
+        autoRnd = keeper.autoRnd;
         randomizeFx = keeper.randomizeFx;
         randomizePan = keeper.randomizePan;
         randomizeVol = keeper.randomizeVol;
@@ -53,6 +54,7 @@ public class RndSeqPresetTrack {
 
         setupSteps(nOfSteps, nOfSubs);
 
+        autoRnd = false;
         randomizeFx = true;
         randomizePan = true;
         randomizeVol = false;
@@ -101,6 +103,10 @@ public class RndSeqPresetTrack {
         this.randomizeFx = randomizeFx;
     }
 
+    public void setAutoRnd(boolean autoRnd){
+        this.autoRnd = autoRnd;
+    }
+
     public void setRandomizePan(boolean randomizePan) {
         this.randomizePan = randomizePan;
     }
@@ -135,6 +141,10 @@ public class RndSeqPresetTrack {
 
     public boolean getRandomizeFx() {
         return randomizeFx;
+    }
+
+    public boolean getAutoRnd(){
+        return autoRnd;
     }
 
     public boolean getRandomizePan() {
