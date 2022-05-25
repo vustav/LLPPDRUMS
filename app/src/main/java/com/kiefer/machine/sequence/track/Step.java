@@ -353,19 +353,12 @@ public class Step {
     }
 
     public void setOn(boolean on){
-        //boolean wasOn = this.on;
         this.on = on;
-        //Log.e("Step", "setOn(): "+on);
 
-        //if (on && !wasOn) {
         if(on){
-            //Log.e("Step", "setOn(), true");
-            //addToSequencer(drumTrack.getNOfSteps());
             stepEventsManager.turnOn();
         }
-        //else if (!on && wasOn) {
         else{
-            //Log.e("Step", "setOn(), false");
             stepEventsManager.turnOff();
         }
     }
@@ -375,24 +368,12 @@ public class Step {
     }
 
     public void updateEventSamples(){
-        //if(on) {
         stepEventsManager.updateSamples();
-        //}
     }
-
-    /*
-    public void recreateEvent(){
-        events.deleteEvents();
-        createEvents(drumTrack.getNOfSteps(), drumTrack.getNOfSubs());
-    }
-
-     */
 
     //vol
     public void setVolumeModifier(float modifier, int sub){
         stepEventsManager.setVolumeModifier(modifier, sub);
-        //volumeModifier = modifier;
-        //updateEventVolume();
     }
 
     public void updateEventVolumes(){
@@ -425,14 +406,6 @@ public class Step {
         stepEventsManager.setPan(pan);
     }
 
-    //autorandom
-    /*
-    public void setAutoRndOn(boolean on){
-        autoRndOn = on;
-    }
-
-     */
-
     public void setRndOnPerc(float rndOnPerc, int sub) {
 
         //register an automation if it was off and is now on ONLY
@@ -447,6 +420,10 @@ public class Step {
     }
 
     public void setRndOnReturn(boolean rndOnReturn, int sub) {
+        //save here, otherwise an empty prevValue will be used if return is on but not perc
+        savePrevOn();
+        saveSubPrevOn(sub);
+
         returnModified(rndOnReturn);
         stepEventsManager.setRndOnReturn(rndOnReturn, sub);
     }
@@ -476,6 +453,9 @@ public class Step {
     }
 
     public void setRndVolReturn(boolean rndVolReturn, int sub) {
+        //save here, otherwise an empty prevValue will be used if return is on but not perc
+        saveSubPrevVol(sub);
+
         returnModified(rndVolReturn);
         stepEventsManager.setRndVolReturn(rndVolReturn, sub);
         //this.rndVolReturn = rndVolReturn;
@@ -505,6 +485,9 @@ public class Step {
     }
 
     public void setRndPitchReturn(boolean rndPitchReturn, int sub) {
+        //save here, otherwise an empty prevValue will be used if return is on but not perc
+        saveSubPrevPitch(sub);
+
         returnModified(rndPitchReturn);
         stepEventsManager.setRndPitchReturn(rndPitchReturn, sub);
         //this.rndPitchReturn = rndVolReturn;
@@ -535,6 +518,9 @@ public class Step {
     }
 
     public void setRndPanReturn(boolean rndPanReturn) {
+        //save here, otherwise an empty prevValue will be used if return is on but not perc
+        saveSubPrevPan();
+
         returnModified(rndPanReturn);
         stepEventsManager.setRndPanReturn(rndPanReturn);
         //this.rndPanReturn = rndVolReturn;
@@ -544,46 +530,6 @@ public class Step {
     public void handleSequencerPositionChange(int sequencerPosition){
         soundManager.setPan(getPan());
     }
-
-    /** STATS **/
-    /*
-    public int getNOfEvents(){
-        int n = 0;
-        if(soundManager.getActiveSound() == SoundManager.OSC) {
-            for (SynthEvent se : synthEvents) {
-                if (se != null) {
-                    n++;
-                }
-            }
-        }
-        else{
-            n = 1;
-        }
-        return n;
-    }
-
-    public int getNOfSequencedEvents(){
-        int n = 0;
-        if(soundManager.getActiveSound() == SoundManager.OSC) {
-            for (SynthEvent se : synthEvents) {
-                if (se != null) {
-                    if (se.getIsSequenced()) {
-                        n++;
-                    }
-                }
-            }
-        }
-        else{
-            if (sampleEvent != null) {
-                if (sampleEvent.getIsSequenced()) {
-                    n++;
-                }
-            }
-        }
-        return n;
-    }
-
-     */
 
     /** RESET **/
     public void reset(){
@@ -597,6 +543,7 @@ public class Step {
         panAutos = 0;
         volAutos = 0;
         pitchAutos = 0;
+        returns = 0;
     }
 
     /** RESTORATION **/

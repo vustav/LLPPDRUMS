@@ -72,7 +72,7 @@
     <string name="seqModBaseModeName">BASE</string>
     <string name="seqModBaseModeTabName">BASE</string>
     <string name="seqModRandomModeName">AUTORANDOMIZATION</string>
-    <string name="seqModRandomModeTabName">RNDM</string>
+    <string name="seqModRandomModeTabName">AUTO</string>
 
     <!-- ONOFF -->
     <string name="onoffName">ON</string>
@@ -251,6 +251,8 @@
     <string name="seqTrackTxt3">to change the # of subs.</string>
     <string name="seqAddRemoveStepTxt">\n\nThe \"+\" and \"-\" buttons in the top right decreases/increases the number of steps.</string>
     <string name="seqAddTrackTxt">\n\nThe \"+\" button below the tracks adds a track. This button is always below the tracks so you might have to scroll down to see it.</string>
+    <string name="seqAutoRndTxt1">A purple dot in the upper left corner means an</string>
+    <string name="seqAutoRndTxt2">is active.</string>
     <string name="seqNameTxt">Change the name and color of the sequence.</string>
     <string name="seqTmpTxt">Set the tempo of this sequence. Sequences can have different tempos.</string>
     <string name="seqRndTxt">Randomize this sequence. OPTNS opens</string>
@@ -271,11 +273,11 @@
     <string name="autoRndInfoTxt">When AUTORANDOMIZATION is selected the sequencer turns from showing its base value to showing its AUTORANDOMIZATION values. These are:
     \n\n
     %: chance a randomization will occur. A full bar means a randomization will always occur. A half bar means a 50% chance of randomization.\n\n
-    MIN: smallest possible randomized value.\n\n
-    MAX: largest possible randomized value.\n\n
-    RTRN: should the value return to what it was before the randomization after being played once.\n\n
+    MIN: smallest possible randomized value. Not present for booleans.\n\n
+    MAX: largest possible randomized value. Not present for booleans.\n\n
+    RTRN: if on the value returns to what it was before the randomization after being played once.\n\n
     You select which one to edit in the top left corner of the sequencer.</string>
-    <string name="autoRndDotTxt">If an autorandomization is active this purple dot will show on the step when in BASE mode.</string>
+    <string name="autoRndDotTxt">If an autorandomization is active this purple dot will show in the upper left corner when in BASE mode.</string>
 
     <!-- TRK MENU -->
     <string name="trkMenuIntro">Access the track menu by clicking the button with a name and arrows to the left of the track you want to edit.</string>

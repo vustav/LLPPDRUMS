@@ -757,7 +757,6 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     /** SEQUENCER UPDATES **/
     public void handleSequencerPositionChange(int sequencerPosition){
 
-        /** REWORK THIS IF TOO HEAVY **/
         if(returnActive()) {
             if(sequencerPosition == 0) {
                 rndSeqManager.returnAutoRandomizations(getNOfSteps() - 1);
@@ -782,6 +781,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     }
 
     public void stop(){
+        rndSeqManager.returnAutoRandomizations();
         for(DrumTrack dt : tracks){
             dt.stop();
         }

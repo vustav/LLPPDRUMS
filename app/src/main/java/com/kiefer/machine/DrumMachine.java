@@ -396,6 +396,10 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
     public void addSequence(){
         sequences.add(new DrumSequence(llppdrums, engineFacade, sequences.size()));
+
+        if(sequences.size() > 1) {
+            llppdrums.getDrumMachineFragment().enableSeqBtn(true);
+        }
     }
 
     public void removeSelectedSequence(){
@@ -420,6 +424,10 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
             sequenceManager.replaceSequence(seqToRemove, seqToActivate);
 
             deleteSequence(seqToRemove);
+
+            if(sequences.size() == 1) {
+                llppdrums.getDrumMachineFragment().enableSeqBtn(false);
+            }
         }
     }
 

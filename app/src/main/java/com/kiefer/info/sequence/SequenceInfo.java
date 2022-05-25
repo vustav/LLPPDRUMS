@@ -155,29 +155,25 @@ public class SequenceInfo extends InfoHolder implements Info {
 
         layout.addView(nodeLayout);
 
-        /*
-        // ADD/REMOVE STEPS
+        /** AUTO RND **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 
         nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_add_remove_step));
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_auto_dot));
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV.setText(R.string.seqAddRemoveStepTxt);
+        nodeTV.setText(R.string.seqAutoRndTxt1);
+        nodeTV.append(" ");
+
+        //create a link and append it
+        label = llppdrums.getResources().getString(R.string.seqModRandomModeName);
+        link = new InfoLink(llppdrums, label, AutoRandomInfo.key, nodeTV);
+        nodeTV.append(link);
+        nodeTV.append(" ");
+
+        nodeTV.append(llppdrums.getResources().getString(R.string.seqAutoRndTxt2));
 
         layout.addView(nodeLayout);
-
-        // ADD TRACK
-        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
-
-        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_add_track));
-
-        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV.setText(R.string.seqAddTrackTxt);
-
-        layout.addView(nodeLayout);
-        */
 
         /** NAME **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);

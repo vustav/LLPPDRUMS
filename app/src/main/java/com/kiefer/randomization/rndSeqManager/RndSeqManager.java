@@ -139,6 +139,15 @@ public class RndSeqManager implements Tempoizer {
         }
     }
 
+    public void returnAutoRandomizations(){
+        for(DrumTrack dt : drumSequence.getTracks()){
+            for(int stepNo = 0; stepNo < drumSequence.getNOfSteps(); stepNo++)
+            if(dt.returnActive() && dt.getSteps().get(stepNo).returnActive()){
+                dt.getRndTrackManager().returnAutoRandomization(stepNo);
+            }
+        }
+    }
+
     /** GET **/
     public int getBgImgId() {
         return bgImgId;

@@ -99,18 +99,6 @@ public class TopFragment extends TabFragment {
             }
         });
 
-        //set up the pause btn
-        /*
-        Button pauseBtn = rootView.findViewById(R.id.topPauseBtn);
-        pauseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llppdrums.getDrumMachine().pause();
-            }
-        });
-
-         */
-
         //set up the stop btn
         Button stopBtn = rootView.findViewById(R.id.topStopBtn);
         stopBtn.setOnClickListener(new View.OnClickListener() {
@@ -200,26 +188,6 @@ public class TopFragment extends TabFragment {
         bg.setBackground(gd);
     }
 
-    /*
-    private void changeSequence(int sequence){
-        //start with a little timer to prevent spamming
-        if(!changeSeqRunning) {
-            changeSeqRunning = true;
-            new CountDownTimer(llppdrums.getResources().getInteger(R.integer.sequenceSwitchTimer), llppdrums.getResources().getInteger(R.integer.sequenceSwitchTimer)) {
-                public void onTick(long millisUntilFinished) {
-                    //
-                }
-
-                public void onFinish() {
-                    changeSeqRunning = false;
-                }
-            }.start();
-            llppdrums.getDrumMachine().changePlayingSequence(sequence);
-        }
-    }
-
-     */
-
     /** GET/SET **/
 
     @Override
@@ -229,7 +197,6 @@ public class TopFragment extends TabFragment {
             tabManager.setTabBorders(tier, tabs, selectedTabNo);
         }
         catch(Exception e){
-
             Log.e("TopFragment", e.getMessage());
             String message = "AJAJAJ";
             Toast toast = Toast.makeText(llppdrums,

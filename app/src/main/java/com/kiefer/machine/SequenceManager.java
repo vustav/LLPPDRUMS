@@ -167,7 +167,6 @@ public class SequenceManager {
     }
 
     public void activateSequenceBox(int step){
-        //Log.e("SequenceManager", "activateSequenceBox(), step: "+step);
         counter.reset();
         counter.activateStep(step);
 
@@ -181,15 +180,12 @@ public class SequenceManager {
 
         //reset if a box was already queued
         if(changeAtNext){
-            //counter.setStepColor(queuedSeqBoxIndex, ContextCompat.getColor(llppdrums, R.color.counterInactiveBgColor));
-            //counter.setStepColor(queuedSeqBoxIndex, drumSequences.get(index).getColor());
             counter.reset(queuedSeqBoxIndex);
         }
 
         if(index != queuedSeqBoxIndex) {
             changeAtNext = true;
             queuedSeqBoxIndex = index;
-            //counter.setStepColor(index, ContextCompat.getColor(llppdrums, R.color.queuedSeqColor));
             counter.queueStep(index);
         }
         //remove the flag if the same box is pushed
@@ -229,7 +225,6 @@ public class SequenceManager {
 
     /** CONTROLLER **/
     public void setSelectedControllerSeqBox(int index){
-        //Log.e("SeqMan.setSelected...", "index: "+index);
         counter.setSelectedSeqBox(index);
     }
 

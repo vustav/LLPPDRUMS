@@ -110,6 +110,7 @@ public class SequenceCounter extends Counter {
     public void setStepColor(final int step, final int color){
         super.setStepColor(step, color);
         if (controllerLayout != null) {
+            controllerLayout.getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(color);
             controllerLayout.getChildAt(step).findViewById(R.id.counterCellBg).setBackgroundColor(color);
             ((TextView)controllerLayout.getChildAt(step).findViewById(R.id.counterCellTv)).setTextColor(ColorUtils.getContrastColor(color));
         }
@@ -118,7 +119,6 @@ public class SequenceCounter extends Counter {
     @Override
     public void setStepText(int step, String text){
         super.setStepText(step, text);
-        //TextView tv = (TextView) ((RelativeLayout) controllerLayout.getChildAt(step)).getChildAt(1);
         ((TextView)controllerLayout.getChildAt(step).findViewById(R.id.counterCellTv)).setText(text);
     }
 

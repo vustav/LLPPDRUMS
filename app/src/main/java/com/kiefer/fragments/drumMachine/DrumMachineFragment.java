@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +50,8 @@ public class DrumMachineFragment extends TabFragment {
     private CSpinnerButton tempoSpinnerBtn;
 
     private RelativeLayout sequenceBg;
+
+    private Button removeSeqBtn;
 
     //subs
     //private CSpinnerButton subsSpinnerBtn;
@@ -258,8 +259,8 @@ public class DrumMachineFragment extends TabFragment {
         copyLayout = rootView.findViewById(R.id.sequenceCopyLayout);
 
         //remove
-        Button removeBtn = rootView.findViewById(R.id.sequenceRemoveBtn);
-        removeBtn.setOnClickListener(view -> {
+        removeSeqBtn = rootView.findViewById(R.id.sequenceRemoveBtn);
+        removeSeqBtn.setOnClickListener(view -> {
             llppdrums.getDrumMachine().removeSelectedSequence();
             adapter.notifyDataSetChanged();
         });
@@ -307,13 +308,11 @@ public class DrumMachineFragment extends TabFragment {
         }
     }
 
-    /** GET **/
-    /*
-    public ArrayList<FrameLayout> getSequenceTabLayouts() {
-        return sequenceTabLayouts;
+    public void enableSeqBtn(boolean enabled){
+        removeSeqBtn.setEnabled(enabled);
     }
 
-     */
+    /** GET **/
 
     public RecyclerView getRecyclerView() {
         return recyclerView;
