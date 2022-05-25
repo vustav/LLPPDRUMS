@@ -245,10 +245,10 @@
     <string name="seqIntroTxt3">or by clicking one here:</string>
     <string name="seqSequenceTxt">Select which sequence to edit. Create a new sequence by clicking the \'+\'-button</string>
     <string name="seqModuleTxt">Select what to edit in the selected sequence.</string>
-    <string name="seqModeTxt">BASE is base values, ex. on/off or volume, RNDM is </string>
+    <string name="seqModeTxt">BASE is base values, ex. on/off or volume, AUTO is </string>
     <string name="seqTrackTxt1">This is a track. The button to the left has the tracks name in it. Clicking it will open</string>
     <string name="seqTrackTxt2">The cells in the track represents steps and works like a classic sequencer, ie clicking a step will change something depending on what\'s selected for editing. If a cell has more than one dot in it the step has two or more sub steps. Click and hold to edit subs. Open</string>
-    <string name="seqTrackTxt3">to change the # of subs.</string>
+    <string name="seqTrackTxt3">to change the number of subs.</string>
     <string name="seqAddRemoveStepTxt">\n\nThe \"+\" and \"-\" buttons in the top right decreases/increases the number of steps.</string>
     <string name="seqAddTrackTxt">\n\nThe \"+\" button below the tracks adds a track. This button is always below the tracks so you might have to scroll down to see it.</string>
     <string name="seqAutoRndTxt1">A purple dot in the upper left corner means an</string>
@@ -264,8 +264,10 @@
     <string name="seqRndManagerIntro2">Blueprint for the randomizations, either by using a preset or by creating from scratch.</string>
     <string name="seqRndManagerPreset">Select a preset.</string>
     <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
-    <string name="seqRndManagerSteps">Set the # of steps of the randomized sequence.</string>
-    <string name="seqRndManagerTracks">These represents tracks. \n\nIn the first spinner you select a sound preset. In the second spinner with a number in it you select the number of sub steps. \n\nEvery step has one or more sliders in it depending on # of sub steps. If it\'s full it will always be on. Half means 50% etc. \n\nTick the FX-box for randomized effects on the track. Remove the track by clicking \"-\". Hold and drag to change order.</string>
+    <string name="seqRndManagerSteps">Set the number of steps of the randomized sequence.</string>
+    <string name="seqRndManagerTracks">These represents tracks. \n\nIn the first spinner you select a sound preset. In the second spinner with a number in it you select the number of sub steps. \n\nEvery step has one or more sliders in it depending on the number of sub steps. If it\'s full it will always be on. Half means 50% etc.
+        \n\nTick the FX-box for randomized effects on the track. The RND-box adds a 10% chance of ON autorandomizing with RTRN on every step.
+        \n\nRemove the track by clicking \"-\". Hold and drag to change order.</string>
     <string name="seqRndManagerAdd">\n\n\"+\" adds a track.</string>
 
     <!-- AUTORANDOM -->
