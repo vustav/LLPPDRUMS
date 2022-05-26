@@ -234,6 +234,61 @@
                     </LinearLayout>
                 </FrameLayout>
 
+                <!-- FX -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tabsBorderColor"
+                    android:padding="@dimen/tabsBorderSmall"
+
+                    android:layout_marginStart="@dimen/tabsBorderLarge">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/sequenceFxLayout"
+                        android:background="@color/autoBgEven">
+
+                        <!-- LABEL -->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/tabsBorderColor"
+                                android:textColor="@color/lowerBg"
+                                android:text="FX"
+
+                                android:layout_alignParentTop="true"/>
+                        </RelativeLayout>
+
+                        <!-- BTN -->
+                        <RelativeLayout
+                            android:layout_width="@dimen/sequencerFxBtnWidth"
+                            android:layout_height="@dimen/btnHeightSmall"
+                            android:id="@+id/sequencerTrackFxLayout">
+                            <Button
+                                android:layout_width="@dimen/sequencerFxBtnWidth"
+                                android:layout_height="@dimen/btnHeightSmall"
+                                android:id="@+id/sequencerFxBtn"
+                                android:padding="@dimen/defaultBtnPadding"/>
+
+                            <!-- GRAPHICS -->
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/btnHeightSmall"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="9dp"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginEnd="8dp"
+                                android:id="@+id/sequencerFxBtnGraphics"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
                 <!-- RANDOM -->
                 <RelativeLayout
                     android:layout_width="wrap_content"

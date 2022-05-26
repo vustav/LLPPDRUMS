@@ -1,12 +1,12 @@
 package com.kiefer.automation;
 
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.AutomationKeeper;
 import com.kiefer.files.keepers.AutomationManagerKeeper;
+import com.kiefer.machine.fx.FXer;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.utils.ColorUtils;
 
@@ -15,14 +15,14 @@ import java.util.Random;
 
 public class AutomationManager {
     LLPPDRUMS llppdrums;
-    private final DrumTrack drumTrack;
+    private final FXer fxer;
     private final Automatable automatable;
     private ArrayList<Automation> automations;
     private final Random random;
 
-    public AutomationManager(LLPPDRUMS llppdrums, DrumTrack drumTrack, Automatable automatable){
+    public AutomationManager(LLPPDRUMS llppdrums, FXer fxer, Automatable automatable){
         this.llppdrums = llppdrums;
-        this.drumTrack = drumTrack;
+        this.fxer = fxer;
         this.automatable = automatable;
         random = new Random();
         automations = new ArrayList<>();
@@ -30,7 +30,7 @@ public class AutomationManager {
 
     /** CHANGE DATASET **/
     public Automation addAutomation(){
-        Automation automation = new Automation(drumTrack.getNOfSteps());
+        Automation automation = new Automation(fxer.getNOfSteps());
         automations.add(automation);
         return automation;
     }

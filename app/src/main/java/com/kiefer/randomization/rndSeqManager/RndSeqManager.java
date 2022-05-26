@@ -65,8 +65,7 @@ public class RndSeqManager implements Tempoizer {
     /** RND SEQ **/
     //called when rndSeq-btn is pressed (and on start up if no keepers)
     public void randomizeSequence() {
-        //hängde sig här ibland förut. KOLLA OM DET KRÅNGLAR!!
-        //drumSequence.reset(false); //no need to update drawables here since they get upadated in the new randomization below
+        drumSequence.reset(false); //no need to update drawables here since they get upadated in the new randomization below
 
         int steps = tracks.get(0).getSteps().size();
 
@@ -94,11 +93,6 @@ public class RndSeqManager implements Tempoizer {
     }
 
     public void addTrack(){
-
-        Random r = new Random();
-        //ArrayList<String> oscPresets = llppdrums.getDrumMachine().getSelectedSequence().getTracks().get(0).getSoundManager().getPresetCategories();
-        String oscPreset = soundPresetCategories.get(r.nextInt(soundPresetCategories.size()));
-
         tracks.add(new RndSeqPresetTrackRandom(llppdrums, tracks.get(0).getSteps().size(), tracks.get(0).getnOfSubs()));
     }
 
@@ -120,10 +114,6 @@ public class RndSeqManager implements Tempoizer {
 
     //called on step 0 for autoRandomization
     public void autoRandomize() {
-        //for (RndTrackManager rtm : drumSequence.getDrumRandomizers()) {
-            //rtm.autoRandomize();
-        //}
-
         for(DrumTrack dt : drumSequence.getTracks()){
             if(dt.automationsActive()){
                 dt.getRndTrackManager().autoRandomize();
@@ -221,12 +211,5 @@ public class RndSeqManager implements Tempoizer {
         RandomizeSeqPresetCustom randomizeSeqPresetCustom = new RandomizeSeqPresetCustom(llppdrums, this, keeper);
         randomizeSeqPresetCustom.createPreset();
         selectedRandomizeSeqPreset = randomizeSeqPresetCustom;
-        /*
-        tracks = new ArrayList<>();
-        for(RndSeqPresetTrackKeeper k : keeper.rndSeqPresetTrackKeepers){
-            tracks.add(new RndSeqPresetTrack(llppdrums, k));
-        }
-
-         */
     }
 }

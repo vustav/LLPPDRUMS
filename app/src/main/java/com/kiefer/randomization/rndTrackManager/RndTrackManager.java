@@ -88,7 +88,7 @@ public class RndTrackManager {
     public void randomize(RndSeqPresetTrack rndTrack){
         Random r = new Random();
 
-        drumTrack.reset(false);
+        //drumTrack.reset(false);
 
         drumTrack.setNOfSubs(666, rndTrack.getnOfSubs()); //trackNo doesn't matter since the drumTrack is the subilizer
 

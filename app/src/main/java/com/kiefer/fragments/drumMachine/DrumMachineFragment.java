@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kiefer.R;
 import com.kiefer.fragments.TabFragment;
 import com.kiefer.graphics.customViews.CSpinnerButton;
+import com.kiefer.popups.fxManager.FxManagerPopup;
 import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.popups.sequencer.CopyFromPopup;
 import com.kiefer.popups.sequencer.TempoPopup;
@@ -202,6 +203,23 @@ public class DrumMachineFragment extends TabFragment {
         FrameLayout tempoContainer = rootView.findViewById(R.id.sequenceTempoContainer);
         tempoContainer.addView(tempoSpinnerBtn);
         //setTempo(llppdrums.getDrumMachine().getSelectedSequence().getTempo());
+
+        //fx
+        Button fxBtn = rootView.findViewById(R.id.sequencerFxBtn);
+        FrameLayout fxBtnGraphics = rootView.findViewById(R.id.sequencerFxBtnGraphics);
+        LinearLayout fxGraphics = llppdrums.getDrumMachine().getSelectedSequence().getFxBtnGraphics();
+        if (fxGraphics.getParent() != null) {
+            ((ViewGroup) fxGraphics.getParent()).removeView(fxGraphics);
+        }
+        fxBtnGraphics.addView(fxGraphics);
+
+        fxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //drumMachine.openFxManagerPopup(trackNo);
+                new FxManagerPopup(llppdrums, llppdrums.getDrumMachine().getSelectedSequence());
+            }
+        });
 
         //set up the random options btn
         Button randomOptionsBtn = rootView.findViewById(R.id.sequenceRandomOptionsBtnBtn);

@@ -3,7 +3,6 @@ package com.kiefer.machine.fx;
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -12,7 +11,6 @@ import com.kiefer.R;
 import com.kiefer.files.keepers.fx.FxFlangerKeeper;
 import com.kiefer.files.keepers.fx.FxKeeper;
 import com.kiefer.info.sequence.trackMenu.fxManager.FlangerInfo;
-import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.NmbrUtils;
 
@@ -24,8 +22,8 @@ public class FxFlanger extends Fx {
     private float rate, width, feedback, delay, mix;
     private SeekBar rateSeekBar, widthSeekBar, feedbackSeekBar, delaySeekBar, mixSeekBar;
 
-    public FxFlanger(LLPPDRUMS llppdrums, DrumTrack drumTrack, int fxNo, boolean automation){
-        super(llppdrums, drumTrack, fxNo, automation);
+    public FxFlanger(LLPPDRUMS llppdrums, FXer fxer, int fxNo, boolean automation){
+        super(llppdrums, fxer, fxNo, automation);
 
         Random r = new Random();
 
@@ -46,18 +44,6 @@ public class FxFlanger extends Fx {
         paramNames.add(llppdrums.getResources().getString(R.string.fxFlangerDelay));
         paramNames.add(llppdrums.getResources().getString(R.string.fxFlangerMix));
     }
-
-    /** SELECTION **/
-    /*
-    public void select(){
-        rateSeekBar.setProgress((int)(rate * floatMultiplier));
-        widthSeekBar.setProgress((int)(width * floatMultiplier));
-        feedbackSeekBar.setProgress((int)(feedback * floatMultiplier));
-        delaySeekBar.setProgress((int)(delay * floatMultiplier));
-        mixSeekBar.setProgress((int)(mix * floatMultiplier));
-    }
-
-     */
 
     /** SET **/
     private void setRate(float value){
@@ -244,7 +230,7 @@ public class FxFlanger extends Fx {
     /** AUTOMATION **/
     @Override
     public float turnOnAutoValue(String param, float autoValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){
@@ -329,7 +315,7 @@ public class FxFlanger extends Fx {
 
     @Override
     public void turnOffAutoValue(String param, float oldValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){

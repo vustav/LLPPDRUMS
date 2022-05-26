@@ -274,6 +274,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         engineFacade.setTempo(playingSequence.getTempo());
 
         playingSequence.activate();
+        playingSequence.getFxManager().addFxsToEngineHARD();
     }
 
     /** TRANSPORT **/

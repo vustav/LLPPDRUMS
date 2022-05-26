@@ -201,6 +201,10 @@ public class EngineFacade {
         return BEAT_AMOUNT;
     }
 
+    public ProcessingChain getMasterProcessingChain(){
+        return engine.getMasterBusProcessors();
+    }
+
     public int getBEAT_UNIT() {
         return BEAT_UNIT;
     }

@@ -12,6 +12,7 @@ import com.kiefer.graphics.DrumTrackFxBtnGraphics;
 import com.kiefer.graphics.DrumTrackMixBtnGraphics;
 import com.kiefer.files.keepers.DrumTrackKeeper;
 import com.kiefer.interfaces.Subilizer;
+import com.kiefer.machine.fx.FXer;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.fx.FxManager;
@@ -25,7 +26,9 @@ import com.kiefer.utils.ImgUtils;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DrumTrack implements Subilizer, NamerColorizer {
+import nl.igorski.mwengine.core.ProcessingChain;
+
+public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     //ACCESSED
     private final LLPPDRUMS llppdrums;
     private final DrumSequence drumSequence;
@@ -646,6 +649,10 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         //return initNOfSteps;
     }
 
+    public ArrayList<ProcessingChain> getProcessingChains(){
+        return soundManager.getProcessingChains();
+    }
+
     @Override
     public int getNOfSubs(){
         return nOfSubs;
@@ -741,7 +748,7 @@ public class DrumTrack implements Subilizer, NamerColorizer {
         }
     }
 
-    /** POPUP **/
+    /** FX POPUP **/
     private FxManagerPopup fxManagerPopup;
     public void setFxManagerPopup(FxManagerPopup fxManagerPopup){
         this.fxManagerPopup = fxManagerPopup;

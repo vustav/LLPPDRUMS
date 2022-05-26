@@ -3,7 +3,6 @@ package com.kiefer.machine.fx;
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -24,8 +23,8 @@ public class FxBitCrusher extends Fx {
     private float amount, inMix, outMix;
     private SeekBar amountSeekBar, inSeekBar, outSeekBar;
 
-    public FxBitCrusher(LLPPDRUMS llppdrums, DrumTrack drumTrack, final int index, boolean automation){
-        super(llppdrums, drumTrack, index, automation);
+    public FxBitCrusher(LLPPDRUMS llppdrums, FXer fxer, final int index, boolean automation){
+        super(llppdrums, fxer, index, automation);
 
         Random r = new Random();
 
@@ -179,7 +178,7 @@ public class FxBitCrusher extends Fx {
     /** AUTOMATION **/
     @Override
     public float turnOnAutoValue(String param, float autoValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){
@@ -236,7 +235,7 @@ public class FxBitCrusher extends Fx {
 
     @Override
     public void turnOffAutoValue(String param, float oldValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){

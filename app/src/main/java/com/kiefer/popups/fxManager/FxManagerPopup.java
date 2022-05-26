@@ -21,6 +21,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.info.sequence.trackMenu.fxManager.FxManagerInfo;
+import com.kiefer.machine.fx.FXer;
 import com.kiefer.machine.fx.FxManager;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.popups.Popup;
@@ -57,13 +58,13 @@ public class FxManagerPopup extends Popup {
     private final CheckBox onCb;
     private final ImageView fxInfoBtn;
 
-    public FxManagerPopup(final LLPPDRUMS llppdrums, final DrumTrack drumTrack){
+    public FxManagerPopup(final LLPPDRUMS llppdrums, final FXer fxer){
         super(llppdrums);
-        this.fxManager = drumTrack.getFxManager();
+        this.fxManager = fxer.getFxManager();
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_fx_manager, null);
-        popupView.setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getFxManager().getFxManagerImgId()));
+        popupView.setBackground(ContextCompat.getDrawable(llppdrums, fxer.getFxManager().getFxManagerImgId()));
 
         //create the popupWindow
         int width = (int) llppdrums.getResources().getDimension(R.dimen.defaultSeekBarWidth) + (int) llppdrums.getResources().getDimension(R.dimen.autoViewHolderWidth) + (int) llppdrums.getResources().getDimension(R.dimen.fxViewHolderWidth) + (int) llppdrums.getResources().getDimension(R.dimen.marginLarge) * 5;
@@ -75,10 +76,10 @@ public class FxManagerPopup extends Popup {
         popupWindow.setAnimationStyle(R.style.popup_animation);
 
         //setup the TV
-        String name = llppdrums.getResources().getString(R.string.fxManagerLabel) + drumTrack.getName();
+        String name = llppdrums.getResources().getString(R.string.fxManagerLabel) + fxer.getName();
         TextView label = popupView.findViewById(R.id.fxManagerLabel);
         label.setText(name);
-        int bgColor = drumTrack.getColor();
+        int bgColor = fxer.getColor();
         label.setBackgroundColor(bgColor);
         label.setTextColor(ColorUtils.getContrastColor(bgColor));
 
@@ -238,12 +239,11 @@ public class FxManagerPopup extends Popup {
         show(popupWindow);
 
         //let drumTrack know that a window is being shown (and that it's not when dismissed)
-        drumTrack.setFxManagerPopup(this);
+        fxer.setFxManagerPopup(this);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
             @Override
             public void onDismiss() {
-                drumTrack.setFxManagerPopup(null);
+                fxer.setFxManagerPopup(null);
             }
         });
     }

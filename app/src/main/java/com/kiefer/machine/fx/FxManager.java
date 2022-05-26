@@ -8,9 +8,9 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.fx.FxKeeper;
 import com.kiefer.files.keepers.fx.FxManagerKeeper;
+import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.popups.fxManager.FxManagerPopup;
-import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.ArrayList;
@@ -19,15 +19,15 @@ import java.util.Random;
 import nl.igorski.mwengine.core.ProcessingChain;
 
 public class FxManager {
-    private LLPPDRUMS llppdrums;
+    protected LLPPDRUMS llppdrums;
     //private FxManagerUser fxManagerUser;
-    private DrumTrack drumTrack;
-    private ArrayList<Fx> fxs;
+    protected FXer fxer;
+    protected ArrayList<Fx> fxs;
 
     //used to create random fx and to poopulate the list. Otherwise we'd have to create actual fxs to get access to the info which seems bad
-    private ArrayList<FxInfo> fxInfos;
+    protected ArrayList<FxInfo> fxInfos;
 
-    private Fx selectedFx;
+    protected Fx selectedFx;
 
     //tabManager used by the popup
     //private TabManager tabManager;
@@ -40,10 +40,9 @@ public class FxManager {
     private final int MAX_N_RND_FXS = 2;
 
     //public FxManager(LLPPDRUMS llppdrums, FxManagerUser fxManagerUser){
-    public FxManager(LLPPDRUMS llppdrums, DrumTrack drumTrack){
+    public FxManager(LLPPDRUMS llppdrums, FXer fxer){
         this.llppdrums = llppdrums;
-        this.drumTrack = drumTrack;
-        //this.drumTrack = drumTrack;
+        this.fxer = fxer;
 
         //tabManager = new TabManager(llppdrums);
 
@@ -67,20 +66,20 @@ public class FxManager {
     private Fx getNewFx(int fxNo, boolean randomizeAutomation){
         switch (fxNo){
             case 0:
-                return new FxFlanger(llppdrums, drumTrack, fxNo, randomizeAutomation);
+                return new FxFlanger(llppdrums, fxer, fxNo, randomizeAutomation);
             case 1:
-                return new FxDelay(llppdrums, drumTrack, fxNo, randomizeAutomation);
+                return new FxDelay(llppdrums, fxer, fxNo, randomizeAutomation);
             case 2:
-                return new FxReverb(llppdrums, drumTrack, fxNo, randomizeAutomation);
+                return new FxReverb(llppdrums, fxer, fxNo, randomizeAutomation);
             case 3:
-                return new FxBitCrusher(llppdrums, drumTrack, fxNo, randomizeAutomation);
+                return new FxBitCrusher(llppdrums, fxer, fxNo, randomizeAutomation);
             case 4:
-                return new FxDecimator(llppdrums, drumTrack, fxNo, randomizeAutomation);
+                return new FxDecimator(llppdrums, fxer, fxNo, randomizeAutomation);
         }
         return null;
     }
 
-    private Fx createNewFx(int i, boolean randomizeAutomation){
+    protected Fx createNewFx(int i, boolean randomizeAutomation){
         Fx fx = getNewFx(i, randomizeAutomation);
         selectedFx = fx; //created are always selected
         fxs.add(fx);
@@ -96,8 +95,8 @@ public class FxManager {
         //}
     }
 
-    private void addFxToEngine(final Fx fx){
-        for (ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()) {
+    protected void addFxToEngine(final Fx fx){
+        for (ProcessingChain pc : fxer.getProcessingChains()) {
             pc.addProcessor(fx.getBaseProcessor());
         }
         setIndicator();
@@ -109,13 +108,13 @@ public class FxManager {
         rearrangeFxs();
     }
 
-    private void rearrangeFxs(){
-        for(ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()) {
+    protected void rearrangeFxs(){
+        for(ProcessingChain pc : fxer.getProcessingChains()) {
             if (pc != null) {
                 pc.reset();
-
                 for(Fx fx : fxs){
                     if(fx.isOn()) {
+                        //don't use addFxToEngine() here since we already loop the pcs to reset them
                         pc.addProcessor(fx.getBaseProcessor());
                     }
                 }
@@ -145,7 +144,7 @@ public class FxManager {
     }
 
     private void removeFxFromEngine(Fx fx){
-        for(ProcessingChain pc : drumTrack.getSoundManager().getProcessingChains()){
+        for(ProcessingChain pc : fxer.getProcessingChains()){
             if(pc != null){
                 pc.removeProcessor(fx.getBaseProcessor());
             }
@@ -156,7 +155,7 @@ public class FxManager {
         setIndicator();
     }
 
-    private void removeFxsFromEngine(){
+    public void removeFxsFromEngine(){
         if(fxs != null) {
             for (Fx fx : fxs) {
                 removeFxFromEngine(fx);
@@ -203,7 +202,7 @@ public class FxManager {
         setIndicator();
     }
 
-    private void setIndicator(){
+    protected void setIndicator(){
         /*
         if (llppdrums.getSequencer() != null) {
             int i = 0;
@@ -244,10 +243,13 @@ public class FxManager {
         automate(llppdrums.getEngineFacade().getStep(), false);
     }
 
-    private ArrayList<FxKeeper> keepers;
     public void deactivate(){
         resetAutomations();
+    }
 
+    /** ADD/REMOVE **/
+    public void addFxsToEngine(){
+        rearrangeFxs();
     }
 
     /** SELECTION **/

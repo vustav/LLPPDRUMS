@@ -23,8 +23,8 @@ public class FxReverb extends Fx {
     private float size, damp, mix, out;
     private SeekBar sizeSeekBar, dampSeekBar, mixSeekBar, outSeekBar;
 
-    public FxReverb(LLPPDRUMS llppdrums, DrumTrack drumTrack, int index, boolean automation){
-        super(llppdrums, drumTrack, index, automation);
+    public FxReverb(LLPPDRUMS llppdrums, FXer fxer, int index, boolean automation){
+        super(llppdrums, fxer, index, automation);
 
         Random r = new Random();
 
@@ -212,7 +212,7 @@ public class FxReverb extends Fx {
     /** AUTOMATION **/
     @Override
     public float turnOnAutoValue(String param, float autoValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){
@@ -282,7 +282,7 @@ public class FxReverb extends Fx {
 
     @Override
     public void turnOffAutoValue(String param, float oldValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){

@@ -170,7 +170,7 @@
                 android:id="@+id/sequencerTrackFxBtnGraphics"/>
         </RelativeLayout>
 
-        <!-- MIXER -->
+        <!-- VOL -->
         <RelativeLayout
             android:layout_width="@dimen/sequencerMixBtnWidth"
             android:layout_height="@dimen/btnHeightSmall"

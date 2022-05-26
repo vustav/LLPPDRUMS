@@ -1,7 +1,6 @@
 package com.kiefer.machine.fx;
 
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.View;
 
 import com.kiefer.LLPPDRUMS;
@@ -20,7 +19,7 @@ import nl.igorski.mwengine.core.BaseProcessor;
 
 public abstract class Fx implements Automatable {
     protected LLPPDRUMS llppdrums;
-    protected DrumTrack drumTrack;
+    protected FXer fxer;
     protected BaseProcessor fx;
     //protected View layout;
     protected int floatMultiplier;
@@ -36,8 +35,8 @@ public abstract class Fx implements Automatable {
     //PARAMS
     protected ArrayList<String> paramNames; //has to be populated by children!
 
-    public Fx(LLPPDRUMS llppdrums, DrumTrack drumTrack, int fxNo, boolean automation){
-        this.drumTrack = drumTrack;
+    public Fx(LLPPDRUMS llppdrums, FXer fxer, int fxNo, boolean automation){
+        this.fxer = fxer;
         this.llppdrums = llppdrums;
         this.fxNo = fxNo;
 
@@ -51,7 +50,7 @@ public abstract class Fx implements Automatable {
         automationBgId = ImgUtils.getRandomImageId();
 
         setupParamNames();
-        automationManager = new AutomationManager(llppdrums, drumTrack, this);
+        automationManager = new AutomationManager(llppdrums, fxer, this);
         if(automation){
             randomizeAutomation();
         }
@@ -172,10 +171,10 @@ public abstract class Fx implements Automatable {
 
             boolean ogOn = isOn();
 
-            if(popupShowing && drumTrack.getFxManager().getSelectedFx() == this) {
-                drumTrack.getFxManagerPopup().getOnCb().setChecked(!ogOn); //doesn't seem to be triggering the listener here...
+            if(popupShowing && fxer.getFxManager().getSelectedFx() == this) {
+                fxer.getFxManagerPopup().getOnCb().setChecked(!ogOn); //doesn't seem to be triggering the listener here...
             }
-            drumTrack.getFxManager().turnFxOn(this, !ogOn);
+            fxer.getFxManager().turnFxOn(this, !ogOn);
 
             //use 1 and 0 instead of booleans here
             if (ogOn) {
@@ -194,10 +193,10 @@ public abstract class Fx implements Automatable {
 
             boolean ogOn = oldValue == 1;
 
-            if (popupShowing && drumTrack.getFxManager().getSelectedFx() == this) {
-                drumTrack.getFxManagerPopup().getOnCb().setChecked(ogOn); //doesn't seem to be triggering the listener here...
+            if (popupShowing && fxer.getFxManager().getSelectedFx() == this) {
+                fxer.getFxManagerPopup().getOnCb().setChecked(ogOn); //doesn't seem to be triggering the listener here...
             }
-            drumTrack.getFxManager().turnFxOn(this, ogOn);
+            fxer.getFxManager().turnFxOn(this, ogOn);
         }
     }
 }

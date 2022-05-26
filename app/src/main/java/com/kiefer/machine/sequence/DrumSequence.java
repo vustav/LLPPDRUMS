@@ -2,6 +2,7 @@ package com.kiefer.machine.sequence;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.widget.LinearLayout;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
@@ -9,7 +10,12 @@ import com.kiefer.engine.EngineFacade;
 import com.kiefer.files.keepers.DrumSequenceKeeper;
 import com.kiefer.files.keepers.DrumTrackKeeper;
 import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
+import com.kiefer.graphics.DrumTrackFxBtnGraphics;
 import com.kiefer.interfaces.Tempoizer;
+import com.kiefer.machine.fx.FXer;
+import com.kiefer.machine.fx.FxManager;
+import com.kiefer.machine.fx.FxManagerSequence;
+import com.kiefer.popups.fxManager.FxManagerPopup;
 import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -27,6 +33,8 @@ import com.kiefer.utils.ImgUtils;
 import java.util.ArrayList;
 import java.util.Random;
 
+import nl.igorski.mwengine.core.ProcessingChain;
+
 /**
  * Tracks have an OscillatorManager with two Oscillators holding a SynthInstrument each. Drums
  * add/remove themselves by creating AudioEvents on those instruments. When an oscillator is turned
@@ -36,13 +44,16 @@ import java.util.Random;
  * A Sequence holds all the tracks plus the sequencerModule. A Sequencer module decides what's shown in the sequencer and the Tracks holds all the info about themselves.
  * **/
 
-public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
+public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, FXer {
 
     private final LLPPDRUMS llppdrums;
     private final EngineFacade engineFacade;
 
     private String sequenceName;
     private ArrayList<DrumTrack> tracks;
+
+    //fx
+    private final FxManagerSequence fxManager;
 
     //rnd
     private final RndSeqManager rndSeqManager; //handles sequence-wide randomization. Tracks have their own.
@@ -62,6 +73,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
 
     //gfx
     //private final LinearLayout fxBtnGraphics, mixerBtnGraphics;
+    private final LinearLayout fxBtnGraphics;
 
     //bgs
     private final int copyFromBgId, tempoBgId, subsBgId, trackRndManagerBg;
@@ -79,8 +91,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         this.engineFacade = engineFacade;
 
         bitmapId = ImgUtils.getRandomImageId();
-        //tabColor = ColorUtils.getRandomColor();
-        //backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
+        fxBtnGraphics = new DrumTrackFxBtnGraphics(llppdrums).getLayout();
 
         stepsGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         tempoGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
@@ -91,6 +102,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         tempoBgId = ImgUtils.getRandomImageId();
         subsBgId = ImgUtils.getRandomImageId();
         trackRndManagerBg = ImgUtils.getRandomImageId();
+
+        fxManager = new FxManagerSequence(llppdrums, this);
 
         String name;
         Random random = new Random();
@@ -119,10 +132,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         else{
             tabClr = ColorUtils.getRandomColor();
         }
-        //Log.e("DrumSequence", "keeper.tabColor, color: "+keeper.tabColor);
-        //Log.e("DrumSequence", "constr, color: "+tabClr);
         tabColor = tabClr;
-        //tabColor = ColorUtils.getRandomColor();
         backgroundGradient = ColorUtils.getGradientDrawable(tabColor, ColorUtils.getRandomColor(), Tab.HORIZONTAL);
 
         //use default tempo if no keeper
@@ -220,6 +230,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         for(final DrumTrack track : tracks){
             track.activate();
         }
+
+        fxManager.addFxsToEngine();
     }
 
     public void deactivate(){
@@ -239,6 +251,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         for(final DrumTrack track : tracks){
             track.deactivate();
         }
+
+        fxManager.removeFxsFromEngine();
     }
 
     /** SELECTION **/
@@ -332,53 +346,14 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         }
     }
 
-    /*
-    public void addTrack(DrumSequenceKeeper keeper){
-        //create a drumTrack
-        DrumTrack drumTrack;
-
-        if (keeper != null) {
-            DrumTrackKeeper dtk = keeper.drumTrackKeepers.get(tracks.size());
-            drumTrack = new DrumTrack(llppdrums, this, keeper.nOfSteps, dtk);
-        }
-        //if keeper is null it's either no keeper (use default), or a track is added by a btn (no keeper provided, but use getNOfSteps())
-        else{
-            if(tracks.size() != 0) {
-                drumTrack = new DrumTrack(llppdrums, this, getNOfSteps(), null);
-            }
-            else{
-                drumTrack = new DrumTrack(llppdrums, this, llppdrums.getResources().getInteger(R.integer.defaultNOfSteps), null);
-            }
-        }
-        tracks.add(drumTrack);
-
-        //drumTrack.deactivate();
-
-        //activate the track to add it and its drums to the engine if this sequence is playing
-        if(llppdrums.getDrumMachine() != null) {
-            if(llppdrums.getDrumMachine().getSelectedSequence() == this) {
-                llppdrums.getSequencer().addTrack();
-            }
-            if (llppdrums.getDrumMachine().getPlayingSequence() == this) {
-                drumTrack.activate();
-            }
-        }
-    }
-
-     */
-
     public void removeTrack(final int trackNo){
         if(tracks.size() > 1) {
-            //destroyTrack(trackNo);
-            //Log.e("DrumSequence", "removeTrack()");
             DrumTrack dt = tracks.remove(trackNo);
             dt.destroy();
 
             if(this == llppdrums.getDrumMachine().getSelectedSequence()) {
                 llppdrums.getSequencerUI().removeTrack(trackNo);
             }
-
-            //dt.destroy();
         }
 
         if(!llppdrums.getEngineFacade().isPlaying()){
@@ -497,6 +472,16 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         rndSeqManager.randomizeSequence();
     }
 
+    /** FX POPUP **/
+    private FxManagerPopup fxManagerPopup;
+    public void setFxManagerPopup(FxManagerPopup fxManagerPopup){
+        this.fxManagerPopup = fxManagerPopup;
+    }
+
+    public FxManagerPopup getFxManagerPopup(){
+        return fxManagerPopup;
+    }
+
     /** SET **/
     @Override
     public void setColor(int color){
@@ -587,11 +572,14 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     }
 
     public int getNOfSteps(){
-        //if(tracks.size() != 0) {
-        //return tracks.get(0).getNOfSteps();
-        //}
-        //return -1;
         return nOfSteps;
+    }
+
+    @Override
+    public ArrayList<ProcessingChain> getProcessingChains(){
+        ArrayList<ProcessingChain> chain = new ArrayList<>();
+        chain.add(llppdrums.getEngineFacade().getMasterProcessingChain());
+        return chain;
     }
 
     //OBJECTS
@@ -612,9 +600,6 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
     }
 
     public ArrayList<DrumTrack> getTracks() {
-        //Log.e("DrumSequence", "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-        //Log.e("DrumSequence", "getTracks(), size: "+tracks.size());
-        //Log.e("DrumSequence", "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
         return tracks;
     }
 
@@ -672,6 +657,14 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         return selectedSequenceModule.isInBaseMode();
     }
 
+    public LinearLayout getFxBtnGraphics() {
+        return fxBtnGraphics;
+    }
+
+    public FxManagerSequence getFxManager() {
+        return fxManager;
+    }
+
     //TABS
     @Override
     public int getTabIndex() {
@@ -689,38 +682,6 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         /** NOT USED AS TABS ANYMORE WITH THE RecyclerView. Consider removing this **/
         return -666;
     }
-
-    /*
-    public LinearLayout getMixerBtnGraphics() {
-        return mixerBtnGraphics;
-    }
-
-    public LinearLayout getFxBtnGraphics() {
-        return fxBtnGraphics;
-    }
-
-     */
-
-    /** SET **/
-
-    /** STATS **/
-    /*
-    public int getNOfEvents(){
-        int nOfEvents = 0;
-        for(DrumTrack dt : tracks){
-            nOfEvents += dt.getNOfEvents();
-        }
-        return nOfEvents;
-    }
-    public int getNOfSequencedEvents(){
-        int nOfEvents = 0;
-        for(DrumTrack dt : tracks){
-            nOfEvents += dt.getNOfSequencedEvents();
-        }
-        return nOfEvents;
-    }
-
-     */
 
     /** RETURN MEMORY **/
     //keep track if automations are going to be returned, otherwise don't do unnecessary loops
@@ -773,6 +734,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         for (DrumTrack dt : tracks){
             dt.handleSequencerPositionChange(sequencerPosition);
         }
+
+        fxManager.automate(sequencerPosition, fxManagerPopup != null);
     }
 
     /** TRANSPORT **/
@@ -789,6 +752,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
 
     /** RESET **/
     public void reset(boolean updateDrawables){
+        fxManager.reset();
         for(DrumTrack dt : tracks){
             dt.reset(updateDrawables);
         }
@@ -818,6 +782,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
         }
 
         rndSeqManager.restore(keeper.rndSeqManagerKeeper);
+        fxManager.restore(keeper.fxManagerKeeper);
     }
 
     public DrumSequenceKeeper getKeeper(){
@@ -831,6 +796,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer {
             keeper.sequenceModuleKeepers.add(sm.getKeeper());
         }
 
+        keeper.fxManagerKeeper = fxManager.getKeeper();
         keeper.selectedModule = getSelectedSequenceModuleIndex();
         keeper.tabIndex = getTabIndex();
         keeper.name = sequenceName;

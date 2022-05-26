@@ -25,8 +25,8 @@ public class FxDecimator extends Fx {
     private final int MAX_BITS = 100; /** ?????????? **/
     private SeekBar bitsSeekBar, rateSeekBar;
 
-    public FxDecimator(LLPPDRUMS llppdrums, DrumTrack drumTrack, int index, boolean automation){
-        super(llppdrums, drumTrack, index, automation);
+    public FxDecimator(LLPPDRUMS llppdrums, FXer fxer, int index, boolean automation){
+        super(llppdrums, fxer, index, automation);
 
         Random r = new Random();
 
@@ -153,7 +153,7 @@ public class FxDecimator extends Fx {
     /** AUTOMATION **/
     @Override
     public float turnOnAutoValue(String param, float autoValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){
@@ -193,7 +193,7 @@ public class FxDecimator extends Fx {
 
     @Override
     public void turnOffAutoValue(String param, float oldValue, boolean popupShowing){
-        boolean updateUI = popupShowing && drumTrack.getFxManager().getSelectedFx() == this;
+        boolean updateUI = popupShowing && fxer.getFxManager().getSelectedFx() == this;
 
         //on
         if(param.equals(paramNames.get(0))){
