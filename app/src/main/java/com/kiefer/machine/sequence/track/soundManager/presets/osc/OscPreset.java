@@ -20,8 +20,9 @@ public abstract class OscPreset extends SoundSourcePreset {
 
         maxVol = 1f;
         maxPitch = llppdrums.getResources().getInteger(R.integer.maxPitch);
-        maxAtk = llppdrums.getResources().getInteger(R.integer.maxAtkTime) / 100f;
-        maxDecay = llppdrums.getResources().getInteger(R.integer.maxDecayTime) / 100f;
+        maxAtk = llppdrums.getResources().getInteger(R.integer.maxOscAtkTime) / 100f;
+        //maxAtk = llppdrums.getResources().getInteger(R.integer.maxOscAtkTime);
+        maxDecay = llppdrums.getResources().getInteger(R.integer.maxOscDecayTime) / 100f;
     }
 
     //returns a float between min and max

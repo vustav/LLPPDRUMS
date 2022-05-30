@@ -106,7 +106,7 @@ public class OscillatorView {
 
         //atk time
         atkTimeSlider = layout.findViewById(R.id.oscAtkTimeSlider);
-        atkTimeSlider.setMax(llppdrums.getResources().getInteger(R.integer.maxAtkTime));
+        atkTimeSlider.setMax(llppdrums.getResources().getInteger(R.integer.maxOscAtkTime));
         atkTimeSlider.setProgress((int)(oscillatorManager.getOscillatorAtkTime(oscNo) * multiplier));
         atkTimeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -129,7 +129,7 @@ public class OscillatorView {
 
         //decay time
         decayTimeSlider = layout.findViewById(R.id.oscDecayTimeSlider);
-        decayTimeSlider.setMax(llppdrums.getResources().getInteger(R.integer.maxDecayTime));
+        decayTimeSlider.setMax(llppdrums.getResources().getInteger(R.integer.maxOscDecayTime));
         decayTimeSlider.setProgress((int)(oscillatorManager.getOscillatorDecayTime(oscNo) * multiplier));
         decayTimeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

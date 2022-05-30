@@ -52,9 +52,9 @@
         <item>SAWTOOTH</item>
         <item>SQUARE</item>
         <item>NOISE</item>
-        <item>PWM</item>
-        <item>KARPLUS STRONG</item>
-        <item>TABLE</item>
+        <!--<item>PWM</item>-->
+        <!--<item>KARPLUS STRONG</item>-->
+        <!--<item>TABLE</item>-->
     </string-array>
 
     <!-- SEQUENCES -->

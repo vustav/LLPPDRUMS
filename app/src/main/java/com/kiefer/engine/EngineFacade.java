@@ -287,32 +287,7 @@ public class EngineFacade {
 
     }
 
-    /*
-    private void postStats(int step){
-        String tag = "STATS";
-        if(step == 0) {
-            Log.e(tag, "---------------------------------------------");
-
-            for (int trackNo = 0; trackNo < tracks.size(); trackNo++) { //tracks
-                EngineTrack engineTrack = tracks.get(trackNo);
-                Log.e(tag, "track: "+trackNo+", oscillators: "+tracks.get(trackNo).getNOfInstruments());
-                for (int oscillatorNo = 0; oscillatorNo < engineTrack.getOscillators().length; oscillatorNo++) { //instruments
-
-                    Oscillator oscillator = engineTrack.getOscillators()[oscillatorNo];
-
-                    if (oscillator != null) {
-                        Log.e(tag, "track: "+trackNo+", oscillator: " + oscillatorNo + ", events: " + oscillator.getNoOfEvents());
-                    }
-                }
-            }
-        }
-    }
-
-     */
-
     /** sSTATE CHANGE MESSAGE LISTENER **/
-
-
     private class StateObserver implements MWEngine.IObserver {
         private final Notifications.ids[] _notificationEnums = Notifications.ids.values(); // cache the enumerations (from native layer) as int Array
         public void handleNotification( final int aNotificationId ) {
@@ -379,10 +354,17 @@ public class EngineFacade {
         loadWAVAsset("Electronic-Tom-3.wav", "Electronic-Tom-3");
         loadWAVAsset("Electronic-Tom-4.wav", "Electronic-Tom-4");
 
-        //MISC
+        //HAND
         loadWAVAsset("Hand-Drum.wav", "Hand-Drum");
         loadWAVAsset("Hi-Bongo.wav", "Hi-Bongo");
         loadWAVAsset("High-Conga-2.wav", "High-Conga-2");
+
+        //CRASH
+        loadWAVAsset("drum-crash-3_5bpm_E_major.wav", "drum-crash-3_5bpm_E_major");
+        loadWAVAsset("drum-crash-4_5bpm_E_major.wav", "drum-crash-4_5bpm_E_major");
+        loadWAVAsset("drum-crash_1bpm_E_minor.wav", "drum-crash_1bpm_E_minor");
+        loadWAVAsset("future-drum-hit-crash-2_3bpm_C_minor.wav", "future-drum-hit-crash-2_3bpm_C_minor");
+        loadWAVAsset("future-drum-hit-crash_3bpm_E_major.wav", "future-drum-hit-crash_3bpm_E_major");
     }
 
     private void loadWAVAsset(String assetName, String sampleName) {

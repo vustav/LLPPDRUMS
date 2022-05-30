@@ -12,9 +12,12 @@ import com.kiefer.machine.sequence.track.soundManager.SoundSource;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategory;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryBass;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryCrash;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHHClosed;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHHOpen;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHandDrums;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryMisc;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryRide;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategorySnare;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryTom;
 import com.kiefer.utils.ImgUtils;
@@ -91,7 +94,10 @@ public class SmplManager extends SoundSource {
         presets.add(new SampleCategoryHHClosed());
         presets.add(new SampleCategoryHHOpen());
         presets.add(new SampleCategoryTom());
-        presets.add(new SampleCategoryMisc());
+        presets.add(new SampleCategoryCrash());
+        presets.add(new SampleCategoryRide());
+        presets.add(new SampleCategoryHandDrums());
+        //presets.add(new SampleCategoryMisc());
     }
 
     /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/

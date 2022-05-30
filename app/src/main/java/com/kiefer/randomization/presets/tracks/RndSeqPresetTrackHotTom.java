@@ -16,7 +16,7 @@ public class RndSeqPresetTrackHotTom extends RndSeqPresetTrack{
         for(int step = 0; step < nOfSteps; step++){
             for(int sub = 0; sub < nOfSubs; sub++) {
                 setSubPerc(step, sub, r.nextFloat() * .3f);
-                setSubVolInterval(step, sub, 5f, .7f);
+                setSubVolInterval(step, sub, .3f, .6f);
                 setSubPitchInterval(step, sub, .4f, .5f);
             }
             setStepPanInterval(step, -1f, 1f);

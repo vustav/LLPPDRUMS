@@ -38,7 +38,7 @@ public class OscPresetHHClosed extends OscPreset {
         osc1.setVolume(getRndmizer(.8f, 1));
         osc1.setOscillatorPitch((int)(maxPitch * .9 * getMiniRandomMultiplier()));
         osc1.setAttackTime(maxAtk / 35f * getMiniRandomMultiplier());
-        osc1.setDecayTime(maxDecay / 35f * getMiniRandomMultiplier());
+        osc1.setDecayTime(maxDecay / 8f * getMiniRandomMultiplier());
         osc1.setOn(true);
     }
 

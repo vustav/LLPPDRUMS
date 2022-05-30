@@ -8,7 +8,7 @@ import com.kiefer.utils.NmbrUtils;
 public class RndSeqPresetTrackHHJazz extends RndSeqPresetTrack {
 
     public RndSeqPresetTrackHHJazz(LLPPDRUMS llppdrums, int nOfSteps){
-        super(llppdrums, SoundSourcePreset.HHOpen, nOfSteps, 4, llppdrums.getResources().getString(R.string.trackPresetHHBasicName));
+        super(llppdrums, SoundSourcePreset.RIDE, nOfSteps, 4, llppdrums.getResources().getString(R.string.trackPresetHHBasicName));
 
         for(int step = 0; step < nOfSteps; step++){
             for(int sub = 0; sub < 4; sub++) {

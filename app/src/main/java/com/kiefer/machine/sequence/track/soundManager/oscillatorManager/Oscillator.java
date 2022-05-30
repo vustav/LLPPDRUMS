@@ -1,6 +1,5 @@
 package com.kiefer.machine.sequence.track.soundManager.oscillatorManager;
 
-import android.os.CountDownTimer;
 import android.util.Log;
 
 import com.kiefer.Deleter;
@@ -141,7 +140,7 @@ public class Oscillator {
     }
 
     private float getRandomAtk(){
-        return random.nextFloat() * llppdrums.getResources().getInteger(R.integer.maxAtkTime) / 100;
+        return random.nextFloat() * llppdrums.getResources().getInteger(R.integer.maxOscAtkTime) / 100;
     }
 
     public void randomizeDecay(){
@@ -149,7 +148,7 @@ public class Oscillator {
     }
 
     private float getRandomDecay(){
-        return random.nextFloat() * llppdrums.getResources().getInteger(R.integer.maxDecayTime) / 100;
+        return random.nextFloat() * llppdrums.getResources().getInteger(R.integer.maxOscDecayTime) / 100;
     }
 
     /** SET **/

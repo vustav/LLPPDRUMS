@@ -7,6 +7,8 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
 
+import java.util.Random;
+
 public class OscPresetSnare extends OscPreset {
 
     public OscPresetSnare(LLPPDRUMS llppdrums){
@@ -22,15 +24,27 @@ public class OscPresetSnare extends OscPreset {
         osc0.setVolume(.9f * getMiniRandomMultiplier());
         osc0.setOscillatorPitch((int)((maxPitch / 5) * getMiniRandomMultiplier()));
         osc0.setAttackTime(maxAtk / 20f * getMiniRandomMultiplier());
-        osc0.setDecayTime(maxDecay * random.nextFloat() * random.nextFloat());
+        //osc0.setDecayTime(maxDecay * random.nextFloat() * random.nextFloat() * random.nextFloat());
+        float decayMultiplier = (1f - (random.nextFloat() * .9f)) * .6f;
+        //float decayMultiplier = random.nextFloat() * .3f;
+        osc0.setDecayTime(maxDecay / 3f * decayMultiplier);
         osc0.setOn(true);
 
-        osc1.setWaveForm(5); //PWM
+        //osc1.setWaveForm(5); //PWM
+
+        /*
+        Random r = new Random();
+        osc1.setWaveForm(r.nextInt(oscillatorManager.getWaves().length));
         osc1.setVolume(.8f * getMiniRandomMultiplier());
         osc1.setOscillatorPitch((int)((maxPitch / 5) * getMiniRandomMultiplier()));
         osc1.setAttackTime(maxAtk / 20f * getMiniRandomMultiplier());
-        osc1.setDecayTime(maxDecay * random.nextFloat() * random.nextFloat());
-        osc1.setOn(true);
+        //osc1.setDecayTime(maxDecay * random.nextFloat() * random.nextFloat() * random.nextFloat());
+        decayMultiplier = (1f - (random.nextFloat() * .9f)) * .6f;
+        //decayMultiplier = random.nextFloat() * .3f;
+        osc1.setDecayTime(maxDecay / 3f * decayMultiplier);
+
+         */
+        osc1.setOn(false);
     }
 
     @Override

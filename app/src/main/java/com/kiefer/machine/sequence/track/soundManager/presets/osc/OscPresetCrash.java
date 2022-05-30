@@ -9,9 +9,11 @@ import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.Oscillat
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
-public class OscPresetHHOpen extends OscPresetHHClosed {
+/** COPY OF HHOpen -- FIXXX!!! **/
 
-    public OscPresetHHOpen(LLPPDRUMS llppdrums){
+public class OscPresetCrash extends OscPresetHHClosed {
+
+    public OscPresetCrash(LLPPDRUMS llppdrums){
         super(llppdrums);
     }
 
@@ -22,38 +24,17 @@ public class OscPresetHHOpen extends OscPresetHHClosed {
         Oscillator osc1 = oscillatorManager.getOscillators()[1];
 
         //add some decay to make it sound open
-        float decayMultiplier = 1f - (random.nextFloat() * .4f);
-        osc0.setDecayTime(maxDecay / 3f * decayMultiplier);
+        float decayMultiplier = 1f - (random.nextFloat() * .1f);
+        osc0.setDecayTime(maxDecay * .8f * decayMultiplier);
         osc0.setOn(true);
 
-        decayMultiplier = 1f - (random.nextFloat() * .4f);
-        osc1.setDecayTime(maxDecay / 4f * decayMultiplier);
+        decayMultiplier = 1f - (random.nextFloat() * .1f);
+        osc1.setDecayTime(maxDecay * .8f * decayMultiplier);
         osc1.setOn(true);
     }
 
     @Override
     public String getName(){
-        return SoundSourcePreset.HHOpen;
+        return SoundSourcePreset.CRASH;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -28,7 +28,7 @@ public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
         RndSeqPresetTrack track  = new RndSeqPresetTrackBassBasic(llppdrums, steps, 1, beats);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
-        track.setRandomizeVol(false);
+        track.setRandomizeVol(true);
         tracks.add(track);
 
         track.setSubPerc(8, 0, 1);
@@ -39,7 +39,7 @@ public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
         track  = new RndSeqPresetTrackSnareBasic(llppdrums, steps, 2, beats);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
-        track.setRandomizeVol(false);
+        track.setRandomizeVol(true);
         tracks.add(track);
 
         for(int step = 7; step<steps; step++){
@@ -52,7 +52,7 @@ public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
         track.setPresetCategory(SoundSourcePreset.RANDOM);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
-        track.setRandomizeVol(false);
+        track.setRandomizeVol(true);
         tracks.add(track);
 
         for(int step = 7; step < steps; step++){
@@ -64,7 +64,7 @@ public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
         track  = new RndSeqPresetTrackRandom(llppdrums, steps, 1);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
-        track.setRandomizeVol(false);
+        track.setRandomizeVol(true);
         tracks.add(track);
 
         for(int step = 7; step<steps; step++){
