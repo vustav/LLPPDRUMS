@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.controller.Controller;
@@ -19,6 +20,7 @@ import com.kiefer.popups.info.InfoPopup;
 public class ControllerFragment extends Fragment {
     private LLPPDRUMS llppdrums;
     private Controller controller;
+    TextView notImpTV;
 
     public ControllerFragment() {
         // Required empty public constructor
@@ -44,6 +46,8 @@ public class ControllerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_controller, container, false);
+
+        notImpTV = view.findViewById(R.id.controllerNotImplemented);
 
         FrameLayout counterHolder = view.findViewById(R.id.controllerCounterHolder);
         counterHolder.addView(llppdrums.getController().getSequenceManager().getCounter().getControllerLayout());
@@ -93,10 +97,19 @@ public class ControllerFragment extends Fragment {
         });
 
         final Button funBtn = view.findViewById(R.id.controllerFunBtn);
-        funBtn.setOnClickListener(new View.OnClickListener() {
+        funBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                //controller.funBtnPressed();
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        showNotImplemented(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        showNotImplemented(false);
+                        break;
+                }
+                return false;
             }
         });
 
@@ -119,6 +132,15 @@ public class ControllerFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void showNotImplemented(boolean show){
+        if(show) {
+            notImpTV.setVisibility(View.VISIBLE);
+        }
+        else{
+            notImpTV.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

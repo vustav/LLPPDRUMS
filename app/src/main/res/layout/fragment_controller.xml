@@ -1,119 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="3">
+    android:layout_height="match_parent">
 
-    <!-- SEQ BOXES -->
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/controllerCounterHolder"
-        android:layout_weight="1"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="3">
 
-    <!-- BTNS -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
-
-        <!-- PREV -->
-        <ImageView
-            android:layout_width="@dimen/controllerChangeSeqWidth"
-            android:layout_height="@dimen/controllerChangeSeqWidth"
-            android:id="@+id/controllerPrevSeqBtn"
-            android:src="@drawable/anim_button_orange_red"
-            android:rotation="180"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="-80dp"/>
-
-        <LinearLayout
+        <!-- SEQ BOXES -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="2"
+            android:layout_height="0dp"
+            android:id="@+id/controllerCounterHolder"
+            android:layout_weight="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"/>
 
-            android:layout_toEndOf="@id/controllerPrevSeqBtn"
-            android:layout_toStartOf="@id/controllerNextSeqBtn">
+        <!-- BTNS -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
 
-            <!-- SEQ -->
-            <RelativeLayout
-                android:layout_width="0dp"
+            <!-- PREV -->
+            <ImageView
+                android:layout_width="@dimen/controllerChangeSeqWidth"
+                android:layout_height="@dimen/controllerChangeSeqWidth"
+                android:id="@+id/controllerPrevSeqBtn"
+                android:src="@drawable/anim_button_orange_red"
+                android:rotation="180"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="-80dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:weightSum="2"
 
-                <!-- BTN -->
-                <Button
-                    android:layout_width="match_parent"
+                android:layout_toEndOf="@id/controllerPrevSeqBtn"
+                android:layout_toStartOf="@id/controllerNextSeqBtn">
+
+                <!-- SEQ -->
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/controllerSeqBtn"/>
+                    android:layout_weight="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SEQ"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/buttonTxtColor"
-                    android:textSize="@dimen/controllerButtonsTxt"/>
+                    <!-- BTN -->
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/controllerSeqBtn"/>
 
-                <!-- EDIT -->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/controllerSeqEditBtn"
-                    android:text="EDIT"/>
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SEQ"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/buttonTxtColor"
+                        android:textSize="@dimen/controllerButtonsTxt"/>
 
-            <!-- FUN -->
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                    <!-- EDIT -->
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/controllerSeqEditBtn"
+                        android:text="EDIT"/>
+                </RelativeLayout>
 
-                <!-- BTN -->
-                <Button
-                    android:layout_width="match_parent"
+                <!-- FUN -->
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/controllerFunBtn"/>
+                    android:layout_weight="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FUN"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/buttonTxtColor"
-                    android:textSize="@dimen/controllerButtonsTxt"/>
+                    <!-- BTN -->
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/controllerFunBtn"/>
 
-                <!-- EDIT -->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/controllerFunEditBtn"
-                    android:text="EDIT"/>
-            </RelativeLayout>
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FUN"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/buttonTxtColor"
+                        android:textSize="@dimen/controllerButtonsTxt"/>
 
-        <!-- NEXT -->
-        <ImageView
-            android:layout_width="@dimen/controllerChangeSeqWidth"
-            android:layout_height="@dimen/controllerChangeSeqWidth"
-            android:id="@+id/controllerNextSeqBtn"
-            android:src="@drawable/anim_button_orange_red"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="-80dp"
+                    <!-- EDIT -->
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/controllerFunEditBtn"
+                        android:text="EDIT"/>
+                </RelativeLayout>
+            </LinearLayout>
 
-            android:layout_alignParentEnd="true"/>
+            <!-- NEXT -->
+            <ImageView
+                android:layout_width="@dimen/controllerChangeSeqWidth"
+                android:layout_height="@dimen/controllerChangeSeqWidth"
+                android:id="@+id/controllerNextSeqBtn"
+                android:src="@drawable/anim_button_orange_red"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="-80dp"
 
-        <!-- HELP -->
-        <ImageView
-            android:layout_width="@dimen/infoBtnSize"
-            android:layout_height="@dimen/infoBtnSize"
-            android:src="@drawable/anim_icon_info_btn"
-            android:id="@+id/controllerInfoBtn"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+                android:layout_alignParentEnd="true"/>
 
-</LinearLayout>
+            <!-- HELP -->
+            <ImageView
+                android:layout_width="@dimen/infoBtnSize"
+                android:layout_height="@dimen/infoBtnSize"
+                android:src="@drawable/anim_icon_info_btn"
+                android:id="@+id/controllerInfoBtn"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/controllerNotImplemented"
+        android:layout_centerInParent="true"
+        android:textColor="#D50202"
+        android:text="NOT IMPLEMENTED!!!"
+        android:textSize="60dp"
+        android:visibility="invisible"/>
+</RelativeLayout>
