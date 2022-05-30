@@ -332,8 +332,18 @@ public class SequenceManager {
     public void setStepSelection(int step, int seq){
         selectedSequences.set(step, drumSequences.get(seq));
         counter.setStepText(step, drumSequences.get(seq).getName());
+
         counter.setStepColor(step, drumSequences.get(seq).getColor());
 
+        //if the step is selected in controller set the border to the contrast color
+        if(llppdrums.getController() != null){
+            if(step == llppdrums.getController().getSelectedSeqIndex()) {
+                counter.getControllerLayout().getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(ColorUtils.getContrastColor(drumSequences.get(seq).getColor()));
+            }
+            else{
+                counter.getControllerLayout().getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(drumSequences.get(seq).getColor());
+            }
+        }
     }
 
     public void setRandomizeProgress(boolean randomizeProgress){
