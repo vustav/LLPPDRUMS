@@ -75,15 +75,11 @@ public class ControllerInfo extends InfoHolder implements Info {
         layout.addView(nodeLayout);
 
         /** ARROWS **/
-        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_double_iv_tv_hor, null);
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_hor, null);
 
         //add the first image
-        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV1);
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
         nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_contr_left));
-
-        //and the second
-        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV2);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_contr_right));
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.controllerArrowsTxt);

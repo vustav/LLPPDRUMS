@@ -120,41 +120,8 @@ public class KeeperFileHandler {
     }
 
     public void deleteFile(String path){
-        //String path = mainActivity.getApplicationInfo().dataDir+"/files/";
-
         //delete the file
         File file = new File(path);
         file.delete();
-
-        /*
-        //delete all files with filename + dataFileIdentifier (bitmaps belonging to the project)
-        //File directory = new File(path);
-        File directory = new File(llppdrums.getTemplatesFolderPath());
-        File[] files = directory.listFiles();
-        if(files != null) {
-            //String deletedFileNameWithoutExtension = filename.substring(0, filename.length() - mainActivity.getString(R.string.projectFileExtension).length());
-            //String deletedFileNameWithDataID = deletedFileNameWithoutExtension + mainActivity.getString(R.string.dataFileIdentifier);
-
-            for (int i = 0; i < files.length; i++) {
-
-                ()
-
-                String testedFile = files[i].getName();
-                if(testedFile.length() > deletedFileNameWithDataID.length() &&
-                        testedFile.substring(0, deletedFileNameWithDataID.length()).equals(deletedFileNameWithDataID)){
-                    files[i].delete();
-                }
-            }
-        }
-
-        filenames.remove(filename);
-        notifyDataSetChanged();
-        dialog.dismiss();
-
-        Toast toast = Toast.makeText(mainActivity.getApplicationContext(),
-                filename + " deleted.", Toast.LENGTH_LONG);
-        toast.show();
-
-         */
     }
 }

@@ -103,7 +103,7 @@ public class SequenceManager {
     private void setupSequences(SequenceManagerKeeper keeper){
 
         selectedSequences = new ArrayList<>();
-        counter = new SequenceCounter(llppdrums, this, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxHeight), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
+        counter = new SequenceCounter(llppdrums, this, llppdrums.getResources().getInteger(R.integer.nOfSeqBoxes), (int) llppdrums.getResources().getDimension(R.dimen.controllerBoxTxt));
         counter.setSize((int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxWidth), (int) llppdrums.getResources().getDimension(R.dimen.seqManagerBoxHeight));
 
         Random r = new Random();

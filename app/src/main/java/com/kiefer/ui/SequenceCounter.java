@@ -2,6 +2,7 @@ package com.kiefer.ui;
 
 import androidx.core.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,15 +16,14 @@ import com.kiefer.utils.ColorUtils;
 import java.util.ArrayList;
 
 public class SequenceCounter extends Counter {
-    private final LinearLayout controllerLayout;
+    private LinearLayout controllerLayout;
     private final SequenceManager sequenceManager;
 
-    public SequenceCounter(LLPPDRUMS llppdrums, SequenceManager sequenceManager, int steps, int width, int height, int txtSize){
+    public SequenceCounter(LLPPDRUMS llppdrums, SequenceManager sequenceManager, int steps, int txtSize){
         super(llppdrums, steps);
         this.sequenceManager = sequenceManager;
 
-        controllerLayout = new LinearLayout(llppdrums);
-        createControllerLayout(steps, width, height, txtSize);
+        createControllerLayout(steps, txtSize);
 
         listeners = new ArrayList<>();
     }
@@ -47,10 +47,15 @@ public class SequenceCounter extends Counter {
         reset();
     }
 
-    private void createControllerLayout(int steps, int width, int height, int txtSize){
+    private void createControllerLayout(int steps, int txtSize){
+        controllerLayout = new LinearLayout(llppdrums);
+        controllerLayout.setWeightSum(steps);
+
         for(int step = 0; step < steps; step++){
             RelativeLayout stepLayout = (RelativeLayout) llppdrums.getLayoutInflater().inflate(R.layout.counter_cell_sequence_border, null);
-            LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(width, height);
+            LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            llp.setMarginStart(2);
+            llp.setMarginEnd(2);
             stepLayout.setLayoutParams(llp);
 
             //tv
@@ -110,7 +115,7 @@ public class SequenceCounter extends Counter {
     public void setStepColor(final int step, final int color){
         super.setStepColor(step, color);
         if (controllerLayout != null) {
-            controllerLayout.getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(color);
+            //controllerLayout.getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(color);
             controllerLayout.getChildAt(step).findViewById(R.id.counterCellBg).setBackgroundColor(color);
             ((TextView)controllerLayout.getChildAt(step).findViewById(R.id.counterCellTv)).setTextColor(ColorUtils.getContrastColor(color));
         }

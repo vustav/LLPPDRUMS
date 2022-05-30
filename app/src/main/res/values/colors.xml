@@ -74,6 +74,11 @@
     <color name="fxFlangerColor">#FF5722</color>
     <color name="fxBitCrusherColor">#989C94</color>
     <color name="fxDecimatorColor">#9E0404</color>
+    <color name="fxTremoloColor">#673AB7</color>
+    <color name="fxWSColor">#FFC107</color>
+    <color name="fxFFColor">#E482C4</color>
+    <color name="fxLPHPColor">#40393E</color>
+    <color name="fxLimiterColor">#000000</color>
 
     <!-- AUTOMATION -->
     <color name="automationStepOff">#989C94</color>

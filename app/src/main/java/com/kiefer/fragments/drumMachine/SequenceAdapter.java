@@ -61,10 +61,14 @@ public class SequenceAdapter extends RecyclerView.Adapter<SequenceAdapter.Sequen
                 drumMachineFragment.setColor(true);
             }
         });
+
+        //when removing a seq we sometimes get a playIcon on the wrong tab since we set the new playingSeq before removing the old. This fixes that but fix it properly some time.
+        if(llppdrums.getDrumMachine().getPlayingSequence().getTabIndex() != sequenceTabViewHolder.getAdapterPosition()) {
+            sequenceTabViewHolder.playIcon.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void updateTVColors(int selectedTabIndex){
-        //Log.e("SequenceAdapter", "updateTvColors()");
         for(int i = 0; i < drumMachineFragment.getRecyclerView().getChildCount(); i++){
             ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(i))).tv.setTextColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtColor));
             ((SequenceTabViewHolder) drumMachineFragment.getRecyclerView().getChildViewHolder(drumMachineFragment.getRecyclerView().getChildAt(i))).tv.setBackgroundColor(llppdrums.getResources().getColor(R.color.tabsInactiveTxtBgColor));

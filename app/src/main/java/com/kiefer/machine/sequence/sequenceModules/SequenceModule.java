@@ -9,14 +9,12 @@ import android.widget.ImageView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
-import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.SequenceModuleKeeper;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.AutoRandom;
 import com.kiefer.machine.sequence.sequenceModules.autoRandom.modules.AutoRandomModuleBool;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.popups.Popup;
-import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.ui.tabs.interfaces.TabHolder;
 import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -126,7 +124,7 @@ public abstract class SequenceModule implements TabHolder, Tab {
 
     /** AUTO **/
     public void setAutoValue(final DrumTrack drumTrack, String s, int sub) {
-        if(drumTrack.getOrganizeStepsSubValues().get(sub) || this instanceof OnOff) { //all modules except OnOff work only on the selected subs and ignores the others. OnOff turns off the selected subs and therefore handles this differently
+        if(drumTrack.getStepManagerSubSubValues().get(sub) || this instanceof OnOff) { //all modules except OnOff work only on the selected subs and ignores the others. OnOff turns off the selected subs and therefore handles this differently
             if (isInBaseMode()) {
                 setAutoValueBase(drumTrack, s, sub);//seqModules do their thing here
 

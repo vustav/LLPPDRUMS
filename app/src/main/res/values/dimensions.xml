@@ -101,7 +101,7 @@
     <!-- CONTROLLER -->
     <dimen name="controllerBoxWidth">30dp</dimen>
     <dimen name="controllerBoxHeight">40dp</dimen>
-    <dimen name="controllerChangeSeqWidth">200dp</dimen>
+    <dimen name="controllerChangeSeqWidth">180dp</dimen>
     <dimen name="controllerBoxTxt">8sp</dimen>
     <dimen name="controllerButtonsTxt">25sp</dimen>
 

@@ -2,7 +2,6 @@ package com.kiefer.machine.sequence.sequenceModules;
 
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
@@ -55,8 +54,8 @@ public class OnOff extends SequenceModule {
                             if (!release) {
                                 /** FÖRSÖK FIXA NÅT SÅ DEN INTE ÖPPNAS OM MAN SCROLLAR (den i DrumMachine funkar inte på onOff) **/
                                 //if(Math.abs(startX - currentX) < 1) {
-                                    //Log.e("ASD", ": "+(Math.abs(startX - currentX)));
-                                    getSubsPopup(stepIV, step);
+                                //Log.e("ASD", ": "+(Math.abs(startX - currentX)));
+                                getSubsPopup(stepIV, step);
                                 //}
                             }
                         }
@@ -71,47 +70,18 @@ public class OnOff extends SequenceModule {
             release = false;
         }
 
-        /** BUGGAR MED SNABBA KLICK MEN SKA FIXAS AV ENGINE-MAKAREN! **/
         if(action == MotionEvent.ACTION_UP){
             if(isInBaseMode()) {
                 release = true;
                 long elapseTime = (System.currentTimeMillis() - startTime);
                 if (elapseTime < llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer) || step.getNofSubs() == 1) {
-                    if (timerOnClicks) {
-                        if (readyToChange) {
-                            step.setOn(!step.isOn());
-                            final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
-                            stepIV.setImageDrawable(drawable);
-                        }
-                        readyToChange = false;
-
-                        if (timerFree) {
-                            new CountDownTimer(1400, 1400) {
-                                public void onTick(long millisUntilFinished) {
-                                    timerFree = false;
-                                }
-
-                                public void onFinish() {
-                                    timerFree = true;
-                                    readyToChange = true;
-                                }
-                            }.start();
-                        }
-                    }
-                    else {
-                        step.setOn(!step.isOn());
-                        final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
-                        stepIV.setImageDrawable(drawable);
-
-                        //setImageDrawable(step.getTrackNo(), step.getStepNo(), stepIV, getDrawable(step.getTrackNo(), step.getStepNo()));
-                    }
+                    step.setOn(!step.isOn());
+                    final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
+                    stepIV.setImageDrawable(drawable);
                 }
             }
         }
     }
-    //till timern ovan
-    private boolean timerOnClicks = false;
-    private boolean readyToChange = true, timerFree = true;
 
     /** POPUP **/
     @Override
@@ -152,7 +122,7 @@ public class OnOff extends SequenceModule {
             if (autoStepInterval != 0) {
                 if (step % autoStepInterval == 0) {
                     //if (!drum.isOn()) {
-                    drumTrack.setStepOn(step, true, drumTrack.getOrganizeStepsSubValues());
+                    drumTrack.setStepOn(step, true, drumTrack.getStepManagerSubSubValues());
                     //}
                 } else {
                     if (drum.isOn()) {
@@ -168,39 +138,6 @@ public class OnOff extends SequenceModule {
         }
         return autoStepInterval;
     }
-
-    /*
-    @Override
-    public float setAutoValueBase(final DrumTrack drumTrack, String s, int sub){
-        boolean aSubIsOn = false;
-        autoStepInterval = Integer.parseInt(s.substring(s.length()-1));
-        for (int stepNo = 0; stepNo < drumTrack.getSteps().size(); stepNo++) {
-            Step step = drumTrack.getSteps().get(stepNo);
-            if (autoStepInterval != 0) {
-                if (stepNo % autoStepInterval == 0) {
-                    step.setSubOn(sub, true);
-                    aSubIsOn = true;
-                } else {
-                    if (step.isOn()) {
-                        //drumTrack.setStepOn(stepNo, false);
-                        step.setOn(false);
-                    }
-                }
-            }
-            else {
-                if (step.isOn()) {
-                    //drumTrack.setStepOn(stepNo, false);
-                    step.setOn(false);
-                }
-            }
-            if(aSubIsOn){
-                step.setOn(true);
-            }
-        }
-        return autoStepInterval;
-    }
-
-     */
 
     @Override
     public void pushLeft(DrumTrack drumTrack){
@@ -293,7 +230,6 @@ public class OnOff extends SequenceModule {
     }
     @Override
     public void setAutoRndPerc(Step step, float perc, int sub){
-        Log.e("OnOff", "setAutoRndPerc()");
         step.setRndOnPerc(perc, sub);
     }
     @Override

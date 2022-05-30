@@ -18,17 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.files.keepers.Keeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.info.sequence.RndSeqManagerInfo;
+import com.kiefer.interfaces.Loadable;
+import com.kiefer.popups.files.LoadPopup;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.popups.Popup;
 import com.kiefer.popups.sequencer.TempoPopup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.utils.ColorUtils;
 
-public class RndSeqManagerPopup extends Popup {
+public class RndSeqManagerPopup extends Popup implements Loadable {
     private final RndSeqManager rndSeqManager;
-    private final CSpinnerButton cSpinnerButton, tempoSpinnerBtn;
+    private final CSpinnerButton tempoSpinnerBtn;
 
     //recyclerView
     final private RecyclerView recyclerView;
@@ -41,6 +45,7 @@ public class RndSeqManagerPopup extends Popup {
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_seq_rnd_options, null);
         popupView.setBackground(ContextCompat.getDrawable(llppdrums, rndSeqManager.getBgImgId()));
+
 
         //create the popupWindow
         int width = RelativeLayout.LayoutParams.MATCH_PARENT;
@@ -61,24 +66,30 @@ public class RndSeqManagerPopup extends Popup {
         popupWindow.setAnimationStyle(R.style.popup_animation);
 
         //setup the TV
+        String name = llppdrums.getResources().getString(R.string.randomizeSeqLabel) + ": " + llppdrums.getDrumMachine().getSelectedSequence().getName();
         TextView label = popupView.findViewById(R.id.seqRndOptionsLabel);
-        label.setText(llppdrums.getResources().getString(R.string.randomizeSeqLabel));
+        label.setText(name);
         int bgColor = ColorUtils.getRandomColor();
         label.setBackgroundColor(bgColor);
         label.setTextColor(ColorUtils.getContrastColor(bgColor));
 
         //set the bg of the top row
         LinearLayout presetLayout = popupView.findViewById(R.id.seqRndOptionsTopRowBg);
-        presetLayout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
+
+        int color2 = ColorUtils.getRandomColor();
+        presetLayout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), color2));
+
+        FrameLayout divider = popupView.findViewById(R.id.seqRndOptionsDivider);
+        divider.setBackgroundColor(ColorUtils.getContrastColor(color2));
 
         //preset spinner
-        cSpinnerButton = new CSpinnerButton(llppdrums);
-        cSpinnerButton.setSelection(rndSeqManager.getSelectedRandomizePreset().getName());
+        CSpinnerButton cSpinnerButton = new CSpinnerButton(llppdrums);
+        cSpinnerButton.setSelection("PRESETS");
 
         cSpinnerButton.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new RndSeqManagerPresetListPopup(llppdrums, RndSeqManagerPopup.this, rndSeqManager, cSpinnerButton);
+                new RndSeqManagerPresetListPopup(llppdrums, RndSeqManagerPopup.this, rndSeqManager);
             }
         });
 
@@ -162,10 +173,29 @@ public class RndSeqManagerPopup extends Popup {
         LinearLayout stepsLayout = popupView.findViewById(R.id.seqRndOptionsStepsLayout);
         stepsLayout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
-        //FrameLayout stepsContainer = popupView.findViewById(R.id.trackRndOptionsStepsContainer);
-        //stepsContainer.addView(stepsSpinnerBtn);
+        //load
+        Button loadBtn = popupView.findViewById(R.id.seqRndOptionsLoadBtn);
+        loadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new LoadPopup(llppdrums, RndSeqManagerPopup.this, llppdrums.getSavedRndTemplateFolderPath());
+            }
+        });
+        if(LLPPDRUMS.disableLoad){
+            loadBtn.setEnabled(false);
+        }
 
-        //setSteps(rndSeqManager.getSteps());
+        //save
+        Button saveBtn = popupView.findViewById(R.id.seqRndOptionsSaveBtn);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llppdrums.getKeeperFileHandler().writePromptName(rndSeqManager.getKeeper(), llppdrums.getSavedRndTemplateFolderPath());
+            }
+        });
+        if(LLPPDRUMS.disableLoad){
+            saveBtn.setEnabled(false);
+        }
 
         //set up the addTraxBtn
         Button addBtn = popupView.findViewById(R.id.trackRndOptionsAddTrackBtn);
@@ -205,13 +235,13 @@ public class RndSeqManagerPopup extends Popup {
     }
 
     public void addModifiedMarker(){
-        getRndSeqManager().addModifiedMarker();
-        cSpinnerButton.setSelection(rndSeqManager.getSelectedRandomizePreset().getName());
+        //getRndSeqManager().addModifiedMarker();
+        //cSpinnerButton.setSelection(rndSeqManager.getSelectedRandomizePreset().getName());
     }
 
     public void removeModifiedMarker(){
-        getRndSeqManager().removeModifiedMarker();
-        cSpinnerButton.setSelection(rndSeqManager.getSelectedRandomizePreset().getName());
+        //getRndSeqManager().removeModifiedMarker();
+        //cSpinnerButton.setSelection(rndSeqManager.getSelectedRandomizePreset().getName());
     }
 
     public void moveTrack(int from, int to){
@@ -234,18 +264,16 @@ public class RndSeqManagerPopup extends Popup {
             rndSeqManager.setTempo(tempo);
         }
     }
-    /*
-    public void setSteps(int steps){
-        //if(stepsSpinnerBtn != null) {
-            //stepsSpinnerBtn.setSelection(Integer.toString(steps));
-            rndSeqManager.setSteps(steps);
-            //notifyDataSetChanged();
-        //}
-    }
 
-     */
     /** GET **/
     public RndSeqManager getRndSeqManager(){
         return rndSeqManager;
+    }
+
+    /** LOAD **/
+    @Override
+    public void load(Keeper keeper){
+        rndSeqManager.restore((RndSeqManagerKeeper)keeper);
+        notifyDataSetChanged();
     }
 }

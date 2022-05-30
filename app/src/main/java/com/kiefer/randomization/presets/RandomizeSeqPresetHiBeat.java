@@ -2,6 +2,7 @@ package com.kiefer.randomization.presets;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackBassBasic;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHBasic;
@@ -48,12 +49,13 @@ public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
         }
 
         track  = new RndSeqPresetTrackHHBasic(llppdrums, steps, 3);
+        track.setPresetCategory(SoundSourcePreset.RANDOM);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);
         tracks.add(track);
 
-        for(int step = 7; step<steps; step++){
+        for(int step = 7; step < steps; step++){
             for(int sub = 0; sub < 3; sub++) {
                 track.randomizeStep(step, sub);
             }

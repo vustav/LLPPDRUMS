@@ -3,6 +3,7 @@ package com.kiefer.machine.fx;
 import android.graphics.drawable.GradientDrawable;
 import androidx.core.content.ContextCompat;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -22,7 +23,7 @@ import nl.igorski.mwengine.core.Decimator;
 public class FxDecimator extends Fx {
     private int bits;
     private float rate;
-    private final int MAX_BITS = 100; /** ?????????? **/
+    private final int MAX_BITS = 32;
     private SeekBar bitsSeekBar, rateSeekBar;
 
     public FxDecimator(LLPPDRUMS llppdrums, FXer fxer, int index, boolean automation){
@@ -42,18 +43,10 @@ public class FxDecimator extends Fx {
         paramNames.add(llppdrums.getResources().getString(R.string.fxDeciamtorRate));
     }
 
-    /** SELECTION **/
-    /*
-    public void select(){
-        bitsSeekBar.setProgress(bits);
-        rateSeekBar.setProgress((int)(rate * floatMultiplier));
-    }
-
-     */
-
     /** SET **/
     private void setBits(int value){
         bits = value;
+        Log.e("asd", "asd: "+bits);
         ((Decimator)fx).setBits(bits);
     }
 

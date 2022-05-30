@@ -9,15 +9,21 @@ import androidx.core.content.ContextCompat;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.files.keepers.Keeper;
+import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
 import com.kiefer.graphics.customViews.CSpinnerButton;
+import com.kiefer.interfaces.Loadable;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.popups.Popup;
 import com.kiefer.utils.ColorUtils;
 
 public class RndSeqManagerPresetListPopup extends Popup {
+    private final RndSeqManager rndSeqManager;
 
-    public RndSeqManagerPresetListPopup(LLPPDRUMS llppdrums, final RndSeqManagerPopup rndSeqManagerPopup, final RndSeqManager rndSeqManager, final CSpinnerButton btn){
+    public RndSeqManagerPresetListPopup(LLPPDRUMS llppdrums, final RndSeqManagerPopup rndSeqManagerPopup, final RndSeqManager rndSeqManager){
         super(llppdrums);
+
+        this.rndSeqManager = rndSeqManager;
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_list, null);
@@ -37,12 +43,12 @@ public class RndSeqManagerPresetListPopup extends Popup {
         for(int i = 0; i < rndSeqManager.getRndSeqPresets().size(); i++){
             TextView tv = new TextView(llppdrums);
 
-            //remove any * from the end of the string
             String name = rndSeqManager.getRndSeqPresets().get(i).getName();
-            if((name.substring(name.length()-1).equals(llppdrums.getResources().getString(R.string.randomizerModifiedName)))) {
-                name = name.substring(0, name.length()-1);
-            }
 
+            //remove any * from the end of the string
+            //if((name.substring(name.length()-1).equals(llppdrums.getResources().getString(R.string.randomizerModifiedName)))) {
+                //name = name.substring(0, name.length()-1);
+            //}
             tv.setText(name);
 
             int color;
@@ -62,7 +68,7 @@ public class RndSeqManagerPresetListPopup extends Popup {
                 public void onClick(View view) {
                     rndSeqManager.setSelectedRandomizePreset(rndSeqManager.getRndSeqPresets().get(finalI).getName());
                     rndSeqManagerPopup.removeModifiedMarker();
-                    btn.setSelection(rndSeqManager.getRndSeqPresets().get(finalI).getName());
+                    //btn.setSelection(rndSeqManager.getRndSeqPresets().get(finalI).getName());
                     rndSeqManagerPopup.notifyDataSetChanged();
                     rndSeqManagerPopup.setTempo(rndSeqManager.getTempo()); //update the tempo-spinner
                     popupWindow.dismiss();
@@ -70,7 +76,6 @@ public class RndSeqManagerPresetListPopup extends Popup {
             });
             listLayout.addView(tv);
         }
-        //popupWindow.showAsDropDown(btn, 0, -100);
         show(popupWindow);
     }
 }

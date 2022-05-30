@@ -1,7 +1,6 @@
 package com.kiefer.machine.sequence.track;
 
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -49,7 +48,7 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     //data
     private ArrayList<Step> steps;
-    private final ArrayList<Boolean> organizeStepsSubValues;
+    private final ArrayList<Boolean> stepManagerSubValues;
 
     //private int initNOfSteps;
     private int nOfSubs;
@@ -75,13 +74,13 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
         randomizeName();
         color = ColorUtils.getRandomColor();
 
-        organizeStepsSubValues = new ArrayList<>();
+        stepManagerSubValues = new ArrayList<>();
         for(int i = 0; i<nOfSubs; i++){
             if(i == 0){
-                organizeStepsSubValues.add(true);
+                stepManagerSubValues.add(true);
             }
             else{
-                organizeStepsSubValues.add(false);
+                stepManagerSubValues.add(false);
             }
         }
 
@@ -117,7 +116,6 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     }
 
     public Step addStep(boolean on, int subs){
-        //Log.e("DrumTrack", "addStep()");
         Step step = new Step(llppdrums, this, soundManager, subs, on);
         steps.add(step);
         fxManager.addStep();
@@ -159,12 +157,12 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
             }
         }
 
-        //update autoStepValues
-        while(organizeStepsSubValues.size() < nOfSubs){
-            organizeStepsSubValues.add(false);
+        //update stepManagerValues
+        while(stepManagerSubValues.size() < nOfSubs){
+            stepManagerSubValues.add(false);
         }
-        while(organizeStepsSubValues.size() > nOfSubs){
-            organizeStepsSubValues.remove(organizeStepsSubValues.size()-1);
+        while(stepManagerSubValues.size() > nOfSubs){
+            stepManagerSubValues.remove(stepManagerSubValues.size()-1);
         }
     }
 
@@ -242,11 +240,14 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     }
 
     public void pushLeft(int interval){
-        boolean sequencePlaying = llppdrums.getDrumMachine().getPlayingSequence() == llppdrums.getDrumMachine().getSelectedSequence();
-
         //remove the first drum and add a new to the end
         steps.remove(0).destroy();
         Step step = addStep(false, nOfSubs);
+
+        //set subs to stepManagerSubValues
+        for(int i = 0; i < stepManagerSubValues.size(); i++){
+            step.setSubOn(i, stepManagerSubValues.get(i));
+        }
 
         switch (interval) {
             case 1:
@@ -321,8 +322,12 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     public void pushRight(int interval){
         steps.remove(steps.size() - 1).destroy();
-        //Step step = addStep(false, getNOfSteps(), subs);
         Step step = addStep(0, false); //when adding a drum at a position we don't need to update the drums positions since its done there
+
+        //set subs to stepManagerSubValues
+        for(int i = 0; i < stepManagerSubValues.size(); i++){
+            step.setSubOn(i, stepManagerSubValues.get(i));
+        }
 
         switch (interval) {
             case 1:
@@ -410,14 +415,14 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
         if(drumSequence == llppdrums.getDrumMachine().getSelectedSequence()) {
             for (int step = 0; step < steps.size(); step++) {
                 //try {
-                    final ImageView iv = llppdrums.getSequencerUI().getStepIV(getTrackNo(), step);
-                    final Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(getTrackNo(), step);
-                    if (iv != null) {
-                        iv.setImageDrawable(drawable);
-                    }
+                final ImageView iv = llppdrums.getSequencerUI().getStepIV(getTrackNo(), step);
+                final Drawable drawable = llppdrums.getDrumMachine().getSelectedSequence().getSelectedSequenceModule().getDrawable(getTrackNo(), step);
+                if (iv != null) {
+                    iv.setImageDrawable(drawable);
+                }
                 //}
                 //catch (Exception e){
-                    //Log.e("rack.updateDrawables()", Objects.requireNonNull(e.getMessage()));
+                //Log.e("rack.updateDrawables()", Objects.requireNonNull(e.getMessage()));
                 //}
             }
 
@@ -546,12 +551,12 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     }
 
     public void setOrganizeStepsSubValue(int sub, boolean on){
-        organizeStepsSubValues.set(sub, on);
+        stepManagerSubValues.set(sub, on);
     }
 
     /** GET **/
-    public ArrayList<Boolean> getOrganizeStepsSubValues(){
-        return organizeStepsSubValues;
+    public ArrayList<Boolean> getStepManagerSubSubValues(){
+        return stepManagerSubValues;
     }
 
     public DrumSequence getDrumSequence() {
@@ -641,7 +646,7 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     public int getNOfSteps(){
         //if this step isn't in the array yet this is called on creation (before it's been added) which means this is the last step
         //if(!drumTrack.getSteps().contains(this)){
-            //return drumTrack.getSteps().size();
+        //return drumTrack.getSteps().size();
         //}
         //Log.e("DrumTrack", "getNOfSteps(), steps: "+steps.size());
 
@@ -760,7 +765,7 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     /** RESET **/
     public void reset(boolean updateDrawables){
-        for(int sub = 0; sub<getNOfSubs(); sub++) {
+        for (int sub = 0; sub < getNOfSubs(); sub++) {
             llppdrums.getDrumMachine().getSelectedSequence().getSequenceModules().get(SequenceModule.VOL).setAutoValueBase(this, ".8", sub);
             llppdrums.getDrumMachine().getSelectedSequence().getSequenceModules().get(SequenceModule.PITCH).setAutoValueBase(this, "0", sub);
             llppdrums.getDrumMachine().getSelectedSequence().getSequenceModules().get(SequenceModule.PAN).setAutoValueBase(this, "0", sub);

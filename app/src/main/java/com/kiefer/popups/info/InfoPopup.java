@@ -78,9 +78,6 @@ public class InfoPopup extends Popup {
                 //save pos before the undo
                 float pos = infoViewSV.getScrollY();
 
-                //perform the undo
-                //infoCommandManager.undo();
-
                 //now the last undo-command before the undo is the last redo, set pos as its posTo
                 if(infoCommandManager.undo() && infoCommandManager.getLastRedo() != null) {
                     infoCommandManager.getLastRedo().setPosTo(pos); //update the scrollView in the infoFrame

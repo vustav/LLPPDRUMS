@@ -9,6 +9,7 @@ import android.widget.PopupWindow;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.interfaces.Loadable;
 import com.kiefer.popups.Popup;
 
 import java.io.File;
@@ -18,15 +19,17 @@ public class LoadPopup extends Popup {
     private final PopupWindow popupWindow;
     private final RecyclerView loadRecyclerView;
     private final LoadAdapter loadAdapter;
+    private final String folder;
 
     private ArrayList<KiffFile> content = new ArrayList<>();
 
-    public LoadPopup(LLPPDRUMS llppdrums){
+    public LoadPopup(LLPPDRUMS llppdrums, Loadable loadable, String folder){
         super(llppdrums);
+
+        this.folder = folder;
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_load, null);
-        //popupView.setBackground(ContextCompat.getDrawable(llppdrums, oscillatorManager.getWavePopupImageId(oscNo)));
         popupView.findViewById(R.id.loadBgIV).setBackground(ContextCompat.getDrawable(llppdrums, llppdrums.getDrumMachine().getLoadPopupBgId()));
 
         //create the popupWindow
@@ -51,7 +54,7 @@ public class LoadPopup extends Popup {
         loadRecyclerView.setLayoutManager(fxLayoutManager);
 
         //create an adapter
-        loadAdapter = new LoadAdapter(llppdrums, this);
+        loadAdapter = new LoadAdapter(llppdrums, this, loadable);
 
         //add the adapter to the recyclerView
         loadRecyclerView.setAdapter(loadAdapter);
@@ -62,7 +65,7 @@ public class LoadPopup extends Popup {
     private void setupContent(){
 
         //list all files in the directory
-        File directory = new File(llppdrums.getSavedProjectsFolderPath());
+        File directory = new File(folder);
         File[] content = directory.listFiles();
 
         //create the ArrList of strings with filenames
@@ -72,7 +75,7 @@ public class LoadPopup extends Popup {
             this.content = new ArrayList<>();
             if(content.length != 0) {
                 for (File file : content) {
-                    KiffFile kf = new KiffFile(file.toString(), file.toString().substring(llppdrums.getSavedProjectsFolderPath().length() + 1), true);
+                    KiffFile kf = new KiffFile(file.toString(), file.toString().substring(folder.length() + 1), true);
                     if (kf.getPath().substring(kf.getPath().length() - llppdrums.getString(R.string.templateExtension).length()).equals(llppdrums.getString(R.string.templateExtension))) {
                         this.content.add(kf);
                     }

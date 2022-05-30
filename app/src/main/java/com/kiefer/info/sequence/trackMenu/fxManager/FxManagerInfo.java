@@ -11,6 +11,7 @@ import com.kiefer.R;
 import com.kiefer.info.Info;
 import com.kiefer.info.InfoHolder;
 import com.kiefer.info.link.InfoLink;
+import com.kiefer.info.sequence.SequenceInfo;
 import com.kiefer.info.sequence.trackMenu.TrackMenuInfo;
 import com.kiefer.utils.ColorUtils;
 
@@ -28,6 +29,11 @@ public class FxManagerInfo extends InfoHolder implements Info {
         infos.add(new ReverbInfo(llppdrums));
         infos.add(new BitCrusherInfo(llppdrums));
         infos.add(new DecimatorInfo(llppdrums));
+        infos.add(new TremoloInfo(llppdrums));
+        infos.add(new FFInfo(llppdrums));
+        infos.add(new WSInfo(llppdrums));
+        infos.add(new HPLPInfo(llppdrums));
+        infos.add(new LimiterInfo(llppdrums));
     }
 
     @Override
@@ -74,6 +80,10 @@ public class FxManagerInfo extends InfoHolder implements Info {
         String label = llppdrums.getResources().getString(R.string.trackMenuLabel);
         InfoLink link = new InfoLink(llppdrums, label, TrackMenuInfo.key, nodeTV);
         nodeTV.append(link);
+        nodeTV.append(" or ");
+        label = llppdrums.getResources().getString(R.string.machineName);
+        link = new InfoLink(llppdrums, label, SequenceInfo.key, nodeTV);
+        nodeTV.append(link);
         nodeTV.append(".");
 
         layout.addView(nodeLayout);
@@ -111,19 +121,6 @@ public class FxManagerInfo extends InfoHolder implements Info {
         /** ADD **/
         nodeTV.append(llppdrums.getResources().getString(R.string.fxManagerAdd));
 
-        /*
-        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
-
-        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
-        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_fx_manager_add));
-
-        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
-        nodeTV.setText(R.string.fxManagerAdd);
-
-        layout.addView(nodeLayout);
-
-         */
-
         /** FXS **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_tv, null);
 
@@ -155,7 +152,33 @@ public class FxManagerInfo extends InfoHolder implements Info {
         nodeTV.append(", ");
         link = new InfoLink(llppdrums, label, DecimatorInfo.key, nodeTV);
         nodeTV.append(link);
-        nodeTV.append(". !!MORE WILL BE ADDED!!");
+
+        label = llppdrums.getResources().getString(R.string.fxTremoloName);
+        nodeTV.append(", ");
+        link = new InfoLink(llppdrums, label, TremoloInfo.key, nodeTV);
+        nodeTV.append(link);
+
+        label = llppdrums.getResources().getString(R.string.fxFFName);
+        nodeTV.append(", ");
+        link = new InfoLink(llppdrums, label, FFInfo.key, nodeTV);
+        nodeTV.append(link);
+
+        label = llppdrums.getResources().getString(R.string.fxWSName);
+        nodeTV.append(", ");
+        link = new InfoLink(llppdrums, label, WSInfo.key, nodeTV);
+        nodeTV.append(link);
+
+        label = llppdrums.getResources().getString(R.string.fxHPLPName);
+        nodeTV.append(", ");
+        link = new InfoLink(llppdrums, label, HPLPInfo.key, nodeTV);
+        nodeTV.append(link);
+
+        label = llppdrums.getResources().getString(R.string.fxLimiterName);
+        nodeTV.append(", ");
+        link = new InfoLink(llppdrums, label, LimiterInfo.key, nodeTV);
+        nodeTV.append(link);
+
+        nodeTV.append(".");
 
         layout.addView(nodeLayout);
 

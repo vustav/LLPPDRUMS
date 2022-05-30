@@ -5,9 +5,10 @@
 
     <!-- FOLDER -->
     <string name="savedProjectsFolder">saves</string>
+    <string name="savedRndTemplatesFolder">rndTemplates</string>
 
     <string name="lastDataFileName">prms</string>
-    <string name="templateExtension">.KIFFT</string>
+    <string name="templateExtension">.KIFF</string>
     <string name="noSavedFilesMessage">NO FILES SAVED</string>
 
     <!-- TABS -->
@@ -147,6 +148,28 @@
     <string name="fxDeciamtorBits">BITS</string>
     <string name="fxDeciamtorRate">RATE</string>
 
+    <string name="fxTremoloName">TREMOLO</string>
+    <string name="fxTremoloLeftAttack">LEFT ATTACK</string>
+    <string name="fxTremoloLeftDecay">LEFT DECAY</string>
+    <string name="fxTremoloRightAttack">RIGHT ATTACK</string>
+    <string name="fxTremoloRightDecay">RIGHT DECAY</string>
+
+    <string name="fxWSName">WAVE SHAPER</string>
+    <string name="fxWSAmount">AMOUNT</string>
+    <string name="fxWSLevel">LEVEL</string>
+
+    <string name="fxFFName">FORMANT FILTER</string>
+    <string name="fxFFVowel">VOWEL</string>
+
+    <string name="fxHPLPName">HPLP FILTER</string>
+    <string name="fxHPLPHP">HP FREQ</string>
+    <string name="fxHPLPLP">LP FREQ</string>
+
+    <string name="fxLimiterName">LIMITER</string>
+    <string name="fxLimiterAttack">ATTACK</string>
+    <string name="fxLimiterRelease">RELEASE</string>
+    <string name="fxLimiterThreshold">THRESHOLD</string>
+
     <!-- FX PRESETS -->
     <string name="fxPresetBaseName">BASS</string>
     <string name="fxPresetHHName">HH</string>
@@ -255,16 +278,17 @@
     <string name="seqAutoRndTxt2">is active.</string>
     <string name="seqNameTxt">Change the name and color of the sequence.</string>
     <string name="seqTmpTxt">Set the tempo of this sequence. Sequences can have different tempos.</string>
-    <string name="seqRndTxt">Randomize this sequence. OPTNS opens</string>
+    <string name="seqRndTxt">Randomize this sequence. EDIT opens</string>
     <string name="seqCpyTxt">Make this sequence a copy of another sequence. A copied sequence is not in any way linked to the original meaning changes will not apply on the copy.</string>
     <string name="seqRemoveTxt">\n\nThe \"-\" button in the bottom right removes the sequence.</string>
 
     <!-- RND SEQUENCE MANAGER-->
     <string name="seqRndManagerIntro">Access the randomize sequence manager by clicking the edit button.</string>
-    <string name="seqRndManagerIntro2">Blueprint for the randomizations, either by using a preset or by creating from scratch.</string>
+    <string name="seqRndManagerIntro2">Set a template for the randomizations, either by using a preset or by creating from scratch.</string>
     <string name="seqRndManagerPreset">Select a preset.</string>
     <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
     <string name="seqRndManagerSteps">Set the number of steps of the randomized sequence.</string>
+    <string name="seqRndManagerLoadSave">LOAD/SAVE templates.</string>
     <string name="seqRndManagerTracks">These represents tracks. \n\nIn the first spinner you select a sound preset. In the second spinner with a number in it you select the number of sub steps. \n\nEvery step has one or more sliders in it depending on the number of sub steps. If it\'s full it will always be on. Half means 50% etc.
         \n\nTick the FX-box for randomized effects on the track. The RND-box adds a 10% chance of ON autorandomizing with RTRN on every step.
         \n\nRemove the track by clicking \"-\". Hold and drag to change order.</string>
@@ -310,7 +334,7 @@
 
     <!-- FX MANAGER -->
     <string name="fxManagerIntro">Access the fx manager by clicking this button in the</string>
-    <string name="fxManagerIntro2">Every track can have an unlimited amount of effects and all their parameters can be fully automated.</string>
+    <string name="fxManagerIntro2">Every track and the master bus can have an unlimited amount of effects and all their parameters can be fully automated.</string>
     <string name="fxManagerRnd">Randomize everything. This can not be undone.</string>
     <string name="fxManagerList">List of the effects in the order they effect the signal with the top one being first. Hold and drag an effect to change order. Click an effect to edit it. \n\n\"-\" removes the effect.</string>
     <string name="fxManagerAdd">\n\n\"+\" adds a new random effect to the chain.</string>

@@ -114,7 +114,6 @@
             <FrameLayout
                 android:layout_width="@dimen/dividerWidth"
                 android:layout_height="match_parent"
-                android:background="@color/dividerColor"
                 android:id="@+id/topFragmentDivider0"
                 android:layout_margin="@dimen/dividerMargin"/>
 
@@ -130,7 +129,6 @@
             <FrameLayout
                 android:layout_width="@dimen/dividerWidth"
                 android:layout_height="match_parent"
-                android:background="@color/dividerColor"
                 android:id="@+id/topFragmentDivider1"
                 android:layout_margin="@dimen/dividerMargin"/>
 

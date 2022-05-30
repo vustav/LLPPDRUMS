@@ -54,19 +54,6 @@ public class StepManagerPopup extends Popup {
         label.setBackgroundColor(bgColor);
         label.setTextColor(ColorUtils.getContrastColor(bgColor));
 
-        //RND-btn steps
-        /*
-        Button rndBtn = popupView.findViewById(R.id.autoStepsRndBtn);
-        rndBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drumTrack.getRndTrackManager().randomizeModule(sequenceModule);
-                drumTrack.updateDrawables();
-            }
-        });
-
-         */
-
         //set listeners to the arrows if in OnOff or AutoRandomBool, hide them otherwise
         Button leftArrow = popupView.findViewById(R.id.organizeStepsLeftBtn);
         Button rightArrow = popupView.findViewById(R.id.organizeStepsRightBtn);
@@ -107,18 +94,18 @@ public class StepManagerPopup extends Popup {
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(0, (int) llppdrums.getResources().getDimension(R.dimen.btnHeightSmall), 1);
             llp.setMarginStart(2);
 
-            for (int sub = 0; sub < drumTrack.getOrganizeStepsSubValues().size(); sub++) {
+            for (int sub = 0; sub < drumTrack.getStepManagerSubSubValues().size(); sub++) {
                 FrameLayout stepLayout = new FrameLayout(llppdrums);
                 stepLayout.setLayoutParams(llp);
 
 
-                setLayoutColor(stepLayout, drumTrack.getOrganizeStepsSubValues().get(sub));
+                setLayoutColor(stepLayout, drumTrack.getStepManagerSubSubValues().get(sub));
 
                 final int finalSub = sub;
                 stepLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final boolean on = drumTrack.getOrganizeStepsSubValues().get(finalSub);
+                        final boolean on = drumTrack.getStepManagerSubSubValues().get(finalSub);
                         //if()
                         drumTrack.setOrganizeStepsSubValue(finalSub, !on);
                         setLayoutColor(stepLayout, !on);

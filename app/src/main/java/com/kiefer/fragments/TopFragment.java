@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.info.main.MainInfo;
 import com.kiefer.options.projectOptions.ProjectOptionsManager;
@@ -124,10 +125,10 @@ public class TopFragment extends TabFragment {
         loadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new LoadPopup(llppdrums);
+                new LoadPopup(llppdrums, llppdrums, llppdrums.getSavedProjectsFolderPath());
             }
         });
-        if(llppdrums.disableLoad){
+        if(LLPPDRUMS.disableLoad){
             loadBtn.setEnabled(false);
         }
 
@@ -140,7 +141,7 @@ public class TopFragment extends TabFragment {
                 llppdrums.getKeeperFileHandler().writePromptName(llppdrums.getKeeper(), llppdrums.getSavedProjectsFolderPath());
             }
         });
-        if(llppdrums.disableLoad){
+        if(LLPPDRUMS.disableLoad){
             saveBtn.setEnabled(false);
         }
 

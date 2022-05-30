@@ -171,6 +171,7 @@ public class RndSeqPresetTrack {
         keeper.randomizeVol = randomizeVol;
         keeper.nOfSteps = steps.size();
         keeper.nOfSubs = getnOfSubs();
+        keeper.autoRnd = autoRnd;
 
         ArrayList<RndSeqPresetStepKeeper> stepKeepers = new ArrayList<>();
         for(int i = 0; i < steps.size(); i++){
@@ -181,13 +182,6 @@ public class RndSeqPresetTrack {
     }
 
     public void restore(RndSeqPresetTrackKeeper keeper){
-        //setupSteps(keeper.nOfSteps, keeper.nOfSubs);
-        //presetCategory = keeper.presetCategory;
-        //name = keeper.name;
-        //randomizeFx = keeper.randomizeFx;
-        //randomizePan = keeper.randomizePan;
-        //randomizeVol = keeper.randomizeVol;
-
         for(int i = 0; i < steps.size(); i++){
             steps.get(i).restore(keeper.rndSeqPresetStepKeepers.get(i));
         }

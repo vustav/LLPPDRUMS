@@ -2,6 +2,7 @@ package com.kiefer.machine.sequence;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.kiefer.LLPPDRUMS;
@@ -69,7 +70,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
     private Drawable backgroundGradient;
 
     //gradients
-    private final GradientDrawable stepsGradientDrawable, tempoGradientDrawable, randomGradientDrawable, copyGradientDrawable;
+    private final GradientDrawable stepsGradientDrawable, tempoGradientDrawable, fxGradientDrawable, randomGradientDrawable, copyGradientDrawable;
 
     //gfx
     //private final LinearLayout fxBtnGraphics, mixerBtnGraphics;
@@ -82,11 +83,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
     private SequenceModule selectedSequenceModule;
     private ArrayList<SequenceModule> sequenceModules;
 
-    public DrumSequence(LLPPDRUMS llppdrums, EngineFacade engineFacade, int tabIndex){
-        this(llppdrums, engineFacade, tabIndex, null);
-    }
-
-    public DrumSequence(LLPPDRUMS llppdrums, EngineFacade engineFacade, int tabIndex, DrumSequenceKeeper keeper){
+    public DrumSequence(LLPPDRUMS llppdrums, EngineFacade engineFacade, DrumSequenceKeeper keeper){
         this.llppdrums = llppdrums;
         this.engineFacade = engineFacade;
 
@@ -97,6 +94,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
         tempoGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         randomGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
         copyGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
+        fxGradientDrawable = ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor());
 
         copyFromBgId = ImgUtils.getRandomImageId();
         tempoBgId = ImgUtils.getRandomImageId();
@@ -179,29 +177,12 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
     private int nOfSteps;
 
     /** SETUP **/
-    /** ALLA BEHÖVER ITNE VARSINA. SKULLE KUNNA FLYTTA TILL DrumMachine. **/
     private void setupSequenceModules(){
         sequenceModules = new ArrayList<>();
 
-        //create the necessary Bitmaps before creating the modules and adding them to the array
-        //int imgId = ImgUtils.getRandomImageId();
-        //Bitmap tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 0, 4, TabManager.VERTICAL);
-        //Bitmap bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
         sequenceModules.add(new OnOff(llppdrums, this, 0));
-
-        //imgId = ImgUtils.getRandomImageId();
-        //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 1, 4, TabManager.VERTICAL);
-        //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
         sequenceModules.add(new Volume(llppdrums, this, 1));
-
-        //imgId = ImgUtils.getRandomImageId();
-        //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 2, 4, TabManager.VERTICAL);
-        //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
         sequenceModules.add(new Pitch(llppdrums, this, 2));
-
-        //imgId = ImgUtils.getRandomImageId();
-        //tabBitmap = ImgUtils.getTabBitmap(llppdrums, imgId, 3, 4, TabManager.VERTICAL);
-        //bgBitmap = ImgUtils.getBgBitmap(llppdrums, imgId, TabManager.VERTICAL);
         sequenceModules.add(new Pan(llppdrums, this, 3));
 
         selectedSequenceModule = sequenceModules.get(0);
@@ -218,11 +199,9 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
     //activation means when a sequence is playing, has nothing to do with witch is shown in the UI
     public void activate(){
         if(llppdrums.getDrumMachine() != null)
-            //Log.e("DrumSequence", "++++activate()++++, seq: " + llppdrums.getDrumMachine().getSequences().indexOf(this));
 
             //turn on the little play-icon in the tab
             if(engineFacade.isPlaying()) {
-                //llppdrums.getDrumMachineFragment().getTabManager().showIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), true);
                 llppdrums.getDrumMachineFragment().showPlayIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), true);
             }
 
@@ -236,16 +215,10 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
 
     public void deactivate(){
         if(llppdrums.getDrumMachine() != null)
-            //Log.e("DrumSequence", "----deactivate()----, seq: " + llppdrums.getDrumMachine().getSequences().indexOf(this));
 
             //turn off the little play-icon in the tab (will get called when new sequences are playing BEFORE their viewHolder is created so do the playingSeq check as well)
             if(engineFacade.isPlaying() && llppdrums.getDrumMachine().getPlayingSequence() == this) {
                 llppdrums.getDrumMachineFragment().showPlayIcon(llppdrums.getDrumMachine().getSequences().indexOf(this), false);
-
-                //unlock the UI if THIS seq is selected on deactivation
-                //if(llppdrums.getDrumMachine().getSelectedSequence() == this){
-                //llppdrums.getSequencer().unlockUI();
-                //}
             }
 
         for(final DrumTrack track : tracks){
@@ -279,6 +252,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
         }
 
         llppdrums.getDrumMachineFragment().setTempoGradient(tempoGradientDrawable);
+        llppdrums.getDrumMachineFragment().setFxGradient(fxGradientDrawable);
         llppdrums.getDrumMachineFragment().setRndGradient(randomGradientDrawable);
         llppdrums.getDrumMachineFragment().setCopyGradient(copyGradientDrawable);
 
@@ -651,6 +625,10 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
 
     public GradientDrawable getTempoGradientDrawable() {
         return tempoGradientDrawable;
+    }
+
+    public GradientDrawable getFxGradientDrawable() {
+        return fxGradientDrawable;
     }
 
     public boolean isInBaseMode(){

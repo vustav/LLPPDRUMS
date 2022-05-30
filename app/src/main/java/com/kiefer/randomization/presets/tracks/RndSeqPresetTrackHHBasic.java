@@ -12,9 +12,12 @@ public class RndSeqPresetTrackHHBasic extends RndSeqPresetTrack {
 
         for(int step = 0; step < nOfSteps; step++){
             for(int sub = 0; sub < nOfSubs; sub++) {
-                float perc = NmbrUtils.getRndmizer(.6f, .85f);
+                float perc;
                 if(sub == 0){
                     perc = 1;
+                }
+                else{
+                    perc = NmbrUtils.getRndmizer(.6f, .85f);
                 }
                 setSubPerc(step, sub, perc);
                 setSubVolInterval(step, sub, .5f, .7f);

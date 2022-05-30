@@ -12,8 +12,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.kiefer.controller.Controller;
+import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.LLPPDRUMSKeeper;
 import com.kiefer.info.InfoManager;
+import com.kiefer.interfaces.Loadable;
 import com.kiefer.options.projectOptions.ProjectOptionsManager;
 import com.kiefer.machine.sequencerUI.SequencerUI;
 import com.kiefer.files.KeeperFileHandler;
@@ -31,12 +33,11 @@ import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHolder {
+public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHolder, Loadable {
     /** TRÅDAR **/
     /* notifications i EngineFacade körs i UI-tråden. Tror engine går i egen tråd som dom kanske kommer i en annan? */
 
@@ -65,7 +66,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     private KeeperFileHandler keeperFileHandler;
     //private String appFolderPath;
     private String folderPath;
-    private String savedProjectsFolderPath;
+    private String savedProjectsFolderPath, savedRndTemplateFolderPath;
 
     //tabs
     private ArrayList<Tab> tabs;
@@ -173,27 +174,23 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         keeperFileHandler = new KeeperFileHandler(this);
 
         //create the project folder if it doesn't exist
-        //String externalStorageDirectory = Environment.getExternalStorageDirectory().getPath();
         File mediaStorageDir = getExternalFilesDir(null);
-
-        /*
-        //create the app folder in the root directory if it doesn't exists
-        File appFolder = new File(mediaStorageDir, getResources().getString(R.string.app_name));
-        if (!appFolder.exists()) {
-            appFolder.mkdirs();
-        }
-        appFolderPath = appFolder.getAbsolutePath();
-
-         */
 
         folderPath = mediaStorageDir.getAbsolutePath();
 
-        //templates folder
+        //projects folder
         File savedProjectsFolder = new File(folderPath, getResources().getString(R.string.savedProjectsFolder));
         if (!savedProjectsFolder.exists()) {
             savedProjectsFolder.mkdirs();
         }
         savedProjectsFolderPath = savedProjectsFolder.getAbsolutePath();
+
+        //rndTemplate folder
+        File savedRndTemplateFolder = new File(folderPath, getResources().getString(R.string.savedRndTemplatesFolder));
+        if (!savedRndTemplateFolder.exists()) {
+            savedRndTemplateFolder.mkdirs();
+        }
+        savedRndTemplateFolderPath = savedRndTemplateFolder.getAbsolutePath();
 
         //tempFile path
         String lastDataPath = folderPath + "/" + getString(R.string.lastDataFileName) + getString(R.string.templateExtension);
@@ -430,6 +427,10 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         return savedProjectsFolderPath;
     }
 
+    public String getSavedRndTemplateFolderPath() {
+        return savedRndTemplateFolderPath;
+    }
+
     //FILE HANDLER
     public KeeperFileHandler getKeeperFileHandler() {
         return keeperFileHandler;
@@ -473,9 +474,12 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         return null;
     }
 
-    public void load(final LLPPDRUMSKeeper k){
+    public void load(final Keeper keeper){
+        LLPPDRUMSKeeper k = (LLPPDRUMSKeeper) keeper;
         drumMachine.load(k.drumMachineKeeper);
         controller.load(k.controllerKeeper);
+
         getDrumMachineFragment().update();
+        sequencerUI.notifyDataSetChange();
     }
 }

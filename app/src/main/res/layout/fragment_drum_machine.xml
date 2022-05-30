@@ -247,8 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:id="@+id/sequenceFxLayout"
-                        android:background="@color/autoBgEven">
+                        android:id="@+id/sequenceFxLayout">
 
                         <!-- LABEL -->
                         <RelativeLayout
@@ -288,6 +287,14 @@
                         </RelativeLayout>
                     </LinearLayout>
                 </FrameLayout>
+
+                <!-- DIVIDER -->
+                <FrameLayout
+                    android:layout_width="@dimen/dividerWidth"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividerColor"
+                    android:id="@+id/topFragmentDivider0"
+                    android:layout_margin="@dimen/dividerMargin"/>
 
                 <!-- RANDOM -->
                 <RelativeLayout
@@ -379,6 +386,14 @@
                             android:id="@+id/sequenceCopyFromContainer"/>
                     </LinearLayout>
                 </FrameLayout>
+
+                <!-- DIVIDER -->
+                <FrameLayout
+                    android:layout_width="@dimen/dividerWidth"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividerColor"
+                    android:id="@+id/topFragmentDivider1"
+                    android:layout_margin="@dimen/dividerMargin"/>
             </LinearLayout>
 
             <!-- REMOVE BTN -->

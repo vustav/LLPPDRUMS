@@ -42,13 +42,6 @@ public class FxBitCrusher extends Fx {
         paramNames.add(llppdrums.getResources().getString(R.string.fxBitCrusherOut));
     }
 
-    /** SELECTION **/
-    /*
-    public void select(){
-    }
-
-     */
-
     /** SET **/
     private void setAmount(float value){
         amount = NmbrUtils.removeImpossibleNumbers(value);
@@ -76,7 +69,7 @@ public class FxBitCrusher extends Fx {
         amountSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setAmount((float)(seekBar.getProgress() / floatMultiplier));
+                setAmount(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -96,7 +89,7 @@ public class FxBitCrusher extends Fx {
         inSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setIn((float)(seekBar.getProgress() / floatMultiplier));
+                setIn(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -116,7 +109,7 @@ public class FxBitCrusher extends Fx {
         outSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setOut((float)(seekBar.getProgress() / floatMultiplier));
+                setOut(((float)seekBar.getProgress()) / floatMultiplier);
             }
 
             @Override
@@ -156,11 +149,8 @@ public class FxBitCrusher extends Fx {
     public void restore(FxKeeper k){
         FxBitCrusherKeeper keeper = (FxBitCrusherKeeper) k;
         setOn(keeper.on);
-        //((BitCrusher)fx).setAmount(Float.parseFloat(keeper.amount));
         setAmount(Float.parseFloat(keeper.amount));
-        //((BitCrusher)fx).setInputMix(Float.parseFloat(keeper.inMix));
         setIn(Float.parseFloat(keeper.inMix));
-        //((BitCrusher)fx).setOutputMix(Float.parseFloat(keeper.outMix));
         setOut(Float.parseFloat(keeper.outMix));
 
         automationManager.restore(keeper.automationManagerKeeper);
@@ -183,13 +173,11 @@ public class FxBitCrusher extends Fx {
         //on
         if(param.equals(paramNames.get(0))){
             return super.turnOnAutoValue(param, autoValue, popupShowing);
-            //Log.e("AutomationManager", "automate(), orgVal: ");
         }
 
         //amount
         else if(param.equals(paramNames.get(1))){
             float ogAmount = amount;
-            //int autoAmount = (int)(autoValue * floatMultiplier);
 
             if(updateUI) {
                 amountSeekBar.setProgress((int)(autoValue * floatMultiplier));

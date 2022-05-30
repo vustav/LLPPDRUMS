@@ -23,6 +23,7 @@
             android:src="@drawable/drawable_triangle_play_red"
             android:id="@+id/tabIcon"
             android:layout_marginStart="@dimen/marginSmall"
+            android:visibility="invisible"
 
             android:layout_toEndOf="@id/tabTxt"/>
     </RelativeLayout>

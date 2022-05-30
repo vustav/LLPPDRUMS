@@ -134,13 +134,13 @@ public class EngineFacade {
         _sequencerController.updateMeasures( 1, nOfSteps); // we'll loop just a single measure with given subdivisions
 
         // cache some of the engines properties
-        final ProcessingChain masterBus = engine.getMasterBusProcessors();
+        //final ProcessingChain masterBus = engine.getMasterBusProcessors();
 
         // create a lowpass filter to catch all low rumbling and a limiter to prevent clipping of output :)
-        _lpfhpf  = new LPFHPFilter(( float )  MWEngine.SAMPLE_RATE, 55, OUTPUT_CHANNELS );
-        _limiter = new Limiter( 10f, 500f, 0.6f );
-        masterBus.addProcessor( _lpfhpf );
-        masterBus.addProcessor( _limiter );
+        //_lpfhpf  = new LPFHPFilter(( float )  MWEngine.SAMPLE_RATE, 55, OUTPUT_CHANNELS );
+        //_limiter = new Limiter( 10f, 500f, 0.6f );
+        //masterBus.addProcessor( _lpfhpf );
+        //masterBus.addProcessor( _limiter );
     }
 
     public void updateNOfSteps(){

@@ -92,16 +92,13 @@ public class ControllerFragment extends Fragment {
             }
         });
 
-        final Button funBtn = view.findViewById(R.id.controllerFuncBtn);
-        /*
+        final Button funBtn = view.findViewById(R.id.controllerFunBtn);
         funBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.funBtnPressed();
+                //controller.funBtnPressed();
             }
         });
-
-         */
 
         //NEXT
         ImageView nextSeqBtn = view.findViewById(R.id.controllerNextSeqBtn);

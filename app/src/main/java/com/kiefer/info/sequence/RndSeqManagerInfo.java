@@ -100,6 +100,17 @@ public class RndSeqManagerInfo implements Info {
 
         layout.addView(nodeLayout);
 
+        /** LOAD/SAVE **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_rnd_loadsave));
+
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+        nodeTV.setText(R.string.seqRndManagerLoadSave);
+
+        layout.addView(nodeLayout);
+
         /** TRACK **/
         nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
 

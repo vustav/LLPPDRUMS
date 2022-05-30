@@ -29,7 +29,6 @@
             android:padding="@dimen/defaultBtnPadding">
 
             <!-- PRESET -->
-
             <!-- SPINNER (just a container) -->
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -158,6 +157,31 @@
                     </FrameLayout>
                 </LinearLayout>
             </FrameLayout>
+
+            <!-- DIVIDER -->
+            <FrameLayout
+                android:layout_width="@dimen/dividerWidth"
+                android:layout_height="match_parent"
+                android:id="@+id/seqRndOptionsDivider"
+                android:layout_margin="@dimen/dividerMargin"/>
+
+            <!-- LOAD -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightTop"
+                android:id="@+id/seqRndOptionsLoadBtn"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:singleLine="true"
+                android:text="LOAD"/>
+
+            <!-- SAVE -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btnHeightTop"
+                android:id="@+id/seqRndOptionsSaveBtn"
+                android:textSize="@dimen/defaultBtnTxtSize"
+                android:singleLine="true"
+                android:text="SAVE"/>
         </LinearLayout>
     </FrameLayout>
 

@@ -13,6 +13,7 @@ import com.kiefer.info.InfoHolder;
 import com.kiefer.info.controller.ControllerInfo;
 import com.kiefer.info.link.InfoLink;
 import com.kiefer.info.sequence.trackMenu.TrackMenuInfo;
+import com.kiefer.info.sequence.trackMenu.fxManager.FxManagerInfo;
 import com.kiefer.info.sequenceManager.SequenceManagerInfo;
 import com.kiefer.utils.ColorUtils;
 
@@ -194,6 +195,22 @@ public class SequenceInfo extends InfoHolder implements Info {
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.seqTmpTxt);
+
+        layout.addView(nodeLayout);
+
+        /** FX **/
+        nodeLayout = (FrameLayout) llppdrums.getLayoutInflater().inflate(R.layout.info_node_iv_tv_vert, null);
+
+        nodeIV = nodeLayout.findViewById(R.id.infoNodeIV);
+        nodeIV.setImageDrawable(llppdrums.getResources().getDrawable(R.drawable.icon_info_seq_fx));
+
+        //get a ref to the tv
+        nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
+
+        //create the link and append it
+        label = llppdrums.getResources().getString(R.string.fxManagerName);
+        link = new InfoLink(llppdrums, label, FxManagerInfo.key, nodeTV);
+        nodeTV.append(link);
 
         layout.addView(nodeLayout);
 

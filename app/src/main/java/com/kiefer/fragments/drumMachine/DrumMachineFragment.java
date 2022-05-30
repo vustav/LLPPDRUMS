@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,8 @@ public class DrumMachineFragment extends TabFragment {
     private ArrayList<View> lockableUI;
 
     //backgrounds for the buttons at the bottom to fill with gradients
-    private LinearLayout tempoLayout, rndLayout, copyLayout;
+    private LinearLayout tempoLayout, rndLayout, copyLayout, fxLayout;
+    private FrameLayout divider0, divider1;
 
     //name
     private TextView nameBtnTV;
@@ -103,6 +105,9 @@ public class DrumMachineFragment extends TabFragment {
         tabBackgroundViews = new ArrayList<>();
 
         sequenceBg = rootView.findViewById(R.id.machineSequenceBg);
+
+        divider0 = rootView.findViewById(R.id.topFragmentDivider0);
+        divider1 = rootView.findViewById(R.id.topFragmentDivider1);
 
         //setup the fx-recyclerView
         recyclerView = rootView.findViewById(R.id.machineSequenceTabsRecyclerView);
@@ -216,10 +221,10 @@ public class DrumMachineFragment extends TabFragment {
         fxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //drumMachine.openFxManagerPopup(trackNo);
                 new FxManagerPopup(llppdrums, llppdrums.getDrumMachine().getSelectedSequence());
             }
         });
+        fxLayout = rootView.findViewById(R.id.sequenceFxLayout);
 
         //set up the random options btn
         Button randomOptionsBtn = rootView.findViewById(R.id.sequenceRandomOptionsBtnBtn);
@@ -286,7 +291,7 @@ public class DrumMachineFragment extends TabFragment {
         //add
         Button addBtn = rootView.findViewById(R.id.sequenceAddBtn);
         addBtn.setOnClickListener(view -> {
-            llppdrums.getDrumMachine().addSequence();
+            llppdrums.getDrumMachine().addSequence(null);
             adapter.notifyDataSetChanged();
         });
 
@@ -301,12 +306,12 @@ public class DrumMachineFragment extends TabFragment {
     /** PLAY **/
     public void showPlayIcon(final int i, final boolean show){
         //llppdrums.runOnUiThread(() -> {
-            if(show) {
-                ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.VISIBLE);
-            }
-            else{
-                ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.INVISIBLE);
-            }
+        if(show) {
+            ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.VISIBLE);
+        }
+        else{
+            ((SequenceAdapter.SequenceTabViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i))).playIcon.setVisibility(View.INVISIBLE);
+        }
         //});
     }
 
@@ -354,6 +359,10 @@ public class DrumMachineFragment extends TabFragment {
         tempoLayout.setBackground(gradientDrawable);
     }
 
+    public void setFxGradient(GradientDrawable gradientDrawable) {
+        fxLayout.setBackground(gradientDrawable);
+    }
+
     public void setTempo(){
         if(tempoSpinnerBtn != null) {
             tempoSpinnerBtn.setSelection(Integer.toString(llppdrums.getDrumMachine().getSelectedSequence().getTempo()));
@@ -369,9 +378,14 @@ public class DrumMachineFragment extends TabFragment {
     }
 
     public void setColor(boolean updateAdapter){
+
         sequenceBg.setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
-        nameBtnGraphics.setBackgroundColor(llppdrums.getDrumMachine().getSelectedSequence().getColor());
-        nameBtnTV.setTextColor(ColorUtils.getContrastColor(llppdrums.getDrumMachine().getSelectedSequence().getColor()));
+
+        int seqCcolor = llppdrums.getDrumMachine().getSelectedSequence().getColor();
+        divider0.setBackgroundColor(ColorUtils.getContrastColor(seqCcolor));
+        divider1.setBackgroundColor(ColorUtils.getContrastColor(seqCcolor));
+        nameBtnGraphics.setBackgroundColor(seqCcolor);
+        nameBtnTV.setTextColor(ColorUtils.getContrastColor(seqCcolor));
 
         if(updateAdapter) {
             adapter.notifyDataSetChanged();

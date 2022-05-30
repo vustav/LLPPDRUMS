@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.LLPPDRUMSKeeper;
+import com.kiefer.interfaces.Loadable;
 import com.kiefer.utils.ColorUtils;
 
 /**
@@ -19,10 +20,12 @@ import com.kiefer.utils.ColorUtils;
 public class LoadAdapter extends RecyclerView.Adapter<LoadAdapter.LoadViewHolder>{
     private final LLPPDRUMS llppdrums;
     private final LoadPopup loadPopup;
+    private final Loadable loadable;
 
-    public LoadAdapter(LLPPDRUMS llppdrums, LoadPopup loadPopup) {
+    public LoadAdapter(LLPPDRUMS llppdrums, LoadPopup loadPopup, Loadable loadable) {
         this.llppdrums = llppdrums;
         this.loadPopup = loadPopup;
+        this.loadable = loadable;
     }
 
     // Create new viewHolder
@@ -36,11 +39,7 @@ public class LoadAdapter extends RecyclerView.Adapter<LoadAdapter.LoadViewHolder
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final LoadViewHolder loadViewHolder, final int position) {
-        //Fx fx = loadPopup.getFxManager().getFxs().get(loadViewHolder.getAdapterPosition());
         final int pos = loadViewHolder.getAdapterPosition();
-
-        //set the bgColor
-        //loadViewHolder.bgView.setBackgroundColor(fx.getColor());
 
         //and the tv
         loadViewHolder.tv.setText(loadPopup.getContent().get(pos).getName());
@@ -61,8 +60,7 @@ public class LoadAdapter extends RecyclerView.Adapter<LoadAdapter.LoadViewHolder
             @Override
             public void onClick(View view) {
                 if(loadPopup.getContent().get(pos).isFile()) {
-                    llppdrums.load((LLPPDRUMSKeeper) llppdrums.getKeeperFileHandler().readKeepers(loadPopup.getContent().get(pos).getPath()));
-                    llppdrums.getSequencerUI().notifyDataSetChange();
+                    loadable.load(llppdrums.getKeeperFileHandler().readKeepers(loadPopup.getContent().get(pos).getPath()));
                 }
                 loadPopup.dismiss();
             }

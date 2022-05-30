@@ -8,8 +8,6 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.fx.FxKeeper;
 import com.kiefer.files.keepers.fx.FxManagerKeeper;
-import com.kiefer.machine.sequence.DrumSequence;
-import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.popups.fxManager.FxManagerPopup;
 import com.kiefer.utils.ImgUtils;
 
@@ -58,8 +56,11 @@ public class FxManager {
         fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxReverbName), ContextCompat.getColor(llppdrums, R.color.fxReverbColor)));
         fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxBitCrusherName), ContextCompat.getColor(llppdrums, R.color.fxBitCrusherColor)));
         fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxDecimatorName), ContextCompat.getColor(llppdrums, R.color.fxDecimatorColor)));
-
-        //randomizeAll();
+        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxTremoloName), ContextCompat.getColor(llppdrums, R.color.fxTremoloColor)));
+        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxFFName), ContextCompat.getColor(llppdrums, R.color.fxFFColor)));
+        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxWSName), ContextCompat.getColor(llppdrums, R.color.fxWSColor)));
+        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxHPLPName), ContextCompat.getColor(llppdrums, R.color.fxLPHPColor)));
+        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxLimiterName), ContextCompat.getColor(llppdrums, R.color.fxLimiterColor)));
     }
 
     //has to be in the same order as fxInfos
@@ -75,6 +76,16 @@ public class FxManager {
                 return new FxBitCrusher(llppdrums, fxer, fxNo, randomizeAutomation);
             case 4:
                 return new FxDecimator(llppdrums, fxer, fxNo, randomizeAutomation);
+            case 5:
+                return new FxTremolo(llppdrums, fxer, fxNo, randomizeAutomation);
+            case 6:
+                return new FxFormantFilter(llppdrums, fxer, fxNo, randomizeAutomation);
+            case 7:
+                return new FxWaveShaper(llppdrums, fxer, fxNo, randomizeAutomation);
+            case 8:
+                return new FxHPLPFilter(llppdrums, fxer, fxNo, randomizeAutomation);
+            case 9:
+                return new FxLimiter(llppdrums, fxer, fxNo, randomizeAutomation);
         }
         return null;
     }
