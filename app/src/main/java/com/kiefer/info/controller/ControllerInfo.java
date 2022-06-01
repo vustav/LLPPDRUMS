@@ -100,7 +100,7 @@ public class ControllerInfo extends InfoHolder implements Info {
         nodeTV.append(" ");
 
         //create a link and append it
-        String label = llppdrums.getResources().getString(R.string.seqBtnEditLabel);
+        String label = llppdrums.getResources().getString(R.string.controllerSeqBtnName);
         InfoLink link = new InfoLink(llppdrums, label, SeqBtnOptionsInfo.key, nodeTV);
         nodeTV.append(link);
         nodeTV.append(llppdrums.getResources().getString(R.string.controllerSeqTxt2));
@@ -121,7 +121,7 @@ public class ControllerInfo extends InfoHolder implements Info {
         nodeTV.append(" ");
 
         //create a link and append it
-        label = llppdrums.getResources().getString(R.string.funBtnEditLabel);
+        label = llppdrums.getResources().getString(R.string.controllerFunBtnName);
         link = new InfoLink(llppdrums, label, FunBtnOptionsInfo.key, nodeTV);
         nodeTV.append(link);
         nodeTV.append(llppdrums.getResources().getString(R.string.controllerFunTxt2));

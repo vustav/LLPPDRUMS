@@ -21,7 +21,7 @@ public class SeqBtnOptionsInfo implements Info {
 
     @Override
     public String getName() {
-        return "SEQUENCE BTN";
+        return llppdrums.getResources().getString(R.string.controllerSeqBtnNameShort);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class SeqBtnOptionsInfo implements Info {
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
-        tv.setText(getName());
+        tv.setText(llppdrums.getResources().getString(R.string.controllerSeqBtnName));
         int textClr = ColorUtils.getRandomColor();
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));

@@ -46,7 +46,7 @@ public class FunBtnEditPopup extends Popup {
         });
 
         //setup the TV
-        String name = llppdrums.getResources().getString(R.string.funBtnEditLabel);
+        String name = llppdrums.getResources().getString(R.string.controllerFunBtnName);
         TextView label = popupView.findViewById(R.id.funBtnPopupLabel);
         label.setText(name);
         int bgColor = ContextCompat.getColor(llppdrums, R.color.tabsActiveTxtBgColor);

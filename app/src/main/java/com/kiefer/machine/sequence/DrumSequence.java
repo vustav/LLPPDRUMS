@@ -698,10 +698,13 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
 
         if(returnActive()) {
             if(sequencerPosition == 0) {
+                rndSeqManager.returnAutoRandomizations(getNOfSteps() - 2);
+            }
+            else if(sequencerPosition == 1) {
                 rndSeqManager.returnAutoRandomizations(getNOfSteps() - 1);
             }
             else{
-                rndSeqManager.returnAutoRandomizations(sequencerPosition - 1);
+                rndSeqManager.returnAutoRandomizations(sequencerPosition - 2);
             }
         }
 

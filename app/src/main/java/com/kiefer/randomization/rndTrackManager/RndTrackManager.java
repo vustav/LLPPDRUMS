@@ -113,6 +113,8 @@ public class RndTrackManager {
                     drumTrack.setSubVolume(stepNo, step.getSubVol(sub), sub);
                     drumTrack.setSubPitchModifier(stepNo, step.getSubPitch(sub), sub);
                     aSubIsOn = true;
+
+                    drumTrack.getSteps().get(stepNo).saveSubPrevOn(sub);
                 }
                 else{
                     drumTrack.setSubOn(stepNo, sub, false);
@@ -125,6 +127,7 @@ public class RndTrackManager {
             }
 
             drumTrack.setStepOn(stepNo, aSubIsOn); //turn off the step if no subs are on
+            drumTrack.getSteps().get(stepNo).savePrevOn();
 
             if (rndTrack.getRandomizePan()){
                 drumTrack.setStepPan(stepNo, step.getPan());
@@ -159,8 +162,8 @@ public class RndTrackManager {
                 if(s.automationActive()) {
 
                     //used to turn on the step if a sub is on or off otherwise. Start with the the
-                    // steps on-vale, that way no change is made if no randomization has occured.
-                    boolean aSubIsOn = false;
+                    // steps on-vale, that way no change is made if no randomization on ON has occured.
+                    boolean aSubIsOn = s.isOn();
 
                     for (int sub = 0; sub < drumTrack.getNOfSubs(); sub++) {
 

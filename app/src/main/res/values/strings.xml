@@ -12,7 +12,7 @@
     <string name="noSavedFilesMessage">NO FILES SAVED</string>
 
     <!-- TABS -->
-    <string name="machineTab">SEQUENCES</string>
+    <string name="machineTab">PATTERNS</string>
     <string name="controllerTab">CONTROLLER</string>
 
     <string name="inactiveTabAlpha">0.5</string> <!-- parsed and used as a float -->
@@ -25,10 +25,15 @@
     <!-- CONTROLLER -->
     <string name="controllerName">CONTROLLER</string>
     <string name="controllerTabName">CONTROLLER</string>
+    <string name="controllerSeqBtnNameShort">PTRN BTN MAN</string>
+    <string name="controllerSeqBtnName">PATTERN BUTTON MANAGER</string>
+    <string name="controllerFunBtnNameShort">FUNC BTN MAN</string>
+    <string name="controllerFunBtnName">FUNCTION BUTTON MANAGER</string>
+    <string name="momentaryCheck">MOMENTARY</string>
 
     <!-- MACHINE -->
-    <string name="machineName">SEQUENCES</string>
-    <string name="machineTabName">SEQUENCES</string>
+    <string name="machineName">PATTERNS</string>
+    <string name="machineTabName">PATTERNS</string>
     <string name="trackRandomOptionsBtn">EDIT</string>
 
     <!-- SYNTH -->
@@ -58,7 +63,7 @@
     </string-array>
 
     <!-- SEQUENCES -->
-    <string name="seqName">SEQUENCE</string>
+    <string name="seqName">PATTERNS</string>
 
     <!-- TRACK MENU -->
     <string name="trackMenuLabel">TRACK MENU</string>
@@ -66,7 +71,7 @@
     <!-- POPUPS -->
     <string name="soundManagerLabel">SOUND MANAGER:\u0020</string>
     <string name="stepManagerLabel">STEP MANAGER:\u0020</string>
-    <string name="rndTrackLabel">RNDMIZE TRACK MANAGER:\u0020</string>
+    <string name="rndTrackLabel">RND TRACK MANAGER:\u0020</string>
     <string name="fxManagerLabel">FX MANAGER:\u0020</string>
 
     <!-- SEQ MODULES -->
@@ -176,11 +181,10 @@
     <string name="fxPresetSnareName">SNARE</string>
 
     <!-- RANDOM -->
-    <string name="randomizeSeqLabel">RNDMIZE SEQ MANAGER</string>
+    <string name="randomizeSeqLabelShort">RND PTRN MANAGER</string>
+    <string name="randomizeSeqLabel">RANDOMIZE PATTERN MANAGER</string>
 
     <string name="randomizeBtn">RNDMIZE</string>
-    <string name="randomizeStepsBtn">RNDMIZE STPS</string>
-    <string name="randomizeAllBtn">RNDMIZE ALL</string>
 
     <string name="randomizerModifiedName">*</string>
     <string name="randomizerClassicRockName">CLASSIC ROCK</string>
@@ -204,18 +208,13 @@
     <string name="trackPresetHotTomsName">HOT TOMS</string>
 
     <!-- SEQUENCE MANAGER -->
-    <string name="seqManagerLabel">SEQUENCE MANAGER</string>
+    <string name="seqManagerLabel">PATTERN MANAGER</string>
     <string name="seqManagerProgressLabel">PROGRESSION</string>
     <string name="seqManagerRandProgressLabel">RANDOMIZE</string>
     <string name="seqManagerResetLabel">RESET PROGRESS</string>
     <string name="seqManagerQueueLabel">QUEUE</string>
-    <string name="seqManagerEditRndLabel">SEQ MAN RND OPTIONS</string>
-
-    <!-- SEQ BTN -->
-    <string name="seqBtnEditLabel">SEQUENCE BUTTON MANAGER</string>
-    <string name="momentaryCheck">MOMENTARY</string>
-
-    <string name="funBtnEditLabel">FUNCTION BUTTON MANAGER</string>
+    <string name="seqManagerEditRndLabelShort">PTRN MAN RND OPTNS</string>
+    <string name="seqManagerEditRndLabel">PATTERN MANAGER RANDOMIZATION OPTIONS</string>
 
     <!-- PROJECT OPTIONS -->
     <string name="projectOptionsLabel">PROJECT OPTIONS</string>
@@ -233,41 +232,41 @@
 
     <!-- MAIN -->
     <string name="mainIntroTxt1">The two main modules are</string>
-    <string name="mainIntroTxt2">SEQUENCES is for setting up the sequences and CONTROLLER for controlling them in realtime.</string>
-    <string name="mainIntroTxt3">\n\nYou have any number of independent sequences (represented by colored tabs to the left) that plays in the order set in the</string>
+    <string name="mainIntroTxt2">PATTERNS is for setting up the patterns and CONTROLLER for controlling them in realtime.</string>
+    <string name="mainIntroTxt3">\n\nYou have any number of independent patterns (represented by colored tabs to the left) that plays in the order set in the</string>
     <string name="mainIntroTxt4">. Most thing can be randomized both manually and automatically (ex. randomize volume on a given step in a given track every measure).</string>
     <string name="mainTransportTxt">Basic controls.</string>
     <string name="mainFilesTxt">LOAD/SAVE/CLEAR the project. CLEAR is destructive.</string>
-    <string name="mainSeqManTxt1">Shows the order of progression (if PROGRESSION is on). Clicking a cell will change to that sequence immediately or at the next measure depending on QUEUE. EDIT opens</string>
-    <string name="mainSeqManTxt2">\n\nRed triangle is the sequence currently playing. Grey is queued for change at the next measure.</string>
-    <string name="mainSeqManTxt3">\n\nThe green bar indicates what step the sequencer is on no matter what sequence is playing. </string>
+    <string name="mainSeqManTxt1">Shows the order of progression (if PROGRESSION is on). Clicking a cell will change to that pattern immediately or at the next measure depending on QUEUE. EDIT opens</string>
+    <string name="mainSeqManTxt2">\n\nRed triangle is the pattern currently playing. Grey is queued for change at the next measure.</string>
+    <string name="mainSeqManTxt3">\n\nThe green bar indicates what step the sequencer is on no matter what pattern is playing. </string>
 
     <!-- PROJECT OPTIONS -->
     <string name="projOptnsIntroTxt">You access project options by clicking this button in the top row.</string>
     <string name="projOptnsDriverTxt">Choose either OpenSL or AAudio as the driver. Try what works best with your hardware.</string>
 
     <!-- CONTROLLER -->
-    <string name="controllerIntroTxt">The idea of CONTROLLER is to do things to sequences and ex. effects in a live setting. The big buttons lets you take off your socks and push them with your toes if you want to.</string>
-    <string name="controllerCounterTxt">The square shows selected sequence (the one SEQ- and FUN-btns will operate on). Red triangle is the sequence currently playing. Grey is queued for change at the next measure.</string>
-    <string name="controllerArrowsTxt">Select which sequence SEQ- and FUN-btns operate on.</string>
-    <string name="controllerSeqTxt1">Control sequence-related actions, ex. playing another sequence while the button is pressed etc. EDIT opens</string>
-    <string name="controllerSeqTxt2">. Holding or clicking SEQ will do whatever\'s set in options.</string>
+    <string name="controllerIntroTxt">The idea of CONTROLLER is to do things to patterns and ex. effects in a live setting. The big buttons lets you take off your socks and push them with your toes if you want to.</string>
+    <string name="controllerCounterTxt">The square shows selected pattern (the one PAT- and FUN-btns will operate on). Red triangle is the pattern currently playing. Grey is queued for change at the next measure.</string>
+    <string name="controllerArrowsTxt">Select which pattern PAT- and FUN-btns operate on.</string>
+    <string name="controllerSeqTxt1">Control pattern-related actions, ex. playing another pattern while the button is pressed etc. EDIT opens</string>
+    <string name="controllerSeqTxt2">. Holding or clicking PAT will do whatever\'s set in options.</string>
     <string name="controllerFunTxt1">EDIT opens</string>
     <string name="controllerFunTxt2">. Holding or clicking FUN will do whatever\'s set in options.</string>
 
     <!-- SEQUENCE MANAGER -->
-    <string name="seqManIntroTxt">You access the sequence manager by clicking the edit button.</string>
+    <string name="seqManIntroTxt">You access the pattern manager by clicking the edit button.</string>
     <string name="seqManOrderTxt">Change the order of progression by clicking a box and selecting a new. The slider enables/disables boxes.</string>
-    <string name="seqManBoxesTxt1">If PROGRESSION is turned off the same sequence will always play unless changed manually. If it\'s turned on it will either progress in the order above or change to a random sequence, depending on RANDOMIZE. EDIT opens</string>
-    <string name="seqManBoxesTxt2">\n\nIf QUEUE is on manual sequence changes will occur at the start of the next measure. If off it\'s instant.</string>
-    <string name="seqManBoxesTxt3">\n\nRESET PROGRESSION resets progression when the sequence is stopped.</string>
+    <string name="seqManBoxesTxt1">If PROGRESSION is turned off the same pattern will always play unless changed manually. If it\'s turned on it will either progress in the order above or change to a random pattern, depending on RANDOMIZE. EDIT opens</string>
+    <string name="seqManBoxesTxt2">\n\nIf QUEUE is on manual pattern changes will occur at the start of the next measure. If off it\'s instant.</string>
+    <string name="seqManBoxesTxt3">\n\nRESET PROGRESSION resets progression when the sequencer is stopped.</string>
 
     <!-- SEQUENCE -->
-    <string name="seqIntroTxt1">You can create any number of sequences that are completely independent of each other (steps, tempo etc). You decide if you want one to play over and over or let them progress and in what order in</string>
-    <string name="seqIntroTxt2">. You can also change what sequence is playing manually either in</string>
+    <string name="seqIntroTxt1">You can create any number of patterns that are completely independent of each other (steps, tempo etc). You decide if you want one to play over and over or let them progress and in what order in</string>
+    <string name="seqIntroTxt2">. You can also change what pattern is playing manually either in</string>
     <string name="seqIntroTxt3">or by clicking one here:</string>
-    <string name="seqSequenceTxt">Select which sequence to edit. Create a new sequence by clicking the \'+\'-button</string>
-    <string name="seqModuleTxt">Select what to edit in the selected sequence.</string>
+    <string name="seqSequenceTxt">Select which pattern to edit. Create a new pattern by clicking the \'+\'-button</string>
+    <string name="seqModuleTxt">Select what to edit in the selected pattern.</string>
     <string name="seqModeTxt">BASE is base values, ex. on/off or volume, AUTO is </string>
     <string name="seqTrackTxt1">This is a track. The button to the left has the tracks name in it. Clicking it will open</string>
     <string name="seqTrackTxt2">The cells in the track represents steps and works like a classic sequencer, ie clicking a step will change something depending on what\'s selected for editing. If a cell has more than one dot in it the step has two or more sub steps. Click and hold to edit subs. Open</string>
@@ -276,18 +275,18 @@
     <string name="seqAddTrackTxt">\n\nThe \"+\" button below the tracks adds a track. This button is always below the tracks so you might have to scroll down to see it.</string>
     <string name="seqAutoRndTxt1">A purple dot in the upper left corner means an</string>
     <string name="seqAutoRndTxt2">is active.</string>
-    <string name="seqNameTxt">Change the name and color of the sequence.</string>
-    <string name="seqTmpTxt">Set the tempo of this sequence. Sequences can have different tempos.</string>
-    <string name="seqRndTxt">Randomize this sequence. EDIT opens</string>
-    <string name="seqCpyTxt">Make this sequence a copy of another sequence. A copied sequence is not in any way linked to the original meaning changes will not apply on the copy.</string>
-    <string name="seqRemoveTxt">\n\nThe \"-\" button in the bottom right removes the sequence.</string>
+    <string name="seqNameTxt">Change the name and color of the pattern.</string>
+    <string name="seqTmpTxt">Set the tempo of this pattern. Patterns can have different tempos.</string>
+    <string name="seqRndTxt">Randomize this pattern. EDIT opens</string>
+    <string name="seqCpyTxt">Make this pattern a copy of another pattern. A copied pattern is not in any way linked to the original meaning changes will not apply on the copy.</string>
+    <string name="seqRemoveTxt">\n\nThe \"-\" button in the bottom right removes the pattern.</string>
 
     <!-- RND SEQUENCE MANAGER-->
-    <string name="seqRndManagerIntro">Access the randomize sequence manager by clicking the edit button.</string>
+    <string name="seqRndManagerIntro">Access the randomize pattern manager by clicking the edit button.</string>
     <string name="seqRndManagerIntro2">Set a template for the randomizations, either by using a preset or by creating from scratch.</string>
     <string name="seqRndManagerPreset">Select a preset.</string>
-    <string name="seqRndManagerTempo">Set the tempo of the randomized sequence.</string>
-    <string name="seqRndManagerSteps">Set the number of steps of the randomized sequence.</string>
+    <string name="seqRndManagerTempo">Set the tempo of the randomized pattern.</string>
+    <string name="seqRndManagerSteps">Set the number of steps of the randomized pattern.</string>
     <string name="seqRndManagerLoadSave">LOAD/SAVE templates.</string>
     <string name="seqRndManagerTracks">These represents tracks. \n\nIn the first spinner you select a sound preset. In the second spinner with a number in it you select the number of sub steps. \n\nEvery step has one or more sliders in it depending on the number of sub steps. If it\'s full it will always be on. Half means 50% etc.
         \n\nTick the FX-box for randomized effects on the track. The RND-box adds a 10% chance of ON autorandomizing with RTRN on every step.
@@ -302,7 +301,7 @@
     MIN: smallest possible randomized value. Not present for booleans.\n\n
     MAX: largest possible randomized value. Not present for booleans.\n\n
     RTRN: if on the value returns to what it was before the randomization after being played once.\n\n
-    You select which one to edit in the top left corner of the sequencer.</string>
+    You select which one to edit to the top left of the sequencer.</string>
     <string name="autoRndDotTxt">If an autorandomization is active this purple dot will show in the upper left corner when in BASE mode.</string>
 
     <!-- TRK MENU -->
@@ -313,7 +312,8 @@
     <string name="soundManagerName">SOUND MANAGER</string>
     <string name="nOfSubsName">Set the number of sub steps.</string>
     <string name="stepManagerName">STEP MANAGER</string>
-    <string name="rndTrackName">RNDMIZE TRACK MANAGER</string>
+    <string name="rndTrackNameShort">RND TRACK MANAGER</string>
+    <string name="rndTrackName">RANDOMIZE TRACK MANAGER</string>
     <string name="fxManagerName">FX MANAGER</string>
     <string name="trackVolName">Track volume.</string>
 

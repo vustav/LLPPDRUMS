@@ -28,7 +28,7 @@ public class FxWaveShaper extends Fx {
 
         Random r = new Random();
 
-        amount = r.nextFloat() * 2 - 1;
+        amount = r.nextFloat();
         level = r.nextFloat();
 
         fx = new WaveShaper(amount, level);
@@ -44,7 +44,6 @@ public class FxWaveShaper extends Fx {
     /** SET **/
     private void setAmount(float value){
         amount = NmbrUtils.removeImpossibleNumbers(value);
-        Log.e("asd", "asd: "+amount);
         ((WaveShaper)fx).setAmount(amount);
     }
 

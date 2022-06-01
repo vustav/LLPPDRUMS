@@ -106,7 +106,6 @@ public class StepManagerPopup extends Popup {
                     @Override
                     public void onClick(View view) {
                         final boolean on = drumTrack.getStepManagerSubSubValues().get(finalSub);
-                        //if()
                         drumTrack.setOrganizeStepsSubValue(finalSub, !on);
                         setLayoutColor(stepLayout, !on);
                     }
@@ -138,7 +137,6 @@ public class StepManagerPopup extends Popup {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     for(int sub = 0; sub < drumTrack.getNOfSubs(); sub++){
                         sequenceModule.setAutoValue(drumTrack, s, sub);
                     }

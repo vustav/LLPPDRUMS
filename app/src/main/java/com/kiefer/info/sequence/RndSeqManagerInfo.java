@@ -21,7 +21,7 @@ public class RndSeqManagerInfo implements Info {
 
     @Override
     public String getName(){
-        return llppdrums.getResources().getString(R.string.randomizeSeqLabel);
+        return llppdrums.getResources().getString(R.string.randomizeSeqLabelShort);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class RndSeqManagerInfo implements Info {
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
-        tv.setText(getName());
+        tv.setText(llppdrums.getResources().getString(R.string.randomizeSeqLabel));
         int textClr = ColorUtils.getRandomColor();
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));

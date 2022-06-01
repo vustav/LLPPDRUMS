@@ -46,7 +46,7 @@ public class SeqBtnEditPopup extends Popup {
         });
 
         //setup the TV
-        String name = llppdrums.getResources().getString(R.string.seqBtnEditLabel);
+        String name = llppdrums.getResources().getString(R.string.controllerSeqBtnName);
         TextView label = popupView.findViewById(R.id.seqBtnPopupLabel);
         label.setText(name);
         int bgColor = ContextCompat.getColor(llppdrums, R.color.tabsActiveTxtBgColor);

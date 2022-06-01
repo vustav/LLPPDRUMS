@@ -124,7 +124,8 @@ public abstract class SequenceModule implements TabHolder, Tab {
 
     /** AUTO **/
     public void setAutoValue(final DrumTrack drumTrack, String s, int sub) {
-        if(drumTrack.getStepManagerSubSubValues().get(sub) || this instanceof OnOff) { //all modules except OnOff work only on the selected subs and ignores the others. OnOff turns off the selected subs and therefore handles this differently
+        //if(drumTrack.getStepManagerSubSubValues().get(sub) || this instanceof OnOff) { //all modules except OnOff work only on the selected subs and ignores the others. OnOff turns off the selected subs and therefore handles this differently
+        if(drumTrack.getStepManagerSubSubValues().get(sub)) {
             if (isInBaseMode()) {
                 setAutoValueBase(drumTrack, s, sub);//seqModules do their thing here
 
@@ -214,14 +215,14 @@ public abstract class SequenceModule implements TabHolder, Tab {
     /** SET **/
     public void addAutoIndication(Canvas canvas){
         //if(step.automationActive()) {
-            Paint paint = new Paint();
-            paint.setColor(llppdrums.getResources().getColor(R.color.autoRndDotColor));
+        Paint paint = new Paint();
+        paint.setColor(llppdrums.getResources().getColor(R.color.autoRndDotColor));
 
-            float width = canvas.getWidth();
+        float width = canvas.getWidth();
 
-            float radius = width / 5;
+        float radius = width / 5;
 
-            canvas.drawCircle(width, 0, radius, paint);
+        canvas.drawCircle(width, 0, radius, paint);
         //}
     }
 

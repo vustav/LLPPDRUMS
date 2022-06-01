@@ -25,26 +25,24 @@ public class OscPresetSnare extends OscPreset {
         osc0.setOscillatorPitch((int)((maxPitch / 5) * getMiniRandomMultiplier()));
         osc0.setAttackTime(maxAtk / 20f * getMiniRandomMultiplier());
         //osc0.setDecayTime(maxDecay * random.nextFloat() * random.nextFloat() * random.nextFloat());
-        float decayMultiplier = (1f - (random.nextFloat() * .9f)) * .6f;
+        float decayMultiplier = (1f - (random.nextFloat() * .9f)) * .6f * (random.nextFloat() + .2f);
         //float decayMultiplier = random.nextFloat() * .3f;
-        osc0.setDecayTime(maxDecay / 3f * decayMultiplier);
+        osc0.setDecayTime(maxDecay / 3f * decayMultiplier * (random.nextFloat() + .2f));
         osc0.setOn(true);
 
         //osc1.setWaveForm(5); //PWM
 
-        /*
+
         Random r = new Random();
         osc1.setWaveForm(r.nextInt(oscillatorManager.getWaves().length));
         osc1.setVolume(.8f * getMiniRandomMultiplier());
         osc1.setOscillatorPitch((int)((maxPitch / 5) * getMiniRandomMultiplier()));
         osc1.setAttackTime(maxAtk / 20f * getMiniRandomMultiplier());
         //osc1.setDecayTime(maxDecay * random.nextFloat() * random.nextFloat() * random.nextFloat());
-        decayMultiplier = (1f - (random.nextFloat() * .9f)) * .6f;
+        decayMultiplier = (1f - (random.nextFloat() * .9f)) * .6f * (random.nextFloat() + .2f);
         //decayMultiplier = random.nextFloat() * .3f;
-        osc1.setDecayTime(maxDecay / 3f * decayMultiplier);
-
-         */
-        osc1.setOn(false);
+        osc1.setDecayTime(maxDecay / 3f * decayMultiplier * (random.nextFloat() + .2f));
+        osc1.setOn(true);
     }
 
     @Override

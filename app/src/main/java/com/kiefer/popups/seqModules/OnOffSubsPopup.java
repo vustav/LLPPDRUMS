@@ -26,6 +26,7 @@ public class OnOffSubsPopup extends SubsPopup {
                 boolean on = !step.isSubOn(sub);
 
                 step.setSubOn(sub, on);
+                step.saveSubPrevOn(sub);
                 setSubLayout(subLayout, step, sub);
 
                 OnOff onOff = (OnOff) sequenceModule;

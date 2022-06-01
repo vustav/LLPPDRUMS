@@ -311,6 +311,7 @@ public class Step {
         prevOn = on;
     }
 
+    //used to manually save what it should return to (if return is on).
     public void saveSubPrevOn(int sub){
         stepEventsManager.savePrevOn(sub);
     }
@@ -430,12 +431,10 @@ public class Step {
 
     public void setRndVolMin(float rndVolMin, int sub) {
         stepEventsManager.setRndVolMin(rndVolMin, sub);
-        //this.rndVolMin = rndVolMin;
     }
 
     public void setRndVolMax(float rndVolMax, int sub) {
         stepEventsManager.setRndVolMax(rndVolMax, sub);
-        //this.rndVolMax = rndVolMax;
     }
 
     public void setRndVolPerc(float rndVolPerc, int sub) {
@@ -449,7 +448,6 @@ public class Step {
         }
 
         stepEventsManager.setRndVolPerc(rndVolPerc, sub);
-        //this.rndVolPerc = rndVolPerc;
     }
 
     public void setRndVolReturn(boolean rndVolReturn, int sub) {

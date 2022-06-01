@@ -21,7 +21,7 @@ public class SequenceManagerRandomOptionsInfo implements Info {
 
     @Override
     public String getName() {
-        return llppdrums.getResources().getString(R.string.seqManagerEditRndLabel);
+        return llppdrums.getResources().getString(R.string.seqManagerEditRndLabelShort);
 
     }
 
@@ -36,7 +36,7 @@ public class SequenceManagerRandomOptionsInfo implements Info {
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
-        tv.setText(getName());
+        tv.setText(llppdrums.getResources().getString(R.string.seqManagerEditRndLabel));
         int textClr = ColorUtils.getRandomColor();
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));

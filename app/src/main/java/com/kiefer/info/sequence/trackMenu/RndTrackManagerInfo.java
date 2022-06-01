@@ -22,7 +22,7 @@ public class RndTrackManagerInfo implements Info {
 
     @Override
     public String getName() {
-        return llppdrums.getResources().getString(R.string.rndTrackName);
+        return llppdrums.getResources().getString(R.string.rndTrackNameShort);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class RndTrackManagerInfo implements Info {
         layout.setBackground(ColorUtils.getRandomGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor()));
 
         TextView tv = layout.findViewById(R.id.infoLabelTV);
-        tv.setText(getName());
+        tv.setText(llppdrums.getResources().getString(R.string.rndTrackName));
         int textClr = ColorUtils.getRandomColor();
         tv.setTextColor(textClr);
         tv.setBackgroundColor(ColorUtils.getContrastColor(textClr));

@@ -76,6 +76,7 @@ public class OnOff extends SequenceModule {
                 long elapseTime = (System.currentTimeMillis() - startTime);
                 if (elapseTime < llppdrums.getResources().getInteger(R.integer.seqStepPopupTimer) || step.getNofSubs() == 1) {
                     step.setOn(!step.isOn());
+                    step.savePrevOn();
                     final Drawable drawable = getDrawable(step.getTrackNo(), step.getStepNo());
                     stepIV.setImageDrawable(drawable);
                 }
