@@ -111,11 +111,23 @@ public class SequenceCounter extends Counter {
         }
     }
 
+    public void removePlayIcon(){
+        for(int i = 0; i < layout.getChildCount(); i++) {
+            layout.getChildAt(i).findViewById(R.id.counterCellPlayIv).setVisibility(View.INVISIBLE);
+            layout.getChildAt(i).findViewById(R.id.counterCellQueueIv).setVisibility(View.INVISIBLE);
+
+            if(controllerLayout != null) {
+                controllerLayout.getChildAt(i).findViewById(R.id.counterCellPlayIv).setVisibility(View.INVISIBLE);
+                controllerLayout.getChildAt(i).findViewById(R.id.counterCellQueueIv).setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
     @Override
     public void setStepColor(final int step, final int color){
         super.setStepColor(step, color);
         if (controllerLayout != null) {
-            //controllerLayout.getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(color);
+            controllerLayout.getChildAt(step).findViewById(R.id.counterCellBorder).setBackgroundColor(color);
             controllerLayout.getChildAt(step).findViewById(R.id.counterCellBg).setBackgroundColor(color);
             ((TextView)controllerLayout.getChildAt(step).findViewById(R.id.counterCellTv)).setTextColor(ColorUtils.getContrastColor(color));
         }

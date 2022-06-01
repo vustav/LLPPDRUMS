@@ -167,7 +167,8 @@ public class SequenceManager {
     }
 
     public void activateSequenceBox(int step){
-        counter.reset();
+        //counter.reset();
+        counter.removePlayIcon();
         counter.activateStep(step);
 
         activeSequenceBoxIndex = step;
