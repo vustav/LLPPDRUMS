@@ -12,6 +12,7 @@ import com.kiefer.machine.sequence.track.soundManager.SoundSource;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategory;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryBass;
+import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryClap;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryCrash;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHHClosed;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryHHOpen;
@@ -91,12 +92,13 @@ public class SmplManager extends SoundSource {
     private void setupPresets(){
         presets.add(new SampleCategoryBass());
         presets.add(new SampleCategorySnare());
+        presets.add(new SampleCategoryClap());
         presets.add(new SampleCategoryHHClosed());
         presets.add(new SampleCategoryHHOpen());
         presets.add(new SampleCategoryTom());
         presets.add(new SampleCategoryCrash());
         presets.add(new SampleCategoryRide());
-        presets.add(new SampleCategoryHandDrums());
+        //presets.add(new SampleCategoryHandDrums());
         //presets.add(new SampleCategoryMisc());
     }
 

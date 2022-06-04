@@ -10,15 +10,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/warningLabel"
-        android:padding="@dimen/tabsPaddingSmall"/>
+        android:textSize="18sp"
+        android:padding="@dimen/tabsPaddingSmall"
+        android:layout_marginStart="4dp"/>
 
     <!-- TXT -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/defaultBtnTxtSize"
+        android:textSize="15sp"
         android:id="@+id/warningTV"
-        android:padding="@dimen/tabsPaddingSmall"/>
+        android:padding="@dimen/tabsPaddingSmall"
+        android:layout_marginStart="4dp"/>
 
     <!-- OK -->
     <Button
@@ -26,6 +29,5 @@
         android:layout_height="@dimen/btnHeightSmall"
         android:id="@+id/warningOkBtn"
         android:textSize="@dimen/defaultBtnTxtSize"
-        android:text="OK"
-        android:padding="@dimen/tabsPaddingSmall"/>
+        android:text="OK"/>
 </LinearLayout>

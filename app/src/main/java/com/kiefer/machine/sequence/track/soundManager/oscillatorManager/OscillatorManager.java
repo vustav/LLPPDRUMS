@@ -10,6 +10,7 @@ import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.soundManager.SoundSource;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPreset;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetBass;
+import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetClap;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetCrash;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHClosed;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHOpen;
@@ -120,12 +121,13 @@ public class OscillatorManager extends SoundSource {
     private void setupPresets(){
         presets.add(new OscPresetBass(llppdrums));
         presets.add(new OscPresetSnare(llppdrums));
+        presets.add(new OscPresetClap(llppdrums));
         presets.add(new OscPresetHHClosed(llppdrums));
         presets.add(new OscPresetHHOpen(llppdrums));
         presets.add(new OscPresetTom(llppdrums));
         presets.add(new OscPresetCrash(llppdrums));
         presets.add(new OscPresetRide(llppdrums));
-        presets.add(new OscPresetHandDrum(llppdrums));
+        //presets.add(new OscPresetHandDrum(llppdrums));
     }
 
     /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/

@@ -335,36 +335,106 @@ public class EngineFacade {
 
     /** SAMPLES **/
     private void setupSamples(){
-        //BASS
-        loadWAVAsset("E-Mu-Proteus-FX-909-Kick.wav", "E-Mu-Proteus-FX-909-Kick");
-        loadWAVAsset("E-Mu-Proteus-FX-Wacky-Kick.wav", "E-Mu-Proteus-FX-Wacky-Kick");
-        loadWAVAsset("Dry-Kick.wav", "Dry-Kick");
-
-        //SNARE
-        loadWAVAsset("Ensoniq-ESQ-1-Snare.wav", "Ensoniq-ESQ-1-Snare");
-
-        //HH
-        loadWAVAsset("Cowbell-1.wav", "Cowbell-1");
-        loadWAVAsset("Cowbell-2.wav", "Cowbell-2");
-
-        //TOM
-        loadWAVAsset("Electro-Tom.wav", "Electro-Tom");
-        loadWAVAsset("Electronic-Tom-1.wav", "Electronic-Tom-1");
-        loadWAVAsset("Electronic-Tom-2.wav", "Electronic-Tom-2");
-        loadWAVAsset("Electronic-Tom-3.wav", "Electronic-Tom-3");
-        loadWAVAsset("Electronic-Tom-4.wav", "Electronic-Tom-4");
-
-        //HAND
-        loadWAVAsset("Hand-Drum.wav", "Hand-Drum");
-        loadWAVAsset("Hi-Bongo.wav", "Hi-Bongo");
-        loadWAVAsset("High-Conga-2.wav", "High-Conga-2");
+        //CLAP
+        loadWAVAsset("clap1.wav", "CLAP1");
+        loadWAVAsset("clap2.wav", "CLAP2");
+        loadWAVAsset("clap3.wav", "CLAP3");
+        loadWAVAsset("clap4.wav", "CLAP4");
+        loadWAVAsset("clap5.wav", "CLAP5");
 
         //CRASH
-        loadWAVAsset("drum-crash-3_5bpm_E_major.wav", "drum-crash-3_5bpm_E_major");
-        loadWAVAsset("drum-crash-4_5bpm_E_major.wav", "drum-crash-4_5bpm_E_major");
-        loadWAVAsset("drum-crash_1bpm_E_minor.wav", "drum-crash_1bpm_E_minor");
-        loadWAVAsset("future-drum-hit-crash-2_3bpm_C_minor.wav", "future-drum-hit-crash-2_3bpm_C_minor");
-        loadWAVAsset("future-drum-hit-crash_3bpm_E_major.wav", "future-drum-hit-crash_3bpm_E_major");
+        loadWAVAsset("crash1.wav", "CRASH1");
+        loadWAVAsset("crash2.wav", "CRASH2");
+        loadWAVAsset("crash3.wav", "CRASH3");
+        loadWAVAsset("crash4.wav", "CRASH4");
+        loadWAVAsset("crash5.wav", "CRASH5");
+
+        //HH_CLOSED
+        loadWAVAsset("hh_closed1.wav", "HH_CLOSED1");
+        loadWAVAsset("hh_closed2.wav", "HH_CLOSED2");
+        loadWAVAsset("hh_closed3.wav", "HH_CLOSED3");
+        loadWAVAsset("hh_closed4.wav", "HH_CLOSED4");
+        loadWAVAsset("hh_closed5.wav", "HH_CLOSED5");
+        loadWAVAsset("hh_closed6.wav", "HH_CLOSED6");
+        loadWAVAsset("hh_closed7.wav", "HH_CLOSED7");
+        loadWAVAsset("hh_closed8.wav", "HH_CLOSED8");
+        loadWAVAsset("hh_closed9.wav", "HH_CLOSED9");
+
+        //HH_OPEN
+        loadWAVAsset("hh_open1.wav", "HH_OPEN1");
+        loadWAVAsset("hh_open2.wav", "HH_OPEN2");
+        loadWAVAsset("hh_open3.wav", "HH_OPEN3");
+        loadWAVAsset("hh_open4.wav", "HH_OPEN4");
+        loadWAVAsset("hh_open5.wav", "HH_OPEN5");
+        loadWAVAsset("hh_open6.wav", "HH_OPEN6");
+
+        //KICK
+        loadWAVAsset("kick1.wav", "KICK1");
+        loadWAVAsset("kick2.wav", "KICK2");
+        loadWAVAsset("kick3.wav", "KICK3");
+        loadWAVAsset("kick4.wav", "KICK4");
+        loadWAVAsset("kick5.wav", "KICK5");
+        loadWAVAsset("kick6.wav", "KICK6");
+        loadWAVAsset("kick7.wav", "KICK7");
+        loadWAVAsset("kick8.wav", "KICK8");
+        loadWAVAsset("kick9.wav", "KICK9");
+        loadWAVAsset("kick10.wav", "KICK10");
+        loadWAVAsset("kick11.wav", "KICK11");
+        loadWAVAsset("kick12.wav", "KICK12");
+        loadWAVAsset("kick13.wav", "KICK13");
+        loadWAVAsset("kick14.wav", "KICK14");
+
+        //MISC
+        loadWAVAsset("misc_bell.wav", "BELL");
+        loadWAVAsset("misc_bug.wav", "BUG");
+        loadWAVAsset("misc_scratch1.wav", "SCRATCH1");
+        loadWAVAsset("misc_scratch2.wav", "SCRATCH2");
+        loadWAVAsset("misc_scratch3.wav", "SCRATCH3");
+        loadWAVAsset("misc_space.wav", "SPACE");
+
+        //RIDE
+        loadWAVAsset("ride1.wav", "RIDE1");
+        loadWAVAsset("ride2.wav", "RIDE2");
+        loadWAVAsset("ride3.wav", "RIDE3");
+        loadWAVAsset("ride4.wav", "RIDE4");
+        loadWAVAsset("ride5.wav", "RIDE5");
+        loadWAVAsset("ride6.wav", "RIDE6");
+
+        //SNARE
+        loadWAVAsset("snare1.wav", "SNARE1");
+        loadWAVAsset("snare2.wav", "SNARE2");
+        loadWAVAsset("snare3.wav", "SNARE3");
+        loadWAVAsset("snare4.wav", "SNARE4");
+        loadWAVAsset("snare5.wav", "SNARE5");
+        loadWAVAsset("snare6.wav", "SNARE6");
+        loadWAVAsset("snare7.wav", "SNARE7");
+        loadWAVAsset("snare8.wav", "SNARE8");
+        loadWAVAsset("snare9.wav", "SNARE9");
+        loadWAVAsset("snare10.wav", "SNARE10");
+        loadWAVAsset("snare11.wav", "SNARE11");
+        loadWAVAsset("snare12.wav", "SNARE12");
+        loadWAVAsset("snare13.wav", "SNARE13");
+        loadWAVAsset("snare14.wav", "SNARE14");
+        loadWAVAsset("snare15.wav", "SNARE15");
+        loadWAVAsset("snare16.wav", "SNARE16");
+        loadWAVAsset("snare17.wav", "SNARE17");
+        loadWAVAsset("snare18.wav", "SNARE18");
+        loadWAVAsset("snare19.wav", "SNARE19");
+
+        //TOM
+        loadWAVAsset("tom1.wav", "TOM1");
+        loadWAVAsset("tom2.wav", "TOM2");
+        loadWAVAsset("tom3.wav", "TOM3");
+        loadWAVAsset("tom4.wav", "TOM4");
+        loadWAVAsset("tom5.wav", "TOM5");
+        loadWAVAsset("tom6.wav", "TOM6");
+        loadWAVAsset("tom7.wav", "TOM7");
+        loadWAVAsset("tom8.wav", "TOM8");
+        loadWAVAsset("tom9.wav", "TOM9");
+        loadWAVAsset("tom10.wav", "TOM10");
+        loadWAVAsset("tom11.wav", "TOM11");
+        loadWAVAsset("tom12.wav", "TOM12");
+        loadWAVAsset("tom13.wav", "TOM13");
     }
 
     private void loadWAVAsset(String assetName, String sampleName) {

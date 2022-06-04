@@ -19,7 +19,8 @@ import com.kiefer.engine.EngineFacade;
 import com.kiefer.files.keepers.ProjectOptionKeeper;
 import com.kiefer.popups.WarningPopup;
 
-public class ProjectOptionsManager extends BroadcastReceiver {
+//public class ProjectOptionsManager extends BroadcastReceiver {
+public class ProjectOptionsManager {
 
     private LLPPDRUMS llppdrums;
     private EngineFacade engineFacade;
@@ -38,6 +39,7 @@ public class ProjectOptionsManager extends BroadcastReceiver {
     }
 
     /** BLUETOOTH **/
+    /*
     public void BTCheck() {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -53,12 +55,15 @@ public class ProjectOptionsManager extends BroadcastReceiver {
         }
     }
 
+     */
+
     public void showBTWarning(){
         String label = llppdrums.getResources().getString(R.string.btWarningLabel);
         String txt = llppdrums.getResources().getString(R.string.btWarningTxt);
         new WarningPopup(llppdrums, label, txt);
     }
 
+    /*
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -82,6 +87,8 @@ public class ProjectOptionsManager extends BroadcastReceiver {
             //... //Device has disconnected
         }
     }
+
+     */
 
     /** GET **/
     public boolean vibrateOnTouch() {

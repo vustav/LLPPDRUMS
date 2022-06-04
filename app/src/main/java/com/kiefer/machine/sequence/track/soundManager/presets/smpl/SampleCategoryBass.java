@@ -8,9 +8,20 @@ public class SampleCategoryBass extends SampleCategory{
 
     public SampleCategoryBass(){
         samples = new ArrayList<>();
-        samples.add(new Sample("E-Mu-Proteus-FX-909-Kick"));
-        samples.add(new Sample("E-Mu-Proteus-FX-Wacky-Kick"));
-        samples.add(new Sample("Dry-Kick"));
+        samples.add(new Sample("KICK1"));
+        samples.add(new Sample("KICK2"));
+        samples.add(new Sample("KICK3"));
+        samples.add(new Sample("KICK4"));
+        samples.add(new Sample("KICK5"));
+        samples.add(new Sample("KICK6"));
+        samples.add(new Sample("KICK7"));
+        samples.add(new Sample("KICK8"));
+        samples.add(new Sample("KICK9"));
+        samples.add(new Sample("KICK10"));
+        samples.add(new Sample("KICK11"));
+        samples.add(new Sample("KICK12"));
+        samples.add(new Sample("KICK13"));
+        samples.add(new Sample("KICK14"));
     }
 
     @Override

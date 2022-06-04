@@ -98,7 +98,7 @@ public class RndTrackManager {
         else{
             drumTrack.getSoundManager().setPresets(rndTrack.getPresetCategory());
         }
-        drumTrack.getSoundManager().randomizeSoundSource();
+        drumTrack.getSoundManager().randomizeSoundSource(rndTrack.getSamplePerc());
 
         //Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){

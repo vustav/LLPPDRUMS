@@ -221,7 +221,7 @@
 
     <!-- BT WARNING -->
     <string name="btWarningLabel">BLUETOOTH WARNING</string>
-    <string name="btWarningTxt">HAVING A BLUETOOTH AUDIO DEVICE CONNECTED WILL COMPLETELY RUIN PERFORMANCE</string>
+    <string name="btWarningTxt">HAVING A BLUETOOTH AUDIO DEVICE CONNECTED WILL COMPLETELY RUIN PERFORMANCE. USE A CABLE INSTEAD.</string>
 
     <!-- SOUND MANAGER -->
     <string name="oscLabel">OSCILLATORS</string>

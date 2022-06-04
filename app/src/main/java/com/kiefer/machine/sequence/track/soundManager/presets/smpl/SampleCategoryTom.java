@@ -8,11 +8,19 @@ public class SampleCategoryTom extends SampleCategory{
 
     public SampleCategoryTom(){
         samples = new ArrayList<>();
-        samples.add(new Sample("Electro-Tom"));
-        samples.add(new Sample("Electronic-Tom-1"));
-        samples.add(new Sample("Electronic-Tom-2"));
-        samples.add(new Sample("Electronic-Tom-3"));
-        samples.add(new Sample("Electronic-Tom-4"));
+        samples.add(new Sample("TOM1"));
+        samples.add(new Sample("TOM2"));
+        samples.add(new Sample("TOM3"));
+        samples.add(new Sample("TOM4"));
+        samples.add(new Sample("TOM5"));
+        samples.add(new Sample("TOM6"));
+        samples.add(new Sample("TOM7"));
+        samples.add(new Sample("TOM8"));
+        samples.add(new Sample("TOM9"));
+        samples.add(new Sample("TOM10"));
+        samples.add(new Sample("TOM11"));
+        samples.add(new Sample("TOM12"));
+        samples.add(new Sample("TOM13"));
     }
 
     @Override

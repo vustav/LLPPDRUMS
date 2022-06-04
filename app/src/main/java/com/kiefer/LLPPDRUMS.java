@@ -46,6 +46,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     public static boolean disableLoad = false;
     public static final boolean hideUIonPlay = false;
 
+    public static boolean checkBlueTooth = false;
+    //måste avkommentera registerReceiver() och unregisterReceiver(), samt göra ProjectOptionsManager till BroadcastReceiver (avkommentera även där)
+
     private static String LOG_TAG = "MWEngineFacade"; // logcat identifier
 
     public static int RECORD_AUDIO_PERMISSION_CODE = 34564576;
@@ -110,12 +113,17 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
             //BLUETOOTH
             //verkar inte gå att neka den här permissionen men kanske i nyare android-versioner? Bäst att ha ordentlig check
-            if (permission.equals(Manifest.permission.BLUETOOTH) && grantResult == PackageManager.PERMISSION_GRANTED) {
-                projectOptionsManager.BTCheck();
-            } else {
-                //om perm nekas, visa nån varning. Nu visas samma, borde fixa en egen för nekad perm i framtiden.
-                projectOptionsManager.showBTWarning();
-                //requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
+            if(checkBlueTooth) {
+                /*
+                if (permission.equals(Manifest.permission.BLUETOOTH) && grantResult == PackageManager.PERMISSION_GRANTED) {
+                    projectOptionsManager.BTCheck();
+                } else {
+                    //om perm nekas, visa nån varning. Nu visas samma, borde fixa en egen för nekad perm i framtiden.
+                    projectOptionsManager.showBTWarning();
+                    //requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
+                }
+
+                 */
             }
         }
     }
@@ -132,7 +140,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         //createKeeper();
 
         //for blueTooth-listening
-        unregisterReceiver(projectOptionsManager);
+        //unregisterReceiver(projectOptionsManager);
 
         engineFacade.destroy();
         drumMachine.destroy();
@@ -288,14 +296,20 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        this.registerReceiver(projectOptionsManager, filter);
 
         //this will run after the UI is ready
+
+        //this.registerReceiver(projectOptionsManager, filter);
+
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                Log.e("LLPPDRUMS", "BTCheck!");
-                projectOptionsManager.BTCheck();
+                if(checkBlueTooth) {
+                    //projectOptionsManager.BTCheck();
+                }
+                else{
+                    projectOptionsManager.showBTWarning();
+                }
             }
         });
 

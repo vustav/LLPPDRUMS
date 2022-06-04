@@ -8,7 +8,12 @@ public class SampleCategoryRide extends SampleCategory{
 
     public SampleCategoryRide(){
         samples = new ArrayList<>();
-        samples.add(new Sample("drum-crash-3_5bpm_E_major"));
+        samples.add(new Sample("RIDE1"));
+        samples.add(new Sample("RIDE2"));
+        samples.add(new Sample("RIDE3"));
+        samples.add(new Sample("RIDE4"));
+        samples.add(new Sample("RIDE5"));
+        samples.add(new Sample("RIDE6"));
     }
 
     @Override

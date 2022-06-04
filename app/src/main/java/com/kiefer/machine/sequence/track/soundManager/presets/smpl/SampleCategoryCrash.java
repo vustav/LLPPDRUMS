@@ -8,11 +8,11 @@ public class SampleCategoryCrash extends SampleCategory{
 
     public SampleCategoryCrash(){
         samples = new ArrayList<>();
-        samples.add(new Sample("drum-crash-3_5bpm_E_major"));
-        samples.add(new Sample("drum-crash-4_5bpm_E_major"));
-        samples.add(new Sample("drum-crash_1bpm_E_minor"));
-        samples.add(new Sample("future-drum-hit-crash-2_3bpm_C_minor"));
-        samples.add(new Sample("future-drum-hit-crash_3bpm_E_major"));
+        samples.add(new Sample("CRASH1"));
+        samples.add(new Sample("CRASH2"));
+        samples.add(new Sample("CRASH3"));
+        samples.add(new Sample("CRASH4"));
+        samples.add(new Sample("CRASH5"));
     }
 
     @Override

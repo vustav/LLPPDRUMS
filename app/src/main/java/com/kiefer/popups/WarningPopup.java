@@ -42,7 +42,7 @@ public class WarningPopup extends Popup{
         TextView tv = popupView.findViewById(R.id.warningTV);
         tv.setText(text);
         tv.setBackgroundColor(ContextCompat.getColor(llppdrums, R.color.warningBg));
-        tv.setTextColor(ColorUtils.getContrastColor(ContextCompat.getColor(llppdrums, R.color.warningTxt)));
+        tv.setTextColor(ContextCompat.getColor(llppdrums, R.color.warningTxt));
 
 
         //ok

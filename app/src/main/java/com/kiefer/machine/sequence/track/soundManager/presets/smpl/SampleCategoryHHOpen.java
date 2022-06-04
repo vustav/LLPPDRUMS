@@ -7,10 +7,13 @@ import java.util.ArrayList;
 public class SampleCategoryHHOpen extends SampleCategory{
 
     public SampleCategoryHHOpen(){
-        /** FIXA ÖPPNA **/
         samples = new ArrayList<>();
-        samples.add(new Sample("Cowbell-1"));
-        samples.add(new Sample("Cowbell-2"));
+        samples.add(new Sample("HH_OPEN1"));
+        samples.add(new Sample("HH_OPEN2"));
+        samples.add(new Sample("HH_OPEN3"));
+        samples.add(new Sample("HH_OPEN4"));
+        samples.add(new Sample("HH_OPEN5"));
+        samples.add(new Sample("HH_OPEN6"));
     }
 
     @Override

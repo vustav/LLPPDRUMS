@@ -79,7 +79,16 @@ public class SoundManager {
     /** RND **/
     public void randomizeSoundSource(){
         Random r = new Random();
-        if(r.nextInt(2) == 0){
+        if(r.nextBoolean()){
+            setActiveSoundSource(OSC);
+        }
+        else{
+            setActiveSoundSource(SAMPLE);
+        }
+    }
+    public void randomizeSoundSource(float samplePerc){
+        Random r = new Random();
+        if(r.nextFloat() > samplePerc){
             setActiveSoundSource(OSC);
         }
         else{

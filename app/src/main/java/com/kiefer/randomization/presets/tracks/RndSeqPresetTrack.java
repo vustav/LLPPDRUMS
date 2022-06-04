@@ -3,7 +3,6 @@ package com.kiefer.randomization.presets.tracks;
 import android.graphics.drawable.GradientDrawable;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetStepKeeper;
 import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetSubKeeper;
 import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetTrackKeeper;
@@ -18,9 +17,12 @@ public class RndSeqPresetTrack {
     protected final LLPPDRUMS llppdrums;
 
     private String presetCategory;
+
+    //percentage of it beeing a sample when soundSource is randomized
+    private float samplePerc = .7f;
+
     private ArrayList<Step> steps;
     private String name;
-    //protected int nOfSteps, nOfSubs;
     private GradientDrawable gradientDrawable;
     private final int oscListImgId;
 
@@ -33,6 +35,7 @@ public class RndSeqPresetTrack {
         oscListImgId = ImgUtils.getRandomImageId();
 
         presetCategory = keeper.presetCategory;
+
         name = keeper.name;
 
         setupSteps(keeper.nOfSteps, keeper.nOfSubs);
@@ -122,7 +125,15 @@ public class RndSeqPresetTrack {
         //this.nOfSubs = nOfSubs;
     }
 
+    public void setSamplePerc(float perc){
+        samplePerc = perc;
+    }
+
     /** GET **/
+    public float getSamplePerc() {
+        return samplePerc;
+    }
+
     public String getPresetCategory() {
         return presetCategory;
     }
@@ -221,6 +232,7 @@ public class RndSeqPresetTrack {
         }
 
         /** SET **/
+
         public void setSubPerc(int sub, float perc) {
             subs.get(sub).setPerc(perc);
         }
