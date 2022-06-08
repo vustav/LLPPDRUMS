@@ -144,7 +144,7 @@ public class SequenceManager {
         //Log.e("SequenceManager", "setupSequences(), keeper.activeSequenceBoxIndex1: "+keeper.activeSequenceBoxIndex);
         if(keeper != null){
             setProgress(keeper.progress);
-            setRandomizeProgress(true);
+            setRandomizeProgress(keeper.randomizeProgress);
             setQueue(keeper.queue);
             setRestartAtStop(keeper.restartAtStop);
             setNOfActiveBoxes(keeper.nOfActiveBoxes);
@@ -323,7 +323,8 @@ public class SequenceManager {
     }
 
     public void updateSequenceColor(DrumSequence drumSequence){
-        for(int i = 0; i < selectedSequences.size(); i++){
+        //for(int i = 0; i < selectedSequences.size(); i++){
+        for(int i = 0; i < getNOfActiveBoxes(); i++){
             if(selectedSequences.get(i) == drumSequence){
                 counter.setStepColor(i, drumSequence.getColor());
             }

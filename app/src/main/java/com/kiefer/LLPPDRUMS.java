@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,7 +21,6 @@ import com.kiefer.interfaces.Loadable;
 import com.kiefer.options.projectOptions.ProjectOptionsManager;
 import com.kiefer.machine.sequencerUI.SequencerUI;
 import com.kiefer.files.KeeperFileHandler;
-import com.kiefer.popups.WarningPopup;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.ControllerFragment;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
@@ -34,7 +32,6 @@ import com.kiefer.engine.EngineFacade;
 
 import androidx.fragment.app.FragmentActivity;
 
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
