@@ -19,20 +19,4 @@
             android:layout_height="wrap_content"
             android:text="@string/fxHPLPHP"/>
     </FrameLayout>
-
-    <!-- LP -->
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/marginSmall">
-        <SeekBar
-            android:layout_width="@dimen/defaultSeekBarWidth"
-            android:layout_height="@dimen/defaultSeekBarHeight"
-            android:id="@+id/lpSlider"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fxHPLPLP"/>
-    </FrameLayout>
 </LinearLayout>

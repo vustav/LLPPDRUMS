@@ -1,13 +1,10 @@
 package com.kiefer.randomization.rndSeqManager;
 
 import com.kiefer.LLPPDRUMS;
-import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
-import com.kiefer.files.keepers.rndSeqManager.RndSeqPresetTrackKeeper;
-import com.kiefer.interfaces.Loadable;
 import com.kiefer.interfaces.Tempoizer;
+import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetCustom;
-import com.kiefer.randomization.presets.RandomizeSeqPresetJazz;
 import com.kiefer.randomization.presets.RandomizeSeqPresetRockPlus;
 import com.kiefer.randomization.presets.RandomizeSeqPreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetDisco;
@@ -197,7 +194,7 @@ public class RndSeqManager implements Tempoizer {
     }
 
     public void setTrackOsc(int trackNo, String osc){
-        tracks.get(trackNo).setPresetCategory(osc);
+        tracks.get(trackNo).setPresetCategories(osc);
     }
 
     /** RESTORE **/

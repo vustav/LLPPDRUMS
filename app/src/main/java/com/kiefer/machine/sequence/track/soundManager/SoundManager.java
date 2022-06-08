@@ -104,9 +104,13 @@ public class SoundManager {
 
         if(tag.equals(OSC)){
             activeSoundSource = soundSources.get(0);
+
+            //shouldn't be needed but sometimes both are on so do this just in case
+            soundSources.get(1).deactivate();
         }
         else{
             activeSoundSource = soundSources.get(1);
+            soundSources.get(0).deactivate();
         }
 
         if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {

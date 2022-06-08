@@ -77,7 +77,8 @@
     <color name="fxTremoloColor">#673AB7</color>
     <color name="fxWSColor">#FFC107</color>
     <color name="fxFFColor">#E482C4</color>
-    <color name="fxLPHPColor">#40393E</color>
+    <color name="fxHPColor">#D5A6AA</color>
+    <color name="fxLPColor">#473A3E</color>
     <color name="fxLimiterColor">#000000</color>
 
     <!-- AUTOMATION -->

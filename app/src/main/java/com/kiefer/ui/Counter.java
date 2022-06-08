@@ -111,21 +111,13 @@ public class Counter {
     }
 
     protected void setStepColor(final int step, final int color){
-        //llppdrums.runOnUiThread(new Runnable() {
-        //public void run() {
-        //FrameLayout bg = (FrameLayout) layout.getChildAt(step);
-        //TextView tv = (TextView) ((FrameLayout) layout.getChildAt(step)).getChildAt(1);
-
-
-
-        layout.getChildAt(step).findViewById(R.id.counterCellBg).setBackgroundColor(color);
-        ((TextView)layout.getChildAt(step).findViewById(R.id.counterCellTv)).setTextColor(ColorUtils.getContrastColor(color));
-        //}
-        //});
+        llppdrums.runOnUiThread(() -> {
+            layout.getChildAt(step).findViewById(R.id.counterCellBg).setBackgroundColor(color);
+            ((TextView) layout.getChildAt(step).findViewById(R.id.counterCellTv)).setTextColor(ColorUtils.getContrastColor(color));
+        });
     }
 
     public void setStepText(int step, String text){
-        //TextView tv = (TextView) ((FrameLayout) layout.getChildAt(step)).getChildAt(1);
         ((TextView)layout.getChildAt(step).findViewById(R.id.counterCellTv)).setText(text);
     }
 

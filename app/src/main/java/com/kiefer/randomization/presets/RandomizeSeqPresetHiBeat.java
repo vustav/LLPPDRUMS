@@ -49,7 +49,7 @@ public class RandomizeSeqPresetHiBeat extends RandomizeSeqPreset {
         }
 
         track  = new RndSeqPresetTrackHHBasic(llppdrums, steps, 3);
-        track.setPresetCategory(SoundSourcePreset.RANDOM);
+        track.setPresetCategories(SoundSourcePreset.RANDOM);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(true);

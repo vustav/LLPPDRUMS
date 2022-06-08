@@ -50,8 +50,10 @@ public class RndSeqPresetTrack {
 
     public RndSeqPresetTrack(LLPPDRUMS llppdrums, String presetCategory, int nOfSteps, int nOfSubs, String name){
         this.llppdrums = llppdrums;
-        this.presetCategory = presetCategory;
         this.name = name;
+
+        this.presetCategory = presetCategory;
+
         gradientDrawable = ColorUtils.getGradientDrawable(ColorUtils.getRandomColor(), ColorUtils.getRandomColor(), ColorUtils.HORIZONTAL);
         oscListImgId = ImgUtils.getRandomImageId();
 
@@ -98,7 +100,7 @@ public class RndSeqPresetTrack {
     public void setStepPanInterval(int step, float min, float max){
         steps.get(step).setPanInterval(min, max);
     }
-    public void setPresetCategory(String presetCategory) {
+    public void setPresetCategories(String presetCategory) {
         this.presetCategory = presetCategory;
     }
 

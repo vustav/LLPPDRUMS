@@ -1,7 +1,6 @@
 package com.kiefer.randomization.rndTrackManager;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
@@ -92,10 +91,12 @@ public class RndTrackManager {
 
         drumTrack.setNOfSubs(666, rndTrack.getnOfSubs()); //trackNo doesn't matter since the drumTrack is the subilizer
 
+        //if(rndTrack.getPresetCategories().size() == 1 && rndTrack.getPresetCategories().get(0).equals(RANDOM)){
         if(rndTrack.getPresetCategory().equals(RANDOM)){
             drumTrack.getSoundManager().setRandomPresets();
         }
         else{
+            //String preset = rndTrack.getPresetCategory().get(random.nextInt(rndTrack.getPresetCategory().size()));
             drumTrack.getSoundManager().setPresets(rndTrack.getPresetCategory());
         }
         drumTrack.getSoundManager().randomizeSoundSource(rndTrack.getSamplePerc());

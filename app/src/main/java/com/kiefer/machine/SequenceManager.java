@@ -444,7 +444,10 @@ public class SequenceManager {
     private boolean firstPlayedSeq = true; //just to prevent seq-update when starting the sequence the first time
     public void handleSequencerPositionChange(int sequencerPosition){
         float progress = ((float)(sequencerPosition + 1)) / ((float)llppdrums.getDrumMachine().getPlayingSequence().getNOfSteps());
-        progressSlider.setProgress(progress);
+
+        llppdrums.runOnUiThread(() -> {
+            progressSlider.setProgress(progress);
+        });
 
         if(sequencerPosition == 0 && !firstPlayedSeq){
             updateSeq();

@@ -46,7 +46,6 @@ public class FxDecimator extends Fx {
     /** SET **/
     private void setBits(int value){
         bits = value;
-        Log.e("asd", "asd: "+bits);
         ((Decimator)fx).setBits(bits);
     }
 

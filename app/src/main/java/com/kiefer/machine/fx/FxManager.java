@@ -59,7 +59,8 @@ public class FxManager {
         fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxTremoloName), ContextCompat.getColor(llppdrums, R.color.fxTremoloColor)));
         fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxFFName), ContextCompat.getColor(llppdrums, R.color.fxFFColor)));
         fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxWSName), ContextCompat.getColor(llppdrums, R.color.fxWSColor)));
-        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxHPLPName), ContextCompat.getColor(llppdrums, R.color.fxLPHPColor)));
+        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxHPName), ContextCompat.getColor(llppdrums, R.color.fxHPColor)));
+        fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxLPName), ContextCompat.getColor(llppdrums, R.color.fxLPColor)));
         fxInfos.add(new FxInfo(llppdrums.getResources().getString(R.string.fxLimiterName), ContextCompat.getColor(llppdrums, R.color.fxLimiterColor)));
     }
 
@@ -83,8 +84,10 @@ public class FxManager {
             case 7:
                 return new FxWaveShaper(llppdrums, fxer, fxNo, randomizeAutomation);
             case 8:
-                return new FxHPLPFilter(llppdrums, fxer, fxNo, randomizeAutomation);
+                return new FxHPFilter(llppdrums, fxer, fxNo, randomizeAutomation);
             case 9:
+                return new FxLPFilter(llppdrums, fxer, fxNo, randomizeAutomation);
+            case 10:
                 return new FxLimiter(llppdrums, fxer, fxNo, randomizeAutomation);
         }
         return null;
@@ -172,7 +175,13 @@ public class FxManager {
                 removeFxFromEngine(fx);
             }
         }
+
+        /** SHOULDN'T BE NEEDED **/
+        for(ProcessingChain pc : fxer.getProcessingChains()) {
+            pc.reset();
+        }
     }
+
 
     public void changeSelectedFx(int newFxIndex){
 

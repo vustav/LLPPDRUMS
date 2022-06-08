@@ -166,7 +166,8 @@
     <string name="fxFFName">FORMANT FILTER</string>
     <string name="fxFFVowel">VOWEL</string>
 
-    <string name="fxHPLPName">HPLP FILTER</string>
+    <string name="fxLPName">LP FILTER</string>
+    <string name="fxHPName">HP FILTER</string>
     <string name="fxHPLPHP">HP FREQ</string>
     <string name="fxHPLPLP">LP FREQ</string>
 

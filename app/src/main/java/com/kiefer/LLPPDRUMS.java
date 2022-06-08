@@ -1,12 +1,15 @@
 package com.kiefer;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +22,7 @@ import com.kiefer.interfaces.Loadable;
 import com.kiefer.options.projectOptions.ProjectOptionsManager;
 import com.kiefer.machine.sequencerUI.SequencerUI;
 import com.kiefer.files.KeeperFileHandler;
+import com.kiefer.popups.WarningPopup;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.ControllerFragment;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
@@ -33,15 +37,21 @@ import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHolder, Loadable {
     /** TRÅDAR **/
-    /* notifications i EngineFacade körs i UI-tråden. Tror engine går i egen tråd som dom kanske kommer i en annan? */
+    //DrumMachineFragment.showPlayIcon();
+    //SequenceManager.handleSequencerPositionChange();
+    //SequenceCounter.activateStep()
+    //SequenceCounter.queueStep()
+    /* pilarna ändras i UI-tråden */
 
     /** TILLFÄLLIGA FIXAR **/
+    //kör pc.reset() i FxManager.removeFxsFromEngine() efter att de tagits bort i loop redan
 
     public static boolean disableLoad = false;
     public static final boolean hideUIonPlay = false;
@@ -50,8 +60,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     //måste avkommentera registerReceiver() och unregisterReceiver(), samt göra ProjectOptionsManager till BroadcastReceiver (avkommentera även där)
 
     private static String LOG_TAG = "MWEngineFacade"; // logcat identifier
-
+    private static final int PERMISSIONS_CODE = 8081981;
     public static int RECORD_AUDIO_PERMISSION_CODE = 34564576;
+
     public static final int BLUETOOTH_CONNECT_PERMISSION_CODE = 956;
 
     //main classes
@@ -99,21 +110,73 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.layout_main);
-
+        //checkPermission();
         init();
     }
 
     /** PERMISSIONS **/
+    /** BEHÖVS INTE NU MEN BEHÅLL FÖR REFERENS **/
+    private void checkPermission(){
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
+
+                // Explain to the user why we need to read the contacts
+                new AlertDialog.Builder(this)
+                        .setTitle("PERMISSION TO RECORD AUDIO")
+                        .setMessage("NEED THIS TO WORK")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
+                            }
+                        })
+/*
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finishAffinity();
+                            }
+                        })
+ */
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+
+            //requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);
+        }
+        else{
+            init();
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        for (int i = 0; i < permissions.length; i++) {
+        /*
+        if(requestCode != RECORD_AUDIO_PERMISSION_CODE) {
+            return;
+        }
+
+         */
+        for (int i=0; i < permissions.length; i++) {
             String permission = permissions[i];
             int grantResult = grantResults[i];
+            if (permission.equals(Manifest.permission.RECORD_AUDIO ) && grantResult == PackageManager.PERMISSION_GRANTED) {
+                init();
+            } else {
+                //close the app if permission is denied
+                finishAffinity();
+            }
+        }
 
-            //BLUETOOTH
-            //verkar inte gå att neka den här permissionen men kanske i nyare android-versioner? Bäst att ha ordentlig check
-            if(checkBlueTooth) {
+        //BLUETOOTH
+        //verkar inte gå att neka den här permissionen men kanske i nyare android-versioner? Bäst att ha ordentlig check
+        if(checkBlueTooth) {
                 /*
                 if (permission.equals(Manifest.permission.BLUETOOTH) && grantResult == PackageManager.PERMISSION_GRANTED) {
                     projectOptionsManager.BTCheck();
@@ -124,7 +187,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
                 }
 
                  */
-            }
         }
     }
 
@@ -253,14 +315,13 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
         infoManager = new InfoManager(this);
 
-        //try {
-        if(keeper != null) {
-            drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
-        }
-        else{
-            drumMachine = new DrumMachine(this, engineFacade, 0, null);
-        }
-/*
+        try {
+            if(keeper != null) {
+                drumMachine = new DrumMachine(this, engineFacade, 0, keeper.drumMachineKeeper);
+            }
+            else{
+                drumMachine = new DrumMachine(this, engineFacade, 0, null);
+            }
         }
         catch (Exception e){
             drumMachine = new DrumMachine(this, engineFacade, 0, null);
@@ -268,8 +329,6 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
             Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
             toast.show();
         }
-
- */
 
         //try {
         if(keeper != null){

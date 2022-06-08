@@ -168,7 +168,7 @@ public class FxManagerInfo extends InfoHolder implements Info {
         link = new InfoLink(llppdrums, label, WSInfo.key, nodeTV);
         nodeTV.append(link);
 
-        label = llppdrums.getResources().getString(R.string.fxHPLPName);
+        label = llppdrums.getResources().getString(R.string.fxLPName);
         nodeTV.append(", ");
         link = new InfoLink(llppdrums, label, HPLPInfo.key, nodeTV);
         nodeTV.append(link);
