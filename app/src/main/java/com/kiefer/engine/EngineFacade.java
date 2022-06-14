@@ -314,11 +314,14 @@ public class EngineFacade {
                     // we can calculate the amount of samples pending until the next step position is reached
                     // which in turn allows us to calculate the engine latency
 
+                    /** Här är rörigt verkligen. Känns som det kraschar mindre att köra uppdateringar i UI-tråden, men känns fel **/
+                    /** FINNS NÅGRA SAKER SOM KÖRS I UI-TRAÅDEN EFTER DEN HÄR, ALLTSÅ I ONÖDAN. ALLA BORDE STÅ I LLPPDRUMS **/
+
                     //we get UIthread-errors here without this. Maybe since the engine runs in its own thread?
                     sequencerPosition = _sequencerController.getStepPosition();
-                    //llppdrums.runOnUiThread(() -> {
+                    llppdrums.runOnUiThread(() -> {
                         llppdrums.handleSequencerPositionChange(sequencerPosition);
-                    //});
+                    });
                     break;
                 case RECORDED_SNIPPET_READY:
                     llppdrums.runOnUiThread(() -> {

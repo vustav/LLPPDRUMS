@@ -72,6 +72,7 @@ public class Deleter {
                     fx = null;
                 }
                 for (BaseAudioEvent event : events) {
+                    //event.removeFromSequencer();
                     event.delete();
                 }
                 for (BaseInstrument instrument : instruments) {

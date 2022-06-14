@@ -698,6 +698,8 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
 
         if(returnActive()) {
             if(sequencerPosition == 0) {
+                //KRASHAR, KANSKE EFTER ATT MAN BYTT NOFSTEPS
+                //Log.e("DrumSequence", "handleSequencerPositionChange(), steps: "+getNOfSteps());
                 rndSeqManager.returnAutoRandomizations(getNOfSteps() - 2);
             }
             else if(sequencerPosition == 1) {
@@ -707,6 +709,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
                 rndSeqManager.returnAutoRandomizations(sequencerPosition - 2);
             }
         }
+
 
         if(sequencerPosition == 0 && automationsActive()){
             rndSeqManager.autoRandomize();
