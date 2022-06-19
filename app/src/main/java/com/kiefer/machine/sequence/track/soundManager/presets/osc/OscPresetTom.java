@@ -24,7 +24,7 @@ public class OscPresetTom extends OscPreset {
         osc0.setOscillatorPitch((int)((maxPitch / 2) * getMiniRandomMultiplier()));
         osc0.setAttackTime(maxAtk / 20 * getMiniRandomMultiplier());
 
-        osc0.setDecayTime(maxDecay * .7f * getMaxiRandomMultiplier());
+        osc0.setDecayTime(maxDecay * .3f * getMaxiRandomMultiplier());
         osc0.setOn(true);
 
         osc1.setWaveForm(1); //triangle

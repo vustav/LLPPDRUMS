@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
@@ -58,9 +59,16 @@ public class ProjectOptionsManager {
      */
 
     public void showBTWarning(){
-        String label = llppdrums.getResources().getString(R.string.btWarningLabel);
-        String txt = llppdrums.getResources().getString(R.string.btWarningTxt);
-        new WarningPopup(llppdrums, label, txt);
+        //fått Activity com.kiefer.LLPPDRUMS has leaked window android.widget.PopupWindow$PopupDecorView.....
+        try {
+            String label = llppdrums.getResources().getString(R.string.btWarningLabel);
+            String txt = llppdrums.getResources().getString(R.string.btWarningTxt);
+            new WarningPopup(llppdrums, label, txt);
+        }
+        catch (Exception e){
+            Toast toast = Toast.makeText(llppdrums, R.string.btWarningTxt, Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     /*

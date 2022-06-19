@@ -5,6 +5,8 @@ import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
 import com.kiefer.interfaces.Tempoizer;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetCustom;
+import com.kiefer.randomization.presets.RandomizeSeqPresetDesert;
+import com.kiefer.randomization.presets.RandomizeSeqPresetJazz;
 import com.kiefer.randomization.presets.RandomizeSeqPresetRockPlus;
 import com.kiefer.randomization.presets.RandomizeSeqPreset;
 import com.kiefer.randomization.presets.RandomizeSeqPresetDisco;
@@ -60,6 +62,7 @@ public class RndSeqManager implements Tempoizer {
         rndSeqPresets.add(new RandomizeSeqPresetRockPlus(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetDisco(llppdrums, this));
         rndSeqPresets.add(new RandomizeSeqPresetHiBeat(llppdrums, this));
+        rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
         //rndSeqPresets.add(new RandomizeSeqPresetJazz(llppdrums, this));
     }
 

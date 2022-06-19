@@ -32,7 +32,9 @@ import com.kiefer.engine.EngineFacade;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -109,6 +111,24 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
         setContentView(R.layout.layout_main);
         //checkPermission();
         init();
+
+        /** TEST CRASH **/
+/*
+        Button crashButton = new Button(this);
+        crashButton.setText("Test Crash");
+        crashButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                throw new RuntimeException("Test Crash"); // Force a crash
+            }
+        });
+
+        addContentView(crashButton, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
+ */
+
+
     }
 
     /** PERMISSIONS **/

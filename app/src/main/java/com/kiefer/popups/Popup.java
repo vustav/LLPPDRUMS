@@ -39,8 +39,8 @@ public abstract class Popup {
     protected void show(PopupWindow popupWindow, int gravity){
         Random r = new Random();
         int offset = llppdrums.getResources().getInteger(R.integer.popupOffset);
-        int modX = (offset/2) - r.nextInt(offset);
-        int modY = (offset/2) - r.nextInt(offset);
+        int modX = (offset / 2) - r.nextInt(offset);
+        int modY = (offset / 2) - r.nextInt(offset);
         popupWindow.showAtLocation(llppdrums.getLayout(), gravity, modX, modY);
         dimBehind(popupWindow, .8f);
     }

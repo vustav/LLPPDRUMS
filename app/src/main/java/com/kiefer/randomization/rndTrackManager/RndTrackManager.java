@@ -241,7 +241,7 @@ public class RndTrackManager {
                             if (s.getAutoRndPitch(sub)) {
                                 s.saveSubPrevPitch(sub);
 
-                                if(random.nextFloat() < s.getRndVolPerc(sub)) {
+                                if(random.nextFloat() < s.getRndPitchPerc(sub)) {
                                     randomizeSubPitch(s, sub);
                                 }
 

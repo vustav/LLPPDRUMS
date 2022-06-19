@@ -5,9 +5,9 @@ import com.kiefer.R;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 import com.kiefer.utils.NmbrUtils;
 
-public class RndSeqPresetTrackHHJazz extends RndSeqPresetTrack {
+public class RndSeqPresetTrackRideJazz extends RndSeqPresetTrack {
 
-    public RndSeqPresetTrackHHJazz(LLPPDRUMS llppdrums, int nOfSteps){
+    public RndSeqPresetTrackRideJazz(LLPPDRUMS llppdrums, int nOfSteps){
         super(llppdrums, SoundSourcePreset.RIDE, nOfSteps, 4, llppdrums.getResources().getString(R.string.trackPresetHHBasicName));
 
         for(int step = 0; step < nOfSteps; step++){
@@ -32,11 +32,15 @@ public class RndSeqPresetTrackHHJazz extends RndSeqPresetTrack {
 
         for(int step = 3; step < nOfSteps; step+=4){
             for(int sub = 0; sub < 4; sub++) {
-                if(sub == 3){
+                if(sub == 2){
                     setSubPerc(step, sub, 1);
                 }
             }
             setStepPanInterval(step, .2f, .2f);
         }
+
+        //turn on at the snares also
+        setSubPerc(2, 0, 1);
+        setSubPerc(6, 0, 1);
     }
 }

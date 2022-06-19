@@ -319,9 +319,9 @@ public class EngineFacade {
 
                     //we get UIthread-errors here without this. Maybe since the engine runs in its own thread?
                     sequencerPosition = _sequencerController.getStepPosition();
-                    llppdrums.runOnUiThread(() -> {
+                    //llppdrums.runOnUiThread(() -> {
                         llppdrums.handleSequencerPositionChange(sequencerPosition);
-                    });
+                    //});
                     break;
                 case RECORDED_SNIPPET_READY:
                     llppdrums.runOnUiThread(() -> {

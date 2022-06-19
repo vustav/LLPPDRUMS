@@ -710,7 +710,6 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
             }
         }
 
-
         if(sequencerPosition == 0 && automationsActive()){
             rndSeqManager.autoRandomize();
         }

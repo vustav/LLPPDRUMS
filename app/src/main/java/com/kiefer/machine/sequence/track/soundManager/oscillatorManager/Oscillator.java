@@ -64,10 +64,10 @@ public class Oscillator {
 
     private void setInstrumentDefaults(){
         //får det här det sig att krascha??
-        liveInstrument.getAdsr().setSustainLevel(1);
-        synthInstrument.getAdsr().setSustainLevel(1);
-        liveInstrument.getAdsr().setReleaseTime(1);
-        synthInstrument.getAdsr().setReleaseTime(1);
+        liveInstrument.getAdsr().setSustainLevel(0);
+        synthInstrument.getAdsr().setSustainLevel(0);
+        liveInstrument.getAdsr().setReleaseTime(0);
+        synthInstrument.getAdsr().setReleaseTime(0);
     }
 
     /** ACTIVATION **/

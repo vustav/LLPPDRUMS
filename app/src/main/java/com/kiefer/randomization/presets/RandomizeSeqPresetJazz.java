@@ -4,8 +4,8 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackBassBasic;
-import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHBasic;
-import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHJazz;
+import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHotTom;
+import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackRideJazz;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackRandom;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackSnareBasic;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
@@ -37,17 +37,32 @@ public class RandomizeSeqPresetJazz extends RandomizeSeqPreset {
         track.setRandomizeVol(false);
         tracks.add(track);
 
-        track  = new RndSeqPresetTrackHHJazz(llppdrums, steps);
+        track  = new RndSeqPresetTrackRideJazz(llppdrums, steps);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);
         tracks.add(track);
 
+        track  = new RndSeqPresetTrackHotTom(llppdrums, steps, 2);
+        track.setRandomizeFx(true);
+        track.setRandomizePan(true);
+        track.setRandomizeVol(true);
+        tracks.add(track);
+
+        track  = new RndSeqPresetTrackHotTom(llppdrums, steps, 2);
+        track.setRandomizeFx(true);
+        track.setRandomizePan(true);
+        track.setRandomizeVol(true);
+        tracks.add(track);
+
+        /*
         track  = new RndSeqPresetTrackRandom(llppdrums, steps, 1);
         track.setRandomizeFx(true);
         track.setRandomizePan(true);
         track.setRandomizeVol(false);
         tracks.add(track);
+
+         */
 
         rndSeqManager.setTracks(tracks);
         rndSeqManager.setTempo(tempo);
