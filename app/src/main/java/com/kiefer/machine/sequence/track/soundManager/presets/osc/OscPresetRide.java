@@ -9,12 +9,23 @@ import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.Oscillat
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
 import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
-/** COPY OF HHOpen -- FIXXX!!! **/
-
 public class OscPresetRide extends OscPresetCrash {
 
     public OscPresetRide(LLPPDRUMS llppdrums){
         super(llppdrums);
+    }
+
+    @Override
+    public void setupOscillators(OscillatorManager oscillatorManager){
+        super.setupOscillators(oscillatorManager);
+
+        Oscillator osc0 = oscillatorManager.getOscillators()[0];
+        Oscillator osc1 = oscillatorManager.getOscillators()[1];
+
+        osc0.setVolume(osc0.getVolume() * .75f);
+        osc1.setVolume(osc1.getVolume() * .75f);
+        osc0.setReleaseTime(osc0.getReleaseTime() * .75f);
+        osc1.setReleaseTime(osc1.getReleaseTime() * .75f);
     }
 
     @Override

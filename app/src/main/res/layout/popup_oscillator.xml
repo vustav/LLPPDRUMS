@@ -67,7 +67,7 @@
             android:text="@string/oscAtkTime"/>
     </FrameLayout>
 
-    <!-- DECAY TIME -->
+    <!-- RELEASE TIME -->
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,10 +76,10 @@
         <SeekBar
             android:layout_width="@dimen/defaultSeekBarWidth"
             android:layout_height="@dimen/defaultSeekBarHeight"
-            android:id="@+id/oscDecayTimeSlider"/>
+            android:id="@+id/oscReleaseTimeSlider"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/defaultSeekBarHeight"
-            android:text="@string/oscDecayTime"/>
+            android:text="@string/oscReleaseTime"/>
     </FrameLayout>
 </LinearLayout>

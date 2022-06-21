@@ -7,6 +7,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.soundSources.OscillatorKeeper;
 import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.popups.trackMenu.TrackVolPopup;
 import com.kiefer.utils.ImgUtils;
 import com.kiefer.utils.NmbrUtils;
 
@@ -57,17 +58,17 @@ public class Oscillator {
         randomizeVolume();
         randomizePitch();
         randomizeAtk();
-        randomizeDecay();
+        randomizeRelease();
 
         deactivate();
     }
 
     private void setInstrumentDefaults(){
-        //får det här det sig att krascha??
-        liveInstrument.getAdsr().setSustainLevel(0);
-        synthInstrument.getAdsr().setSustainLevel(0);
-        liveInstrument.getAdsr().setReleaseTime(0);
-        synthInstrument.getAdsr().setReleaseTime(0);
+        float n = 0;
+        liveInstrument.getAdsr().setSustainLevel(n);
+        synthInstrument.getAdsr().setSustainLevel(n);
+        liveInstrument.getAdsr().setReleaseTime(n);
+        synthInstrument.getAdsr().setReleaseTime(n);
     }
 
     /** ACTIVATION **/
@@ -92,7 +93,7 @@ public class Oscillator {
     /** SUBS **/
     public void updateSubs(int subs){
         setAttackTime(getAtkTime());
-        setDecayTime(getDecayTime());
+        setReleaseTime(getReleaseTime());
     }
 
     /** RANDOMIZE **/
@@ -102,7 +103,7 @@ public class Oscillator {
         randomizeVolume();
         randomizePitch();
         randomizeAtk();
-        randomizeDecay();
+        randomizeRelease();
     }
 
     public void randomizeOn(){
@@ -143,8 +144,8 @@ public class Oscillator {
         return random.nextFloat() * llppdrums.getResources().getInteger(R.integer.maxOscAtkTime) / 100;
     }
 
-    public void randomizeDecay(){
-        setDecayTime(getRandomDecay());
+    public void randomizeRelease(){
+        setReleaseTime(getRandomDecay());
     }
 
     private float getRandomDecay(){
@@ -161,21 +162,24 @@ public class Oscillator {
         //Log.e("asdasd", "atk: "+atkTime);
         synthInstrument.getAdsr().setAttackTime(NmbrUtils.removeImpossibleNumbers(atkTime));
         liveInstrument.getAdsr().setAttackTime(NmbrUtils.removeImpossibleNumbers(atkTime));
+
+        synthInstrument.getAdsr().setDecayTime(0.1f);
+        synthInstrument.getAdsr().setSustainLevel(getVolume() * .1f);
     }
-    public void setDecayTime(float f){
+    public void setReleaseTime(float f){
+        /*
         float dcyTime = f * drumTrack.getNOfSubs();
         synthInstrument.getAdsr().setDecayTime(NmbrUtils.removeImpossibleNumbers(dcyTime));
         liveInstrument.getAdsr().setDecayTime(NmbrUtils.removeImpossibleNumbers(dcyTime));
-    }
-    public void setReleaseTime(float f){
-        synthInstrument.getAdsr().setReleaseTime(NmbrUtils.removeImpossibleNumbers(f));
-        liveInstrument.getAdsr().setReleaseTime(NmbrUtils.removeImpossibleNumbers(f));
+
+         */
+        synthInstrument.getAdsr().setReleaseTime(f);
     }
 
     //se the top for an explanation of the different volumes
     public void setVolume(float volume){
         oscillatorVolume = volume;
-        liveEvent.setVolume(NmbrUtils.removeImpossibleNumbers(volume));
+        liveEvent.setVolume(NmbrUtils.removeImpossibleNumbers(volume) * TrackVolPopup.VOL_MULTIPLIER * .5f);
     }
 
     public void setSolo(){
@@ -250,8 +254,8 @@ public class Oscillator {
         return synthInstrument.getAdsr().getAttackTime();
     }
 
-    public float getDecayTime() {
-        return synthInstrument.getAdsr().getDecayTime();
+    public float getReleaseTime() {
+        return synthInstrument.getAdsr().getReleaseTime();
     }
 
     public boolean isOn(){
@@ -288,7 +292,7 @@ public class Oscillator {
         setOscillatorPitch(k.oscillatorPitchLin);
         setWaveForm(k.waveForm);
         setAttackTime(Float.parseFloat(k.atk));
-        setDecayTime(Float.parseFloat(k.decay));
+        setReleaseTime(Float.parseFloat(k.release));
     }
 
     public OscillatorKeeper getKeeper(){
@@ -298,7 +302,7 @@ public class Oscillator {
         keeper.on = isOn();
         keeper.waveForm = getOscillatorWaveForm();
         keeper.atk = Float.toString(getAtkTime());
-        keeper.decay = Float.toString(getDecayTime());
+        keeper.release = Float.toString(getReleaseTime());
         return keeper;
     }
 

@@ -1,5 +1,6 @@
 package com.kiefer.popups.soundManager.oscillatorManager;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -20,7 +21,7 @@ public class OscillatorView {
     private LinearLayout layout;
     private CheckBox cb;
     private CSpinnerButton cSpinnerButton;
-    private SeekBar oscVolumeSlider, oscPitchSlider, atkTimeSlider, decayTimeSlider;
+    private SeekBar oscVolumeSlider, oscPitchSlider, atkTimeSlider, releaseTimeSlider;
     private final int multiplier = 100;
 
     private final ArrayList<View> disableableViews; //add all views here to be able to enable/disable them quick (not the checkBox!)
@@ -128,15 +129,15 @@ public class OscillatorView {
         disableableViews.add(atkTimeSlider);
 
         //decay time
-        decayTimeSlider = layout.findViewById(R.id.oscDecayTimeSlider);
-        decayTimeSlider.setMax(llppdrums.getResources().getInteger(R.integer.maxOscDecayTime));
-        decayTimeSlider.setProgress((int)(oscillatorManager.getOscillatorDecayTime(oscNo) * multiplier));
-        decayTimeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        releaseTimeSlider = layout.findViewById(R.id.oscReleaseTimeSlider);
+        releaseTimeSlider.setMax(llppdrums.getResources().getInteger(R.integer.maxOscDecayTime));
+        releaseTimeSlider.setProgress((int)(oscillatorManager.getOscillatorReleaseTime(oscNo) * multiplier));
+        releaseTimeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 float time = ((float) seekBar.getProgress()) / multiplier;
                 //Oscillator.this.oscillatorManager.setDecayTime(oscNo, time);
-                drumTrack.setDecayTime(oscNo, time);
+                drumTrack.setReleaseTime(oscNo, time);
             }
 
             @Override
@@ -148,7 +149,7 @@ public class OscillatorView {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        disableableViews.add(decayTimeSlider);
+        disableableViews.add(releaseTimeSlider);
 
         //enable/disable after all the views are created
         setEnabled(oscillatorManager.isOscillatorOn(oscNo));
@@ -163,7 +164,7 @@ public class OscillatorView {
             oscVolumeSlider.setProgress((int) (oscillatorManager.getOscillatorVolume(oscNo) * multiplier));
             oscPitchSlider.setProgress((int) (oscillatorManager.getOscillatorPitchLin(oscNo)));
             atkTimeSlider.setProgress((int) (oscillatorManager.getOscillatorAtkTime(oscNo) * multiplier));
-            decayTimeSlider.setProgress((int) (oscillatorManager.getOscillatorDecayTime(oscNo) * multiplier));
+            releaseTimeSlider.setProgress((int) (oscillatorManager.getOscillatorReleaseTime(oscNo) * multiplier));
         //}
         //else{
             setEnabled(oscillatorManager.getOscillator(oscNo).isOn());

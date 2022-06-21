@@ -7,5 +7,5 @@ public class OscillatorKeeper implements Keeper {
     public int oscillatorPitchLin;
     public boolean on;
     public int waveForm;
-    public String atk, decay;
+    public String atk, release;
 }

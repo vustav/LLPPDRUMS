@@ -504,8 +504,8 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     }
 
     //dec
-    public void setDecayTime(int oscNo, float time){
-        soundManager.setDecayTime(oscNo, time);
+    public void setReleaseTime(int oscNo, float time){
+        soundManager.setReleaseTime(oscNo, time);
     }
 
     public void setRndFx(boolean rndFx) {

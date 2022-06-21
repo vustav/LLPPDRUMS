@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.info.Info;
+import com.kiefer.info.link.InfoLink;
 import com.kiefer.utils.ColorUtils;
 
 public class RndSeqManagerInfo implements Info {
@@ -119,6 +120,15 @@ public class RndSeqManagerInfo implements Info {
 
         nodeTV = nodeLayout.findViewById(R.id.infoNodeTV);
         nodeTV.setText(R.string.seqRndManagerTracks);
+        nodeTV.append(" ");
+
+        //create a link and append it
+        String label = llppdrums.getResources().getString(R.string.seqModRandomModeName);
+        InfoLink link = new InfoLink(llppdrums, label, AutoRandomInfo.key, nodeTV);
+        nodeTV.append(link);
+        nodeTV.append(" ");
+
+        nodeTV.append(llppdrums.getResources().getString(R.string.seqRndManagerTracks2));
 
         layout.addView(nodeLayout);
 

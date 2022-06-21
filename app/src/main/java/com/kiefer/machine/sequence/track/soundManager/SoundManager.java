@@ -1,7 +1,5 @@
 package com.kiefer.machine.sequence.track.soundManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.soundSources.SoundManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -124,8 +122,8 @@ public class SoundManager {
     }
 
     //dec
-    public void setDecayTime(int oscNo, float time){
-        ((OscillatorManager)soundSources.get(0)).setDecayTime(oscNo, time);
+    public void setReleaseTime(int oscNo, float time){
+        ((OscillatorManager)soundSources.get(0)).setReleaseTime(oscNo, time);
     }
 
     public void setOscillatorPitch(int oscNo, int pitch){

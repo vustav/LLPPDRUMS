@@ -12,7 +12,7 @@ public abstract class OscPreset extends SoundSourcePreset {
     protected Random random;
 
     protected int maxPitch;
-    protected float maxVol, maxAtk, maxDecay;
+    protected float maxVol, maxAtk, maxRelease;
 
     public OscPreset(LLPPDRUMS llppdrums){
         this.llppdrums = llppdrums;
@@ -22,7 +22,7 @@ public abstract class OscPreset extends SoundSourcePreset {
         maxPitch = llppdrums.getResources().getInteger(R.integer.maxPitch);
         maxAtk = llppdrums.getResources().getInteger(R.integer.maxOscAtkTime) / 100f;
         //maxAtk = llppdrums.getResources().getInteger(R.integer.maxOscAtkTime);
-        maxDecay = llppdrums.getResources().getInteger(R.integer.maxOscDecayTime) / 100f;
+        maxRelease = llppdrums.getResources().getInteger(R.integer.maxOscDecayTime) / 100f;
     }
 
     //returns a float between min and max

@@ -21,6 +21,7 @@ import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategor
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryRide;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategorySnare;
 import com.kiefer.machine.sequence.track.soundManager.presets.smpl.SampleCategoryTom;
+import com.kiefer.popups.trackMenu.TrackVolPopup;
 import com.kiefer.utils.ImgUtils;
 
 import java.util.Random;
@@ -57,6 +58,7 @@ public class SmplManager extends SoundSource {
         sampledInstrument = new SampledInstrument();
         liveInstrument = new SampledInstrument();
         liveEvent = new SampleEvent(liveInstrument);
+        liveEvent.setVolume(TrackVolPopup.VOL_MULTIPLIER * .5f); // lower it a little since osc is rarely maxed
 
         deactivate();
         setupPresets();

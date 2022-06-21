@@ -24,15 +24,16 @@ public class OscPresetBass extends OscPreset {
         osc0.setVolume(.9f * getMiniRandomMultiplier());
         osc0.setOscillatorPitch((int)((maxPitch / 20) * getMiniRandomMultiplier()));
         osc0.setAttackTime(maxAtk / 10 * getMiniRandomMultiplier());
-        osc0.setDecayTime(maxDecay / 3 * getMiniRandomMultiplier());
+        osc0.setReleaseTime(maxRelease / 30 * getMiniRandomMultiplier());
+        //osc0.setReleaseTime(.3f);
         osc0.setOn(true);
 
         Random r = new Random();
-        osc1.setWaveForm(r.nextInt(4));
+        osc1.setWaveForm(r.nextInt(3)+1);
         osc1.setVolume(.45f * getMiniRandomMultiplier());
         osc1.setOscillatorPitch((int)((maxPitch / 18) * getMiniRandomMultiplier()));
         osc1.setAttackTime(maxAtk / 9 * getMiniRandomMultiplier());
-        osc1.setDecayTime(maxDecay / 5 * getMiniRandomMultiplier());
+        osc1.setReleaseTime(maxRelease / 5 * getMiniRandomMultiplier());
         osc1.setOn(true);
     }
 

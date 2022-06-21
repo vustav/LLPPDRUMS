@@ -1,9 +1,5 @@
 package com.kiefer.machine.sequence.track.soundManager.presets.osc;
 
-import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
-
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.Oscillator;
 import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
@@ -25,11 +21,11 @@ public class OscPresetCrash extends OscPresetHHClosed {
 
         //add some decay to make it sound open
         float decayMultiplier = 1f - (random.nextFloat() * .1f);
-        osc0.setDecayTime(maxDecay * .8f * decayMultiplier);
+        osc0.setReleaseTime(maxRelease * .8f * decayMultiplier);
         osc0.setOn(true);
 
         decayMultiplier = 1f - (random.nextFloat() * .1f);
-        osc1.setDecayTime(maxDecay * .8f * decayMultiplier);
+        osc1.setReleaseTime(maxRelease * .8f * decayMultiplier);
         osc1.setOn(true);
     }
 

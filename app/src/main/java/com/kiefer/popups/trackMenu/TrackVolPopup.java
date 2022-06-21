@@ -19,6 +19,7 @@ import com.kiefer.popups.seqModules.VolSubsPopup;
 import com.kiefer.utils.ColorUtils;
 
 public class TrackVolPopup extends Popup {
+    public static float VOL_MULTIPLIER = 10f;
     //private CSeekBar seekBar;
     //private View.OnTouchListener onTouchListener;
 
@@ -63,14 +64,14 @@ public class TrackVolPopup extends Popup {
                         seekBar.onTouchEvent(event);
 
                         //step.setVolumeModifier(seekBar.getProgress(), sub);
-                        drumTrack.setTrackVolume(seekBar.getProgress() * 10f);
+                        drumTrack.setTrackVolume(seekBar.getProgress() * VOL_MULTIPLIER);
                         //engineFacade.setStepVolume(drum);
                         break;
                     case MotionEvent.ACTION_UP:
                         seekBar.onTouchEvent(event);
 
                         //step.setVolumeModifier(seekBar.getProgress(), sub);
-                        drumTrack.setTrackVolume(seekBar.getProgress() * 10f);
+                        drumTrack.setTrackVolume(seekBar.getProgress() * VOL_MULTIPLIER);
                         //engineFacade.setStepVolume(drum);
 
                         //iv.setImageDrawable(volume.getDrawable(step.getTrackNo(), step.getStepNo()));
@@ -86,16 +87,8 @@ public class TrackVolPopup extends Popup {
             }
         };
         seekBar.setOnTouchListener(onTouchListener);
-        seekBar.setProgress(drumTrack.getTrackVolume() / 10f);
+        seekBar.setProgress(drumTrack.getTrackVolume() / VOL_MULTIPLIER);
         frameLayout.addView(seekBar);
         popupWindow.showAsDropDown(view, -100, -200);
     }
-
-    /** SET **/
-    /*
-    public void setProgress(float progress){
-        seekBar.setProgress(progress);
-    }
-
-     */
 }

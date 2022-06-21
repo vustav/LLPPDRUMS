@@ -1,7 +1,5 @@
 package com.kiefer.machine.sequence.track.soundManager.oscillatorManager;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.Keeper;
@@ -14,7 +12,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetClap;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetCrash;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHClosed;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHHOpen;
-import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetHandDrum;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetRide;
 import com.kiefer.machine.sequence.track.soundManager.presets.osc.OscPresetSnare;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -183,8 +180,8 @@ public class OscillatorManager extends SoundSource {
         oscillators[oscillatorNo].setAttackTime(attackTime);
     }
 
-    public void setDecayTime(final int oscillatorNo, final float decayTime) {
-        oscillators[oscillatorNo].setDecayTime(decayTime);
+    public void setReleaseTime(final int oscillatorNo, final float decayTime) {
+        oscillators[oscillatorNo].setReleaseTime(decayTime);
     }
 
     public void setOscillatorPitch(final int oscillatorNo, final int pitch){
@@ -239,8 +236,8 @@ public class OscillatorManager extends SoundSource {
         return oscillators[oscillatorNo].getAtkTime();
     }
 
-    public float getOscillatorDecayTime(int oscillatorNo){
-        return oscillators[oscillatorNo].getDecayTime();
+    public float getOscillatorReleaseTime(int oscillatorNo){
+        return oscillators[oscillatorNo].getReleaseTime();
     }
 
     public Oscillator getOscillator(int oscNo){

@@ -7,8 +7,6 @@ import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
 
 import static com.kiefer.utils.NmbrUtils.getMiniRandomMultiplier;
 
-import android.util.Log;
-
 /** Can't extend HHOpen since we have these static names... **/
 
 public class OscPresetHHClosed extends OscPreset {
@@ -32,7 +30,7 @@ public class OscPresetHHClosed extends OscPreset {
         osc0.setOscillatorPitch((int)(maxPitch * .8 * getMiniRandomMultiplier()));
         //osc0.setAttackTime(maxAtk / 35f * getMiniRandomMultiplier());
         osc0.setAttackTime(0);
-        osc0.setDecayTime(maxDecay / 45f * getMiniRandomMultiplier());
+        osc0.setReleaseTime(maxRelease / 45f * getMiniRandomMultiplier());
         osc0.setOn(true);
 
         osc1.setWaveForm(4); //noise
@@ -40,7 +38,7 @@ public class OscPresetHHClosed extends OscPreset {
         osc1.setOscillatorPitch((int)(maxPitch * .9 * getMiniRandomMultiplier()));
         //osc1.setAttackTime(maxAtk / 35f * getMiniRandomMultiplier());
         osc1.setAttackTime(0);
-        osc1.setDecayTime(maxDecay / 45f * getMiniRandomMultiplier());
+        osc1.setReleaseTime(maxRelease / 45f * getMiniRandomMultiplier());
         osc1.setOn(true);
     }
 

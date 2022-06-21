@@ -26,14 +26,14 @@ public class OscPresetHandDrum extends OscPreset {
         osc0.setOscillatorPitch((int)((maxPitch / 2) * getMiniRandomMultiplier()));
         osc0.setAttackTime(maxAtk / 20 * getMiniRandomMultiplier());
 
-        osc0.setDecayTime(maxDecay * .7f * getMaxiRandomMultiplier());
+        osc0.setReleaseTime(maxRelease * .7f * getMaxiRandomMultiplier());
         osc0.setOn(true);
 
         osc1.setWaveForm(1); //triangle
         osc1.setVolume(.45f * getMiniRandomMultiplier());
         osc1.setOscillatorPitch((int)((maxPitch * .4f) * getMiniRandomMultiplier()));
         osc1.setAttackTime(maxAtk / 19 * getMiniRandomMultiplier());
-        osc1.setDecayTime(maxDecay * .3f * getMaxiRandomMultiplier());
+        osc1.setReleaseTime(maxRelease * .3f * getMaxiRandomMultiplier());
         osc1.setOn(true);
     }
 

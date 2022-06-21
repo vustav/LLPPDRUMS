@@ -38,7 +38,7 @@
 
     <!-- SYNTH -->
     <string name="oscAtkTime">ATK</string>
-    <string name="oscDecayTime">DECAY</string>
+    <string name="oscReleaseTime">RELEASE</string>
     <string name="synthSustainLevel">SUSTAIN</string>
     <string name="synthReleaseTime">RELEASE</string>
     <string name="synthAtkDuration">ATK DURATION</string>
@@ -285,13 +285,14 @@
 
     <!-- RND SEQUENCE MANAGER-->
     <string name="seqRndManagerIntro">Access the randomize pattern manager by clicking the edit button.</string>
-    <string name="seqRndManagerIntro2">Set a template for the randomizations, either by using a preset or by creating from scratch.</string>
+    <string name="seqRndManagerIntro2">Set a template for the randomizations, either by using a preset or by creating one from scratch.</string>
     <string name="seqRndManagerPreset">Select a preset.</string>
     <string name="seqRndManagerTempo">Set the tempo of the randomized pattern.</string>
     <string name="seqRndManagerSteps">Set the number of steps of the randomized pattern.</string>
     <string name="seqRndManagerLoadSave">LOAD/SAVE templates.</string>
     <string name="seqRndManagerTracks">These represents tracks. \n\nIn the first spinner you select a sound preset. In the second spinner with a number in it you select the number of sub steps. \n\nEvery step has one or more sliders in it depending on the number of sub steps. If it\'s full it will always be on. Half means 50% etc.
-        \n\nTick the FX-box for randomized effects on the track. The RND-box adds a 10% chance of ON autorandomizing with RTRN on every step.
+        \n\nTick the FX-box for randomized effects on the track. The RND-box adds</string>
+    <string name="seqRndManagerTracks2"> (a 10% chance of ON randomizing, RTRN active on every step).
         \n\nRemove the track by clicking \"-\". Hold and drag to change order.</string>
     <string name="seqRndManagerAdd">\n\n\"+\" adds a track.</string>
 
