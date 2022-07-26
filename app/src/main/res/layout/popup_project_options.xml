@@ -3,11 +3,57 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- DRIVER SPINNER (just a container) -->
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/btnHeightLarge"
-        android:id="@+id/projSettingsDriverSpinnerContainer"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- DRIVER SPINNER (just a container) -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btnHeightLarge"
+            android:id="@+id/projSettingsDriverSpinnerContainer"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- UI THREAD -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/projSettingsUIThreadCB"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UPDATE IN UI-THREAD"/>
+            </LinearLayout>
+
+            <!-- DELETE -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/projSettingsDeleteCB"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DELAY DELETION OF EVENTS"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- HELP -->
     <ImageView

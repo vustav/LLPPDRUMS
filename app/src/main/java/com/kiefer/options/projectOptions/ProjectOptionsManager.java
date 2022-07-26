@@ -23,6 +23,9 @@ import com.kiefer.popups.WarningPopup;
 //public class ProjectOptionsManager extends BroadcastReceiver {
 public class ProjectOptionsManager {
 
+    public static boolean updateInUIThread = true;
+    public static boolean delayDeletion = true;
+
     private LLPPDRUMS llppdrums;
     private EngineFacade engineFacade;
 

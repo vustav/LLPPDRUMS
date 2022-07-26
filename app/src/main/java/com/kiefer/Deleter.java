@@ -3,6 +3,7 @@ package com.kiefer;
 import android.util.Log;
 
 import com.kiefer.engine.EngineFacade;
+import com.kiefer.options.projectOptions.ProjectOptionsManager;
 
 import java.util.ArrayList;
 
@@ -16,18 +17,17 @@ public class Deleter {
     private ArrayList <BaseProcessor> fxs = new ArrayList<>();
     private ArrayList <BaseInstrument> instruments = new ArrayList<>();
 
-    private final boolean delayDeletion = true;
-
     public Deleter(EngineFacade engineFacade){
         this.engineFacade = engineFacade;
     }
 
     public void addFx(BaseProcessor fx){
         //Log.e("Deleter", "addFx()");
-        if(delayDeletion) {
+        if(ProjectOptionsManager.delayDeletion) {
             fxs.add(fx);
         }
         else{
+            Log.e("Deleter", "delete()");
             pauseEngine();
             fx = null;
             playEngine();
@@ -36,10 +36,11 @@ public class Deleter {
 
     public void addEvent(BaseAudioEvent event){
         //Log.e("Deleter", "addEvent()");
-        if(delayDeletion) {
+        if(ProjectOptionsManager.delayDeletion) {
             events.add(event);
         }
         else{
+            Log.e("Deleter", "delete()");
             pauseEngine();
             event.delete();
             playEngine();
@@ -48,10 +49,11 @@ public class Deleter {
 
     public void addInstrument(BaseInstrument instrument){
         //Log.e("Deleter", "addInstrument()");
-        if(delayDeletion) {
+        if(ProjectOptionsManager.delayDeletion) {
             instruments.add(instrument);
         }
         else{
+            Log.e("Deleter", "delete()");
             pauseEngine();
             instrument.delete();
             playEngine();
@@ -59,8 +61,8 @@ public class Deleter {
     }
 
     public void delete(){
-        //Log.e("Deleter", "delete()");
-        if(delayDeletion) {
+        Log.e("Deleter", "delete()");
+        if(ProjectOptionsManager.delayDeletion) {
             if (!engineFacade.isPlaying()) {
                 for (BaseProcessor fx : fxs) {
                     // KRASCHAR

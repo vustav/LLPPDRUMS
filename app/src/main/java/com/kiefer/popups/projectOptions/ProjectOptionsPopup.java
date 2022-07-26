@@ -2,6 +2,7 @@ package com.kiefer.popups.projectOptions;
 
 import androidx.core.content.ContextCompat;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -17,6 +18,7 @@ import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.utils.ImgUtils;
 
 public class ProjectOptionsPopup extends Popup {
+
     private ProjectOptionsManager projectOptionsManager;
 
     private int driverPopupBgId;
@@ -63,6 +65,28 @@ public class ProjectOptionsPopup extends Popup {
         else{
             //ta bort typ label
         }
+
+        //UI-thread
+        final CheckBox UIThreadCheck = popupView.findViewById(R.id.projSettingsUIThreadCB);
+        UIThreadCheck.setChecked(ProjectOptionsManager.updateInUIThread);
+        UIThreadCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //drumTrack.setRndOsc(oscCheck.isChecked());
+                ProjectOptionsManager.updateInUIThread = UIThreadCheck.isChecked();
+            }
+        });
+
+        //DELETE
+        final CheckBox deleteCheck = popupView.findViewById(R.id.projSettingsDeleteCB);
+        deleteCheck.setChecked(ProjectOptionsManager.delayDeletion);
+        deleteCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //drumTrack.setRndOsc(oscCheck.isChecked());
+                ProjectOptionsManager.delayDeletion = deleteCheck.isChecked();
+            }
+        });
 
         //set up the infoBtn
         ImageView infoBtn = popupView.findViewById(R.id.projectOptionsInfoBtn);

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
+import com.kiefer.options.projectOptions.ProjectOptionsManager;
 
 import nl.igorski.mwengine.MWEngine;
 import nl.igorski.mwengine.core.Drivers;
@@ -319,9 +320,17 @@ public class EngineFacade {
 
                     //we get UIthread-errors here without this. Maybe since the engine runs in its own thread?
                     sequencerPosition = _sequencerController.getStepPosition();
-                    //llppdrums.runOnUiThread(() -> {
+
+                    if(ProjectOptionsManager.updateInUIThread){
+                        llppdrums.runOnUiThread(() -> {
+                            //Log.e("EngineFacade", "update in UI-thread");
+                            llppdrums.handleSequencerPositionChange(sequencerPosition);
+                        });
+                    }
+                    else{
+                        //Log.e("EngineFacade", "update, not in UI-thread");
                         llppdrums.handleSequencerPositionChange(sequencerPosition);
-                    //});
+                    }
                     break;
                 case RECORDED_SNIPPET_READY:
                     llppdrums.runOnUiThread(() -> {
