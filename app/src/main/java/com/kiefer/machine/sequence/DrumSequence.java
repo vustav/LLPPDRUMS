@@ -2,7 +2,6 @@ package com.kiefer.machine.sequence;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.kiefer.LLPPDRUMS;
@@ -13,10 +12,9 @@ import com.kiefer.files.keepers.DrumTrackKeeper;
 import com.kiefer.files.keepers.rndSeqManager.RndSeqManagerKeeper;
 import com.kiefer.graphics.DrumTrackFxBtnGraphics;
 import com.kiefer.interfaces.Tempoizer;
-import com.kiefer.machine.fx.FXer;
-import com.kiefer.machine.fx.FxManager;
-import com.kiefer.machine.fx.FxManagerSequence;
-import com.kiefer.popups.fxManager.FxManagerPopup;
+import com.kiefer.machine.sequence.track.Stackables.fx.Fxer;
+import com.kiefer.machine.sequence.track.Stackables.fx.FxManagerSequence;
+import com.kiefer.popups.stackableManager.StackableManagerPopup;
 import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndSeqManager.RndSeqManager;
 import com.kiefer.machine.sequence.track.DrumTrack;
@@ -45,7 +43,7 @@ import nl.igorski.mwengine.core.ProcessingChain;
  * A Sequence holds all the tracks plus the sequencerModule. A Sequencer module decides what's shown in the sequencer and the Tracks holds all the info about themselves.
  * **/
 
-public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, FXer {
+public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, Fxer {
 
     private final LLPPDRUMS llppdrums;
     private final EngineFacade engineFacade;
@@ -447,12 +445,12 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
     }
 
     /** FX POPUP **/
-    private FxManagerPopup fxManagerPopup;
-    public void setFxManagerPopup(FxManagerPopup fxManagerPopup){
+    private StackableManagerPopup fxManagerPopup;
+    public void setStackableManagerPopup(StackableManagerPopup fxManagerPopup, int type){
         this.fxManagerPopup = fxManagerPopup;
     }
 
-    public FxManagerPopup getFxManagerPopup(){
+    public StackableManagerPopup getStackableManagerPopup(int type){
         return fxManagerPopup;
     }
 
@@ -639,7 +637,7 @@ public class DrumSequence implements TabHolder, Tab, Tempoizer, NamerColorizer, 
         return fxBtnGraphics;
     }
 
-    public FxManagerSequence getFxManager() {
+    public FxManagerSequence getStackableManager() {
         return fxManager;
     }
 

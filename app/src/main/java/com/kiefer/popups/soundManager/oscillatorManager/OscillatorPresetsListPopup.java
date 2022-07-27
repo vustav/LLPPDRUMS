@@ -9,20 +9,20 @@ import android.widget.TextView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
-import com.kiefer.machine.sequence.track.soundManager.SoundManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
 import com.kiefer.popups.Popup;
 import com.kiefer.utils.ColorUtils;
 
 public class OscillatorPresetsListPopup extends Popup {
     private final CSpinnerButton btn;
 
-    public OscillatorPresetsListPopup(LLPPDRUMS llppdrums, final SoundManager soundManager, final OscillatorManagerView oscillatorManagerView, final CSpinnerButton btn){
+    public OscillatorPresetsListPopup(LLPPDRUMS llppdrums, final SoundSourceManager soundSourceManager, final OscillatorManagerView oscillatorManagerView, final CSpinnerButton btn){
         super(llppdrums);
         this.btn = btn;
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_list, null);
-        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, soundManager.getOscillatorManager().getPresetListImageId()));
+        popupView.findViewById(R.id.listBgIV).setBackground(ContextCompat.getDrawable(llppdrums, soundSourceManager.getOscillatorManager().getPresetListImageId()));
 
         //create the popupWindow
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -35,8 +35,8 @@ public class OscillatorPresetsListPopup extends Popup {
 
         LinearLayout listLayout = popupView.findViewById(R.id.listLayout);
 
-        for(int i = 0; i < soundManager.getOscillatorManager().getPresets().size(); i++){
-            String name = soundManager.getOscillatorManager().getPresets().get(i).getName();
+        for(int i = 0; i < soundSourceManager.getOscillatorManager().getPresets().size(); i++){
+            String name = soundSourceManager.getOscillatorManager().getPresets().get(i).getName();
 
             TextView tv = new TextView(llppdrums);
             tv.setText(name);
@@ -56,7 +56,7 @@ public class OscillatorPresetsListPopup extends Popup {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    soundManager.setOscPreset(name);
+                    soundSourceManager.setOscPreset(name);
                     oscillatorManagerView.updateUI();
                     popupWindow.dismiss();
                 }

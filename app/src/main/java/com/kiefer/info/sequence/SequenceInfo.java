@@ -13,7 +13,7 @@ import com.kiefer.info.InfoHolder;
 import com.kiefer.info.controller.ControllerInfo;
 import com.kiefer.info.link.InfoLink;
 import com.kiefer.info.sequence.trackMenu.TrackMenuInfo;
-import com.kiefer.info.sequence.trackMenu.fxManager.FxManagerInfo;
+import com.kiefer.info.sequence.trackMenu.fxManager.StackableManagerInfo;
 import com.kiefer.info.sequenceManager.SequenceManagerInfo;
 import com.kiefer.utils.ColorUtils;
 
@@ -209,7 +209,7 @@ public class SequenceInfo extends InfoHolder implements Info {
 
         //create the link and append it
         label = llppdrums.getResources().getString(R.string.fxManagerName);
-        link = new InfoLink(llppdrums, label, FxManagerInfo.key, nodeTV);
+        link = new InfoLink(llppdrums, label, StackableManagerInfo.key, nodeTV);
         nodeTV.append(link);
 
         layout.addView(nodeLayout);

@@ -10,6 +10,7 @@ import com.kiefer.machine.sequence.sequenceModules.Pitch;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
 import com.kiefer.machine.sequence.sequenceModules.Volume;
 import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.utils.ImgUtils;
@@ -21,6 +22,8 @@ import java.util.Random;
 public class RndTrackManager {
     private final LLPPDRUMS llppdrums;
     private final DrumTrack drumTrack;
+
+    int maxNOfSSs = 3, maxNOfFXs = 3;
 
     private final int presetListImgId;
 
@@ -85,21 +88,25 @@ public class RndTrackManager {
     public static final String RANDOM = "RANDOM";
 
     public void randomize(RndSeqPresetTrack rndTrack){
-        Random r = new Random();
 
         //drumTrack.reset(false);
 
         drumTrack.setNOfSubs(666, rndTrack.getnOfSubs()); //trackNo doesn't matter since the drumTrack is the subilizer
 
         //if(rndTrack.getPresetCategories().size() == 1 && rndTrack.getPresetCategories().get(0).equals(RANDOM)){
+
+        drumTrack.getSoundManager().createRandomStackables(false, random.nextInt(maxNOfSSs) + 1);
+
         if(rndTrack.getPresetCategory().equals(RANDOM)){
+            //((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).setRandomPresets();
             drumTrack.getSoundManager().setRandomPresets();
         }
         else{
             //String preset = rndTrack.getPresetCategory().get(random.nextInt(rndTrack.getPresetCategory().size()));
+            //((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).setPresets(rndTrack.getPresetCategory());
             drumTrack.getSoundManager().setPresets(rndTrack.getPresetCategory());
         }
-        drumTrack.getSoundManager().randomizeSoundSource(rndTrack.getSamplePerc());
+        ((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).randomizeSoundSource(rndTrack.getSamplePerc());
 
         //Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){
@@ -109,7 +116,7 @@ public class RndTrackManager {
             boolean aSubIsOn = false;
 
             for(int sub = 0; sub < drumTrack.getNOfSubs(); sub++) {
-                if(r.nextFloat() <= step.getSubPerc(sub)){
+                if(random.nextFloat() <= step.getSubPerc(sub)){
                     drumTrack.setSubOn(stepNo, sub, true);
                     drumTrack.setSubVolume(stepNo, step.getSubVol(sub), sub);
                     drumTrack.setSubPitchModifier(stepNo, step.getSubPitch(sub), sub);
@@ -136,7 +143,7 @@ public class RndTrackManager {
         }
 
         if(rndTrack.getRandomizeFx()) {
-            drumTrack.getFxManager().randomizeAll(true);
+            drumTrack.getFxManager().randomizeAll(random.nextInt(maxNOfFXs) + 1);
         }
         else{
             //börjar med reset så behövs inte

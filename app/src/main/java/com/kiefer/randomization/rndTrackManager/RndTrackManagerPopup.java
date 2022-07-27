@@ -78,7 +78,7 @@ public class RndTrackManagerPopup extends Popup {
                 }
 
                 if(drumTrack.getRndOsc()){
-                    drumTrack.getSoundManager().randomizeAll();
+                    drumTrack.getSoundManager().randomizeAll(false);
                 }
 
                 if(drumTrack.getRndOn()) {

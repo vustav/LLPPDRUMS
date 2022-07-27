@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.oscillatorManager.OscillatorManager;
 import com.kiefer.popups.Popup;
 import com.kiefer.utils.ColorUtils;
 

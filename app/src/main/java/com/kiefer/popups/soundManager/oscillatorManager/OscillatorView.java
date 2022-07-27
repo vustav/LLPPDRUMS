@@ -1,6 +1,5 @@
 package com.kiefer.popups.soundManager.oscillatorManager;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -11,7 +10,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.machine.sequence.track.DrumTrack;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.oscillatorManager.OscillatorManager;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class OscillatorView {
         disableableViews = new ArrayList<>();
 
         layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.popup_oscillator, null);
-
+/*
         cb = layout.findViewById(R.id.oscCheck);
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +47,8 @@ public class OscillatorView {
         });
         cb.setChecked(oscillatorManager.isOscillatorOn(oscNo));
         setEnabled(oscillatorManager.isOscillatorOn(oscNo));
+
+ */
         setup = false;
 
         //wave-spinner
@@ -71,7 +72,9 @@ public class OscillatorView {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 float vol = ((float) seekBar.getProgress()) / multiplier;
-                drumTrack.setOscillatorVolume(oscNo, vol);
+                //drumTrack.setOscillatorVolume(oscNo, vol);
+                oscillatorManager.setOscillatorVolume(oscNo, vol);
+                drumTrack.updateDrumVolumes();
             }
 
             @Override
@@ -91,7 +94,9 @@ public class OscillatorView {
         oscPitchSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                drumTrack.setOscillatorPitch(oscNo, seekBar.getProgress());
+                //drumTrack.setOscillatorPitch(oscNo, seekBar.getProgress());
+                oscillatorManager.setOscillatorPitch(oscNo, seekBar.getProgress());
+                drumTrack.updateDrumVolumes();
             }
 
             @Override
@@ -114,7 +119,9 @@ public class OscillatorView {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 float time = ((float) seekBar.getProgress()) / multiplier;
                 //Oscillator.this.oscillatorManager.setAttackTime(oscNo, time);
-                drumTrack.setAttackTime(oscNo, time);
+                //drumTrack.setAttackTime(oscNo, time);
+                oscillatorManager.setAttackTime(oscNo, time);
+                drumTrack.updateDrumVolumes();
             }
 
             @Override
@@ -137,7 +144,9 @@ public class OscillatorView {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 float time = ((float) seekBar.getProgress()) / multiplier;
                 //Oscillator.this.oscillatorManager.setDecayTime(oscNo, time);
-                drumTrack.setReleaseTime(oscNo, time);
+                // drumTrack.setReleaseTime(oscNo, time);
+                oscillatorManager.setReleaseTime(oscNo, time);
+                drumTrack.updateDrumVolumes();
             }
 
             @Override

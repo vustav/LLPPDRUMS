@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
+import com.kiefer.popups.stackableManager.SoundManagerPopup;
 import com.kiefer.randomization.rndSeqManager.rndSeqManagerPopup.RndSeqManagerPopup;
 import com.kiefer.machine.sequencerUI.SequencerUI;
 import com.kiefer.files.keepers.DrumMachineKeeper;
@@ -17,13 +18,12 @@ import com.kiefer.popups.trackMenu.StepManagerPopup;
 import com.kiefer.popups.trackMenu.TrackMenuPopup;
 import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.randomization.rndTrackManager.RndTrackManagerPopup;
-import com.kiefer.popups.soundManager.SoundManagerPopup;
 import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.fragments.drumMachine.DrumMachineFragment;
 import com.kiefer.ui.tabs.interfaces.TabHolder;
 import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.utils.ImgUtils;
-import com.kiefer.popups.fxManager.FxManagerPopup;
+import com.kiefer.popups.stackableManager.StackableManagerPopup;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -274,7 +274,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         engineFacade.setTempo(playingSequence.getTempo());
 
         playingSequence.activate();
-        playingSequence.getFxManager().addFxsToEngineHARD();
+        playingSequence.getStackableManager().addFxsToEngineHARD();
     }
 
     /** TRANSPORT **/
@@ -359,8 +359,10 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         new NamePopup(llppdrums, selectedSequence.getTracks().get(trackNo));
     }
 
+    public final static int SOUND_TYPE = 0, FX_TYPE = 1;
     public void openSoundManagerPopup(int trackNo){
-        new SoundManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo));
+        //new SoundManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo));
+        new SoundManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo).getSoundManager(), selectedSequence.getTracks().get(trackNo), SOUND_TYPE);
     }
 
     public void openAutoStepPopup(int trackNo, View parent){
@@ -372,7 +374,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
 
     public void openFxManagerPopup(int trackNo){
-        new FxManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo));
+        new StackableManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo).getFxManager(), selectedSequence.getTracks().get(trackNo), FX_TYPE);
     }
 
     public void openRandomOptionsPopup(){

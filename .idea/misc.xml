@@ -42,6 +42,7 @@
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/layout_main.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/layout_sequence_manager.xml" value="0.21145833333333333" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/layout_sequencer.xml" value="0.21458333333333332" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/layout_sound_manager_custom_area.xml" value="0.1625" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_auto_steps.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_fun_btn_edit.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_fx_manager.xml" value="0.32065217391304346" />
@@ -54,10 +55,15 @@
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_fx_manager_ws.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_info_manager.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_organize_steps.xml" value="0.32065217391304346" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_oscillator.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_oscillator_manager.xml" value="0.24322916666666666" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_project_options.xml" value="0.3496376811594203" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_sample_manager.xml" value="0.16822916666666668" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_seek_bar.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_seq_rnd_options.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_sequence_manager.xml" value="0.3098958333333333" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_sound_manager.xml" value="0.19375" />
+        <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_stackable_manager.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_track_btns.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/popup_track_rnd.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/Vustav/Documents/PRGRM/LLPPDRUMS/app/src/main/res/layout/tab_single_horizontal.xml" value="0.32065217391304346" />

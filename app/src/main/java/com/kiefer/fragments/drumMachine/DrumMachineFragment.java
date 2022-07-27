@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kiefer.R;
 import com.kiefer.fragments.TabFragment;
 import com.kiefer.graphics.customViews.CSpinnerButton;
-import com.kiefer.popups.fxManager.FxManagerPopup;
+import com.kiefer.machine.DrumMachine;
+import com.kiefer.popups.stackableManager.StackableManagerPopup;
 import com.kiefer.popups.nameColor.NamePopup;
 import com.kiefer.popups.sequencer.CopyFromPopup;
 import com.kiefer.popups.sequencer.TempoPopup;
@@ -221,7 +221,7 @@ public class DrumMachineFragment extends TabFragment {
         fxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new FxManagerPopup(llppdrums, llppdrums.getDrumMachine().getSelectedSequence());
+                new StackableManagerPopup(llppdrums, llppdrums.getDrumMachine().getSelectedSequence().getStackableManager(), llppdrums.getDrumMachine().getSelectedSequence(), DrumMachine.FX_TYPE);
             }
         });
         fxLayout = rootView.findViewById(R.id.sequenceFxLayout);

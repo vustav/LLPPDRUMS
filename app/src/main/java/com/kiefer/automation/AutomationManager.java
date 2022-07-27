@@ -6,8 +6,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.files.keepers.AutomationKeeper;
 import com.kiefer.files.keepers.AutomationManagerKeeper;
-import com.kiefer.machine.fx.FXer;
-import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.machine.sequence.track.Stackables.Stacker;
 import com.kiefer.utils.ColorUtils;
 
 import java.util.ArrayList;
@@ -15,14 +14,14 @@ import java.util.Random;
 
 public class AutomationManager {
     LLPPDRUMS llppdrums;
-    private final FXer fxer;
+    private final Stacker stacker;
     private final Automatable automatable;
     private ArrayList<Automation> automations;
     private final Random random;
 
-    public AutomationManager(LLPPDRUMS llppdrums, FXer fxer, Automatable automatable){
+    public AutomationManager(LLPPDRUMS llppdrums, Stacker stacker, Automatable automatable){
         this.llppdrums = llppdrums;
-        this.fxer = fxer;
+        this.stacker = stacker;
         this.automatable = automatable;
         random = new Random();
         automations = new ArrayList<>();
@@ -30,7 +29,7 @@ public class AutomationManager {
 
     /** CHANGE DATASET **/
     public Automation addAutomation(){
-        Automation automation = new Automation(fxer.getNOfSteps());
+        Automation automation = new Automation(stacker.getNOfSteps());
         automations.add(automation);
         return automation;
     }

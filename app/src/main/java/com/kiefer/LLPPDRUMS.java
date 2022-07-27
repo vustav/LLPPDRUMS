@@ -52,7 +52,7 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
     /** TILLFÄLLIGA FIXAR **/
     //kör pc.reset() i FxManager.removeFxsFromEngine() efter att de tagits bort i loop redan
 
-    public static boolean disableLoad = false;
+    public static boolean disableLoad = true;
     public static final boolean hideUIonPlay = false;
 
     public static boolean checkBlueTooth = false;
@@ -297,6 +297,9 @@ public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClick
 
         if(disableLoad) {
             keeper = null;
+            String message = "LOADING DISABLED";
+            Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         int tempo;

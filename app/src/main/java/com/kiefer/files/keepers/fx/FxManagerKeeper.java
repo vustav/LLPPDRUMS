@@ -7,7 +7,4 @@ import java.util.ArrayList;
 public class FxManagerKeeper implements Keeper {
     public ArrayList<FxKeeper> fxKeepers;
     public int selectedFxIndex;
-
-    public FxManagerKeeper(){
-    }
 }

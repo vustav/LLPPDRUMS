@@ -11,12 +11,14 @@ import com.kiefer.graphics.DrumTrackFxBtnGraphics;
 import com.kiefer.graphics.DrumTrackMixBtnGraphics;
 import com.kiefer.files.keepers.DrumTrackKeeper;
 import com.kiefer.interfaces.Subilizer;
-import com.kiefer.machine.fx.FXer;
+import com.kiefer.machine.DrumMachine;
+import com.kiefer.machine.sequence.track.Stackables.fx.Fxer;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.sequenceModules.SequenceModule;
-import com.kiefer.machine.fx.FxManager;
-import com.kiefer.machine.sequence.track.soundManager.SoundManager;
-import com.kiefer.popups.fxManager.FxManagerPopup;
+import com.kiefer.machine.sequence.track.Stackables.fx.FxManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.SoundManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
+import com.kiefer.popups.stackableManager.StackableManagerPopup;
 import com.kiefer.popups.nameColor.NamerColorizer;
 import com.kiefer.randomization.rndTrackManager.RndTrackManager;
 import com.kiefer.utils.ColorUtils;
@@ -27,14 +29,15 @@ import java.util.Random;
 
 import nl.igorski.mwengine.core.ProcessingChain;
 
-public class DrumTrack implements Subilizer, NamerColorizer, FXer {
+public class DrumTrack implements Subilizer, NamerColorizer, Fxer {
     //ACCESSED
     private final LLPPDRUMS llppdrums;
     private final DrumSequence drumSequence;
 
     //OWNED
     //private final OscillatorManager oscillatorManager;
-    private final SoundManager soundManager;
+    //private final SoundSourceManager soundSourceManager;
+    private SoundManager soundManager;
     private final FxManager fxManager;
 
     private final RndTrackManager rndTrackManager;
@@ -90,13 +93,15 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
         mixerPopupBgId = ImgUtils.getRandomImageId();
         namePopupBgId = ImgUtils.getRandomImageId();
 
-        rndTrackManager = new RndTrackManager(llppdrums, this);
 
         //generate an id, create a new track, an oscillatorManager and an fxManager
+        //soundSourceManager = new SoundSourceManager(llppdrums, drumSequence, this);
         soundManager = new SoundManager(llppdrums, drumSequence, this);
         fxManager = new FxManager(llppdrums, this);
-
         setupSteps(steps);
+
+        rndTrackManager = new RndTrackManager(llppdrums, this);
+
 
         float maxVol = (float)llppdrums.getResources().getInteger(R.integer.maxVol);
         randomizeVol(maxVol / 2, maxVol - maxVol / 10);
@@ -116,7 +121,8 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     }
 
     public Step addStep(boolean on, int subs){
-        Step step = new Step(llppdrums, this, soundManager, subs, on);
+        //Step step = new Step(llppdrums, this, soundSourceManager, subs, on);
+        Step step = new Step(llppdrums, this, subs, on);
         steps.add(step);
         fxManager.addStep();
         return step;
@@ -124,7 +130,7 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     public Step addStep(int position, boolean on){
         //Log.e("DrumTrack", "addStep()");
-        Step step = new Step(llppdrums, this, soundManager, nOfSubs, on);
+        Step step = new Step(llppdrums, this, nOfSubs, on);
         steps.add(position, step);
         fxManager.addStep();
         return step;
@@ -457,11 +463,6 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     /** SET **/
 
-    //wave
-    public void setWaveForm(final int oscNo, final int waveForm){
-        soundManager.setWaveForm(oscNo, waveForm);
-    }
-
     //vol
     public void setTrackVolume(float vol){
         trackVolume = vol;
@@ -500,12 +501,12 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     //atk
     public void setAttackTime(int oscNo, float time){
-        soundManager.setAttackTime(oscNo, time);
+        soundManager.setOscillatorAttackTime(oscNo, time);
     }
 
     //dec
     public void setReleaseTime(int oscNo, float time){
-        soundManager.setReleaseTime(oscNo, time);
+        soundManager.setOscillatorReleaseTime(oscNo, time);
     }
 
     public void setRndFx(boolean rndFx) {
@@ -558,6 +559,8 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     public ArrayList<Boolean> getStepManagerSubSubValues(){
         return stepManagerSubValues;
     }
+
+
 
     public DrumSequence getDrumSequence() {
         return drumSequence;
@@ -655,6 +658,7 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
     }
 
     public ArrayList<ProcessingChain> getProcessingChains(){
+        //return ((SoundSourceManager)soundManager.getSelectedStackable()).getProcessingChains();
         return soundManager.getProcessingChains();
     }
 
@@ -746,21 +750,37 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     /** SEQUENCER UPDATES **/
     public void handleSequencerPositionChange(int sequencerPosition){
-        fxManager.automate(sequencerPosition, fxManagerPopup != null);
+        if(soundManager.getNOfSounds() > 0) {
+            if (soundManager.getNOfSounds() > 0) {
+                fxManager.automate(sequencerPosition, fxManagerPopup != null);
+            }
 
-        if(llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
-            steps.get(sequencerPosition).handleSequencerPositionChange(sequencerPosition);
+            if (llppdrums.getDrumMachine().getPlayingSequence() == drumSequence) {
+                steps.get(sequencerPosition).handleSequencerPositionChange(sequencerPosition);
+            }
         }
     }
 
     /** FX POPUP **/
-    private FxManagerPopup fxManagerPopup;
-    public void setFxManagerPopup(FxManagerPopup fxManagerPopup){
-        this.fxManagerPopup = fxManagerPopup;
+    private StackableManagerPopup fxManagerPopup, soundManagerPopup;
+    @Override
+    public void setStackableManagerPopup(StackableManagerPopup stackableManagerPopup, int type){
+        if(type == DrumMachine.FX_TYPE) {
+            fxManagerPopup = stackableManagerPopup;
+        }
+        else if(type == DrumMachine.SOUND_TYPE){
+            soundManagerPopup = stackableManagerPopup;
+        }
     }
 
-    public FxManagerPopup getFxManagerPopup(){
-        return fxManagerPopup;
+    public StackableManagerPopup getStackableManagerPopup(int type){
+        if(type == DrumMachine.FX_TYPE) {
+            return fxManagerPopup;
+        }
+        else if(type == DrumMachine.SOUND_TYPE){
+            return soundManagerPopup;
+        }
+        return null;
     }
 
     /** RESET **/
@@ -818,6 +838,7 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
 
     /** DESTRUCTION **/
     public void destroy(){
+        soundManager.destroy();
 
         for(Step d : steps){
             d.destroy();
@@ -825,6 +846,5 @@ public class DrumTrack implements Subilizer, NamerColorizer, FXer {
         steps = null;
 
         fxManager.destroy();
-        soundManager.destroy();
     }
 }

@@ -5,11 +5,11 @@ package com.kiefer.automation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
-import com.kiefer.popups.fxManager.auto.FxAutomationManagerAdapter;
+import com.kiefer.popups.stackableManager.auto.StackableAutomationManagerAdapter;
 
 public class AutomationManagerTouchHelper extends ItemTouchHelper.SimpleCallback {
 
-    private FxAutomationManagerAdapter adapter;
+    private StackableAutomationManagerAdapter adapter;
 
     private boolean dragging = false; //true while dragging to avoid updating until the drag is complete
 
@@ -17,7 +17,7 @@ public class AutomationManagerTouchHelper extends ItemTouchHelper.SimpleCallback
     public boolean dragDone = false;
 
     private int dragStart;
-    public AutomationManagerTouchHelper(FxAutomationManagerAdapter adapter){
+    public AutomationManagerTouchHelper(StackableAutomationManagerAdapter adapter){
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }

@@ -9,6 +9,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
 import com.kiefer.popups.soundManager.SoundManagerPopup;
 
 public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
@@ -25,10 +26,10 @@ public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
         sampleSpinnerButton.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SampleListPopup(llppdrums, drumTrack.getSoundManager(), sampleSpinnerButton);
+                new SampleListPopup(llppdrums, (SoundSourceManager) drumTrack.getSoundManager().getSelectedStackable(), sampleSpinnerButton);
             }
         });
-        sampleSpinnerButton.setSelection(drumTrack.getSoundManager().getSmplManager().getSelectedCategory().getSelectedSample().getName());
+        sampleSpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getSelectedSample().getName());
 
         FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams((int) llppdrums.getResources().getDimension(R.dimen.btnWidthLarge), (int) llppdrums.getResources().getDimension(R.dimen.btnHeightLarge));
         sampleSpinnerButton.setLayoutParams(flp);
@@ -41,10 +42,10 @@ public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
         categorySpinnerButton.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SampleCategoryListPopup(llppdrums, drumTrack.getSoundManager(), categorySpinnerButton, sampleSpinnerButton);
+                new SampleCategoryListPopup(llppdrums, (SoundSourceManager) drumTrack.getSoundManager().getSelectedStackable(), categorySpinnerButton, sampleSpinnerButton);
             }
         });
-        categorySpinnerButton.setSelection(drumTrack.getSoundManager().getSmplManager().getSelectedCategory().getName());
+        categorySpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getName());
 
         flp = new FrameLayout.LayoutParams((int) llppdrums.getResources().getDimension(R.dimen.btnWidthLarge), (int) llppdrums.getResources().getDimension(R.dimen.btnHeightLarge));
         categorySpinnerButton.setLayoutParams(flp);
@@ -57,7 +58,8 @@ public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().play();
+                //drumTrack.getSoundManager().play();
+                ((SoundSourceManager) drumTrack.getSoundManager().getSelectedStackable()).play();
             }
         });
 
@@ -66,9 +68,9 @@ public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
         rndBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().randomizeAll();
-                categorySpinnerButton.setSelection(drumTrack.getSoundManager().getSmplManager().getSelectedCategory().getName());
-                sampleSpinnerButton.setSelection(drumTrack.getSoundManager().getSmplManager().getSelectedCategory().getSelectedSample().getName());
+                drumTrack.getSoundManager().randomizeAll(false);
+                categorySpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getName());
+                sampleSpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getSelectedSample().getName());
             }
         });
     }

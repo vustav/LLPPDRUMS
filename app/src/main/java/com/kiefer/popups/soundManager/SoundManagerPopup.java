@@ -15,9 +15,9 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.info.sequence.trackMenu.SoundManagerInfo;
 import com.kiefer.machine.sequence.track.DrumTrack;
-import com.kiefer.machine.sequence.track.soundManager.SoundManager;
-import com.kiefer.machine.sequence.track.soundManager.oscillatorManager.OscillatorManager;
-import com.kiefer.machine.sequence.track.soundManager.sampleManager.SmplManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.oscillatorManager.OscillatorManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.sampleManager.SmplManager;
 import com.kiefer.popups.Popup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.popups.soundManager.oscillatorManager.OscillatorManagerView;
@@ -29,7 +29,7 @@ public class SoundManagerPopup extends Popup {
     private final FrameLayout soundView;
     private final OscillatorManagerView oscillatorManagerView;
     private final SampleManagerView sampleManagerView;
-    private final RadioButton oscRadio, sampleRadio;
+    //private final RadioButton oscRadio, sampleRadio;
 
     public SoundManagerPopup(final LLPPDRUMS llppdrums, final DrumTrack drumTrack){
         super(llppdrums);
@@ -41,7 +41,7 @@ public class SoundManagerPopup extends Popup {
 
         //inflate the View
         final View popupView = llppdrums.getLayoutInflater().inflate(R.layout.popup_sound_manager, null);
-        popupView.setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getSoundManager().getBgImageId()));
+        popupView.setBackground(ContextCompat.getDrawable(llppdrums, drumTrack.getSoundManager().getBgImgId()));
 
         //create the popupWindow
         //int width = RelativeLayout.LayoutParams.WRAP_CONTENT;@dimen/defaultSeekBarWidth
@@ -54,12 +54,15 @@ public class SoundManagerPopup extends Popup {
         popupWindow.setAnimationStyle(R.style.popup_animation);
 
         //setup the TV
+        /*
         String name = llppdrums.getResources().getString(R.string.soundManagerLabel) + drumTrack.getName();
         TextView label = popupView.findViewById(R.id.soundManagerLabel);
         label.setText(name);
         int bgColor = drumTrack.getColor();
         label.setBackgroundColor(bgColor);
         label.setTextColor(ColorUtils.getContrastColor(bgColor));
+
+         */
 
         //set up the infoBtn
         ImageView infoBtn = popupView.findViewById(R.id.soundManagerInfoBtn);
@@ -72,13 +75,13 @@ public class SoundManagerPopup extends Popup {
 
         //set up the sound view
         soundView = popupView.findViewById(R.id.soundManagerSoundView);
-
+/*
         //set up the radio btns
         oscRadio = popupView.findViewById(R.id.radioOscButton);
         oscRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().setActiveSoundSource(SoundManager.OSC);
+                drumTrack.getSoundManager().setActiveSoundSource(SoundSourceManager.OSC);
                 setSoundView();
             }
         });
@@ -86,16 +89,18 @@ public class SoundManagerPopup extends Popup {
         sampleRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().setActiveSoundSource(SoundManager.SAMPLE);
+                drumTrack.getSoundManager().setActiveSoundSource(SoundSourceManager.SAMPLE);
                 setSoundView();
             }
         });
         setSoundView();
 
+ */
+
         //show the popup with a little offset
         show(popupWindow);
     }
-
+/*
     private void setSoundView(){
         soundView.removeAllViews();
         if(drumTrack.getSoundManager().getActiveSoundSource() instanceof OscillatorManager){
@@ -107,6 +112,8 @@ public class SoundManagerPopup extends Popup {
             soundView.addView(sampleManagerView.getLayout());
         }
     }
+
+ */
 
     public interface SoundSourceView{
         LinearLayout getLayout();

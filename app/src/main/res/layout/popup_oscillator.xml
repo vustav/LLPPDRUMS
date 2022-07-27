@@ -7,10 +7,12 @@
     android:paddingEnd="@dimen/marginLarge">
 
     <!-- CHECKBOX -->
+    <!--
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/oscCheck"/>
+        -->
 
     <!-- WAVE SPINNER (just a container) -->
     <FrameLayout

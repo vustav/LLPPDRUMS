@@ -2,7 +2,7 @@ package com.kiefer.randomization.presets;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.presets.SoundSourcePreset;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrack;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackBassBasic;
 import com.kiefer.randomization.presets.tracks.RndSeqPresetTrackHHBasic;

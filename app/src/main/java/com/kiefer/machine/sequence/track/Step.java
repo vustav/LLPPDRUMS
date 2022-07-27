@@ -1,12 +1,11 @@
 package com.kiefer.machine.sequence.track;
 
-import android.util.Log;
-
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.StepKeeper;
-import com.kiefer.machine.sequence.track.soundManager.SoundManager;
-import com.kiefer.machine.sequence.track.soundManager.eventManager.StepEventsManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.eventManager.StepEventsManager;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /** Each Step creates a StepEventManager that holds events (both Sample and Synth with one of them being muted) for all the Subs.
@@ -18,9 +17,8 @@ public class Step {
     private LLPPDRUMS llppdrums;
     private final DrumTrack drumTrack;
 
-    private final SoundManager soundManager;
     //private Events eventManager;
-    private StepEventsManager stepEventsManager;
+    private ArrayList<StepEventsManager> stepEventsManagers;
 
     private final Random random;
 
@@ -28,25 +26,32 @@ public class Step {
     //base prms
     private boolean on;
 
-    public Step(LLPPDRUMS llppdrums, DrumTrack drumTrack, SoundManager soundManager, int subs, boolean on){
+    public Step(LLPPDRUMS llppdrums, DrumTrack drumTrack, int subs, boolean on){
         this.llppdrums = llppdrums;
         this.drumTrack = drumTrack;
-        this.soundManager = soundManager;
         random = new Random();
 
         this.on = on;
-        createEvents(subs);
+        //stepEventsManagers = new ArrayList<>();
+
+        //on cretation we have to get these. Later when new soundSOurces are created they will add their managers themselves, but on creation steps is created after SSs, so that's not possible.
+        getStepEvenntsManagers(subs);
+    }
+
+    private void getStepEvenntsManagers(int subs){
+        stepEventsManagers = drumTrack.getSoundManager().getStepEventManagers(this, subs);
     }
 
 
-    private void createEvents(int subs){
-        stepEventsManager = soundManager.getStepEventManager(this, subs);
+
+    public void addStepEventsManager(StepEventsManager sem){
+        stepEventsManagers.add(sem);
     }
-
-
 
     public void positionEvents(int nOfSteps, boolean onlySynth){
-        stepEventsManager.positionEvents(nOfSteps, onlySynth);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.positionEvents(nOfSteps, onlySynth);
+        }
     }
 
     /** RANDOMIZE **/
@@ -54,48 +59,62 @@ public class Step {
         Random r = new Random();
         setOn(r.nextBoolean());
 
-        //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
-        if(stepEventsManager.getNOfSubs() == 1){
-            stepEventsManager.setSubOn(0, on);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
+            if (stepEventsManager.getNOfSubs() == 1) {
+                stepEventsManager.setSubOn(0, on);
+            }
         }
     }
     //vars = should the autoRnd variables be used or not??
     public void randomizeSubOn(int sub) {
-        if(stepEventsManager.getNOfSubs() > 1) {
-            stepEventsManager.randomizeOn(sub);
-        }
-        //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
-        else{
-            stepEventsManager.setSubOn(0, on);
+        boolean on = random.nextBoolean();
+
+        for (StepEventsManager stepEventsManager : stepEventsManagers) {
+            if (stepEventsManager.getNOfSubs() > 1) {
+                stepEventsManager.setSubOn(sub, on);
+                //stepEventsManager.randomizeOn(sub);
+            }
+            //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
+            else {
+                stepEventsManager.setSubOn(0, on);
+            }
         }
     }
+
     public void randomizeSubsOn() {
-        if(stepEventsManager.getNOfSubs() > 1) {
-            stepEventsManager.randomizeSubsOn();
-        }
-        //if there's only one sub we need to turn it on, otherwise it will be temporarily off since you can't open the subs interface with one sub
-        else{
-            stepEventsManager.setSubOn(0, true);
+        for(int s = 0; s < drumTrack.getNOfSubs(); s++){
+            randomizeSubOn(s);
         }
     }
 
     public void randomizeVol(int sub){
-        stepEventsManager.randomizeVol(sub);
+        for (StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setVolumeModifier(random.nextFloat(), sub);
+        }
     }
 
     public void randomizeVols(){
-        stepEventsManager.randomizeVols();
+        for(int s = 0; s < drumTrack.getNOfSubs(); s++){
+            randomizeVol(s);
+        }
     }
 
     public void randomizePitch(int sub){
-        stepEventsManager.randomizePitch(sub);
+        for (StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setPitchModifier(random.nextFloat(), sub);
+        }
     }
 
     public void randomizePitches(){
-        stepEventsManager.randomizePitches();
+        for(int s = 0; s < drumTrack.getNOfSubs(); s++){
+            randomizePitch(s);
+        }
     }
     public void randomizePan(){
-        stepEventsManager.randomizePan();
+        for (StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.randomizePan();
+        }
     }
 
     /** RETURN MEMORY **/
@@ -190,15 +209,15 @@ public class Step {
     }
 
     public float getVolumeModifier(int sub) {
-        return stepEventsManager.getVolumeModifier(sub);
+        return stepEventsManagers.get(0).getVolumeModifier(sub);
     }
 
     public float getPitchModifier(int sub) {
-        return stepEventsManager.getPitchModifier(sub);
+        return stepEventsManagers.get(0).getPitchModifier(sub);
     }
 
     public float getPan() {
-        return stepEventsManager.getPan();
+        return stepEventsManagers.get(0).getPan();
     }
 
     public int getStepNo() {
@@ -217,91 +236,91 @@ public class Step {
 
     //auto-rnd
     public boolean getAutoRndOn(int sub){
-        return stepEventsManager.getAutoRndOn(sub);
+        return stepEventsManagers.get(0).getAutoRndOn(sub);
     }
 
     public boolean getRndOnReturn(int sub) {
-        return stepEventsManager.getRndOnReturn(sub);
+        return stepEventsManagers.get(0).getRndOnReturn(sub);
     }
 
     public float getRndOnPerc(int sub) {
-        return stepEventsManager.getRndOnPerc(sub);
+        return stepEventsManagers.get(0).getRndOnPerc(sub);
     }
 
     public boolean getAutoRndVol(int sub){
-        return stepEventsManager.getAutoRndVol(sub);
+        return stepEventsManagers.get(0).getAutoRndVol(sub);
     }
 
     public float getRndVolMin(int sub) {
-        return stepEventsManager.getRndVolMin(sub);
+        return stepEventsManagers.get(0).getRndVolMin(sub);
     }
 
     public float getRndVolMax(int sub) {
-        return stepEventsManager.getRndVolMax(sub);
+        return stepEventsManagers.get(0).getRndVolMax(sub);
     }
 
     public float getRndVolPerc(int sub) {
-        return stepEventsManager.getRndVolPerc(sub);
+        return stepEventsManagers.get(0).getRndVolPerc(sub);
     }
 
     public boolean getRndVolReturn(int sub){
-        return stepEventsManager.getRndVolReturn(sub);
+        return stepEventsManagers.get(0).getRndVolReturn(sub);
     }
 
     public boolean getAutoRndPan(){
-        return stepEventsManager.getAutoRndPan();
+        return stepEventsManagers.get(0).getAutoRndPan();
     }
 
     public float getRndPanMin() {
-        return stepEventsManager.getRndPanMin();
+        return stepEventsManagers.get(0).getRndPanMin();
     }
 
     public float getRndPanMax() {
-        return stepEventsManager.getRndPanMax();
+        return stepEventsManagers.get(0).getRndPanMax();
     }
 
     public float getRndPanPerc() {
-        return stepEventsManager.getRndPanPerc();
+        return stepEventsManagers.get(0).getRndPanPerc();
     }
 
     public boolean getRndPanReturn(){
-        return stepEventsManager.getRndPanReturn();
+        return stepEventsManagers.get(0).getRndPanReturn();
     }
 
     public boolean getAutoRndPitch(int sub){
-        return stepEventsManager.getAutoRndPitch(sub);
+        return stepEventsManagers.get(0).getAutoRndPitch(sub);
     }
 
     public float getRndPitchMin(int sub) {
-        return stepEventsManager.getRndPitchMin(sub);
+        return stepEventsManagers.get(0).getRndPitchMin(sub);
     }
 
     public float getRndPitchMax(int sub) {
-        return stepEventsManager.getRndPitchMax(sub);
+        return stepEventsManagers.get(0).getRndPitchMax(sub);
     }
 
     public float getRndPitchPerc(int sub) {
-        return stepEventsManager.getRndPitchPerc(sub);
+        return stepEventsManagers.get(0).getRndPitchPerc(sub);
     }
 
     public boolean getRndPitchReturn(int sub){
-        return stepEventsManager.getRndPitchReturn(sub);
+        return stepEventsManagers.get(0).getRndPitchReturn(sub);
     }
 
     public int getNofSubs(){
-        return stepEventsManager.getNOfSubs();
+        return stepEventsManagers.get(0).getNOfSubs();
     }
 
     public boolean isSubOn(int sub){
-        return stepEventsManager.isSubOn(sub);
+        return stepEventsManagers.get(0).isSubOn(sub);
     }
 
     public float getSubVol(int sub){
-        return stepEventsManager.getVolumeModifier(sub);
+        return stepEventsManagers.get(0).getVolumeModifier(sub);
     }
 
     public float getSubPitch(int sub){
-        return stepEventsManager.getPitchModifier(sub);
+        return stepEventsManagers.get(0).getPitchModifier(sub);
     }
 
     /** PREV **/
@@ -313,22 +332,31 @@ public class Step {
 
     //used to manually save what it should return to (if return is on).
     public void saveSubPrevOn(int sub){
-        stepEventsManager.savePrevOn(sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.savePrevOn(sub);
+        }
     }
 
     public void saveSubPrevVol(int sub){
-        stepEventsManager.savePrevVol(sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.savePrevVol(sub);
+        }
     }
 
     public void saveSubPrevPitch(int sub){
-        stepEventsManager.savePrevPitch(sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.savePrevPitch(sub);
+        }
     }
     public void saveSubPrevPan(){
-        stepEventsManager.savePrevPan();
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.savePrevPan();
+        }
     }
 
     public boolean getSubPrevOn(int sub){
-        return stepEventsManager.getPrevOn(sub);
+        return stepEventsManagers.get(0).getPrevOn(sub);
+
     }
 
     public boolean getPrevOn(){
@@ -336,62 +364,80 @@ public class Step {
     }
 
     public float getSubPrevVol(int sub){
-        return stepEventsManager.getPrevVol(sub);
+        return stepEventsManagers.get(0).getPrevVol(sub);
+
     }
 
     public float getSubPrevPitch(int sub){
-        return stepEventsManager.getPrevPitch(sub);
+        return stepEventsManagers.get(0).getPrevPitch(sub);
+
     }
 
     public float getPrevPan(){
-        return stepEventsManager.getPrevPan();
+        return stepEventsManagers.get(0).getPrevPan();
+
     }
 
     /** SET **/
     public void setNOfSubs(int subs){
-        stepEventsManager.setNOfSubs(subs);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setNOfSubs(subs);
+        }
         positionEvents(drumTrack.getNOfSteps(), false);
     }
 
     public void setOn(boolean on){
         this.on = on;
 
-        if(on){
-            stepEventsManager.turnOn();
-        }
-        else{
-            stepEventsManager.turnOff();
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            if (on) {
+                stepEventsManager.turnOn();
+            } else {
+                stepEventsManager.turnOff();
+            }
         }
     }
 
     public void setSubOn(int sub, boolean on){
-        stepEventsManager.setSubOn(sub, on);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setSubOn(sub, on);
+        }
     }
 
     public void updateEventSamples(){
-        stepEventsManager.updateSamples();
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.updateSamples();
+        }
     }
 
     //vol
     public void setVolumeModifier(float modifier, int sub){
-        stepEventsManager.setVolumeModifier(modifier, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setVolumeModifier(modifier, sub);
+        }
     }
 
     public void updateEventVolumes(){
-        stepEventsManager.updateEventVolume();
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.updateEventVolume();
+        }
         //soundEvents.setVolume(drumTrack.getTrackVolume() * getVolumeModifier());
     }
 
     //pitch
     public void setPitchModifier(float modifier, int sub){
-        stepEventsManager.setPitchModifier(modifier, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setPitchModifier(modifier, sub);
+        }
         //pitchModifier = modifier;
         //updateEventPitches();
     }
 
     public void updateEventPitches(){
         //soundEvents.setPitch(getConvertedPitchModifier());
-        stepEventsManager.updateEventPitches();
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.updateEventPitches();
+        }
     }
     /*
         private float getConvertedPitchModifier(){
@@ -404,20 +450,23 @@ public class Step {
      */
     public void setPan(float pan){
         //Log.e("Step", "set pan: "+pan);
-        stepEventsManager.setPan(pan);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setPan(pan);
+        }
     }
 
     public void setRndOnPerc(float rndOnPerc, int sub) {
 
         //register an automation if it was off and is now on ONLY
-        if(rndOnPerc > 0 && !stepEventsManager.getAutoRndOn(sub)){
+        if (rndOnPerc > 0 && !stepEventsManagers.get(0).getAutoRndOn(sub)) {
             onAutosModified(true);
-        }
-        else if(rndOnPerc == 0 && stepEventsManager.getAutoRndOn(sub)){
+        } else if (rndOnPerc == 0 && stepEventsManagers.get(0).getAutoRndOn(sub)) {
             onAutosModified(false);
         }
 
-        stepEventsManager.setRndOnPerc(rndOnPerc, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndOnPerc(rndOnPerc, sub);
+        }
     }
 
     public void setRndOnReturn(boolean rndOnReturn, int sub) {
@@ -426,28 +475,39 @@ public class Step {
         saveSubPrevOn(sub);
 
         returnModified(rndOnReturn);
-        stepEventsManager.setRndOnReturn(rndOnReturn, sub);
+
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndOnReturn(rndOnReturn, sub);
+        }
     }
 
     public void setRndVolMin(float rndVolMin, int sub) {
-        stepEventsManager.setRndVolMin(rndVolMin, sub);
+
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndVolMin(rndVolMin, sub);
+        }
     }
 
     public void setRndVolMax(float rndVolMax, int sub) {
-        stepEventsManager.setRndVolMax(rndVolMax, sub);
+
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndVolMax(rndVolMax, sub);
+        }
     }
 
     public void setRndVolPerc(float rndVolPerc, int sub) {
 
+
         //register an automation if it was off and is now on ONLY
-        if(rndVolPerc > 0 && !stepEventsManager.getAutoRndVol(sub)){
+        if (rndVolPerc > 0 && !stepEventsManagers.get(0).getAutoRndVol(sub)) {
             volAutosModified(true);
-        }
-        else if(rndVolPerc == 0 && stepEventsManager.getAutoRndVol(sub)){
+        } else if (rndVolPerc == 0 && stepEventsManagers.get(0).getAutoRndVol(sub)) {
             volAutosModified(false);
         }
 
-        stepEventsManager.setRndVolPerc(rndVolPerc, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndVolPerc(rndVolPerc, sub);
+        }
     }
 
     public void setRndVolReturn(boolean rndVolReturn, int sub) {
@@ -455,31 +515,39 @@ public class Step {
         saveSubPrevVol(sub);
 
         returnModified(rndVolReturn);
-        stepEventsManager.setRndVolReturn(rndVolReturn, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndVolReturn(rndVolReturn, sub);
+        }
         //this.rndVolReturn = rndVolReturn;
     }
 
     public void setRndPitchMin(float rndPitchMin, int sub) {
-        stepEventsManager.setRndPitchMin(rndPitchMin, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPitchMin(rndPitchMin, sub);
+        }
         //this.rndPitchMin = rndPitchMin;
     }
 
     public void setRndPitchMax(float rndPitchMax, int sub) {
-        stepEventsManager.setRndPitchMax(rndPitchMax, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPitchMax(rndPitchMax, sub);
+        }
         //this.rndPitchMax = rndPitchMax;
     }
 
     public void setRndPitchPerc(float rndPitchPerc, int sub) {
 
         //register an automation if it was off and is now on ONLY
-        if(rndPitchPerc > 0 && !stepEventsManager.getAutoRndPitch(sub)){
+        if(rndPitchPerc > 0 && !stepEventsManagers.get(0).getAutoRndPitch(sub)){
             pitchAutosModified(true);
         }
-        else if(rndPitchPerc == 0 && stepEventsManager.getAutoRndPitch(sub)){
+        else if(rndPitchPerc == 0 && stepEventsManagers.get(0).getAutoRndPitch(sub)){
             pitchAutosModified(false);
         }
 
-        stepEventsManager.setRndPitchPerc(rndPitchPerc, sub);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPitchPerc(rndPitchPerc, sub);
+        }
     }
 
     public void setRndPitchReturn(boolean rndPitchReturn, int sub) {
@@ -487,17 +555,24 @@ public class Step {
         saveSubPrevPitch(sub);
 
         returnModified(rndPitchReturn);
-        stepEventsManager.setRndPitchReturn(rndPitchReturn, sub);
+
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPitchReturn(rndPitchReturn, sub);
+        }
         //this.rndPitchReturn = rndVolReturn;
     }
 
     public void setRndPanMin(float rndPanMin) {
-        stepEventsManager.setRndPanMin(rndPanMin);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPanMin(rndPanMin);
+        }
         //this.rndPanMin = rndPitchMin;
     }
 
     public void setRndPanMax(float rndPanMax) {
-        stepEventsManager.setRndPanMax(rndPanMax);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPanMax(rndPanMax);
+        }
         //this.rndPanMax = rndVolMax;
     }
 
@@ -511,7 +586,9 @@ public class Step {
             panAutosModified(false);
         }
 
-        stepEventsManager.setRndPanPerc(rndPanPerc);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPanPerc(rndPanPerc);
+        }
         //this.rndPanPerc = rndVolPerc;
     }
 
@@ -520,20 +597,25 @@ public class Step {
         saveSubPrevPan();
 
         returnModified(rndPanReturn);
-        stepEventsManager.setRndPanReturn(rndPanReturn);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.setRndPanReturn(rndPanReturn);
+        }
         //this.rndPanReturn = rndVolReturn;
     }
 
     /** SEQUENCER **/
     public void handleSequencerPositionChange(int sequencerPosition){
-        soundManager.setPan(getPan());
+        drumTrack.getSoundManager().setPan(getPan());
     }
 
     /** RESET **/
     public void reset(){
         setOn(false);
         resetAutos();
-        stepEventsManager.reset();
+
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.reset();
+        }
     }
 
     private void resetAutos(){
@@ -547,20 +629,35 @@ public class Step {
     /** RESTORATION **/
     public void restore(StepKeeper k){
         setOn(k.on);
-        stepEventsManager.restore(k.stepEventsManagerKeeper);
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.restore(k.stepEventsManagerKeeper);
+        }
     }
 
     public StepKeeper getKeeper(){
         StepKeeper keeper = new StepKeeper();
 
         keeper.on = isOn();
-        keeper.stepEventsManagerKeeper = stepEventsManager.getKeeper();
+        keeper.stepEventsManagerKeeper = stepEventsManagers.get(0).getKeeper();
         return keeper;
     }
 
     /** DESTRUCTION **/
+
+    public void destroyStepEventsManager(SoundSourceManager ssm){
+        for(int i = 0; i < stepEventsManagers.size(); i++){
+            if(stepEventsManagers.get(i).getSoundSourceManager() == ssm){
+                StepEventsManager ssmm = stepEventsManagers.remove(i);
+                ssmm.destroy();
+                return;
+            }
+        }
+    }
+
     public void destroy(){
-        stepEventsManager.destroy();
+        for(StepEventsManager stepEventsManager : stepEventsManagers) {
+            stepEventsManager.destroy();
+        }
     }
 }
 

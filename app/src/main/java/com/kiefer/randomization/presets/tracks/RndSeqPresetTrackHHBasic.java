@@ -2,7 +2,7 @@ package com.kiefer.randomization.presets.tracks;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
-import com.kiefer.machine.sequence.track.soundManager.presets.SoundSourcePreset;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.presets.SoundSourcePreset;
 import com.kiefer.utils.NmbrUtils;
 
 public class RndSeqPresetTrackHHBasic extends RndSeqPresetTrack {

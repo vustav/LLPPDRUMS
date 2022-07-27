@@ -9,6 +9,7 @@ import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.machine.sequence.track.DrumTrack;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
 import com.kiefer.popups.soundManager.SoundManagerPopup;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class OscillatorManagerView implements SoundManagerPopup.SoundSourceView 
         presetSpinnerButton.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new OscillatorPresetsListPopup(llppdrums, drumTrack.getSoundManager(), OscillatorManagerView.this, presetSpinnerButton);
+                new OscillatorPresetsListPopup(llppdrums, (SoundSourceManager) drumTrack.getSoundManager().getSelectedStackable(), OscillatorManagerView.this, presetSpinnerButton);
             }
         });
         presetSpinnerButton.setSelection("PRESETS");
@@ -44,7 +45,7 @@ public class OscillatorManagerView implements SoundManagerPopup.SoundSourceView 
         rndBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().randomizeAll();
+                drumTrack.getSoundManager().randomizeAll(false);
 
                 //drumTrack.reactivate();
 
@@ -59,7 +60,7 @@ public class OscillatorManagerView implements SoundManagerPopup.SoundSourceView 
 
         oscillatorViews = new ArrayList<>();
         for(int i = 0; i < llppdrums.getResources().getInteger(R.integer.nOfOscillators); i++){
-            OscillatorView oscillatorViewPopup = new OscillatorView(llppdrums, drumTrack.getSoundManager().getOscillatorManager(), drumTrack, i);
+            OscillatorView oscillatorViewPopup = new OscillatorView(llppdrums, ((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getOscillatorManager(), drumTrack, i);
             oscillatorViews.add(oscillatorViewPopup);
             oscLayout.addView(oscillatorViewPopup.getLayout());
         }
@@ -69,7 +70,8 @@ public class OscillatorManagerView implements SoundManagerPopup.SoundSourceView 
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().play();
+                //drumTrack.getSoundManager().play();
+                ((SoundSourceManager) drumTrack.getSoundManager().getSelectedStackable()).play();
             }
         });
     }

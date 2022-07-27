@@ -11,7 +11,7 @@ import com.kiefer.R;
 import com.kiefer.info.Info;
 import com.kiefer.info.InfoHolder;
 import com.kiefer.info.link.InfoLink;
-import com.kiefer.info.sequence.trackMenu.fxManager.FxManagerInfo;
+import com.kiefer.info.sequence.trackMenu.fxManager.StackableManagerInfo;
 import com.kiefer.utils.ColorUtils;
 
 public class TrackMenuInfo extends InfoHolder implements Info {
@@ -26,7 +26,7 @@ public class TrackMenuInfo extends InfoHolder implements Info {
         infos.add(new SoundManagerInfo(llppdrums));
         infos.add(new StepManagerInfo(llppdrums));
         infos.add(new RndTrackManagerInfo(llppdrums));
-        infos.add(new FxManagerInfo(llppdrums));
+        infos.add(new StackableManagerInfo(llppdrums));
     }
 
     @Override
@@ -142,7 +142,7 @@ public class TrackMenuInfo extends InfoHolder implements Info {
 
         //create the link and append it
         label = llppdrums.getResources().getString(R.string.fxManagerName);
-        link = new InfoLink(llppdrums, label, FxManagerInfo.key, nodeTV);
+        link = new InfoLink(llppdrums, label, StackableManagerInfo.key, nodeTV);
         nodeTV.append(link);
 
         layout.addView(nodeLayout);
