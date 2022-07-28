@@ -838,6 +838,7 @@ public class DrumTrack implements Subilizer, NamerColorizer, Fxer {
 
     /** DESTRUCTION **/
     public void destroy(){
+        fxManager.destroy();
         soundManager.destroy();
 
         for(Step d : steps){
@@ -845,6 +846,5 @@ public class DrumTrack implements Subilizer, NamerColorizer, Fxer {
         }
         steps = null;
 
-        fxManager.destroy();
     }
 }

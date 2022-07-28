@@ -106,22 +106,22 @@ public class Sub {
         //Log.e("Sub", "setOn, stepOn: "+step.isOn()+", subOn: "+on);
         if(on && step.isOn()) {
             //Log.e("Sub", "setOn(), 1");
-            addToSequencer(true);
+            enable(true);
         }
         else{
             //Log.e("Sub", "setOn(), 2");
-            addToSequencer(false);
+            enable(false);
         }
     }
 
-    public void addToSequencer(boolean add){
+    public void enable(boolean add){
         //Log.e("Sub", "addToSequencer(), add: "+add);
         for(Event e : events){
             if(add) {
-                e.addToSequencer();
+                e.enable();
             }
             else{
-                e.removeFromSequencer();
+                e.disable();
             }
         }
     }

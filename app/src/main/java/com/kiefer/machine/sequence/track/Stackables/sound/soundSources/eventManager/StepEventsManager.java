@@ -62,13 +62,13 @@ public class StepEventsManager {
             //Log.e("StepEventsManager", "turnOn(), sub.size(): "+(subs.size()));
             //Log.e("StepEventsManager", "turnOn(), sub = on: "+(subs.get(sub).isOn()));
             boolean on = subs.get(sub).isOn(); //subs can still be on even if the step is off, turn them back on if so
-            subs.get(sub).addToSequencer(on);
+            subs.get(sub).enable(on);
         }
     }
 
     public void turnOff(){
         for(int sub = 0; sub < subs.size(); sub++){
-            subs.get(sub).addToSequencer(false);
+            subs.get(sub).enable(false);
         }
     }
 

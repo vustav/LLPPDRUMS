@@ -37,7 +37,7 @@ public class SnthEvent extends Event{
  */
 
     @Override
-    public void addToSequencer(){
+    public void enable(){
         //Log.e("SnthEvent", "addToSequencer()");
         for (SynthEvent event : events) {
             //event.addToSequencer();
@@ -46,11 +46,18 @@ public class SnthEvent extends Event{
     }
 
     @Override
-    public void removeFromSequencer(){
+    public void disable(){
         //Log.e("SnthEvent", "removeFromSequencer()");
         for (SynthEvent event : events) {
             //event.removeFromSequencer();
             event.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void removeFromSequencer(){
+        for (SynthEvent event : events) {
+            event.removeFromSequencer();
         }
     }
 

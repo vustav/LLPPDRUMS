@@ -89,24 +89,21 @@ public class RndTrackManager {
 
     public void randomize(RndSeqPresetTrack rndTrack){
 
-        //drumTrack.reset(false);
-
         drumTrack.setNOfSubs(666, rndTrack.getnOfSubs()); //trackNo doesn't matter since the drumTrack is the subilizer
 
-        //if(rndTrack.getPresetCategories().size() == 1 && rndTrack.getPresetCategories().get(0).equals(RANDOM)){
-
-        drumTrack.getSoundManager().createRandomStackables(false, random.nextInt(maxNOfSSs) + 1);
+        /** LAGGAR EFTER ETT TAG OM MAN KÖR DEN HÄR OCH PUMPAR RND, SP NU HAR ALLA BARA KVAR SINA  **/
+        //drumTrack.getSoundManager().createRandomStackables(false, random.nextInt(maxNOfSSs) + 1);
+        //drumTrack.getSoundManager().setNOfStackables(2, 3, false); //bättre, men den ovan borde funka
+        drumTrack.getSoundManager().setNOfStackables(3, false); //bättre, men den ovan borde funka
+        /****************************************/
 
         if(rndTrack.getPresetCategory().equals(RANDOM)){
-            //((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).setRandomPresets();
             drumTrack.getSoundManager().setRandomPresets();
         }
         else{
-            //String preset = rndTrack.getPresetCategory().get(random.nextInt(rndTrack.getPresetCategory().size()));
-            //((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).setPresets(rndTrack.getPresetCategory());
             drumTrack.getSoundManager().setPresets(rndTrack.getPresetCategory());
         }
-        ((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).randomizeSoundSource(rndTrack.getSamplePerc());
+        drumTrack.getSoundManager().randomizeSoundSource(rndTrack.getSamplePerc());
 
         //Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){

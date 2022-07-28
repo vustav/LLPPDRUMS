@@ -42,6 +42,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class LLPPDRUMS extends FragmentActivity implements TabManager.OnTabClickedListener, TabHolder, Loadable {
+    /** PRIO **/
+    //Börjar lagga efter ett tag eller hänger sig när man kör RndSeqManager. Fixat med setNOfStackables() ist för att slumpa antal, men slumpningen borde funka. FIXXXAAA!!
+
     /** TRÅDAR **/
     //DrumMachineFragment.showPlayIcon();
     //SequenceManager.handleSequencerPositionChange();

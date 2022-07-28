@@ -84,8 +84,6 @@ public class SoundSourceManager implements Stackable {
         smplManager.deactivate();
         soundSources.add(smplManager);
 
-        //can't use randomizeSoundSource() here since steps aren't created yet
-        //Random r = new Random();
         activeSoundSource = soundSources.get(soundSource);
         activeSoundSource.activate();
 

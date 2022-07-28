@@ -30,19 +30,19 @@ public class SmplEvent extends Event{
     }
 
     @Override
-    public void addToSequencer(){
-        //Log.e("SmplEvent", "addToSequencer()");
-        //event.addToSequencer();
+    public void enable(){
         event.setEnabled(true);
     }
 
     @Override
-    public void removeFromSequencer(){
-        //Log.e("SmplEvent", "removeFromSequencer()");
-        //event.removeFromSequencer();
+    public void disable(){
         event.setEnabled(false);
     }
 
+    @Override
+    public void removeFromSequencer(){
+        event.removeFromSequencer();
+    }
 
     @Override
     public void positionEvent(int posInSamples){

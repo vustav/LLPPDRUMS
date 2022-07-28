@@ -65,8 +65,8 @@ public class SoundManager extends StackableManager {
         stackableInfos.add(new StackableInfo(llppdrums.getResources().getString(R.string.oscLabel), ContextCompat.getColor(llppdrums, R.color.fxDelayColor)));
         stackableInfos.add(new StackableInfo(llppdrums.getResources().getString(R.string.sampleLabel), ContextCompat.getColor(llppdrums, R.color.fxFlangerColor)));
 
-        int nOfSSs = random.nextInt(maxNOfSoundSources - 1) + 1;
-        createRandomStackables(false, nOfSSs);
+        //int nOfSSs = random.nextInt(maxNOfSoundSources - 1) + 1;
+        createRandomStackables(false, maxNOfSoundSources);
 
         //Log.e("SoundManager", "selectedSoundSourceManager set in constr");
         selectedSoundSourceManager = soundSourceManagers.get(0);
@@ -78,19 +78,11 @@ public class SoundManager extends StackableManager {
     }
 
     private SoundSourceManager getNewSoundSource(int n, boolean randomizeAutomation) {
-        //switch (fxNo) {
-        //case 0:
-        //return new FxFlanger(llppdrums, stacker, fxNo, randomizeAutomation);
-        //return new FxFlanger(llppdrums, stacker, fxNo, randomizeAutomation);
         return new SoundSourceManager(llppdrums, drumSequence, (DrumTrack) stacker, n, randomizeAutomation);
-
-        //}
-        //return null;
     }
 
     protected SoundSourceManager createNewSoundSourceManager(int i, boolean randomizeAutomation) {
         SoundSourceManager ssm = getNewSoundSource(i, randomizeAutomation);
-        //Log.e("SoundManager", "createNewSoundSourceManager()");
         selectedSoundSourceManager = ssm; //created are always selected
         soundSourceManagers.add(ssm);
         return ssm;
@@ -106,9 +98,43 @@ public class SoundManager extends StackableManager {
         }
     }
 
+    public void setNOfStackables(int n, boolean automation){
+
+        while(soundSourceManagers.size() < n){
+            createRandomStackable(automation);
+        }
+        while(soundSourceManagers.size() > n){
+            for(int i = soundSourceManagers.size()-1; i > n - 1; i--){
+                SoundSourceManager ssm = soundSourceManagers.remove(i);
+                destroySoundSourceManager(ssm);
+            }
+        }
+    }
+
+    public void setNOfStackables(int min, int max, boolean automation){
+
+        int nOfStackables = random.nextInt(max) + min;
+
+        while(soundSourceManagers.size() < nOfStackables){
+            createRandomStackable(automation);
+        }
+        while(soundSourceManagers.size() > nOfStackables){
+            for(int i = soundSourceManagers.size()-1; i > nOfStackables - 1; i--){
+                SoundSourceManager ssm = soundSourceManagers.remove(i);
+                destroySoundSourceManager(ssm);
+            }
+        }
+    }
+
     public void setPresets(String presetCategory){
         for(SoundSourceManager ssm : soundSourceManagers){
             ssm.setPresets(presetCategory);
+        }
+    }
+
+    public void randomizeSoundSource(float samplePerc){
+        for(SoundSourceManager ssm : soundSourceManagers){
+            ssm.randomizeSoundSource(samplePerc);
         }
     }
 
@@ -119,23 +145,8 @@ public class SoundManager extends StackableManager {
     }
 
     public void createRandomStackable(boolean automation) {
-        Random r = new Random();
-        createNewSoundSourceManager(r.nextInt(stackableInfos.size()), automation);
-
-        //if(llppdrums.getDrumMachine().getSelectedSequence() == llppdrums.getDrumMachine().getPlayingSequence()) {
-        //addFxToEngine(ssm);
-        //}
+        createNewSoundSourceManager(random.nextInt(stackableInfos.size()), automation);
     }
-
-    /*
-    protected void addFxToEngine(final Fx fx) {
-        for (ProcessingChain pc : stacker.getProcessingChains()) {
-            pc.addProcessor(fx.getBaseProcessor());
-        }
-        setIndicator();
-    }
-
-     */
 
     public void moveStackable(final int from, final int to) {
         SoundSourceManager ssm = soundSourceManagers.remove(from);
@@ -179,36 +190,6 @@ public class SoundManager extends StackableManager {
             }
         }
     }
-
-    /*
-    private void removeFxFromEngine(Fx fx) {
-        for (ProcessingChain pc : stacker.getProcessingChains()) {
-            if (pc != null) {
-                pc.removeProcessor(fx.getBaseProcessor());
-            } else {
-                Log.e("FxManager", "removeFxFromEngine(), pc == null");
-            }
-        }
-        setIndicator();
-    }
-
-     */
-
-    /*
-    public void removeFxsFromEngine() {
-        if (soundSourceManagers != null) {
-            for (Fx fx : soundSourceManagers) {
-                removeFxFromEngine(fx);
-            }
-        }
-
-        // SHOULDN'T BE NEEDED
-        for (ProcessingChain pc : stacker.getProcessingChains()) {
-            pc.reset();
-        }
-    }
-    */
-
 
     //use this one to select soundSource instead
     public void changeSelectedStackable(int newStackableIndex) {

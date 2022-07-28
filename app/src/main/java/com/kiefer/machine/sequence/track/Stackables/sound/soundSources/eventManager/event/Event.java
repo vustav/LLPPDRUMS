@@ -5,7 +5,8 @@ public abstract class Event {
     protected float DURATION = 1f;
 
     //abstract methods
-    public abstract void addToSequencer();
+    public abstract void enable();
+    public abstract void disable();
     public abstract void removeFromSequencer();
     public abstract void positionEvent(int posInSamples);
     public abstract void setPitch(float pitch);

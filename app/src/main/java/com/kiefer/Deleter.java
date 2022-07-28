@@ -28,9 +28,9 @@ public class Deleter {
         }
         else{
             Log.e("Deleter", "delete()");
-            pauseEngine();
+            //pauseEngine();
             fx = null;
-            playEngine();
+            //playEngine();
         }
     }
 
@@ -41,9 +41,9 @@ public class Deleter {
         }
         else{
             Log.e("Deleter", "delete()");
-            pauseEngine();
+            //pauseEngine();
             event.delete();
-            playEngine();
+            //playEngine();
         }
     }
 
@@ -54,9 +54,9 @@ public class Deleter {
         }
         else{
             Log.e("Deleter", "delete()");
-            pauseEngine();
+            //pauseEngine();
             instrument.delete();
-            playEngine();
+            //playEngine();
         }
     }
 
