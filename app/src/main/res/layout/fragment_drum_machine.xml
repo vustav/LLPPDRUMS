@@ -148,6 +148,88 @@
 
                 android:layout_alignParentBottom="true">
 
+                <!-- PLAY/PAUSE -->
+                <!--
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="@dimen/transportBtnWidth"
+                        android:layout_height="@dimen/btnHeightTop"
+                        android:id="@+id/machinePlayBtn"/>
+                        -->
+
+                    <!-- PLAY -->
+                    <!--
+                    <ImageView
+                        android:layout_width="@dimen/transportPlayBtnIcon"
+                        android:layout_height="@dimen/transportPlayBtnIcon"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/drawable_triangle_black"
+                        android:rotation="90"
+                        android:id="@+id/machinePlayIcon"/>
+                        -->
+
+                    <!-- PAUSE -->
+                    <!--
+                    <RelativeLayout
+                        android:layout_width="@dimen/transportBtnIcon"
+                        android:layout_height="@dimen/transportBtnIcon"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/machinePauseIcon"
+                        android:visibility="invisible">
+
+                        <FrameLayout
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"
+                            android:background="#000000"
+
+                            android:id="@+id/pauseLeft"/>
+
+                        <FrameLayout
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"
+                            android:background="#000000"
+
+                            android:layout_marginStart="4dp"
+                            android:layout_toEndOf="@id/pauseLeft"/>
+                    </RelativeLayout>
+                </FrameLayout>
+                -->
+
+                <!-- STOP -->
+                <!--
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="@dimen/transportBtnWidth"
+                        android:layout_height="@dimen/btnHeightTop"
+                        android:id="@+id/machineStopBtn"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/transportBtnIcon"
+                        android:layout_height="@dimen/transportBtnIcon"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/drawable_square_black"/>
+                </FrameLayout>
+                -->
+
+                <!-- DIVIDER -->
+                <!--
+                <FrameLayout
+                    android:layout_width="@dimen/dividerWidth"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividerColor"
+                    android:id="@+id/topFragmentDivider0"
+                    android:layout_margin="@dimen/dividerMargin"/>
+                    -->
+
                 <!-- NAME/COLOR -->
                 <RelativeLayout
                     android:layout_width="@dimen/sequencerNameBtnWidth"
@@ -181,6 +263,14 @@
                             android:id="@+id/machineSequenceNameBtnTV"/>
                     </RelativeLayout>
                 </RelativeLayout>
+
+                <!-- DIVIDER -->
+                <FrameLayout
+                    android:layout_width="@dimen/dividerWidth"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividerColor"
+                    android:id="@+id/topFragmentDivider1"
+                    android:layout_margin="@dimen/dividerMargin"/>
 
                 <!-- TEMPO -->
                 <FrameLayout
@@ -293,7 +383,7 @@
                     android:layout_width="@dimen/dividerWidth"
                     android:layout_height="match_parent"
                     android:background="@color/dividerColor"
-                    android:id="@+id/topFragmentDivider0"
+                    android:id="@+id/topFragmentDivider2"
                     android:layout_margin="@dimen/dividerMargin"/>
 
                 <!-- RANDOM -->
@@ -392,7 +482,7 @@
                     android:layout_width="@dimen/dividerWidth"
                     android:layout_height="match_parent"
                     android:background="@color/dividerColor"
-                    android:id="@+id/topFragmentDivider1"
+                    android:id="@+id/topFragmentDivider3"
                     android:layout_margin="@dimen/dividerMargin"/>
             </LinearLayout>
 

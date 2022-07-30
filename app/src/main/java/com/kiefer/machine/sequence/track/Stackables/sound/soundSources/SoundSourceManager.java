@@ -71,8 +71,7 @@ public class SoundSourceManager implements Stackable {
         this.drumSequence = drumSequence;
         this.drumTrack = drumTrack;
 
-        gradColor1 = ColorUtils.getRandomColor();
-        gradColor2 = ColorUtils.getRandomColor();
+        randomizeColors();
         bgImageId = ImgUtils.getRandomImageId();
         automationBgId = ImgUtils.getRandomImageId();
 
@@ -94,12 +93,20 @@ public class SoundSourceManager implements Stackable {
             randomizeAutomation();
         }
 
+
         //on creation steps gets the eventManagers themselves. After creation they're added automatically here. This is because SoundManager is created before the steps so we can't do this loop yet.
         if(drumTrack.getSteps() != null) {
             for (Step s : drumTrack.getSteps()) {
                 s.addStepEventsManager(getStepEventManager(s, drumTrack.getNOfSubs()));
             }
         }
+    }
+
+    public void randomizeColors(){
+
+        gradColor1 = ColorUtils.getRandomColor();
+        gradColor2 = ColorUtils.getRandomColor();
+
     }
 
     public void setupParamNames(){
@@ -394,8 +401,6 @@ public class SoundSourceManager implements Stackable {
 
     /** RndSeqManager calls this with one of the static strings in SoundSourcePreset, so make sure to cover them and add anything extra class-specific **/
     public void setPresets(String s){
-        //Log.e("SoundManager", "setPreset(): "+s);
-        //activeSoundSource.setPreset(s);
         setOscPreset(s);
         setSmplPreset(s);
     }
@@ -408,16 +413,7 @@ public class SoundSourceManager implements Stackable {
         getSmplManager().setPreset(s);
     }
 
-
-/*
-    public SoundEvents getSoundEvents(int nOfSteps, int subs, int step, boolean add){
-        return activeSoundSource.getSoundEvents(nOfSteps, subs, step, add);
-    }
-
- */
-
     public StepEventsManager getStepEventManager(Step step, int subs){
-        //Log.e("SoundSourceManager", "creating StepEventsManager");
         return new StepEventsManager(llppdrums, drumSequence, drumTrack, this, step, subs);
     }
 

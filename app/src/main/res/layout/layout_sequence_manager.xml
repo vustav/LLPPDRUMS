@@ -4,6 +4,12 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
+    <!-- CHECK -->
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sequenceManagerCB"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -20,30 +26,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sequenceManagerCounterLayout"/>
-
-        <!-- INFO -->
-        <!--
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/seqManagerInfoTxtSize"
-                android:id="@+id/sequenceManagerProgressInfoTV"/>
-
-
-            <TextView
-                android:layout_marginStart="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/seqManagerInfoTxtSize"
-                android:id="@+id/sequenceManagerQueueInfoTV"/>
-        </LinearLayout>
-        -->
     </LinearLayout>
 
     <!-- EDIT -->

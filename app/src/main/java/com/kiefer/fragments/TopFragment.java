@@ -23,7 +23,6 @@ import com.kiefer.options.projectOptions.ProjectOptionsManager;
 import com.kiefer.popups.files.LoadPopup;
 import com.kiefer.popups.info.InfoPopup;
 import com.kiefer.popups.projectOptions.ProjectOptionsPopup;
-import com.kiefer.ui.tabs.TabManager;
 import com.kiefer.ui.tabs.interfaces.Tab;
 import com.kiefer.utils.ColorUtils;
 import com.kiefer.utils.ImgUtils;
@@ -37,6 +36,9 @@ public class TopFragment extends TabFragment {
 
     private LinearLayout bg;
     private FrameLayout divider0, divider1;
+
+    private ImageView playIcon;
+    private RelativeLayout pauseIcon;
 
     //private boolean changeSeqRunning = false; //used to avoid spamming certain functions
 
@@ -80,8 +82,8 @@ public class TopFragment extends TabFragment {
         });
 
         //set up the play btn
-        ImageView playIcon = rootView.findViewById(R.id.topPlayIcon);
-        RelativeLayout pauseIcon = rootView.findViewById(R.id.topPauseIcon);
+        playIcon = rootView.findViewById(R.id.topPlayIcon);
+        pauseIcon = rootView.findViewById(R.id.topPauseIcon);
 
         Button playPauseBtn = rootView.findViewById(R.id.topPlayBtn);
         playPauseBtn.setOnClickListener(new View.OnClickListener() {

@@ -97,13 +97,20 @@ public class RndTrackManager {
         drumTrack.getSoundManager().setNOfStackables(3, false); //bättre, men den ovan borde funka
         /****************************************/
 
-        if(rndTrack.getPresetCategory().equals(RANDOM)){
+        //start by randomizing all sounds
+        drumTrack.getSoundManager().setRandomPresets();
+
+        //if not random is selected set the first ss to the selected preset
+        if(!rndTrack.getPresetCategory().equals(RANDOM)){
             drumTrack.getSoundManager().setRandomPresets();
+            drumTrack.getSoundManager().setPreset(0, rndTrack.getPresetCategory());
         }
-        else{
-            drumTrack.getSoundManager().setPresets(rndTrack.getPresetCategory());
-        }
-        drumTrack.getSoundManager().randomizeSoundSource(rndTrack.getSamplePerc());
+
+        //randomize soundsources, then set the first to sample
+        drumTrack.getSoundManager().randomizeSoundSources(rndTrack.getSamplePerc());
+        drumTrack.getSoundManager().setSoundSource(0, SoundSourceManager.SAMPLE);
+
+        drumTrack.getSoundManager().randomizeSSColors();
 
         //Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){

@@ -2,6 +2,7 @@ package com.kiefer.machine;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
@@ -278,6 +279,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
 
     /** TRANSPORT **/
+    //private boolean useSeqMan = false;
+
     public void play(){
         engineFacade.playSequencer();
 
@@ -298,6 +301,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         unlockUI();
         llppdrums.getDeleter().delete();
     }
+
     public void stop(){
         sequenceManager.reset();
         engineFacade.stopSequencer();
@@ -308,6 +312,8 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         playingSequence.stop();
         llppdrums.getDeleter().delete();
     }
+
+    /**************************/
 
     private void lockUI(){
         if(LLPPDRUMS.hideUIonPlay) {
@@ -580,7 +586,10 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     /** SEQUENCER UPDATES **/
     public void handleSequencerPositionChange(int sequencerPosition){
         playingSequence.handleSequencerPositionChange(sequencerPosition);
-        sequenceManager.handleSequencerPositionChange(sequencerPosition);
+
+        if(sequenceManager.isOn()) {
+            sequenceManager.handleSequencerPositionChange(sequencerPosition);
+        }
     }
 
     /** RESTORATION **/

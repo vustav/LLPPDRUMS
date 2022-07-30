@@ -174,6 +174,12 @@ public class SequenceCounter extends Counter {
         }
     }
 
+    public void enable(boolean enabled){
+        for(int i = 0; i < layout.getChildCount(); i++){
+            enableStep(i, enabled);
+        }
+    }
+
     /** GET **/
 
     public View.OnClickListener getListener(int index){

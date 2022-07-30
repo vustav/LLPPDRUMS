@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,7 +44,10 @@ public class DrumMachineFragment extends TabFragment {
 
     //backgrounds for the buttons at the bottom to fill with gradients
     private LinearLayout tempoLayout, rndLayout, copyLayout, fxLayout;
-    private FrameLayout divider0, divider1;
+    private FrameLayout divider1, divider2, divider3;
+
+    //private ImageView playIcon;
+    //private RelativeLayout pauseIcon;
 
     //name
     private TextView nameBtnTV;
@@ -106,8 +110,10 @@ public class DrumMachineFragment extends TabFragment {
 
         sequenceBg = rootView.findViewById(R.id.machineSequenceBg);
 
-        divider0 = rootView.findViewById(R.id.topFragmentDivider0);
+        //divider0 = rootView.findViewById(R.id.topFragmentDivider0);
         divider1 = rootView.findViewById(R.id.topFragmentDivider1);
+        divider2 = rootView.findViewById(R.id.topFragmentDivider2);
+        divider3 = rootView.findViewById(R.id.topFragmentDivider3);
 
         //setup the fx-recyclerView
         recyclerView = rootView.findViewById(R.id.machineSequenceTabsRecyclerView);
@@ -159,6 +165,41 @@ public class DrumMachineFragment extends TabFragment {
         //sequencer = new Sequencer(llppdrums);
         FrameLayout sequencerLayout = rootView.findViewById(R.id.machineSeqLayout);
         sequencerLayout.addView(llppdrums.getSequencerUI().getLayout());
+
+        //set up the play btn
+        /*
+        playIcon = rootView.findViewById(R.id.machinePlayIcon);
+        pauseIcon = rootView.findViewById(R.id.machinePauseIcon);
+
+        playPauseBtn = rootView.findViewById(R.id.machinePlayBtn);
+        playPauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(llppdrums.getEngineFacade().isPlaying()){
+                    llppdrums.getDrumMachine().pauseSeq();
+                    playIcon.setVisibility(View.VISIBLE);
+                    pauseIcon.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    llppdrums.getDrumMachine().playSeq();
+                    playIcon.setVisibility(View.INVISIBLE);
+                    pauseIcon.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        //set up the stop btn
+        stopBtn = rootView.findViewById(R.id.machineStopBtn);
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llppdrums.getDrumMachine().stopSeq();
+                playIcon.setVisibility(View.VISIBLE);
+                pauseIcon.setVisibility(View.INVISIBLE);
+            }
+        });
+
+         */
 
         //name/color
         nameBtnTV = rootView.findViewById(R.id.machineSequenceNameBtnTV);
@@ -303,7 +344,6 @@ public class DrumMachineFragment extends TabFragment {
         return rootView;
     }
 
-    /** PLAY **/
     public void showPlayIcon(final int i, final boolean show){
         llppdrums.runOnUiThread(() -> {
             if(show) {
@@ -382,8 +422,10 @@ public class DrumMachineFragment extends TabFragment {
         sequenceBg.setBackground(llppdrums.getDrumMachine().getSelectedSequence().getBackgroundGradient());
 
         int seqCcolor = llppdrums.getDrumMachine().getSelectedSequence().getColor();
-        divider0.setBackgroundColor(ColorUtils.getContrastColor(seqCcolor));
+        //divider0.setBackgroundColor(ColorUtils.getContrastColor(seqCcolor));
         divider1.setBackgroundColor(ColorUtils.getContrastColor(seqCcolor));
+        divider2.setBackgroundColor(ColorUtils.getContrastColor(seqCcolor));
+        divider3.setBackgroundColor(ColorUtils.getContrastColor(seqCcolor));
         nameBtnGraphics.setBackgroundColor(seqCcolor);
         nameBtnTV.setTextColor(ColorUtils.getContrastColor(seqCcolor));
 

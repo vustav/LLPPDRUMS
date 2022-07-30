@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class SequenceManager {
 
     //private final TextView progressTV, queueTV;
     private final Button editBtn;
+    private final CheckBox onCB;
 
     private final GradientDrawable popupGradient, randomPopupGradient;
     public final int popupGradientColor1;
@@ -64,6 +66,23 @@ public class SequenceManager {
 
         //inflate the View
         view = llppdrums.getLayoutInflater().inflate(R.layout.layout_sequence_manager, null);
+
+        if(keeper != null){
+            on = keeper.on;
+        }
+        else {
+            on = false;
+        }
+
+        onCB = view.findViewById(R.id.sequenceManagerCB);
+        onCB.setChecked(on);
+        onCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                on = !on;
+                counter.enable(on);
+            }
+        });
 
         //set up the progressSlider
         progressSlider = new CSeekBar(llppdrums, CSeekBar.HORIZONTAL_LEFT_RIGHT);
@@ -98,6 +117,13 @@ public class SequenceManager {
         //add the counter to the layout
         FrameLayout counterLayout = view.findViewById(R.id.sequenceManagerCounterLayout);
         counterLayout.addView(counter.getLayout());
+
+        //counter.enable(false);
+    }
+
+    private boolean on;
+    public boolean isOn(){
+        return on;
     }
 
     private void setupSequences(SequenceManagerKeeper keeper){
@@ -164,6 +190,8 @@ public class SequenceManager {
         counter.activateStep(activeSequenceBoxIndex);
 
         activateSequenceBox(activeSequenceBoxIndex);
+
+        counter.enable(on);
     }
 
     public void activateSequenceBox(int step){
@@ -397,7 +425,7 @@ public class SequenceManager {
         //Log.e("SequenceManager", "getKeeper(), activeSequenceBoxIndex: "+activeSequenceBoxIndex);
         sequenceManagerKeeper.activeSequenceBoxIndex = activeSequenceBoxIndex;
 
-
+        sequenceManagerKeeper.on = on;
         sequenceManagerKeeper.queue = queue;
         sequenceManagerKeeper.progress = progress;
         sequenceManagerKeeper.randomizeProgress = randomizeProgress;
@@ -422,6 +450,9 @@ public class SequenceManager {
         setQueue(k.queue);
         setRestartAtStop(k.restartAtStop);
         setNOfActiveBoxes(k.nOfActiveBoxes);
+
+        onCB.setChecked(k.on);
+        on = k.on;
 
         activeSequenceBoxIndex = k.activeSequenceBoxIndex;
         activateSequenceBox(activeSequenceBoxIndex);

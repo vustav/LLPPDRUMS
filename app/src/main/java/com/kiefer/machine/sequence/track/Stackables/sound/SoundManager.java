@@ -1,7 +1,5 @@
 package com.kiefer.machine.sequence.track.Stackables.sound;
 
-import android.util.Log;
-
 import androidx.core.content.ContextCompat;
 
 import com.kiefer.LLPPDRUMS;
@@ -19,7 +17,6 @@ import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.presets.S
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.utils.ImgUtils;
 
-import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -99,7 +96,6 @@ public class SoundManager extends StackableManager {
     }
 
     public void setNOfStackables(int n, boolean automation){
-
         while(soundSourceManagers.size() < n){
             createRandomStackable(automation);
         }
@@ -126,15 +122,29 @@ public class SoundManager extends StackableManager {
         }
     }
 
+    public void randomizeSoundSources(float samplePerc){
+        for(SoundSourceManager ssm : soundSourceManagers){
+            ssm.randomizeSoundSource(samplePerc);
+        }
+    }
+
+    public void setSoundSource(int ssm, String ss){
+        if(soundSourceManagers.size() > ssm) {
+            soundSourceManagers.get(ssm).setActiveSoundSource(ss);
+        }
+    }
+
     public void setPresets(String presetCategory){
         for(SoundSourceManager ssm : soundSourceManagers){
             ssm.setPresets(presetCategory);
         }
     }
 
-    public void randomizeSoundSource(float samplePerc){
-        for(SoundSourceManager ssm : soundSourceManagers){
-            ssm.randomizeSoundSource(samplePerc);
+    public void setPreset(int ssm, String presetCategory){
+        //randomizeSoundSources(.7f);
+
+        if(soundSourceManagers.size() > ssm) {
+            soundSourceManagers.get(ssm).setPresets(presetCategory);
         }
     }
 
@@ -236,6 +246,12 @@ public class SoundManager extends StackableManager {
 
         //turn on/off the indicator
         setIndicator();
+    }
+
+    public void randomizeSSColors(){
+        for(SoundSourceManager ssm : soundSourceManagers){
+            ssm.randomizeColors();
+        }
     }
 
     protected void setIndicator() {
