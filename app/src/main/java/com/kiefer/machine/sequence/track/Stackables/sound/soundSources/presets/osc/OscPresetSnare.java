@@ -23,7 +23,7 @@ public class OscPresetSnare extends OscPreset {
         osc0.setWaveForm(4); //noise
         osc0.setVolume(.9f * getMiniRandomMultiplier());
         osc0.setOscillatorPitch((int)((maxPitch / 3) * getMiniRandomMultiplier()));
-        osc0.setAttackTime(maxAtk / 30f * getMiniRandomMultiplier());
+        osc0.setAttackTime(maxAtk / 10f * getMiniRandomMultiplier());
         //osc0.setDecayTime(maxDecay * random.nextFloat() * random.nextFloat() * random.nextFloat());
         float decayMultiplier = (1f - (random.nextFloat() * .9f)) * .6f * (random.nextFloat() + .2f);
         //float decayMultiplier = random.nextFloat() * .3f;

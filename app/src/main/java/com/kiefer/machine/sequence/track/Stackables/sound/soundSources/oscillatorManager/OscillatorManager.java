@@ -26,7 +26,6 @@ import nl.igorski.mwengine.core.ProcessingChain;
 import nl.igorski.mwengine.core.BaseInstrument;
 
 public class OscillatorManager extends SoundSource {
-    private final LLPPDRUMS llppdrums;
     private final DrumSequence drumSequence;
     private final DrumTrack drumTrack;
 
@@ -38,8 +37,7 @@ public class OscillatorManager extends SoundSource {
     private final int presetsListImageId;
 
     public OscillatorManager(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack){
-        super();
-        this.llppdrums = llppdrums;
+        super(llppdrums);
         this.drumSequence = drumSequence;
         this.drumTrack = drumTrack;
         random = new Random();
@@ -76,6 +74,16 @@ public class OscillatorManager extends SoundSource {
         for(int i = 0; i < oscillators.length; i++){
             oscillators[i].updateSubs(subs);
         }
+    }
+
+    /** PARAMS **/
+
+    @Override
+    public void setupParamNames(){
+        paramNames.add(llppdrums.getResources().getString(R.string.oscVolume));
+        paramNames.add(llppdrums.getResources().getString(R.string.oscPitch));
+        paramNames.add(llppdrums.getResources().getString(R.string.oscAtkTime));
+        paramNames.add(llppdrums.getResources().getString(R.string.oscReleaseTime));
     }
 
     /** ACTIVATION **/

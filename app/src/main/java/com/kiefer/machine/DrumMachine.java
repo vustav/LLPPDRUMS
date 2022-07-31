@@ -2,13 +2,12 @@ package com.kiefer.machine;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.engine.EngineFacade;
-import com.kiefer.popups.stackableManager.SoundManagerPopup;
+import com.kiefer.popups.soundManager.SoundManagerPopup;
 import com.kiefer.randomization.rndSeqManager.rndSeqManagerPopup.RndSeqManagerPopup;
 import com.kiefer.machine.sequencerUI.SequencerUI;
 import com.kiefer.files.keepers.DrumMachineKeeper;
@@ -171,6 +170,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
      */
 
     public void selectSequence(int tabIndex){
+
         DrumMachineFragment drumMachineFragment = (DrumMachineFragment) llppdrums.getActiveFragment();
         int selectedTab;
 
@@ -179,6 +179,11 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
         }
 
         selectedSequence = sequences.get(tabIndex);
+
+        //if sequenceManager is off selecting a new sequence will change playingSequence
+        if(!sequenceManager.isOn()){
+            changePlayingSequence(selectedSequence);
+        }
 
         //update the number of steps shown in the sequencer
         llppdrums.getSequencerUI().updateNOfSteps(selectedSequence.getNOfSteps());
@@ -279,8 +284,6 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     }
 
     /** TRANSPORT **/
-    //private boolean useSeqMan = false;
-
     public void play(){
         engineFacade.playSequencer();
 
@@ -368,7 +371,7 @@ public class DrumMachine implements TabManager.OnTabClickedListener, TabHolder, 
     public final static int SOUND_TYPE = 0, FX_TYPE = 1;
     public void openSoundManagerPopup(int trackNo){
         //new SoundManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo));
-        new SoundManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo).getSoundManager(), selectedSequence.getTracks().get(trackNo), SOUND_TYPE);
+        new SoundManagerPopup(llppdrums, selectedSequence.getTracks().get(trackNo), SOUND_TYPE);
     }
 
     public void openAutoStepPopup(int trackNo, View parent){

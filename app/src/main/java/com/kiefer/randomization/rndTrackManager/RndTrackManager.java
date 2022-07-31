@@ -91,26 +91,7 @@ public class RndTrackManager {
 
         drumTrack.setNOfSubs(666, rndTrack.getnOfSubs()); //trackNo doesn't matter since the drumTrack is the subilizer
 
-        /** LAGGAR EFTER ETT TAG OM MAN KÖR DEN HÄR OCH PUMPAR RND, SP NU HAR ALLA BARA KVAR SINA  **/
-        //drumTrack.getSoundManager().createRandomStackables(false, random.nextInt(maxNOfSSs) + 1);
-        //drumTrack.getSoundManager().setNOfStackables(2, 3, false); //bättre, men den ovan borde funka
-        drumTrack.getSoundManager().setNOfStackables(3, false); //bättre, men den ovan borde funka
-        /****************************************/
-
-        //start by randomizing all sounds
-        drumTrack.getSoundManager().setRandomPresets();
-
-        //if not random is selected set the first ss to the selected preset
-        if(!rndTrack.getPresetCategory().equals(RANDOM)){
-            drumTrack.getSoundManager().setRandomPresets();
-            drumTrack.getSoundManager().setPreset(0, rndTrack.getPresetCategory());
-        }
-
-        //randomize soundsources, then set the first to sample
-        drumTrack.getSoundManager().randomizeSoundSources(rndTrack.getSamplePerc());
-        drumTrack.getSoundManager().setSoundSource(0, SoundSourceManager.SAMPLE);
-
-        drumTrack.getSoundManager().randomizeSSColors();
+        rndCat(rndTrack.getPresetCategory(), rndTrack.getSamplePerc());
 
         //Log.e("RndTrackManager", "randomize(), nOfSteps: "+drumTrack.getNOfSteps());
         for(int stepNo = 0; stepNo < drumTrack.getNOfSteps(); stepNo++){
@@ -161,6 +142,30 @@ public class RndTrackManager {
         if(llppdrums.getDrumMachine().getSelectedSequence() == drumTrack.getDrumSequence()) {
             drumTrack.updateDrawables();
         }
+    }
+
+    public void rndCat(String category, float samplePerc){
+
+        /** LAGGAR EFTER ETT TAG OM MAN KÖR DEN HÄR OCH PUMPAR RND, SP NU HAR ALLA BARA KVAR SINA  **/
+        //drumTrack.getSoundManager().createRandomStackables(false, random.nextInt(maxNOfSSs) + 1);
+        //drumTrack.getSoundManager().setNOfStackables(2, 3, false); //bättre, men den ovan borde funka
+        drumTrack.getSoundManager().setNOfStackables(3, false); //bättre, men den ovan borde funka
+        /****************************************/
+
+        //start by randomizing all sounds
+        drumTrack.getSoundManager().setRandomPresets();
+
+        //if not random is selected set the first ss to the selected preset
+        if(!category.equals(RANDOM)){
+            drumTrack.getSoundManager().setRandomPresets();
+            drumTrack.getSoundManager().setPreset(0, category);
+        }
+
+        //randomize soundsources, then set the first to sample
+        drumTrack.getSoundManager().randomizeSoundSources(samplePerc);
+        drumTrack.getSoundManager().setSoundSource(0, SoundSourceManager.SAMPLE);
+
+        drumTrack.getSoundManager().randomizeSSColors();
     }
 
     public void autoRandomize(){

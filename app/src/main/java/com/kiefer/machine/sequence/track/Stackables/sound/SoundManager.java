@@ -380,13 +380,9 @@ public class SoundManager extends StackableManager {
         destroy();
         soundSourceManagers = new ArrayList<>();
 
-        int nOfFxs = random.nextInt(MAX_N_RND_SSMs + 1);
+        int nOfSSMs = random.nextInt(MAX_N_RND_SSMs) + 1;
 
-        if (!allowZero && nOfFxs == 0) {
-            nOfFxs += 1;
-        }
-
-        for (int i = 0; i < nOfFxs; i++) {
+        for (int i = 0; i < nOfSSMs; i++) {
             createRandomStackable(true);
         }
 

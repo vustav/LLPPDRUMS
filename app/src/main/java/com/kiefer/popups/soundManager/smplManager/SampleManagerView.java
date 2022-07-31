@@ -4,19 +4,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 
 import com.kiefer.LLPPDRUMS;
 import com.kiefer.R;
 import com.kiefer.graphics.customViews.CSpinnerButton;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.SoundSourceManager;
-import com.kiefer.popups.soundManager.SoundManagerPopup;
+import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.sampleManager.SmplManager;
+import com.kiefer.popups.soundManager.SoundManagerPopupOLD;
 
-public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
+public class SampleManagerView implements SoundManagerPopupOLD.SoundSourceView {
+    private DrumTrack drumTrack;
     private CSpinnerButton categorySpinnerButton, sampleSpinnerButton;
     private LinearLayout layout;
+    private SeekBar volumeSlider;
+    private final int multiplier = 100;
 
-    public SampleManagerView(final LLPPDRUMS llppdrums, final DrumTrack drumTrack){
+    public SampleManagerView(final LLPPDRUMS llppdrums, final SmplManager smplManager, final DrumTrack drumTrack){
+        this.drumTrack = drumTrack;
 
         //inflate the View
         layout = (LinearLayout) llppdrums.getLayoutInflater().inflate(R.layout.popup_sample_manager, null);
@@ -58,7 +64,6 @@ public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //drumTrack.getSoundManager().play();
                 ((SoundSourceManager) drumTrack.getSoundManager().getSelectedStackable()).play();
             }
         });
@@ -68,11 +73,38 @@ public class SampleManagerView implements SoundManagerPopup.SoundSourceView {
         rndBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drumTrack.getSoundManager().randomizeAll(false);
-                categorySpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getName());
-                sampleSpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getSelectedSample().getName());
+                ((SoundSourceManager) drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().randomizeAll();
+                updateUI();
             }
         });
+
+        //volume
+        volumeSlider = layout.findViewById(R.id.sampleManagerVolumeSlider);
+        volumeSlider.setProgress((int)(smplManager.getVolume() * multiplier));
+        volumeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                float vol = ((float) seekBar.getProgress()) / multiplier;
+                //drumTrack.setOscillatorVolume(oscNo, vol);
+                smplManager.setVolume(vol);
+                drumTrack.updateDrumVolumes();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+    }
+
+    @Override
+    public void updateUI(){
+        categorySpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getName());
+        sampleSpinnerButton.setSelection(((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager().getSelectedCategory().getSelectedSample().getName());
     }
 
     @Override

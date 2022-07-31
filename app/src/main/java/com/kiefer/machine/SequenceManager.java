@@ -81,6 +81,16 @@ public class SequenceManager {
             public void onClick(View v) {
                 on = !on;
                 counter.enable(on);
+
+                //if turned on immediatelly switch to the selected sequence
+                if(on){
+                    activateSequenceBox(activeSequenceBoxIndex);
+                }
+                //if turned off
+                else{
+                    llppdrums.getDrumMachine().changePlayingSequence(llppdrums.getDrumMachine().getSelectedSequence());
+                    //reset();
+                }
             }
         });
 

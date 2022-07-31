@@ -158,13 +158,16 @@ public class Oscillator {
         liveInstrument.getOscillatorProperties(0).setWaveform(wave);
     }
     public void setAttackTime(float f){
-        float atkTime = f * drumTrack.getNOfSubs();
+        //float atkTime = f * drumTrack.getNOfSubs();
+        float atkTime = f;
         //Log.e("asdasd", "atk: "+atkTime);
         synthInstrument.getAdsr().setAttackTime(NmbrUtils.removeImpossibleNumbers(atkTime));
         liveInstrument.getAdsr().setAttackTime(NmbrUtils.removeImpossibleNumbers(atkTime));
 
         synthInstrument.getAdsr().setDecayTime(0.1f);
         synthInstrument.getAdsr().setSustainLevel(getVolume() * .1f);
+        liveInstrument.getAdsr().setDecayTime(0.1f);
+        liveInstrument.getAdsr().setSustainLevel(getVolume() * .1f);
     }
     public void setReleaseTime(float f){
         /*
@@ -174,6 +177,7 @@ public class Oscillator {
 
          */
         synthInstrument.getAdsr().setReleaseTime(f);
+        liveInstrument.getAdsr().setReleaseTime(f);
     }
 
     //se the top for an explanation of the different volumes
@@ -235,6 +239,7 @@ public class Oscillator {
     }
 
     public int getOscillatorWaveForm() {
+        Log.e("OscillatorManager", "getOscillatorWaveForm(), instr = null: "+(synthInstrument == null));
         return synthInstrument.getOscillatorProperties(0).getWaveform();
     }
 

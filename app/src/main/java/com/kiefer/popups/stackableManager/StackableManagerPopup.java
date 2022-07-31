@@ -347,6 +347,10 @@ public class StackableManagerPopup extends Popup {
         setAutomationVisibility();
     }
 
+    public void updateAdapter(){
+        stackableAdapter.notifyDataSetChanged();
+    }
+
     /** GET **/
     public StackableManager getStackableManager(){
         return stackableManager;

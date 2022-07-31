@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.kiefer.Deleter;
 import com.kiefer.LLPPDRUMS;
+import com.kiefer.R;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.files.keepers.soundSources.SampleManagerKeeper;
 import com.kiefer.machine.sequence.DrumSequence;
@@ -21,7 +22,9 @@ import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.presets.s
 import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.presets.smpl.SampleCategoryTom;
 import com.kiefer.popups.trackMenu.TrackVolPopup;
 import com.kiefer.utils.ImgUtils;
+import com.kiefer.utils.NmbrUtils;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import nl.igorski.mwengine.core.SampleEvent;
@@ -31,10 +34,11 @@ import nl.igorski.mwengine.core.ProcessingChain;
 import nl.igorski.mwengine.core.SampleManager;
 
 public class SmplManager extends SoundSource {
-    private final LLPPDRUMS llppdrums;
     private final DrumSequence drumSequence;
     private final DrumTrack drumTrack;
     private final Random random;
+
+    private float volume;
 
     private SampledInstrument sampledInstrument, liveInstrument;
     private SampleEvent liveEvent;
@@ -44,11 +48,12 @@ public class SmplManager extends SoundSource {
     private SampleCategory selectedCategory;
 
     public SmplManager(LLPPDRUMS llppdrums, DrumSequence drumSequence, DrumTrack drumTrack){
-        super();
-        this.llppdrums = llppdrums;
+        super(llppdrums);
         this.drumSequence = drumSequence;
         this.drumTrack = drumTrack;
         random = new Random();
+
+        volume = 1f;
 
         categoryListImageId = ImgUtils.getRandomImageId();
         sampleListImageId = ImgUtils.getRandomImageId();
@@ -119,6 +124,13 @@ public class SmplManager extends SoundSource {
         }
     }
 
+    /** PARAMS **/
+
+    @Override
+    public void setupParamNames(){
+        paramNames.add(llppdrums.getResources().getString(R.string.sampleVolume));
+    }
+
     public void setSample(int i){
         selectedCategory.setSelectedSample(i);
         drumTrack.updateEventSamples();
@@ -142,6 +154,13 @@ public class SmplManager extends SoundSource {
     }
 
     /** SET **/
+
+    //se the top for an explanation of the different volumes
+    public void setVolume(float volume){
+        this.volume = volume;
+        liveEvent.setVolume(NmbrUtils.removeImpossibleNumbers(volume) * TrackVolPopup.VOL_MULTIPLIER * .5f);
+    }
+
     @Override
     public void setPan(float pan){
         //Log.e("asd", "pan: "+pan);
@@ -184,6 +203,10 @@ public class SmplManager extends SoundSource {
 
     public int getSampleListImageId() {
         return sampleListImageId;
+    }
+
+    public float getVolume() {
+        return volume;
     }
 
     /** RESTORATION **/

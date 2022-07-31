@@ -1,5 +1,6 @@
 package com.kiefer.popups.soundManager.oscillatorManager;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -18,7 +19,7 @@ public class OscillatorView {
     private final OscillatorManager oscillatorManager;
     private final int oscNo;
     private LinearLayout layout;
-    private CheckBox cb;
+    //private CheckBox cb;
     private CSpinnerButton cSpinnerButton;
     private SeekBar oscVolumeSlider, oscPitchSlider, atkTimeSlider, releaseTimeSlider;
     private final int multiplier = 100;
@@ -168,7 +169,8 @@ public class OscillatorView {
     public void updateUI(){
         //updatingUI = true;
         //if(drumTrack.getOscillatorManager().getscillator(oscNo).isOn()) {
-            cb.setChecked(oscillatorManager.getOscillator(oscNo).isOn());
+            //cb.setChecked(oscillatorManager.getOscillator(oscNo).isOn());
+        Log.e("OscillatorView", "aupdateUI(), oscNo: "+oscNo);
             cSpinnerButton.setSelection(oscillatorManager.getWaves()[(int) (oscillatorManager.getOscillatorWaveForm(oscNo))]);
             oscVolumeSlider.setProgress((int) (oscillatorManager.getOscillatorVolume(oscNo) * multiplier));
             oscPitchSlider.setProgress((int) (oscillatorManager.getOscillatorPitchLin(oscNo)));
@@ -195,15 +197,16 @@ public class OscillatorView {
             v.setAlpha(alpha);
             v.setEnabled(enabled);
         }
-
     }
 
     /** GET **/
     public LinearLayout getLayout(){
         return layout;
     }
-
+/*
     public boolean isOn(){
         return cb.isChecked();
     }
+
+ */
 }

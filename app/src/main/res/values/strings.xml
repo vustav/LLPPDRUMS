@@ -50,6 +50,9 @@
     <string name="oscPitch">PITCH</string>
     <string name="synthDuration">DURATION</string>
 
+    <!-- SAMPLE -->
+    <string name="sampleVolume">VOL</string>
+
     <!-- OSC MANAGER -->
     <string-array name="oscWaves">
         <item>SINE</item>

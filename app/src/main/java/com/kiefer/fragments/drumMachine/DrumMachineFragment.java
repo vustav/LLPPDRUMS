@@ -166,41 +166,6 @@ public class DrumMachineFragment extends TabFragment {
         FrameLayout sequencerLayout = rootView.findViewById(R.id.machineSeqLayout);
         sequencerLayout.addView(llppdrums.getSequencerUI().getLayout());
 
-        //set up the play btn
-        /*
-        playIcon = rootView.findViewById(R.id.machinePlayIcon);
-        pauseIcon = rootView.findViewById(R.id.machinePauseIcon);
-
-        playPauseBtn = rootView.findViewById(R.id.machinePlayBtn);
-        playPauseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(llppdrums.getEngineFacade().isPlaying()){
-                    llppdrums.getDrumMachine().pauseSeq();
-                    playIcon.setVisibility(View.VISIBLE);
-                    pauseIcon.setVisibility(View.INVISIBLE);
-                }
-                else {
-                    llppdrums.getDrumMachine().playSeq();
-                    playIcon.setVisibility(View.INVISIBLE);
-                    pauseIcon.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        //set up the stop btn
-        stopBtn = rootView.findViewById(R.id.machineStopBtn);
-        stopBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llppdrums.getDrumMachine().stopSeq();
-                playIcon.setVisibility(View.VISIBLE);
-                pauseIcon.setVisibility(View.INVISIBLE);
-            }
-        });
-
-         */
-
         //name/color
         nameBtnTV = rootView.findViewById(R.id.machineSequenceNameBtnTV);
         nameBtnGraphics = rootView.findViewById(R.id.machineSequenceNameBtnGraphics);

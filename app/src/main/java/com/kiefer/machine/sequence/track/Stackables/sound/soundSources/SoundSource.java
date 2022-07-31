@@ -1,5 +1,6 @@
 package com.kiefer.machine.sequence.track.Stackables.sound.soundSources;
 
+import com.kiefer.LLPPDRUMS;
 import com.kiefer.files.keepers.Keeper;
 import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.presets.SoundSourcePreset;
 
@@ -9,6 +10,8 @@ import nl.igorski.mwengine.core.ProcessingChain;
 import nl.igorski.mwengine.core.BaseInstrument;
 
 public abstract class SoundSource {
+    protected LLPPDRUMS llppdrums;
+
     public abstract void activate();
     public abstract void deactivate();
 
@@ -25,6 +28,12 @@ public abstract class SoundSource {
     //ArrayList<SoundSourcePreset> getPresets();
     public abstract void setRandomPreset();
     public abstract void setPreset(String s);
+
+    /** AUTO **/
+    public abstract void setupParamNames();
+
+    //PARAMS
+    protected ArrayList<String> paramNames; //has to be populated by children!
 
     /** SET **/
     public abstract void setPan(float pan);
@@ -55,12 +64,20 @@ public abstract class SoundSource {
     /** MEMBERS **/
     protected ArrayList<SoundSourcePreset> presets;
 
-    public SoundSource(){
+    public SoundSource(LLPPDRUMS llppdrums){
+        this.llppdrums = llppdrums;
         presets = new ArrayList<>();
+
+        paramNames = new ArrayList<>();
+        setupParamNames();
     }
 
     public ArrayList<SoundSourcePreset> getPresets(){
         return presets;
+    }
+
+    public ArrayList<String> getParams(){
+        return paramNames;
     }
 /*
     public void setPreset(int i){

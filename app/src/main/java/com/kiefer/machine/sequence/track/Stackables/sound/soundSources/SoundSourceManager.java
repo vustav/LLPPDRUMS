@@ -1,14 +1,11 @@
 package com.kiefer.machine.sequence.track.Stackables.sound.soundSources;
 
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
@@ -21,13 +18,12 @@ import com.kiefer.info.sequence.trackMenu.fxManager.BitCrusherInfo;
 import com.kiefer.machine.sequence.DrumSequence;
 import com.kiefer.machine.sequence.track.DrumTrack;
 import com.kiefer.machine.sequence.track.Stackables.Stackable;
-import com.kiefer.machine.sequence.track.Stackables.Stacker;
 import com.kiefer.machine.sequence.track.Step;
 import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.eventManager.StepEventsManager;
 import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.oscillatorManager.OscillatorManager;
-import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.presets.SoundSourcePreset;
 import com.kiefer.machine.sequence.track.Stackables.sound.soundSources.sampleManager.SmplManager;
 import com.kiefer.popups.info.InfoPopup;
+import com.kiefer.popups.soundManager.SoundManagerPopupOLD;
 import com.kiefer.popups.soundManager.oscillatorManager.OscillatorManagerView;
 import com.kiefer.popups.soundManager.smplManager.SampleManagerView;
 import com.kiefer.utils.ColorUtils;
@@ -111,9 +107,7 @@ public class SoundSourceManager implements Stackable {
 
     public void setupParamNames(){
         paramNames = new ArrayList<>();
-        paramNames.add("FIXA");
-        paramNames.add("FIXA");
-        paramNames.add("FIXA");
+        paramNames.add("VOL");
     }
 
     /** RND **/
@@ -130,7 +124,7 @@ public class SoundSourceManager implements Stackable {
     @Override
     public View getLayout(){//create the members
         oscillatorManagerView = new OscillatorManagerView(llppdrums, drumTrack);
-        sampleManagerView = new SampleManagerView(llppdrums, drumTrack);
+        sampleManagerView = new SampleManagerView(llppdrums, ((SoundSourceManager)drumTrack.getSoundManager().getSelectedStackable()).getSmplManager(), drumTrack);
 
         //inflate the View
         final View layout = llppdrums.getLayoutInflater().inflate(R.layout.popup_sound_manager, null);
@@ -194,7 +188,7 @@ public class SoundSourceManager implements Stackable {
         return layout;
     }
 
-    private void setSoundView(){
+    public void setSoundView(){
         soundView.removeAllViews();
         if(getActiveSoundSource() instanceof OscillatorManager){
             //oscRadio.setChecked(true);
@@ -204,6 +198,16 @@ public class SoundSourceManager implements Stackable {
             //sampleRadio.setChecked(true);
             soundView.addView(sampleManagerView.getLayout());
         }
+    }
+
+    public SoundManagerPopupOLD.SoundSourceView getSoundView(){
+        if(getActiveSoundSource() instanceof OscillatorManager){
+            return oscillatorManagerView;
+        }
+        if(getActiveSoundSource() instanceof SmplManager){
+            return sampleManagerView;
+        }
+        return null;
     }
 
     @Override
@@ -492,7 +496,8 @@ public class SoundSourceManager implements Stackable {
     //FIXXXXXXXXXXXA
     @Override
     public ArrayList<String> getParams(){
-        return paramNames;
+        return activeSoundSource.getParams();
+        //return paramNames;
     }
 
     @Override
